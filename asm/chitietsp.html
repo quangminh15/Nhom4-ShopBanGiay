@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONVERSE || CHI TIẾT SẢN PHẨM</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+        integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+        integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet" href="./css/mycss.css">
+    <link rel="stylesheet" href="./font/themify-icons/themify-icons.css">
+    <style>
+        .zoom {
+            width: max-content;
+            position: relative;
+        }
+
+        .zoom img {
+            width: 500px;
+            
+        }
+
+        #imgZoom {
+            position: absolute;
+            left: 0;
+            top: 0;
+            --zoom-x: 50%;
+            --zoom-y: 50%;
+            transform: scale(1.5);
+            pointer-events: none;
+            clip-path: circle(100px at var(--zoom-x) var(--zoom-y));
+            opacity: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- header start -->
+    <div id="header">
+        <div class="menu">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="./index.html"><img src="./images/logo.png" alt="logo"></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="mynavbar">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" href="./index.html">TRANG CHỦ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" href="./product.html">SẢN PHẨM</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" href="./about.html">THÔNG TIN</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" href="./cart.html">GIỎ HÀNG</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link nav-link-custom dropdown-toggle" href="#" role="button"
+                                    data-bs-toggle="dropdown">TÀI
+                                    KHOẢN</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="./signin.html">ĐĂNG NHẬP</a></li>
+                                    <li><a class="dropdown-item" href="./signup.html">ĐĂNG KÝ</a></li>
+                                    <li><a class="dropdown-item" href="./changepass.html">ĐỔI MẬT KHẨU</a></li>
+                                    <li><a class="dropdown-item" href="./forgotpass.html">QUÊN MẬT KHẨU</a></li>
+                                    <li><a class="dropdown-item" href="./changeinfo.html">THAY ĐỔI THÔNG TIN</a></li>
+                                    <li><a class="dropdown-item" href="./signin.html">ĐĂNG XUẤT</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="p-3">
+                            <a href="#" class="icon position-relative fs-4" data-bs-toggle="offcanvas"
+                                data-bs-target="#demo">
+                                <i class="ti-search"></i>
+                            </a>
+                        </div>
+                        <div class="offcanvas offcanvas-bottom" id="demo">
+                            <div class="offcanvas-header">
+                                <h1 class="offcanvas-title" style="margin-left: 43%;">Tìm kiếm</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <div class="container input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Bạn muốn tìm gì?">
+                                    <button class="btn btn-success" type="submit">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <a href="./favorite.html" class="icon position-relative fs-4">
+                                <i class="ti-heart"></i>
+                                <span
+                                    class="small-icon position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    0
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="menu-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 menu-item">
+                        <h6>HÀNG CÓ SẴN CHÍNH HÃNG</h6>
+                    </div>
+                    <div class="col-md-4 menu-item">
+                        <h6>ĐỔI TRẢ LINH HOẠT</h5>
+                    </div>
+                    <div class="col-md-4 menu-item">
+                        <h6>SHIP HÀNG TOÀN QUỐC</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <marquee class="marquee-test" width="100%" scrollamount="20" direction="left" height="auto"
+            onmouseover="this.stop()" onmouseout="this.start()">
+            Converse xin chào tất cả các bạn. Chào mừng các bạn đã đến với cửa hàng của chúng tôi. Chúng tôi luôn lấy uy
+            tín đặt trên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!
+        </marquee>
+    </div>
+    <!-- header end -->
+
+    <!-- mainChitietsp start -->
+    <div id="mainChitietsp">
+        <div class="container-fluid">
+            <div class="row m-4">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="pictur-demo">
+                                <img class="image-demo" src="./images/hight/anh1-1.png" alt="">
+                                <img class="image-demo" src="./images/hight/anh1-2.jpg" alt="">
+                                <img class="image-demo" src="./images/hight/anh1-3.jpg" alt="">
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="picture-main zoom">
+                                <img class="image-main" src="./images/hight/anh1-1.png" alt="">
+                                <img class="image-main" src="./images/hight/anh1-1.png" id="imgZoom" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="picture-content">
+                        <h1>Chuck 70s High AllWhite</h1>
+
+                        <h2 class="mt-4 mb-4">950.000đ</h2>
+
+                        <div class="description mt-4 mb-4">
+                            Converse 1970s là 1 trong những dòng sản phẩm bán chạy nhất của Converse.Phần đế màu trắng
+                            ngà vintage được phủ 1 lớp bóng bên ngoài là điểm nhấn riêng cho dòng 1970s, dễ vệ sinh
+                            hơn.
+                        </div>
+
+                        <div class="row mt-4 mb-4">
+                            <span class="col-md-3 size1">Size: </span>
+                            <form action="" class="col-md-9">
+                                <select class="form-select select-custom">
+                                    <option>37</option>
+                                    <option>38</option>
+                                    <option>39</option>
+                                    <option>40</option>
+                                </select>
+                            </form>
+                        </div>
+
+                        <div class="row mt-4 mb-4">
+                            <span class="col-md-3 size1">Số lượng: </span>
+                            <div class="col-md-9">
+                                <input type="number" class="form-control select-custom" value="1">
+                            </div>
+                        </div>
+
+                        <div class="mt-4 mb-4">
+                            <a href="#" class="icon position-relative yeuthich fs-4">
+                                <i class="ti-heart"></i>
+                                <span>Cho vào yêu thích</span>
+                            </a>
+                        </div>
+
+                        <div class="mt-4 mb-4">
+                            <a href="#" class="icon position-relative yeuthich fs-4" data-bs-toggle="modal"
+                                data-bs-target="#myModal">
+                                <i class="ti-ruler-alt"></i>
+                                <span>Size Guide</span>
+                            </a>
+                        </div>
+
+                        <div class="mt-4 mb-4">
+                            <button type="button" class="btn btn-themvaogio">Thêm vào giỏ</button>
+                        </div>
+                        <!-- The Modal Start-->
+                        <div class="modal fade" id="myModal">
+                            <div class="modal-dialog modal-xl">
+                                <div class="modal-content">
+
+                                    <!-- Modal Header -->
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">HƯỚNG DẪN CHỌN SIZE</h4>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+
+                                    <!-- Modal body -->
+                                    <div class="modal-body">
+                                        <table class="table table-hover text-center table-size table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th>SIZE</th>
+                                                    <th>UK</th>
+                                                    <th>US</th>
+                                                    <th>EU</th>
+                                                    <th>JAPAN</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <th>XS</th>
+                                                    <th>6 - 8</th>
+                                                    <th>4</th>
+                                                    <th>34</th>
+                                                    <th>7</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>S</th>
+                                                    <th>8 - 10</th>
+                                                    <th>6</th>
+                                                    <th>36</th>
+                                                    <th>9</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>M</th>
+                                                    <th>10 - 12</th>
+                                                    <th>8</th>
+                                                    <th>38</th>
+                                                    <th>11</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>L</th>
+                                                    <th>12 - 14</th>
+                                                    <th>10</th>
+                                                    <th>40</th>
+                                                    <th>13</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>XL</th>
+                                                    <th>14 - 16</th>
+                                                    <th>12</th>
+                                                    <th>42</th>
+                                                    <th>15</th>
+                                                </tr>
+                                                <tr>
+                                                    <th>XXL</th>
+                                                    <th>16 - 28</th>
+                                                    <th>14</th>
+                                                    <th>44</th>
+                                                    <th>17</th>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- The Modal End-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- sản phẩm tương tự start  -->
+
+    <div class="sanphamtuongtu">
+        <h4 class="title-bosuutap">SẢN PHẨM TƯƠNG TỰ</h4>
+        <div class="container-fluid my-5">
+            <div class="row">
+                <div class="col-12 m-auto">
+                    <div class="owl-carousel owl-theme">
+                        <div class="item mb-4">
+                            <div class="card border-0 shadow">
+                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
+                                        alt="Card image" style="width:100%"></a>
+                                <div class="card-body">
+                                    <a href="./chitietsp.html">
+                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
+                                        <div class="price-product">
+                                            <h4 class="card-title">Giá : <span
+                                                    class="card-title-normal">1.990.000đ</span>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                    <div class="row d-flex justify-content-center">
+                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
+                                            hàng</a>
+                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item mb-4">
+                            <div class="card border-0 shadow">
+                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
+                                        alt="Card image" style="width:100%"></a>
+                                <div class="card-body">
+                                    <a href="./chitietsp.html">
+                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
+                                        <div class="price-product">
+                                            <h4 class="card-title">Giá : <span
+                                                    class="card-title-normal">1.990.000đ</span>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                    <div class="row d-flex justify-content-center">
+                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
+                                            hàng</a>
+                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item mb-4">
+                            <div class="card border-0 shadow">
+                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
+                                        alt="Card image" style="width:100%"></a>
+                                <div class="card-body">
+                                    <a href="./chitietsp.html">
+                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
+                                        <div class="price-product">
+                                            <h4 class="card-title">Giá : <span
+                                                    class="card-title-normal">1.990.000đ</span>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                    <div class="row d-flex justify-content-center">
+                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
+                                            hàng</a>
+                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item mb-4">
+                            <div class="card border-0 shadow">
+                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
+                                        alt="Card image" style="width:100%"></a>
+                                <div class="card-body">
+                                    <a href="./chitietsp.html">
+                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
+                                        <div class="price-product">
+                                            <h4 class="card-title">Giá : <span
+                                                    class="card-title-normal">1.990.000đ</span>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                    <div class="row d-flex justify-content-center">
+                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
+                                            hàng</a>
+                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item mb-4">
+                            <div class="card border-0 shadow">
+                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
+                                        alt="Card image" style="width:100%"></a>
+                                <div class="card-body">
+                                    <a href="./chitietsp.html">
+                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
+                                        <div class="price-product">
+                                            <h4 class="card-title">Giá : <span
+                                                    class="card-title-normal">1.990.000đ</span>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                    <div class="row d-flex justify-content-center">
+                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
+                                            hàng</a>
+                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item mb-4">
+                            <div class="card border-0 shadow">
+                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
+                                        alt="Card image" style="width:100%"></a>
+                                <div class="card-body">
+                                    <a href="./chitietsp.html">
+                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
+                                        <div class="price-product">
+                                            <h4 class="card-title">Giá : <span
+                                                    class="card-title-normal">1.990.000đ</span>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                    <div class="row d-flex justify-content-center">
+                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
+                                            hàng</a>
+                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item mb-4">
+                            <div class="card border-0 shadow">
+                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
+                                        alt="Card image" style="width:100%"></a>
+                                <div class="card-body">
+                                    <a href="./chitietsp.html">
+                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
+                                        <div class="price-product">
+                                            <h4 class="card-title">Giá : <span
+                                                    class="card-title-normal">1.990.000đ</span>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                    <div class="row d-flex justify-content-center">
+                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
+                                            hàng</a>
+                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item mb-4">
+                            <div class="card border-0 shadow">
+                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
+                                        alt="Card image" style="width:100%"></a>
+                                <div class="card-body">
+                                    <a href="./chitietsp.html">
+                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
+                                        <div class="price-product">
+                                            <h4 class="card-title">Giá : <span
+                                                    class="card-title-normal">1.990.000đ</span>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                    <div class="row d-flex justify-content-center">
+                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
+                                            hàng</a>
+                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item mb-4">
+                            <div class="card border-0 shadow">
+                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
+                                        alt="Card image" style="width:100%"></a>
+                                <div class="card-body">
+                                    <a href="./chitietsp.html">
+                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
+                                        <div class="price-product">
+                                            <h4 class="card-title">Giá : <span
+                                                    class="card-title-normal">1.990.000đ</span>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                    <div class="row d-flex justify-content-center">
+                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
+                                            hàng</a>
+                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item mb-4">
+                            <div class="card border-0 shadow">
+                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
+                                        alt="Card image" style="width:100%"></a>
+                                <div class="card-body">
+                                    <a href="./chitietsp.html">
+                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
+                                        <div class="price-product">
+                                            <h4 class="card-title">Giá : <span
+                                                    class="card-title-normal">1.990.000đ</span>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                    <div class="row d-flex justify-content-center">
+                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
+                                            hàng</a>
+                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item mb-4">
+                            <div class="card border-0 shadow">
+                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
+                                        alt="Card image" style="width:100%"></a>
+                                <div class="card-body">
+                                    <a href="./chitietsp.html">
+                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
+                                        <div class="price-product">
+                                            <h4 class="card-title">Giá : <span
+                                                    class="card-title-normal">1.990.000đ</span>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                    <div class="row d-flex justify-content-center">
+                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
+                                            hàng</a>
+                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item mb-4">
+                            <div class="card border-0 shadow">
+                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
+                                        alt="Card image" style="width:100%"></a>
+                                <div class="card-body">
+                                    <a href="./chitietsp.html">
+                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
+                                        <div class="price-product">
+                                            <h4 class="card-title">Giá : <span
+                                                    class="card-title-normal">1.990.000đ</span>
+                                            </h4>
+                                        </div>
+                                    </a>
+                                    <div class="row d-flex justify-content-center">
+                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
+                                            hàng</a>
+                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- sản phẩm tương tự end  -->
+
+    <!-- mainChitietsp end -->
+
+    <!-- FOOTER -->
+    <footer class="text-center text-lg-start bg-light text-muted">
+        <section class="">
+            <div class="container-fluid text-justify text-md-start mt-5">
+                <div class="row mt-3">
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                        <p style="text-indent: 30px; text-align: justify;margin-top: 37px; font-size: 17px;">
+                            Tìm thấy câu trả lời cho độ bền không giới hạn mà CONVERSE luôn hướng tới để tiếp tục
+                            phát triển bền bỉ.Đó là lý tưởng của sự mạnh mẽ, chức năng và khả năng hoạt động
+                            tốt kết hợp với độ cứng cáp tuyệt đối.Lý tưởng này là nguồn gốc của độ cứng cáp
+                            mà CONVERSE luôn tìm kiếm.
+                        </p>
+                    </div>
+
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h4 class="text-uppercase fw-bold mb-4">CỬA HÀNG TẠI HÀ NỘI</h4>
+                        <p class="fs-17">187 Phố Vọng, Hai Bà Trưng, Hà Nội.</p>
+                        <p class="fs-17">187 Phố Vọng-Quân Hai Bà Trưng-Hà Nội.</p>
+                        <p class="fs-17">82 Cầu Giấy, Quan Hoa, Cầu Giấy.</p>
+                    </div>
+
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h4 class="text-uppercase fw-bold mb-4">CỬA HÀNG TẠI TP.HCM</h4>
+                        <p class="fs-17">497 Hoàng Văn Thụ, Phường 4, Q. Tân Bình, TP.HCM.</p>
+                        <p class="fs-17">676 Lê Trọng Tấn, P. Bình Hưng Hòa, Q. Bình Tân, HCM.</p>
+                        <p class="fs-17">20 đường 3 tháng 2, Phường 12, Quận 10, TPHCM.</p>
+                    </div>
+
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                        <h4 class="text-uppercase fw-bold mb-4">LIÊN LẠC</h4>
+                        <p class="fs-17">CONVERSEvietnam.net@gmail.com</p>
+                        <p class="fs-17">0105517236</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="text-center p-4 fs-17" style="background-color: rgba(0, 0, 0, 0.05)">
+            © 2023 Copyright:
+            <a class="text-reset fw-bold" href="https://conversestore.vn/">Converse.Store_</a>
+        </div>
+    </footer>
+    <button type="button" class="btn btn-primary btn-floating btn-lg" id="btn-back-to-top">
+        <i class="ti-angle-double-up"></i>
+    </button>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+        integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+        crossorigin="anonymous"></script>
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 15,
+            nav: true,
+            responsive: {
+                0: {items: 1},
+                600: {items: 2},
+                900: {items:3},
+                1000: {items: 5}
+            }
+        })
+    </script>
+
+    <script>
+        let mybutton = document.getElementById("btn-back-to-top");
+        window.onscroll = function () {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (
+                document.body.scrollTop > 20 ||
+                document.documentElement.scrollTop > 20
+            ) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+        mybutton.addEventListener("click", backToTop);
+
+        function backToTop() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+
+    <script>
+        let zoom = document.querySelector('.zoom');
+        let imgZoom = document.getElementById('imgZoom');
+
+        zoom.addEventListener('mousemove', (event) => {
+            imgZoom.style.opacity = 1;
+            let positionPx = event.x - zoom.getBoundingClientRect().left;
+            let positionX = (positionPx / zoom.offsetWidth) * 100;
+
+            let positionPy = event.y - zoom.getBoundingClientRect().top;
+            let positionY = (positionPy / zoom.offsetHeight) * 100;
+
+            imgZoom.style.setProperty('--zoom-x', positionX + '%');
+            imgZoom.style.setProperty('--zoom-y', positionY + '%');
+
+            let transformX = -(positionX - 50) / 3.5;
+            let transformY = - (positionY - 50) / 3.5;
+            imgZoom.style.transform = `scale(1.5) translateX(${transformX}%) translateY(${transformY}%)`;
+        })
+        zoom.addEventListener('mouseout', () => {
+            imgZoom.style.opacity = 0;
+        })
+    </script>
+</body>
+
+</html>
