@@ -5,9 +5,11 @@ button {
 }
 :root {
   --offcanvas-width: 270px;
-  --topNavbarHeight: 0px;
+  --topNavbarHeight: 70px;
 }
-
+main{
+  margin-top: 70px;
+}
 .sidebar-nav {
   width: var(--offcanvas-width);
 }
