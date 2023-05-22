@@ -12,13 +12,25 @@
     <title>CONVERSE - ADMIN</title>
 </head>
 
-<body  style="background-color: rgb(238, 238, 238);">
+<body style="background-color: rgb(238, 238, 238);">
+    <!-- top navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+                aria-controls="offcanvasExample">
+                <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
+            </button>
+            <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#"><img src="./images/logo.png"
+                    alt="logo"></a>
+        </div>
+    </nav>
+    <!-- top navigation bar -->
     <!-- MENU đứng bắt đầu -->
     <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
         <div class="offcanvas-body p-0">
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
-                    <a href=""><img src="./images/logo.png" style="margin-top: 25px; margin-left: 40px;" alt=""></a>
+                    
                     <li class="my-4">
                         <hr class="dropdown-divider bg-light" />
                     </li>
@@ -216,54 +228,153 @@
     <main id="#main-order">
         <div class="container-fluid">
             <div class="row" style="background-color: white; box-shadow: 10px 10px 25px grey; ">
-                <div class="col-md-12"  >
+                <div class="col-md-12">
                     <h4 style="padding: 2rem 0;">Quản lý người dùng - này là title</h4>
                 </div>
             </div>
-            <div class="row article " style="display: flex; justify-content: center;" >
-                <div class="col-md-11 mt-5" style="background-color: white; box-shadow: 10px 10px 25px grey;padding: 0; ">
+            <div class="row article " style="display: flex; justify-content: center;">
+                <div class="col-md-11 mt-5"
+                    style="background-color: white; box-shadow: 10px 10px 25px grey;padding: 0; ">
                     <div class="card">
-                        <div class="card-header" style="font-weight: bolder; font-size: larger; color: rgb(25, 31, 32);">
-                          Cập Nhật
+                        <div class="card-header"
+                            style="font-weight: bolder; font-size: larger; color: rgb(25, 31, 32);">
+                            Cập Nhật
                         </div>
                         <div class="card-body">
                             <form action="">
                                 <div class="row">
-                                <div class="mb-3 col-md-6">
-                                    <label for="exampleFormControlInput1" class="form-label">Họ Tên</label>
-                                    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
-                                  </div>
-                                  <div class="mb-3 col-md-6">
-                                    <label for="exampleFormControlInput1" class="form-label">Email</label>
-                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="">
-                                  </div>
-                                  <div class="mb-3 col-md-6">
-                                    <label for="exampleFormControlInput1" class="form-label">Số Điện Thoại</label>
-                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="">
-                                  </div>
-                                  <div class="mb-3 col-md-6">
-                                    <label for="exampleFormControlInput1" class="form-label">Địa Chỉ</label>
-                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="">
-                                  </div>
-                                  <div class="mb-3 col-md-6">
-                                    <label for="exampleFormControlInput1" class="form-label">Mật Khẩu</label>
-                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="">
-                                  </div>
-                                  <div class="mb-3 col-md-6">
-                                    <label for="exampleFormControlInput1" class="form-label">Nhập Lại Mật Khẩu</label>
-                                    <input type="number" class="form-control" id="exampleFormControlInput1" placeholder="">
-                                  </div>
-                                 
+                                    <div class="mb-3 col-md-6">
+                                        <label for="exampleFormControlInput1" class="form-label">Họ Tên</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="exampleFormControlInput1" class="form-label">Email</label>
+                                        <input type="number" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="exampleFormControlInput1" class="form-label">Số Điện Thoại</label>
+                                        <input type="number" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="exampleFormControlInput1" class="form-label">Địa Chỉ</label>
+                                        <input type="number" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="exampleFormControlInput1" class="form-label">Mật Khẩu</label>
+                                        <input type="number" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="exampleFormControlInput1" class="form-label">Nhập Lại Mật
+                                            Khẩu</label>
+                                        <input type="number" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="">
+                                    </div>
+
                                 </div>
-                               
-                                    <button type="button" class="btn btn-primary"><i class="bi bi-save2"></i> Lưu</button>
-                                    <button type="button" class="btn btn-danger"><i class="bi bi-arrow-clockwise"></i> Làm Mới</button>
-                                    <button type="button" class="btn btn-success"><i class="bi bi-card-list"></i> Danh sách</button>
-                               
-                                </form>
+
+                                <button type="button" class="btn btn-primary"><i class="bi bi-save2"></i> Lưu</button>
+                                <button type="button" class="btn btn-danger"><i class="bi bi-arrow-clockwise"></i> Làm
+                                    Mới</button>
+                                <button type="button" class="btn btn-success"><i class="bi bi-card-list"></i> Danh
+                                    sách</button>
+
+                            </form>
                         </div>
-                       
+
+                    </div>
                 </div>
+            </div>
+
+            <div class="row article " style="display: flex; justify-content: center;">
+                <div class="col-md-11 mt-5" style="background-color: white; box-shadow: 10px 10px 25px grey; padding: 0;">
+                    <div class="card">
+                        <div class="card-header"
+                            style="font-weight: bolder; font-size: larger; color: rgb(25, 31, 32);">
+                            Bảng Danh Sách
+                        </div>
+                        <div class="card-body">
+                            <table class="table text-center table-hover table-size fs-17">
+
+                                <thead>
+                                    <tr style="font-size: 20px;">
+                                        <th>STT</th>
+                                        <th>MÃ ĐƠN HÀNG</th>
+                                        <th>NGÀY ĐẶT</th>
+                                        <th>GIÁ</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Chuck 70s High AllWhite</td>
+                                        <td>12/02/2022</td>
+                                        <td>950.000đ</td>
+                                        <td>
+                                            <button type="button" class="btn btn-dark">Chi Tiết</button>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Chuck 70s High AllWhite</td>
+                                        <td>12/02/2022</td>
+                                        <td>950.000đ</td>
+                                        <td style="font-size: 27px;">
+                                            <button type="button" class="btn btn-dark">Chi Tiết</button>
+
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Chuck 70s High AllWhite</td>
+                                        <td>12/02/2022</td>
+                                        <td>950.000đ</td>
+                                        <td style="font-size: 27px;">
+                                            <button type="button" class="btn btn-dark">Chi Tiết</button>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Chuck 70s High AllWhite</td>
+                                        <td>12/02/2022</td>
+                                        <td>950.000đ</td>
+                                        <td style="font-size: 27px;">
+                                            <button type="button" class="btn btn-dark">Chi Tiết</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Chuck 70s High AllWhite</td>
+                                        <td>12/02/2022</td>
+                                        <td>950.000đ</td>
+                                        <td style="font-size: 27px;">
+                                            <button type="button" class="btn btn-dark">Chi Tiết</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>Chuck 70s High AllWhite</td>
+                                        <td>12/02/2022</td>
+                                        <td>950.000đ</td>
+                                        <td style="font-size: 27px;">
+                                            <button type="button" class="btn btn-dark">Chi Tiết</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer text-muted">
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
