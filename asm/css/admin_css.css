@@ -43,3 +43,9 @@ main{
     top: var(--topNavbarHeight);
   }
 }
+/* Main order start here */
+  #main-order tbody, td, tfoot, th, thead, tr{
+    height: 6rem;
+    vertical-align: middle;
+  }
+
