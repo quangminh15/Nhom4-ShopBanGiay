@@ -3,11 +3,18 @@ body,
 button {
   font-family: "Inter", sans-serif;
 }
+
+.w-20{
+  width: 20%;
+  text-align: justify;
+}
 :root {
   --offcanvas-width: 270px;
-  --topNavbarHeight: 0px;
+  --topNavbarHeight: 70px;
 }
-
+main{
+  margin-top: 70px;
+}
 .sidebar-nav {
   width: var(--offcanvas-width);
 }
@@ -21,23 +28,14 @@ button {
 .sidebar-link[aria-expanded="true"] .right-icon {
   transform: rotate(180deg);
 }
-@media (min-width: 992px) {
-  body {
-    overflow: auto !important;
-  }
-  main {
-    margin-left: var(--offcanvas-width);
-
-  }
-  /* this is to remove the backdrop */
-  .offcanvas-backdrop::before {
-    display: none;
-  }
-  .sidebar-nav {
-    -webkit-transform: none;
-    transform: none;
-    visibility: visible !important;
-    height: calc(100% - var(--topNavbarHeight));
-    top: var(--topNavbarHeight);
-  }
+.img-logo {
+  margin-left: 44px;
+  margin-top: 23px;
 }
+/* Main order start here */
+  #main-order tbody, td, tfoot, th, thead, tr{
+    height: 6rem;
+    vertical-align: middle;
+  }
+
+
