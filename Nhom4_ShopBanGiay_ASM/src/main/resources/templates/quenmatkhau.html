@@ -31,13 +31,12 @@
                 <div class="col-lg-6 login-form  p-5">
                     <h2 class="text-center">QUÊN MẬT KHẨU</h2>
                     <p class="slogan">Vui lòng nhập email chúng tôi sẽ gửi mật khẩu đến cho bạn.</p>
-                    <form action="" class="needs-validation" novalidate>
+                    <form th:action="@{/quenmatkhauthatbai}" method="post" th:object="${nguoidung}">
                         <div class="mb-4 mt-3">
                             <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" placeholder="Nhập email tại đây"
-                                name="email" required>
-                            <div class="valid-feedback">Đã nhập gmail</div>
-                            <div class="invalid-feedback">Vui lòng nhập gmail</div>
+                            <input type="text" class="form-control" id="email" placeholder="Nhập email tại đây"
+                                th:field="*{Email}" >
+                            <div class="alert alert-danger" th:if="${#fields.hasErrors('Email')}" th:errors="*{Email}"></div>
                         </div>
                         <button type="submit" class="btn btn-login">OK</button>
                         <h6 class="mt-4 text-center"><a th:href="@{/dangnhap}">Đăng nhập</a> hoặc <a

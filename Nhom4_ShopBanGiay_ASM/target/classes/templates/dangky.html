@@ -34,40 +34,38 @@
                 </div>
                 <div class="col-md-6 login-form  p-5">
                     <h2 class="text-center">ĐĂNG KÝ</h2>
-                    <form action="" class="needs-validation" novalidate method="post">
+                    <form th:action="@{/dangkythatbai}" method="post" th:object="${nguoidung}">
                         <div class="mb-4 mt-3">
                             <label for="fullname">Họ và tên:</label>
                             <input type="text" class="form-control" id="fullname" placeholder="Nhập họ và tên"
-                                name="email" required>
-                            <div class="valid-feedback">Đã nhập họ và tên</div>
-                            <div class="invalid-feedback">Vui lòng nhập họ và tên</div>
+                                th:field="*{HoTen}">
+                            <div class="alert alert-danger" th:if="${#fields.hasErrors('HoTen')}" th:errors="*{HoTen}"></div>
                         </div>
                         <div class="mb-4 mt-3">
                             <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" placeholder="Nhập email" name="email"
-                                required>
-                            <div class="valid-feedback">Đã nhập gmail</div>
-                            <div class="invalid-feedback">Vui lòng nhập gmail</div>
+                            <input type="text" class="form-control" id="email" placeholder="Nhập email" th:field="*{Email}"
+                                >
+                            <div class="alert alert-danger" th:if="${#fields.hasErrors('Email')}" th:errors="*{Email}"></div>
                         </div>
                         <div class="mb-4 mt-3">
                             <label for="pwd">Mật khẩu:</label>
                             <div class="input-group">
                                 <input type="password" class="form-control" id="pass" placeholder="Nhập mật khẩu"
-                                    name="pswd" required>
+                                    th:field="*{MatKhau}" >
                                 <a onclick="hidePass()" class="btn btn-cart"><i class="ti-eye"></i></a>
-                                <div class="valid-feedback">Đã nhập mật khẩu</div>
-                                <div class="invalid-feedback">Vui lòng nhập mật khẩu</div>
+                                
                             </div>
+                            <div class="alert alert-danger" th:if="${#fields.hasErrors('MatKhau')}" th:errors="*{MatKhau}"></div>
                         </div>
                         <div class="mb-4 mt-3">
                             <label for="pwd">Xác nhận mật khẩu:</label>
                             <div class="input-group">
                                 <input type="password" class="form-control" id="pass1" placeholder="Xác nhận mật khẩu"
-                                    name="pswd" required>
+                                    th:field="*{Hinh}" >
                                 <a onclick="hidePass()" class="btn btn-cart"><i class="ti-eye"></i></a>
-                                <div class="valid-feedback">Đã xác nhận mật khẩu</div>
-                                <div class="invalid-feedback">Vui lòng xác nhận mật khẩu</div>
+                                
                             </div>
+                            <div class="alert alert-danger" th:if="${#fields.hasErrors('MatKhau')}" th:errors="*{MatKhau}"></div>
                         </div>
 
                         <button type="submit" class="btn btn-login">OK</button>

@@ -12,21 +12,20 @@ import com.fpoly.ShopBanGiay.model.NguoiDung;
 import jakarta.validation.Valid;
 
 @Controller
-public class DangKyController {
-	
-	@GetMapping("/dangky")
-	public String DangNhap(NguoiDung nguoidung, Model model) {
+public class quenmatkhauController {
+	@GetMapping("/quenmatkhau")
+	public String QuenMatKhau(NguoiDung nguoidung, Model model) {
 		nguoidung = new NguoiDung();
 		model.addAttribute("nguoidung", nguoidung);
-		return "dangky";
+		return "quenmatkhau";
 	}
 	
-	@PostMapping("/dangkythatbai")
-	public String validDangNhap(@Valid @ModelAttribute("nguoidung") NguoiDung nguoidung,BindingResult result, Model model) {
+	@PostMapping("/quenmatkhauthatbai")
+	public String validQuenMatKhau(@Valid @ModelAttribute("nguoidung") NguoiDung nguoidung,BindingResult result, Model model) {
 		if (result.hasErrors()) {
-		    return "dangky";
+		    return "quenmatkhau";
 		  }
 		model.addAttribute("nguoidung", nguoidung);
-		return "dangky";
+		return "quenmatkhau";
 	}
 }
