@@ -13,7 +13,7 @@ create table NguoiDung(
 	DiaChi nvarchar(250) NOT NULL,
 	SDT varchar(11) NOT NULL,
 	Email nvarchar(50) NOT NULL,
-	TrangThai bit NOT NULL,
+	TrangThai bit NOT NULL DEFAULT 0,
 	Hinh nvarchar(50) NOT NULL,
 	VaiTro nvarchar(50) NOT NULL
 )
