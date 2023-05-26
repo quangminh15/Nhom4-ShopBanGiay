@@ -7,7 +7,6 @@ use nhom4_shopBanGiay
 go 
 create table NguoiDung(
 	MaND bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
-	TenDangNhap nvarchar(50) NOT NULL,
 	MatKhau nvarchar(50) NOT NULL,
 	HoTen nvarchar(50) NOT NULL,
 	DiaChi nvarchar(250) NOT NULL,
@@ -23,7 +22,6 @@ create table DanhMuc(
 	MaDM bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	TenDanhMuc nvarchar(50) NOT NULL,
 	AnhDM nvarchar(50) NOT NULL,
-	TrangThai bit NOT NULL,
 )
 
 go 
@@ -45,7 +43,6 @@ go
 create table Size(
 	MaSize bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	Size nvarchar(50) NOT NULL,
-	TrangThai bit NOT NULL
 )
 
 go 
@@ -62,7 +59,6 @@ create table NhaCungCap(
 	Email nvarchar(50) NOT NULL,
 	SDT varchar(50) NOT NULL,
 	DiaChi nvarchar(250) NOT NULL,
-	TrangThai bit NOT NULL
 )
 
 go 

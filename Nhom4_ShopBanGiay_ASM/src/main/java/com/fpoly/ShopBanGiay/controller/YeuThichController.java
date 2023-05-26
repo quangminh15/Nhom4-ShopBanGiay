@@ -8,6 +8,6 @@ public class YeuThichController {
 
 	@GetMapping("/yeuthich")
 	public String DangNhap() {
-		return "yeuthich";
+		return "/nguoidung/yeuthich";
 	}
 }
