@@ -10,6 +10,7 @@ create table NguoiDung(
 	TenDangNhap nvarchar(50) NOT NULL,
 	MatKhau nvarchar(50) NOT NULL,
 	HoTen nvarchar(50) NOT NULL,
+	NgaySinh date NOT NULL,
 	DiaChi nvarchar(250) NOT NULL,
 	SDT varchar(11) NOT NULL,
 	Email nvarchar(50) NOT NULL,
