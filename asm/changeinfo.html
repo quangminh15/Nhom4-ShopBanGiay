@@ -114,47 +114,50 @@
     </div>
     <!-- header end -->
     <!-- main changeinfo start -->
-    <div id="mainLogin">
-        <div class="container">
-            <div class="row m-5 login1">
-                <div class="login-form  p-5">
-                    <h2 class="text-center">THÔNG TIN CÁ NHÂN</h2>
-                    <form action="" class="needs-validation" novalidate>
-                        <div class="mb-4 mt-3">
-                            <label for="fullname">Họ và tên:</label>
-                            <input type="text" class="form-control" id="fullname" placeholder="Nhập họ và tên"
-                                name="email" required>
-                            <div class="valid-feedback">Đã nhập họ và tên</div>
-                            <div class="invalid-feedback">Vui lòng nhập họ và tên</div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center" style="font-size: medium;">
+                            <img src="https://via.placeholder.com/150" alt="Profile Picture" class="rounded-circle mb-3"
+                                style="margin: auto;">
+                            <p class="card-text">Tài khoản: <b>buithanhbui123</b></p>
+                            <p class="card-text">Mật khẩu: <b>*********</b> <button style="margin-left: 10%;"><svg
+                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-eye" viewBox="0 0 16 16">
+                                        <path
+                                            d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
+                                        <path
+                                            d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
+                                    </svg></button> </p>
                         </div>
-                        <div class="mb-4 mt-3">
-                            <label for="email">Email:</label>
-                            <input type="email" class="form-control" id="email" placeholder="Nhập email" name="email"
-                                required>
-                            <div class="valid-feedback">Đã nhập gmail</div>
-                            <div class="invalid-feedback">Vui lòng nhập gmail</div>
-                        </div>
-                        <div class="mb-4 mt-3">
-                            <label for="pwd">Mật khẩu:</label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" id="pass" placeholder="Nhập mật khẩu"
-                                    name="pswd" required>
-                                <a onclick="hidePass()" class="btn btn-cart"><i class="ti-eye"></i></a>
-                                <div class="valid-feedback">Đã nhập mật khẩu</div>
-                                <div class="invalid-feedback">Vui lòng nhập mật khẩu</div>
-                            </div>
-                        </div>
-
-                        <div class="btn-capnhat">
-                            <!-- <button type="submit" class="btn btn-edit">Cập nhật</button>
-                            <button type="submit" class="btn btn-edit disabled">Lưu</button> -->
-                            <button type="submit" class="btn btn-login">Lưu</button>
-
-                        </div>
-
-                    </form>
+                        <hr>
+                    </div>
                 </div>
-
+            </div>
+            <div class="col-md-8" style="font-size: medium;">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Thông tin người dùng <button type="button" class="btn btn-info"
+                                style="width: 15%; height: 8%; margin-left: 4%;">Chỉnh sửa</button></h5>
+                        <ul class="list-group">
+                            <li class="list-group-item"><b>Họ và tên</b> <br>
+                                <p style="font-size: smaller; margin: auto;">Bùi Thanh Bùi</p>
+                            </li>
+                            <li class="list-group-item"><b>Ngày sinh</b> <br>
+                                <p style="font-size: smaller; margin: auto;">15-10-2000</p>
+                            </li>
+                            <li class="list-group-item"><b>Email</b> <br>
+                                <p style="font-size: smaller; margin: auto;">BTB@gmail.com</p>
+                            </li>
+                            <li class="list-group-item"><b>Địa chỉ</b> <br>
+                                <p style="font-size: smaller; margin: auto;">123 Đường ABC, Phường XYZ, Quận NNN
+                                    Cần Thơ, Việt Nam</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
