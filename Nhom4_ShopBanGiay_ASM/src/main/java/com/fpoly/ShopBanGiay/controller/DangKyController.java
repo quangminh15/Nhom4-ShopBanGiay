@@ -18,15 +18,15 @@ public class DangKyController {
 	public String DangNhap(NguoiDung nguoidung, Model model) {
 		nguoidung = new NguoiDung();
 		model.addAttribute("nguoidung", nguoidung);
-		return "dangky";
+		return "/nguoidung/dangky";
 	}
 	
 	@PostMapping("/dangkythatbai")
 	public String validDangNhap(@Valid @ModelAttribute("nguoidung") NguoiDung nguoidung,BindingResult result, Model model) {
 		if (result.hasErrors()) {
-		    return "dangky";
+		    return "/nguoidung/dangky";
 		  }
 		model.addAttribute("nguoidung", nguoidung);
-		return "dangky";
+		return "/nguoidung/dangky";
 	}
 }

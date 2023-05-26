@@ -17,14 +17,14 @@ public class DangNhapController {
 	public String DangNhap(NguoiDung nguoidung, Model model) {
 		nguoidung = new NguoiDung();
 		model.addAttribute("nguoidung", nguoidung);
-		return "dangnhap";
+		return "/nguoidung/dangnhap";
 	}
 	@PostMapping("/dangnhapthatbai")
 	public String validDangNhap(@Valid @ModelAttribute("nguoidung") NguoiDung nguoidung,BindingResult result, Model model) {
 		if (result.hasErrors()) {
-		    return "dangnhap";
+		    return "/nguoidung/dangnhap";
 		  }
 		model.addAttribute("nguoidung", nguoidung);
-		return "dangnhap";
+		return "/nguoidung/dangnhap";
 	}
 }

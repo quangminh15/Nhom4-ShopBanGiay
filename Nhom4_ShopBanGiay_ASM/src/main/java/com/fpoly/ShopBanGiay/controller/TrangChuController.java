@@ -8,6 +8,6 @@ public class TrangChuController {
 	
 	@GetMapping("/trangchu")
 	public String DangNhap() {
-		return "trangchu";
+		return "/nguoidung/trangchu";
 	}
 }

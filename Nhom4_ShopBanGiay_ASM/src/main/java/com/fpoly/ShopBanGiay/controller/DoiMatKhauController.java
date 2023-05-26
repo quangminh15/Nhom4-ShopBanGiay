@@ -8,6 +8,6 @@ public class DoiMatKhauController {
 
 	@GetMapping("/doimatkhau")
 	public String doimatkhau() {
-		return "doimatkhau";
+		return "/nguoidung/doimatkhau";
 	}
 }
