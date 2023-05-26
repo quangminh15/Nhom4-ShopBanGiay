@@ -140,7 +140,8 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Thông tin người dùng <button type="button" class="btn btn-info"
-                                style="width: 15%; height: 8%; margin-left: 4%;">Chỉnh sửa</button></h5>
+                                style="width: 15%; height: 8%; margin-left: 4%;" data-bs-target="#myDialog"
+                                data-bs-toggle="modal">Chỉnh sửa</button></h5>
                         <ul class="list-group">
                             <li class="list-group-item"><b>Họ và tên</b> <br>
                                 <p style="font-size: smaller; margin: auto;">Bùi Thanh Bùi</p>
@@ -162,6 +163,91 @@
         </div>
     </div>
     <!-- main changeinfo end -->
+
+    <!--Dialog start-->
+    <div class="modal fade" id="myDialog" style="font-size: medium;">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Đổi thông tin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true"></span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row article " style="display: flex; justify-content: center;">
+                        <div class="col-md-11 mt-5"
+                            style="background-color: white; box-shadow: 10px 10px 25px grey;padding: 0; ">
+                            <div class="card">
+                                <div class="card-header"
+                                    style="font-weight: bolder; font-size: larger; color: rgb(25, 31, 32); text-align: center;">
+                                    Thông tin của bạn
+                                </div>
+                                <div class="card-body">
+                                    <form action="">
+                                        <div class="row">
+                                            <div class="mb-3 col-md-6">
+                                                <label for="exampleFormControlInput1" class="form-label">Tên Người
+                                                    Dùng</label>
+                                                <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                    placeholder="">
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="exampleFormControlInput1" class="form-label">Email</label>
+                                                <input type="email" class="form-control" id="exampleFormControlInput1"
+                                                    placeholder="">
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="exampleFormControlInput1" class="form-label">Số Điện
+                                                    Thoại</label>
+                                                <input type="number" class="form-control" id="exampleFormControlInput1"
+                                                    placeholder="">
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="exampleFormControlInput1" class="form-label">Địa Chỉ</label>
+                                                <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                    placeholder="">
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="exampleFormControlInput1" class="form-label">Tên đăng
+                                                    nhập</label>
+                                                <input type="number" class="form-control" id="exampleFormControlInput1"
+                                                    placeholder="" disabled>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="exampleFormControlInput1" class="form-label">Mật
+                                                    khẩu</label>
+                                                <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                    placeholder="" disabled>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="exampleFormControlInput1" class="form-label">Ngày
+                                                    sinh</label>
+                                                <input type="date" class="form-control" id="exampleFormControlInput1"
+                                                    placeholder="">
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label for="anh" class="form-label">Hình ảnh</label> <br>
+                                                <img src="https://via.placeholder.com/150"
+                                                    style="width: 200px; height: fit-content;" alt="hinhanh">
+                                                <input type="file" class="form-control" id="anh" placeholder="">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Lưu thông tin</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Dialog end-->
 
     <!-- FOOTER start -->
     <footer class="text-center text-lg-start bg-light text-muted">
