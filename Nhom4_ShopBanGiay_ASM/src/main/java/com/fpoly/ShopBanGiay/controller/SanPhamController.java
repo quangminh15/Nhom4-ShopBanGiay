@@ -8,6 +8,6 @@ public class SanPhamController {
 
 	@GetMapping("/sanpham")
 	public String SanPham() {
-		return "sanpham";
+		return "/nguoidung/sanpham";
 	}
 }

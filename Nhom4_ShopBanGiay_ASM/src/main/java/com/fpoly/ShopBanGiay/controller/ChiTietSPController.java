@@ -8,6 +8,6 @@ public class ChiTietSPController {
 
 	@GetMapping("/chitietsp")
 	public String ChiTietsp() {
-		return "chitietsp";
+		return "/nguoidung/chitietsp";
 	}
 }

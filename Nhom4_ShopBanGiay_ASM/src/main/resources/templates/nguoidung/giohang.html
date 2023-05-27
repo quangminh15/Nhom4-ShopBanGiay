@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONVERSE || SẢN PHẨM</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+        integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g=="
+        crossorigin="anonymous" />
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
+        integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
+        crossorigin="anonymous" />
+    <link th:href="@{/css/mycss.css}" rel="stylesheet" />
+    <link th:href="@{/font/themify-icons/themify-icons.css}" rel="stylesheet" />
+
+</head>
+
+<body>
+    <!-- header start -->
+    <div id="header">
+        <div class="menu">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" th:href="@{/trangchu}"><img src="./images/logo.png" alt="logo"></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="mynavbar">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item"> 
+                                <a class="nav-link nav-link-custom" th:href="@{/trangchu}">TRANG CHỦ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" th:href="@{/sanpham}">SẢN PHẨM</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" th:href="@{/thongtin}">THÔNG TIN</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" th:href="@{/giohang}">GIỎ HÀNG</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link nav-link-custom dropdown-toggle" href="#" role="button"
+                                    data-bs-toggle="dropdown">TÀI
+                                    KHOẢN</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" th:href="@{/dangnhap}">ĐĂNG NHẬP</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/dangky}">ĐĂNG KÝ</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/doimatkhau}">ĐỔI MẬT KHẨU</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/quenmatkhau}">QUÊN MẬT KHẨU</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/thaydoithongtin}">THÔNG TIN CÁ NHÂN</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/donhang}">ĐƠN HÀNG</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/dangnhap}">ĐĂNG XUẤT</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="p-3">
+                            <a href="#" class="icon position-relative fs-4" data-bs-toggle="offcanvas"
+                                data-bs-target="#demo">
+                                <i class="ti-search"></i>
+                            </a>
+                        </div>
+                        <div class="offcanvas offcanvas-bottom" id="demo">
+                            <div class="offcanvas-header">
+                                <h1 class="offcanvas-title" style="margin-left: 43%;">Tìm kiếm</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <div class="container input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Bạn muốn tìm gì?">
+                                    <button class="btn btn-success" type="submit">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <a th:href="@{/yeuthich}" class="icon position-relative fs-4">
+                                <i class="ti-heart"></i>
+                                <span
+                                    class="small-icon position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    0
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="menu-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 menu-item">
+                        <h6>HÀNG CÓ SẴN CHÍNH HÃNG</h6>
+                    </div>
+                    <div class="col-md-4 menu-item">
+                        <h6>ĐỔI TRẢ LINH HOẠT</h5>
+                    </div>
+                    <div class="col-md-4 menu-item">
+                        <h6>SHIP HÀNG TOÀN QUỐC</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <marquee class="marquee-test" width="100%" scrollamount="20" direction="left" height="auto"
+            onmouseover="this.stop()" onmouseout="this.start()">
+            Converse xin chào tất cả các bạn. Chào mừng các bạn đã đến với cửa hàng của chúng tôi. Chúng tôi luôn lấy uy
+            tín đặt trên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!
+        </marquee>
+    </div>
+    <!-- header end -->
+    
+    <!-- mainCart start -->
+    <div id="mainCart">
+        <div class="myTable mt-5 mb-5">
+            <table class="table table-hover table-size">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Hình</th>
+                        <th>Tên</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Tạm tính</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="ti-close"></span></td>
+                        <td><img src="./images/hight/anh10-1.png" alt=""></td>
+                        <td>Chuck 70s High AllWhite</td>
+                        <td>950.000đ</td>
+                        <td>
+                            <div class="input-cart">
+                                <input type="number" class="form-control input-cart1 text-center" value="1">
+                            </div>
+                        </td>
+                        <td>950.000đ</td>
+                    </tr>
+                    <tr>
+                        <td><span class="ti-close"></span></td>
+                        <td><img src="./images/hight/anh10-1.png" alt=""></td>
+                        <td>Chuck 70s High AllWhite</td>
+                        <td>950.000đ</td>
+                        <td>
+                            <div class="input-cart">
+                                <input type="number" class="form-control input-cart1 text-center" value="1">
+                            </div>
+                        </td>
+                        <td>950.000đ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="btn-table">
+            <a href="#" class="btn btn-cart">Cập nhật giỏ hàng</a>
+        </div>
+
+
+        <div class="tongCart m-5">
+
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>CỘNG GIỎ HÀNG</h3>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-hover text-center table-size">
+                                <tr>
+                                    <td>
+                                        <h6>Tạm tính</h6>
+                                    </td>
+                                    <td>950.000đ</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h6>Giảm giá</h6>
+                                    </tD>
+                                    <td>0đ</td>
+                                </tr>
+                                <tr>
+                                    <th>TỔNG</th>
+                                    <th>950.000đ</th>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="card-footer">
+                            <a th:href="@{/thongtindonhang}" class="btn btn-cart btn-btn"> TIẾN HÀNH THANH TOÁN</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- mainCart end -->
+
+
+    <!-- FOOTER -->
+    <footer class="text-center text-lg-start bg-light text-muted">
+        <section class="">
+            <div class="container-fluid text-justify text-md-start mt-5">
+                <div class="row mt-3">
+                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                        <p style="text-indent: 30px; text-align: justify;margin-top: 37px; font-size: 17px;">
+                            Tìm thấy câu trả lời cho độ bền không giới hạn mà CONVERSE luôn hướng tới để tiếp tục
+                            phát triển bền bỉ.Đó là lý tưởng của sự mạnh mẽ, chức năng và khả năng hoạt động
+                            tốt kết hợp với độ cứng cáp tuyệt đối.Lý tưởng này là nguồn gốc của độ cứng cáp
+                            mà CONVERSE luôn tìm kiếm.
+                        </p>
+                    </div>
+
+                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h4 class="text-uppercase fw-bold mb-4">CỬA HÀNG TẠI HÀ NỘI</h4>
+                        <p class="fs-17">187 Phố Vọng, Hai Bà Trưng, Hà Nội.</p>
+                        <p class="fs-17">187 Phố Vọng-Quân Hai Bà Trưng-Hà Nội.</p>
+                        <p class="fs-17">82 Cầu Giấy, Quan Hoa, Cầu Giấy.</p>
+                    </div>
+
+                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                        <h4 class="text-uppercase fw-bold mb-4">CỬA HÀNG TẠI TP.HCM</h4>
+                        <p class="fs-17">497 Hoàng Văn Thụ, Phường 4, Q. Tân Bình, TP.HCM.</p>
+                        <p class="fs-17">676 Lê Trọng Tấn, P. Bình Hưng Hòa, Q. Bình Tân, HCM.</p>
+                        <p class="fs-17">20 đường 3 tháng 2, Phường 12, Quận 10, TPHCM.</p>
+                    </div>
+
+                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                        <h4 class="text-uppercase fw-bold mb-4">LIÊN LẠC</h4>
+                        <p class="fs-17">CONVERSEvietnam.net@gmail.com</p>
+                        <p class="fs-17">0105517236</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="text-center p-4 fs-17" style="background-color: rgba(0, 0, 0, 0.05)">
+            © 2023 Copyright:
+            <a class="text-reset fw-bold" href="https://conversestore.vn/">Converse.Store_</a>
+        </div>
+    </footer>
+    <button type="button" class="btn btn-primary btn-floating btn-lg" id="btn-back-to-top">
+        <i class="ti-angle-double-up"></i>
+    </button>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
+        integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
+        crossorigin="anonymous"></script>
+    <script>
+        $('.owl-carousel').owlCarousel({
+            loop: true,
+            margin: 15,
+            nav: true,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 2
+                },
+                1000: {
+                    items: 4
+                }
+            }
+        })
+    </script>
+
+    <script>
+        let mybutton = document.getElementById("btn-back-to-top");
+        window.onscroll = function () {
+            scrollFunction();
+        };
+
+        function scrollFunction() {
+            if (
+                document.body.scrollTop > 20 ||
+                document.documentElement.scrollTop > 20
+            ) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+        mybutton.addEventListener("click", backToTop);
+
+        function backToTop() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+
+
+</body>
+
+</html>

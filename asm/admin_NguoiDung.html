@@ -64,12 +64,6 @@
                                         <span>Người dùng</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-person-lines-fill"></i></span>
-                                        <span>Vai trò</span>
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                     </li>
@@ -77,7 +71,7 @@
 
                     <!-- Quản lý nhà cung cấp bắt đầu  -->
                     <li>
-                        <a href="#" class="nav-link px-3">
+                        <a href="admin_ncc.html" class="nav-link px-3">
                             <span class="me-2"><i class="bi bi-book-fill"></i></span>
                             <span>Quản lý nhà cung cấp</span>
                         </a>
@@ -99,15 +93,9 @@
                         <div class="collapse" id="khuyenmai">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="admin_KhuyenMai.html" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-window-sidebar"></i></span>
                                         <span>Khuyến mãi</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-window-dock"></i></span>
-                                        <span>Khuyến mãi sản phẩm</span>
                                     </a>
                                 </li>
                             </ul>
@@ -172,7 +160,7 @@
                         <div class="collapse" id="donhang">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="admin_DonHang.html" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-bag"></i></span>
                                         <span>Đơn hàng</span>
                                     </a>
@@ -211,13 +199,13 @@
                         <div class="collapse" id="taikhoan">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="admin_ChagepPass.html" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-bag"></i></span>
                                         <span>Đổi mật khẩu</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a href="Admin_changeinfo.html" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-bag-check"></i></span>
                                         <span>Thông tin cá nhân</span>
                                     </a>
@@ -263,7 +251,7 @@
                             <form action="">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Tên Người Dùng</label>
+                                        <label for="exampleFormControlInput1" class="form-label">Họ và tên</label>
                                         <input type="text" class="form-control" id="exampleFormControlInput1"
                                             placeholder="">
                                     </div>
@@ -283,15 +271,22 @@
                                             placeholder="">
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Tên đăng nhập</label>
-                                        <input type="number" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="">
-                                    </div>
-                                    <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label">Mật khẩu</label>
                                         <input type="text" class="form-control" id="exampleFormControlInput1"
                                             placeholder="">
                                     </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="exampleFormControlInput1" class="form-label">Ngày sinh</label>
+                                        <input type="date" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="anh" class="form-label">Hình ảnh</label> <br>
+                                        <img src="https://via.placeholder.com/150"
+                                            style="width: 200px; height: fit-content;" alt="hinhanh">
+                                        <input type="file" class="form-control" id="anh" placeholder="">
+                                    </div>
+                                    <br>
                                     <div class="mb-3 col-md-6">
                                         <p>Vai trò</p>
                                         <input type="radio" id="admin" name="role" value="admin">
@@ -299,20 +294,17 @@
                                         <input type="radio" id="customer" name="role" value="customer">
                                         <label for="html">Khách hàng</label><br>
                                     </div>
-
-
-                                </div>
-
+                                    
+                                    
+                                </div><br><br>
                                 <button type="button" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
                                 <button type="button" class="btn btn-success"><i class="bi bi-card-list"></i>
                                     Sửa</button>
                                 <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
                                 <button type="button" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm
                                     mới</button>
-
                             </form>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -331,10 +323,11 @@
                                 <thead>
                                     <tr style="font-size: 20px;">
                                         <th>Mã Người Dùng</th>
-                                        <th>Tên Người Dùng</th>
+                                        <th>Ảnh</th>
+                                        <th>Họ và tên</th>
+                                        <th>Ngày sinh</th>
                                         <th>Email</th>
                                         <th>Số Điện Thoại</th>
-                                        <th>Địa Chỉ</th>
                                         <th>Vai trò</th>
                                         <th></th>
                                     </tr>
@@ -342,11 +335,13 @@
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><img src="https://via.placeholder.com/150"
+                                                style="width: 100px; height: fit-content;" alt="hinhanh"></td>
+                                        <td>Bùi Thanh Bùi</td>
+                                        <td>22-10-2000</td>
+                                        <td>BTB@gmail.com</td>
+                                        <td>0123456987</td>
+                                        <td>Quản lý</td>
                                         <td>
                                             <button type="button" class="btn btn-success"><i
                                                     class="bi bi-card-list"></i>
@@ -359,7 +354,6 @@
                             </table>
                         </div>
                         <div class="card-footer text-muted">
-
                         </div>
                     </div>
                 </div>
