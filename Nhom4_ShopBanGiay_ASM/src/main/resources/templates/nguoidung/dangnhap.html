@@ -30,7 +30,7 @@
 
                 <div class="col-md-6 login-form p-5">
                     <h2 class="text-center">ĐĂNG NHẬP</h2>
-                    <form th:action="@{/dangnhapthatbai}" method="post" th:object="${nguoidung}">
+                    <form th:action="@{/dangnhap}" method="post" th:object="${nguoidung}">
                         <div class="mb-4 mt-3">
                             <label for="email">Email:</label>
                             <input type="text" class="form-control" id="email" placeholder="Nhập email" th:field="*{Email}">

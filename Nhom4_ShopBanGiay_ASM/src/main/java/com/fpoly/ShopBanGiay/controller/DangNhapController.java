@@ -12,19 +12,29 @@ import jakarta.validation.Valid;
 
 @Controller
 public class DangNhapController {
-	
+
 	@GetMapping("/dangnhap")
 	public String DangNhap(NguoiDung nguoidung, Model model) {
 		nguoidung = new NguoiDung();
 		model.addAttribute("nguoidung", nguoidung);
 		return "/nguoidung/dangnhap";
 	}
-	@PostMapping("/dangnhapthatbai")
-	public String validDangNhap(@Valid @ModelAttribute("nguoidung") NguoiDung nguoidung,BindingResult result, Model model) {
+
+	@PostMapping("/dangnhap")
+	public String validDangNhap(@Valid @ModelAttribute("nguoidung") NguoiDung nguoidung, BindingResult result,
+			Model model) {
+		if (nguoidung.getEmail().equals("nguoidung@gmail.com") && nguoidung.getMatKhau().equals("12345")) {
+			return "/nguoidung/trangchu";
+		}
+		if (nguoidung.getEmail().equals("admin@gmail.com") && nguoidung.getMatKhau().equals("12345")) {
+			return "/admin/admin_nguoidung";
+		}
+
 		if (result.hasErrors()) {
-		    return "/nguoidung/dangnhap";
-		  }
+			return "/nguoidung/dangnhap";
+		}
 		model.addAttribute("nguoidung", nguoidung);
 		return "/nguoidung/dangnhap";
 	}
+
 }
