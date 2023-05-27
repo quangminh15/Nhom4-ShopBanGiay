@@ -67,6 +67,7 @@ create table GiamGia(
 	TenGiamGia nvarchar(50) NOT NULL,
 	GiamGia Float Default 0,
 	NgayTao Date NOT NULL,
+	NgayKetThuc Date NOT NULL,
 	MoTa nvarchar(250) NULL
 )
 
@@ -103,8 +104,7 @@ create table ChiTietDonHang(
 	MaCTDH bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	MaDH bigint NOT NULL,
 	MaSPS bigint NOT NULL,
-	SoLuong int NOT NULL,
-	ThanhTien Float Default 0
+	SoLuong int NOT NULL
 )
 
 go
