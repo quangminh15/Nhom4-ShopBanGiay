@@ -244,22 +244,24 @@
                             Form Size
                         </div>
                         <div class="card-body">
-                            <form action="">
+                            <form th:action="@{/admin_size}" method="post" th:object="${size}">
                                 <div class="row">
                                     <div class="mb-3 col-md-12">
                                         <label for="masize" class="form-label">Mã Size:</label>
-                                        <input type="text" class="form-control" id="masize" placeholder="">
+                                        <input type="number" class="form-control" id="masize" th:field="*{MaSize}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('MaSize')}" th:errors="*{MaSize}"></div>
                                     </div>
                                     <div class="mb-3 col-md-12">
                                         <label for="sizeee" class="form-label">Size:</label>
-                                        <input type="number" class="form-control" id="sizeee" placeholder="">
+                                        <input type="number" class="form-control" id="sizeee" th:field="*{Size}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('Size')}" th:errors="*{Size}"></div>
                                     </div>
                                 </div>
 
-                                <button type="button" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
-                                <button type="button" class="btn btn-success"><i class="bi bi-card-list"></i> Sửa</button>
-                                <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
-                                <button type="button" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
+                                <button type="submit" class="btn btn-success"><i class="bi bi-card-list"></i> Sửa</button>
+                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
+                                <button type="submit" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
 
                             </form>
                         </div>

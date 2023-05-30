@@ -244,41 +244,45 @@
                             Form Size Của Sản Phẩm
                         </div>
                         <div class="card-body">
-                            <form action="">
+                            <form th:action="@{/admin_sanphamsize}" method="post" th:object="${sanphamsize}">
                                 <div class="row">
                                     <div class="mb-3 col-md-12">
                                         <label for="masanphamsize" class="form-label">Mã sản phẩm size:</label>
-                                        <input type="text" class="form-control" id="masanphamsize" placeholder="">
+                                        <input type="text" class="form-control" id="masanphamsize" th:field="*{MaSPS}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('MaSPS')}" th:errors="*{MaSPS}"></div>
                                     </div>
                                     
                                     <div class="mb-3 col-md-12">
                                         <label for="madanhmcu" class="form-label">Mã sản phẩm:</label>
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>Open this select menu</option>
+                                        <select class="form-select" th:field="*{MaSP}">
+                                            <option value="">Open this select menu</option>
                                             <option value="1">One</option>
                                             <option value="2">Two</option>
                                             <option value="3">Three</option>
                                         </select>
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('MaSP')}" th:errors="*{MaSP}"></div>
                                     </div>
                                     <div class="mb-3 col-md-12">
                                         <label for="masize" class="form-label">Mã Size:</label>
-                                        <select class="form-select" aria-label="Default select example">
-                                            <option selected>Open this select menu</option>
+                                        <select class="form-select" th:field="*{MaSize}">
+                                            <option value="">Open this select menu</option>
                                             <option value="1">One</option>
                                             <option value="2">Two</option>
                                             <option value="3">Three</option>
                                         </select>
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('MaSize')}" th:errors="*{MaSize}"></div>
                                     </div>
                                     <div class="mb-3 col-md-12">
                                         <label for="soluongsanpham" class="form-label">Số lượng:</label>
-                                        <input type="number" class="form-control" id="soluongsanpham" placeholder="">
+                                        <input type="number" class="form-control" id="soluongsanpham" th:field="*{SoLuong}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('SoLuong')}" th:errors="*{SoLuong}"></div>
                                     </div>
                                 </div>
 
-                                <button type="button" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
-                                <button type="button" class="btn btn-success"><i class="bi bi-card-list"></i> Sửa</button>
-                                <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
-                                <button type="button" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
+                                <button type="submit" class="btn btn-success"><i class="bi bi-card-list"></i> Sửa</button>
+                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
+                                <button type="submit" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
 
                             </form>
                         </div>
