@@ -673,7 +673,7 @@ h5 {
 
 #mainCart .btn-table {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     margin: 0 5%;
 }
 

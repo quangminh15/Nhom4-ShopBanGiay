@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8" />
@@ -8,29 +8,37 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" />
-    <link rel="stylesheet" href="css/admin_css.css" />
-    <title>CONVERSE - ADMIN</title>
+    <link rel="stylesheet" th:href="@{css/admin_css.css}" />
+    <link th:href="@{/css/mycss.css}" rel="stylesheet" />
+    <link th:href="@{/font/themify-icons/themify-icons.css}" rel="stylesheet" />
+    <title>CONVERSE - ADMIN SIZE</title>
 </head>
 
 <body style="background-color: rgb(238, 238, 238);">
     <!-- top navigation bar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
-                aria-controls="offcanvasExample">
+            <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas"
+                data-bs-target="#sidebar">
                 <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
             </button>
+            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
+                aria-controls="offcanvasExample">
+                <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
+            </button> -->
             <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#"><img src="./images/logo.png"
-                    alt="logo"></a>
+                    alt="logo" style="margin-left: 25px;"></a>
         </div>
     </nav>
     <!-- top navigation bar -->
     <!-- MENU đứng bắt đầu -->
-    <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar">
+    <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar" style="font-size: 16px;">
         <div class="offcanvas-body p-0">
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
-                    
+                    <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#"><img class="img-logo"
+                            src="./images/logo.png" alt="logo"></a>
                     <li class="my-4">
                         <hr class="dropdown-divider bg-light" />
                     </li>
@@ -53,15 +61,9 @@
                         <div class="collapse" id="nguoidung">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a th:href="@{/admin_nguoidung}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-circle"></i></span>
                                         <span>Người dùng</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-person-lines-fill"></i></span>
-                                        <span>Vai trò</span>
                                     </a>
                                 </li>
                             </ul>
@@ -71,7 +73,7 @@
 
                     <!-- Quản lý nhà cung cấp bắt đầu  -->
                     <li>
-                        <a href="#" class="nav-link px-3">
+                        <a th:href="@{/admin_nhacungcap}" class="nav-link px-3">
                             <span class="me-2"><i class="bi bi-book-fill"></i></span>
                             <span>Quản lý nhà cung cấp</span>
                         </a>
@@ -93,17 +95,12 @@
                         <div class="collapse" id="khuyenmai">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a th:href="@{/admin_khuyenmai}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-window-sidebar"></i></span>
                                         <span>Khuyến mãi</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-window-dock"></i></span>
-                                        <span>Khuyến mãi sản phẩm</span>
-                                    </a>
-                                </li>
+                                
                             </ul>
                         </div>
                     </li>
@@ -124,19 +121,25 @@
                         <div class="collapse" id="sanpham">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a th:href="@{/admin_danhmucsanpham}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-menu-button-fill"></i></span>
                                         <span>Danh mục sản phẩm</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a th:href="@{/admin_sanpham}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-menu-app-fill"></i></span>
                                         <span>Sản phẩm</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a th:href="@{/admin_size}" class="nav-link px-3">
+                                        <span class="me-2"><i class="bi bi-menu-app"></i></span>
+                                        <span>Size</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/admin_sanphamsize}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-menu-app"></i></span>
                                         <span>Sản phẩm Size</span>
                                     </a>
@@ -160,13 +163,13 @@
                         <div class="collapse" id="donhang">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a th:href="@{/admin_donhang}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-bag"></i></span>
                                         <span>Đơn hàng</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a th:href="@{/admin_donhang}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-bag-check"></i></span>
                                         <span>Đơn hàng đã giao</span>
                                     </a>
@@ -199,13 +202,13 @@
                         <div class="collapse" id="taikhoan">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a th:href="@{/doimatkhau}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-bag"></i></span>
                                         <span>Đổi mật khẩu</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#" class="nav-link px-3">
+                                    <a th:href="@{/admin_thongtincanhan}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-bag-check"></i></span>
                                         <span>Thông tin cá nhân</span>
                                     </a>
@@ -229,7 +232,7 @@
         <div class="container-fluid">
             <div class="row" style="background-color: white; box-shadow: 10px 10px 25px grey; ">
                 <div class="col-md-12">
-                    <h4 style="padding: 2rem 0;">Quản lý người dùng - này là title</h4>
+                    <h4 style="padding: 2rem 0;">Quản lý sản phẩm - Size</h4>
                 </div>
             </div>
             <div class="row article " style="display: flex; justify-content: center;">
@@ -238,50 +241,27 @@
                     <div class="card">
                         <div class="card-header"
                             style="font-weight: bolder; font-size: larger; color: rgb(25, 31, 32);">
-                            Cập Nhật
+                            Form Size
                         </div>
                         <div class="card-body">
-                            <form action="">
+                            <form th:action="@{/admin_size}" method="post" th:object="${size}">
                                 <div class="row">
-                                    <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Họ Tên</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="">
+                                    <div class="mb-3 col-md-12">
+                                        <label for="masize" class="form-label">Mã Size:</label>
+                                        <input type="number" class="form-control" id="masize" th:field="*{MaSize}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('MaSize')}" th:errors="*{MaSize}"></div>
                                     </div>
-                                    <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Email</label>
-                                        <input type="number" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="">
+                                    <div class="mb-3 col-md-12">
+                                        <label for="sizeee" class="form-label">Size:</label>
+                                        <input type="number" class="form-control" id="sizeee" th:field="*{Size}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('Size')}" th:errors="*{Size}"></div>
                                     </div>
-                                    <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Số Điện Thoại</label>
-                                        <input type="number" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="">
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Địa Chỉ</label>
-                                        <input type="number" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="">
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Mật Khẩu</label>
-                                        <input type="number" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="">
-                                    </div>
-                                    <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Nhập Lại Mật
-                                            Khẩu</label>
-                                        <input type="number" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="">
-                                    </div>
-
                                 </div>
 
-                                <button type="button" class="btn btn-primary"><i class="bi bi-save2"></i> Lưu</button>
-                                <button type="button" class="btn btn-danger"><i class="bi bi-arrow-clockwise"></i> Làm
-                                    Mới</button>
-                                <button type="button" class="btn btn-success"><i class="bi bi-card-list"></i> Danh
-                                    sách</button>
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
+                                <button type="submit" class="btn btn-success"><i class="bi bi-card-list"></i> Sửa</button>
+                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
+                                <button type="submit" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
 
                             </form>
                         </div>
@@ -291,7 +271,8 @@
             </div>
 
             <div class="row article " style="display: flex; justify-content: center;">
-                <div class="col-md-11 mt-5" style="background-color: white; box-shadow: 10px 10px 25px grey; padding: 0;">
+                <div class="col-md-11 mt-5"
+                    style="background-color: white; box-shadow: 10px 10px 25px grey; padding: 0;">
                     <div class="card">
                         <div class="card-header"
                             style="font-weight: bolder; font-size: larger; color: rgb(25, 31, 32);">
@@ -302,72 +283,48 @@
 
                                 <thead>
                                     <tr style="font-size: 20px;">
-                                        <th>STT</th>
-                                        <th>MÃ ĐƠN HÀNG</th>
-                                        <th>NGÀY ĐẶT</th>
-                                        <th>GIÁ</th>
+                                        <th>MÃ SIZE</th>
+                                        <th>SIZE</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <td>1</td>
-                                        <td>Chuck 70s High AllWhite</td>
-                                        <td>12/02/2022</td>
-                                        <td>950.000đ</td>
+                                        <td>35</td>
                                         <td>
-                                            <button type="button" class="btn btn-dark">Chi Tiết</button>
+                                            <button type="button" class="btn btn-warning">Sửa</button>
+                                            <button type="button" class="btn btn-danger">Xóa</button>
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <td>2</td>
-                                        <td>Chuck 70s High AllWhite</td>
-                                        <td>12/02/2022</td>
-                                        <td>950.000đ</td>
-                                        <td style="font-size: 27px;">
-                                            <button type="button" class="btn btn-dark">Chi Tiết</button>
-
+                                        <td>35</td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning">Sửa</button>
+                                            <button type="button" class="btn btn-danger">Xóa</button>
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <td>3</td>
-                                        <td>Chuck 70s High AllWhite</td>
-                                        <td>12/02/2022</td>
-                                        <td>950.000đ</td>
-                                        <td style="font-size: 27px;">
-                                            <button type="button" class="btn btn-dark">Chi Tiết</button>
+                                        <td>35</td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning">Sửa</button>
+                                            <button type="button" class="btn btn-danger">Xóa</button>
                                         </td>
                                     </tr>
 
                                     <tr>
                                         <td>4</td>
-                                        <td>Chuck 70s High AllWhite</td>
-                                        <td>12/02/2022</td>
-                                        <td>950.000đ</td>
-                                        <td style="font-size: 27px;">
-                                            <button type="button" class="btn btn-dark">Chi Tiết</button>
+                                        <td>35</td>
+                                        <td>
+                                            <button type="button" class="btn btn-warning">Sửa</button>
+                                            <button type="button" class="btn btn-danger">Xóa</button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Chuck 70s High AllWhite</td>
-                                        <td>12/02/2022</td>
-                                        <td>950.000đ</td>
-                                        <td style="font-size: 27px;">
-                                            <button type="button" class="btn btn-dark">Chi Tiết</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Chuck 70s High AllWhite</td>
-                                        <td>12/02/2022</td>
-                                        <td>950.000đ</td>
-                                        <td style="font-size: 27px;">
-                                            <button type="button" class="btn btn-dark">Chi Tiết</button>
-                                        </td>
-                                    </tr>
+
                                 </tbody>
                             </table>
                         </div>

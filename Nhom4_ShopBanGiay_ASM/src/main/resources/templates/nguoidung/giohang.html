@@ -54,7 +54,8 @@
                                     <li><a class="dropdown-item" th:href="@{/dangky}">ĐĂNG KÝ</a></li>
                                     <li><a class="dropdown-item" th:href="@{/doimatkhau}">ĐỔI MẬT KHẨU</a></li>
                                     <li><a class="dropdown-item" th:href="@{/quenmatkhau}">QUÊN MẬT KHẨU</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/thaydoithongtin}">THAY ĐỔI THÔNG TIN</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/thaydoithongtin}">THÔNG TIN CÁ NHÂN</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/donhang}">ĐƠN HÀNG</a></li>
                                     <li><a class="dropdown-item" th:href="@{/dangnhap}">ĐĂNG XUẤT</a></li>
                                 </ul>
                             </li>
@@ -114,6 +115,7 @@
         </marquee>
     </div>
     <!-- header end -->
+    
     <!-- mainCart start -->
     <div id="mainCart">
         <div class="myTable mt-5 mb-5">
@@ -123,7 +125,6 @@
                         <th></th>
                         <th>Hình</th>
                         <th>Tên</th>
-                        <th>Size</th>
                         <th>Giá</th>
                         <th>Số lượng</th>
                         <th>Tạm tính</th>
@@ -134,7 +135,6 @@
                         <td><span class="ti-close"></span></td>
                         <td><img src="./images/hight/anh10-1.png" alt=""></td>
                         <td>Chuck 70s High AllWhite</td>
-                        <td>37</td>
                         <td>950.000đ</td>
                         <td>
                             <div class="input-cart">
@@ -147,7 +147,6 @@
                         <td><span class="ti-close"></span></td>
                         <td><img src="./images/hight/anh10-1.png" alt=""></td>
                         <td>Chuck 70s High AllWhite</td>
-                        <td>37</td>
                         <td>950.000đ</td>
                         <td>
                             <div class="input-cart">
@@ -160,11 +159,6 @@
             </table>
         </div>
         <div class="btn-table">
-            <form class="d-flex">
-                <input class="form-control me-2" type="text" placeholder="Mã giảm giá">
-                <button class="btn btn-primary btn-cart" type="button">Áp dụng</button>
-            </form>
-
             <a href="#" class="btn btn-cart">Cập nhật giỏ hàng</a>
         </div>
 
@@ -199,7 +193,7 @@
                             </table>
                         </div>
                         <div class="card-footer">
-                            <a href="#" class="btn btn-cart btn-btn"> TIẾN HÀNH THANH TOÁN</a>
+                            <a th:href="@{/thongtindonhang}" class="btn btn-cart btn-btn"> TIẾN HÀNH THANH TOÁN</a>
                         </div>
                     </div>
                 </div>
