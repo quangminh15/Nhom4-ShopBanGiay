@@ -240,49 +240,63 @@
                     style="background-color: white; box-shadow: 10px 10px 25px grey;padding: 0; ">
                     <div class="card">
                         <div class="card-header"
-                            style="font-weight: bolder; font-size: larger; color: rgb(25, 31, 32);">
+                            style="font-weight: bolder; font-size: 25px; color: rgb(25, 31, 32);">
                             Form Sản Phẩm
                         </div>
                         <div class="card-body">
                             <form action="">
                                 <div class="row">
                                     <div class="mb-3 col-md-12">
-                                        <label for="masanpham" class="form-label">Mã sản phẩm:</label>
+                                        <label for="masanpham" class="form-label fs-17">Mã sản phẩm:</label>
                                         <input type="text" class="form-control" id="masanpham" placeholder="">
                                     </div>
                                     <div class="mb-3 col-md-12">
-                                        <label for="tensanphamm" class="form-label">Tên sản phẩm:</label>
+                                        <label for="tensanphamm" class="form-label fs-17">Tên sản phẩm:</label>
                                         <input type="number" class="form-control" id="tensanphamm" placeholder="">
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-md-4">
-                                            <label for="anhsanpham1" class="form-label">Ảnh 1:</label> <br>
+                                            <label for="anhsanpham1" class="form-label fs-17">Ảnh 1:</label> <br>
                                             <img src="./images/default.png" style="width: 200px; height: fit-content;"
                                                 alt="hinhanh">
                                             <input type="file" class="form-control" id="anhsanpham1" placeholder="">
                                         </div>
                                         <div class="mb-3 col-md-4">
-                                            <label for="anhsanpham2" class="form-label">Ảnh 2:</label> <br>
+                                            <label for="anhsanpham2" class="form-label fs-17">Ảnh 2:</label> <br>
                                             <img src="./images/default.png" style="width: 200px; height: fit-content;"
                                                 alt="hinhanh">
                                             <input type="file" class="form-control" id="anhsanpham2" placeholder="">
                                         </div>
                                         <div class="mb-3 col-md-4">
-                                            <label for="anhsanpham3" class="form-label">Ảnh 3:</label> <br>
+                                            <label for="anhsanpham3" class="form-label fs-17">Ảnh 3:</label> <br>
                                             <img src="./images/default.png" style="width: 200px; height: fit-content;"
                                                 alt="hinhanh">
                                             <input type="file" class="form-control" id="anhsanpham3" placeholder="">
                                         </div>
+                                        <label class="form-label fs-17">Loại giày:</label> <br>
+							                <div class="d-inline-flex">
+							                    <div class="form-check mx-4">
+							                        <input type="radio" class="form-check-input" id="radio1"  value="true"
+							                            checked>
+							                        <label class="form-check-label fs-17" for="radio1">Cao</label>
+							                    </div>
+<!-- 							                    th:field="*{gender}" -->
+							                    <div class="form-check ">
+							                        <input type="radio" class="form-check-input" id="radio2"  value="false">
+							                        <label class="form-check-label fs-17" for="radio2">Thấp</label>
+							                    </div>
+							                </div>
+<!-- 							                <div class="alert alert-danger" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></div> -->
                                         <div class="mb-3 col-md-12">
-                                            <label for="giassanpham" class="form-label">Giá:</label>
+                                            <label for="giassanpham" class="form-label fs-17">Giá:</label>
                                             <input type="number" class="form-control" id="giassanpham" placeholder="">
                                         </div>
-                                        <div class="mb-3 col-md-12">
-                                            <label for="motaaa" class="form-label">Mô tả:</label>
+                                        <div class="mb-3 col-md-12"> 
+                                            <label for="motaaa" class="form-label fs-17">Mô tả:</label>
                                             <input type="number" class="form-control" id="motaaa" placeholder="">
                                         </div>
                                         <div class="mb-3 col-md-12">
-                                            <label for="madanhmcu" class="form-label">Mã danh mục:</label>
+                                            <label for="madanhmcu" class="form-label fs-17">Mã danh mục:</label>
                                             <select class="form-select" aria-label="Default select example">
                                                 <option selected>Open this select menu</option>
                                                 <option value="1">One</option>
@@ -291,7 +305,7 @@
                                             </select>
                                         </div>
                                         <div class="mb-3 col-md-12">
-                                            <label for="manhacungcap" class="form-label">Mã nhà cung cấp:</label>
+                                            <label for="manhacungcap" class="form-label fs-17">Mã nhà cung cấp:</label>
                                             <select class="form-select" aria-label="Default select example">
                                                 <option selected>Open this select menu</option>
                                                 <option value="1">One</option>
@@ -334,6 +348,7 @@
                                         <th>ẢNH 1</th>
                                         <th>ẢNH 2</th>
                                         <th>ẢNH 3</th>
+                                        <th>Loại</th>
                                         <th>GIÁ</th>
                                         <th class="w-20" style="text-align: center;">MÔ TẢ</th>
                                         <th>MÃ DANH MỤC</th>
@@ -351,6 +366,7 @@
                                                 alt="hinhanh"></td>
                                         <td><img src="./images/default.png" style="width: 100px; height: fit-content;"
                                                 alt="hinhanh"></td>
+                                                <td>Cao</td>
                                         <td>950.000đ</td>
                                         <td class="w-20">Converse 1970s là 1 trong những dòng sản phẩm
                                             bán chạy nhất của Converse.Phần đế màu trắng
@@ -376,6 +392,7 @@
                                                 alt="hinhanh"></td>
                                         <td><img src="./images/default.png" style="width: 100px; height: fit-content;"
                                                 alt="hinhanh"></td>
+                                                <td>Cao</td>
                                         <td>950.000đ</td>
                                         <td class="w-20">Converse 1970s là 1 trong những dòng sản phẩm
                                             bán chạy nhất của Converse.Phần đế màu trắng
@@ -399,6 +416,7 @@
                                                 alt="hinhanh"></td>
                                         <td><img src="./images/default.png" style="width: 100px; height: fit-content;"
                                                 alt="hinhanh"></td>
+                                                <td>Cao</td>
                                         <td>950.000đ</td>
                                         <td class="w-20">Converse 1970s là 1 trong những dòng sản phẩm
                                             bán chạy nhất của Converse.Phần đế màu trắng
@@ -422,6 +440,7 @@
                                                 alt="hinhanh"></td>
                                         <td><img src="./images/default.png" style="width: 100px; height: fit-content;"
                                                 alt="hinhanh"></td>
+                                                <td>Cao</td>
                                         <td>950.000đ</td>
                                         <td class="w-20">Converse 1970s là 1 trong những dòng sản phẩm
                                             bán chạy nhất của Converse.Phần đế màu trắng

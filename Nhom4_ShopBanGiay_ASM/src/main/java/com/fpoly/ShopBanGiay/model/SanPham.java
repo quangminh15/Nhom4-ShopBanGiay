@@ -25,6 +25,9 @@ public class SanPham {
 	@NotBlank(message = "{NotBlank.SanPham.HinhAnh3}")
 	private String HinhAnh3;
 	
+	@NotNull(message = "{NotNull.SanPham.Loai}")
+	private Boolean Loai;
+	
 	@NotBlank(message = "{NotBlank.SanPham.Gia}")
 	private Float Gia;
 	

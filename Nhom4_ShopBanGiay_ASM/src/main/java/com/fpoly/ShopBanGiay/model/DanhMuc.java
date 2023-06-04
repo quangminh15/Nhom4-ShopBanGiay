@@ -19,4 +19,6 @@ public class DanhMuc {
 	@NotBlank(message = "{NotBlank.DanhMuc.Size}")
 	private String AnhDM;
 	
+	@NotNull(message = "{NotNull.DanhMuc.TrangThai}")
+	private Boolean TrangThai;
 }

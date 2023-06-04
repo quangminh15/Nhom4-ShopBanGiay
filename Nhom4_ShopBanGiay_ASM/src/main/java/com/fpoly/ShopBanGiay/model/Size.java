@@ -14,4 +14,7 @@ public class Size {
 	
 	@NotNull(message = "{NotNull.Size.Size}")
 	private Float Size;
+	
+	@NotNull(message = "{NotNull.Size.TrangThai}")
+	private Boolean TrangThai;
 }
