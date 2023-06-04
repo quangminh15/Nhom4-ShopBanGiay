@@ -17,7 +17,7 @@ create table NguoiDung(
 	Email nvarchar(50) NOT NULL,
 	TrangThai bit NOT NULL DEFAULT 0,
 	Hinh nvarchar(50) NOT NULL,
-	VaiTro nvarchar(50) NOT NULL
+	VaiTro bit NOT NULL default 0
 )
 --2 danh mục 
 go
@@ -33,7 +33,7 @@ create table NhaCungCap(
 	MaNCC bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	TenNCC nvarchar(50) NOT NULL,
 	Email nvarchar(50) NOT NULL,
-	SDT varchar(50) NOT NULL,
+	SDT varchar(10) NOT NULL,
 	DiaChi nvarchar(250) NOT NULL,
 )
 --4 giảm giá
@@ -57,7 +57,7 @@ create table Size(
 go 
 create table SanPham(
 	MaSP bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
-	TenSanPham nvarchar(50) NOT NULL,
+	TenSP nvarchar(50) NOT NULL,
 	HinhAnh1 nvarchar(50) NOT NULL,
 	HinhAnh2 nvarchar(50) NOT NULL,
 	HinhAnh3 nvarchar(50) NOT NULL,
@@ -69,6 +69,8 @@ create table SanPham(
 	MaNCC bigint NOT NULL,
 	MaGiamGia bigint NULL
 )
+
+
 --7 yêu thích
 go 
 create table YeuThich(
@@ -122,11 +124,11 @@ create table ThanhToan(
 	PhuongThuc nvarchar(50) NOT NULL,
 	TrangThai bit NOT NULL Default 0
 )
--- Taoj các khóa duy nhất
+-- Tạo các khóa duy nhất
 go
 ALTER TABLE  ThanhToan ADD CONSTRAINT unique1 UNIQUE (MaDH);
 go
-ALTER TABLE  SanPham_Size ADD CONSTRAINT unique2 UNIQUE (MaSP, MaSize);
+ALTER TABLE  SanPhamSize ADD CONSTRAINT unique2 UNIQUE (MaSP, MaSize);
 go
 ALTER TABLE  GioHang ADD CONSTRAINT unique3 UNIQUE (MaSPS);
 go
@@ -171,7 +173,7 @@ FOREIGN KEY (MaND) REFERENCES NguoiDung(MaND);
 go
 ALTER TABLE GioHang
 ADD CONSTRAINT FK_SPStoGH
-FOREIGN KEY (MaSPS) REFERENCES SanPham_Size(MaSPS);
+FOREIGN KEY (MaSPS) REFERENCES SanPhamSize(MaSPS);
 
 go
 ALTER TABLE GioHang
@@ -179,12 +181,12 @@ ADD CONSTRAINT FK_NDtoGH
 FOREIGN KEY (MaND) REFERENCES NguoiDung(MaND);
 
 go
-ALTER TABLE SanPham_Size
+ALTER TABLE SanPhamSize
 ADD CONSTRAINT FK_SPtoSPS
 FOREIGN KEY (MaSP) REFERENCES SanPham(MaSP);
 
 go
-ALTER TABLE SanPham_Size
+ALTER TABLE SanPhamSize
 ADD CONSTRAINT FK_SizetoSPS
 FOREIGN KEY (MaSize) REFERENCES Size(MaSize);
 
@@ -196,10 +198,17 @@ FOREIGN KEY (MaDH) REFERENCES DonHang(MaDH);
 go
 ALTER TABLE ChiTietDonHang
 ADD CONSTRAINT FK_SPStoCTDH
-FOREIGN KEY (MaSPS) REFERENCES SanPham_Size(MaSPS);
+FOREIGN KEY (MaSPS) REFERENCES SanPhamSize(MaSPS);
 
 --Thêm dữ liệu
 --1 người dùng
+go
+INSERT INTO NguoiDung (MatKhau, HoTen, DiaChi, SDT, Email, TrangThai,hinh, VaiTro)
+VALUES ('Btb.123', 'Bùi Thanh Bùi', '123 Đường ABC, Phường XYZ, Quận NNN Cần Thơ, Việt Nam', '0847151739', 
+'btb@gmail.com',0, 'btb.png', 0);
+INSERT INTO NguoiDung (MatKhau, HoTen, DiaChi, SDT, Email, TrangThai,hinh, VaiTro)
+VALUES ('nva.123', 'Nguyễn Văn An', '123 Đường ABC, Phường XYZ, Quận NNN Cần Thơ, Việt Nam', '0847151123', 
+'nva@gmail.com',0, 'nva.png', 1);
 --2 danh mục 
 go
 INSERT INTO DanhMuc (TenDM,AnhDM,TrangThai) 
@@ -210,7 +219,17 @@ VALUES (N'Converse','category1.jpg',0),
 	   (N'Superme','category5.jpg',1);
 
 --3 nhà cung cấp
+go
+INSERT INTO NhaCungCap Values ('Bitis', 'bitis123@gmail.com', '0946273998', N'22 Lý Chiêu Hoàng, Phường 10, Quận 6, TP. HCM');
+INSERT INTO NhaCungCap Values ('Juno', 'cskh@juno.vn', '0956483958', N'313 Nguyễn Thị Thập, Phường Tân Phú, Quận 7, TP. HCM');
+INSERT INTO NhaCungCap Values ('VinaGiay', 'cskh@vinagiay.vn', '0957684938', N'180 - 182 Lý Chính Thắng, Quận 3, TP. HCM');
+INSERT INTO NhaCungCap Values ('EvaShoes', 'Info@evashoes.com.vn', '0946583875', N'Tầng 1, Số 26 Nguyễn Phong Sắc, Dịch Vọng, Cầu Giấy, Hà Nội');
 --4 giảm giá
+go
+INSERT INTO GiamGia Values (N'Tháng Yêu Thương - Bao La Khuyến Mãi', 70, '2023-06-08', '2023-09-01', N'Chương trình khuyến mãi dành cho quý khi mua giày tại của hàng giày');
+INSERT INTO GiamGia Values (N'Bóc Thăm Trúng Thưởng', 50, '2023-06-01', '2023-07-01', N'Chương trình khuyến mãi dành cho quý khi mua giày tại của hàng giày');
+INSERT INTO GiamGia Values (N'Ngày Vàng Thứ Hai', 50, '2023-06-10', '2023-06-20', N'Chương trình khuyến mãi dành cho quý khi mua giày tại của hàng giày');
+INSERT INTO GiamGia Values (N'Sale Độc Nhât ', 40, '2023-06-10', '2023-08-01', N'Chương trình khuyến mãi dành cho quý khi mua giày tại của hàng giày');
 --5 size
 go
 INSERT INTO Size (Size,TrangThai) 
@@ -223,13 +242,20 @@ VALUES (35,0),
 --6 sản phẩm
 go
 INSERT INTO SanPham (TenSP,HinhAnh1,HinhAnh2,HinhAnh3,Loai,Gia,MoTa,TrangThai,MaDM,MaNCC,MaGiamGia) 
-VALUES (N'Converse Run Star Hike','anh10-1.png','anh10-2.png','anh10-3.png',0,N'Đôi giày Run Star Hike với kiểu dáng Chunky thời thượng cùng phong cách độc đáo, mang lại cho bạn vẻ ngoài thu hút ánh nhìn. Đế giày dày dặn cho bạn thỏa sức hack chiều cao và thêm tự tin xuống phố. Màu đen trắng tinh tế không kém phần thanh lịch sẽ phối hợp rất tốt với nhiều kiểu outfit hàng ngày.',0,1,1,1),
-	   (N'Converse Renew Canvas','hinh7-1.jpg','hinh7-2.jpg','hinh7-3.jpg',1,N'Converse Renew Canvas, phiên bản giới hạn mang mục đích bảo vệ môi trường sẽ được chính thức mở bán tại hệ thống Converse VN từ ngày 5/7 với số lượng giới hạn.',0,1,1,1),
-	   (N'Converse Run Star Move','anh9-1.jpg','anh9-2.jpg','anh9-3.jpg',0,N'Đôi giày Run Star Move với kiểu dáng Chunky thời thượng cùng phong cách độc đáo, mang lại cho bạn vẻ ngoài thu hút ánh nhìn. Đế giày dày dặn cho bạn thỏa sức hack chiều cao và thêm tự tin xuống phố.',0,1,1,1),
-	   (N'Vans Authen DX BW','hinh6-1.jpg','hinh6-2.jpg','hinh6-3.jpg',1,N'Đôi giày Run Star Move với kiểu dáng Chunky thời thượng cùng phong cách độc đáo, mang lại cho bạn vẻ ngoài thu hút ánh nhìn. Đế giày dày dặn cho bạn thỏa sức hack chiều cao và thêm tự tin xuống phố.',0,2,1,1),
-	   (N'Vans SK8-Hi BW','anh11-1.jpg','anh11-2.jpg','anh11-3.jpg',0,N'Vans SK8-Hi với thiết kế cổ cao qua mắt cá chân và giữ lại chi tiết lượn sóng đặc trưng 2 bên thân giày. Sử dụng kết hợp cả 2 chất liệu Canvas và da lộn mềm mại giúp form giày ôm chân hơn. ',0,2,1,1);
+VALUES (N'Converse Run Star Hike','anh10-1.png','anh10-2.png','anh10-3.png',0,200,N'Đôi giày Run Star Hike với kiểu dáng Chunky thời thượng cùng phong cách độc đáo, mang lại cho bạn vẻ ngoài thu hút ánh nhìn.',0,1,1,1),
+	   (N'Converse Renew Canvas','hinh7-1.jpg','hinh7-2.jpg','hinh7-3.jpg',1,300,N'Converse Renew Canvas, phiên bản giới hạn mang mục đích bảo vệ môi trường sẽ được chính thức mở bán tại hệ thống Converse VN từ ngày 5/7 với số lượng giới hạn.',0,1,1,1),
+	   (N'Converse Run Star Move','anh9-1.jpg','anh9-2.jpg','anh9-3.jpg',0,500,N'1Đôi giày Run Star Move với kiểu dáng Chunky thời thượng cùng phong cách độc đáo, mang lại cho bạn vẻ ngoài thu hút ánh nhìn. Đế giày dày dặn cho bạn thỏa sức hack chiều cao và thêm tự tin xuống phố.',0,1,1,1),
+	   (N'Vans Authen DX BW','hinh6-1.jpg','hinh6-2.jpg','hinh6-3.jpg',1,450,N'Đôi giày Run Star Move với kiểu dáng Chunky thời thượng cùng phong cách độc đáo, mang lại cho bạn vẻ ngoài thu hút ánh nhìn. Đế giày dày dặn cho bạn thỏa sức hack chiều cao và thêm tự tin xuống phố.',0,2,1,1),
+	   (N'Vans SK8-Hi BW','anh11-1.jpg','anh11-2.jpg','anh11-3.jpg',0,900,N'Vans SK8-Hi với thiết kế cổ cao qua mắt cá chân và giữ lại chi tiết lượn sóng đặc trưng 2 bên thân giày. Sử dụng kết hợp cả 2 chất liệu Canvas và da lộn mềm mại giúp form giày ôm chân hơn. ',0,2,1,1);
 
 --7 yêu thích
+go
+INSERT INTO YeuThich Values ('2023-08-08', 1, 1);
+INSERT INTO YeuThich Values ('2023-06-28', 2, 5);
+INSERT INTO YeuThich Values ('2023-06-28', 2, 3);
+INSERT INTO YeuThich Values ('2023-07-17', 2, 4);
+INSERT INTO YeuThich Values ('2023-07-18', 2, 2);
+
 --8 sản phẩm size
 go
 INSERT INTO SanPhamSize (MaSP,MaSize,SoLuong) 
