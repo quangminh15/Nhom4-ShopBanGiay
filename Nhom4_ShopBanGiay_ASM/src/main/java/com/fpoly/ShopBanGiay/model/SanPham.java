@@ -1,5 +1,18 @@
 package com.fpoly.ShopBanGiay.model;
 
+
+import java.io.Serializable;
+import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -9,8 +22,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class SanPham {
+@Entity
+@Table(name = "SanPham")
+public class SanPham implements Serializable{
+	@Id
 	@NotNull(message = "{NotNull.SanPham.MaSP}")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int MaSP;
 	
 	@NotBlank(message = "{NotBlank.SanPham.TenSP}")
@@ -44,4 +61,23 @@ public class SanPham {
 	private int MaNCC;
 	
 	private int MaGiamGia;
+	
+	@OneToOne
+	@JoinColumn(name = "MaSP")
+    YeuThich yeuthich;
+	
+	@OneToMany(mappedBy = "sanpham")
+    List<SanPhamSize> sanphamsize;
+	
+	@ManyToOne
+    @JoinColumn(name = "MaDM")
+    DanhMuc danhmuc;
+	
+	@ManyToOne
+    @JoinColumn(name = "MaNCC")
+    NhaCungCap nhacungcap;
+	
+	@ManyToOne
+    @JoinColumn(name = "MaGiamGia")
+    GiamGia giamgia;
 }
