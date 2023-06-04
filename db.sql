@@ -91,6 +91,8 @@ create table SanPhamSize(
 go 
 create table GioHang(
 	MaGH bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	SoLuong int NOT NULL,
+	MaSPS bigint NOT NULL,
 	MaND bigint NOT NULL
 )
 --10 Chi tiết Giỏ Hàng
