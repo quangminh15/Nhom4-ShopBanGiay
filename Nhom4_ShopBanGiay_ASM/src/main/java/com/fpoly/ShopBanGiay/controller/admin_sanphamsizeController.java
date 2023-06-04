@@ -18,16 +18,16 @@ public class admin_sanphamsizeController {
 	public String admin_sanphamsize(SanPhamSize sanphamsize, Model model) {
 		sanphamsize = new SanPhamSize();
 		model.addAttribute("sanphamsize",sanphamsize);
-		return "/admin/admin_sanphamsize";
+		return "admin/admin_sanphamsize";
 	}
 	
 	@PostMapping("/admin_sanphamsize")
 	public String validSize(@Valid @ModelAttribute("sanphamsize") SanPhamSize sanphamsize, BindingResult result,
 			Model model) {
 		if (result.hasErrors()) {
-			return "/admin/admin_sanphamsize";
+			return "admin/admin_sanphamsize";
 		}
 		model.addAttribute("sanphamsize",sanphamsize);
-		return "/admin/admin_sanphamsize";
+		return "admin/admin_sanphamsize";
 	}
 }
