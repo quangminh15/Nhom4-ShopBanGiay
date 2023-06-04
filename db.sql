@@ -91,11 +91,25 @@ create table SanPhamSize(
 go 
 create table GioHang(
 	MaGH bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
-	SoLuong int NOT NULL,
-	MaSPS bigint NOT NULL,
 	MaND bigint NOT NULL
 )
---10 đơn hàng
+--10 Chi tiết Giỏ Hàng
+go
+create table ChiTietGioHang(
+	MaGH bigint  NOT NULL,
+	MaSPS bigint  NOT NULL,
+	SoLuong int  NOT NULL,
+	
+	CONSTRAINT PK_CartDetail PRIMARY KEY (MaGH,MaSPS),
+	
+	CONSTRAINT FK_Cart FOREIGN KEY (MaGH)
+    REFERENCES GioHang(MaGH),
+
+	CONSTRAINT FK_ProductSize FOREIGN KEY (MaSPS)
+    REFERENCES SanPhamSize(MaSPS)
+
+)
+--11 đơn hàng
 go 
 create table DonHang(
 	MaDH bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
@@ -107,7 +121,9 @@ create table DonHang(
 	SdtNhanHang varchar(11) NOT NULL,
 	TrangThai nvarchar(50) NOT NULL
 )
---11 chi tiết đơn hàng
+
+--12 chi tiết đơn hàng
+
 go 
 create table ChiTietDonHang(
 	MaCTDH bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
@@ -115,7 +131,7 @@ create table ChiTietDonHang(
 	MaSPS bigint NOT NULL,
 	SoLuong int NOT NULL
 )
---12 thanh toán
+--13 thanh toán
 go
 create table ThanhToan(
 	MaTT bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
@@ -129,8 +145,6 @@ go
 ALTER TABLE  ThanhToan ADD CONSTRAINT unique1 UNIQUE (MaDH);
 go
 ALTER TABLE  SanPhamSize ADD CONSTRAINT unique2 UNIQUE (MaSP, MaSize);
-go
-ALTER TABLE  GioHang ADD CONSTRAINT unique3 UNIQUE (MaSPS);
 go
 ALTER TABLE  YeuThich ADD CONSTRAINT unique4 UNIQUE (MaSP);
 go
@@ -170,11 +184,11 @@ ALTER TABLE DonHang
 ADD CONSTRAINT FK_NDtoDH
 FOREIGN KEY (MaND) REFERENCES NguoiDung(MaND);
 
-go
+/*go
 ALTER TABLE GioHang
 ADD CONSTRAINT FK_SPStoGH
 FOREIGN KEY (MaSPS) REFERENCES SanPhamSize(MaSPS);
-
+*/
 go
 ALTER TABLE GioHang
 ADD CONSTRAINT FK_NDtoGH
@@ -208,6 +222,10 @@ VALUES ('Btb.123', 'Bùi Thanh Bùi', '123 Đường ABC, Phường XYZ, Quận 
 'btb@gmail.com',0, 'btb.png', 0);
 INSERT INTO NguoiDung (MatKhau, HoTen, DiaChi, SDT, Email, TrangThai,hinh, VaiTro)
 VALUES ('nva.123', 'Nguyễn Văn An', '123 Đường ABC, Phường XYZ, Quận NNN Cần Thơ, Việt Nam', '0847151123', 
+'nva@gmail.com',0, 'nva.png', 1);
+INSERT INTO NguoiDung (MatKhau, HoTen, DiaChi, SDT, Email, TrangThai,hinh, VaiTro)
+VALUES
+('tvb.123', 'Tran Van Binh', '123 Đường ABC, Phường XYZ, Quận NNN Cần Thơ, Việt Nam', '0844576123', 
 'nva@gmail.com',0, 'nva.png', 1);
 --2 danh mục 
 go
@@ -266,7 +284,19 @@ VALUES (1,1,5),
 	   (5,5,45);
 
 --9 giỏ hàng
+go
+INSERT INTO GioHang(MaSPS,SoLuong,MaND) 
+VALUES (2,3,3),
+	   (3,2,3),
+	   (1,2,3),
+	   (4,3,2),
+	   (5,2,2);
+	   
+
 --10 đơn hàng
+go
+INSERT INTO DonHang(MaND,NgayTao,TongTien,DiaChiGiaoHang,NguoiNhan,SdtNhanHang,TrangThai)
+VALUES (2,'2023-06-28',0,N'123 Đường Số 1, Phường An Bình, Quận Ninh Kiều Cần Thơ,',N'Nguyễn Trần Minh Nhân','0943857632',N'Đang Chờ Xác Nhận');
 --11 chi tiết đơn hàng
 --12 thanh toán
 
