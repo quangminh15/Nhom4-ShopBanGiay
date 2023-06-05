@@ -1,4 +1,4 @@
-﻿
+﻿go
 use master
 go
 create database nhom4_shopBanGiay
@@ -146,8 +146,6 @@ ALTER TABLE  ThanhToan ADD CONSTRAINT unique1 UNIQUE (MaDH);
 go
 ALTER TABLE  SanPhamSize ADD CONSTRAINT unique2 UNIQUE (MaSP, MaSize);
 go
-ALTER TABLE  YeuThich ADD CONSTRAINT unique4 UNIQUE (MaSP);
-go
 
 --Tạo liên kết các bảng
 ALTER TABLE SanPham
@@ -273,6 +271,7 @@ INSERT INTO YeuThich Values ('2023-06-28', 2, 5);
 INSERT INTO YeuThich Values ('2023-06-28', 2, 3);
 INSERT INTO YeuThich Values ('2023-07-17', 2, 4);
 INSERT INTO YeuThich Values ('2023-07-18', 2, 2);
+INSERT INTO YeuThich Values ('2023-08-08', 2, 1);
 
 --8 sản phẩm size
 go
