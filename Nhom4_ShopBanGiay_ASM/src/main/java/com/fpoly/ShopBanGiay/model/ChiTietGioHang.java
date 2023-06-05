@@ -9,21 +9,30 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name="GioHang")
-public class GioHang implements Serializable{
+@Table(name="ChiTietGioHang")
+public class ChiTietGioHang implements Serializable{
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@OneToMany
     @Column(name = "MaGH")
-    Integer maGH;
+    GioHang gioHang;
 	
-	@ManyToOne
-    @JoinColumn(name = "MaND")
-    NguoiDung nguoidung;
+	@Id
+	@OneToMany
+	@JoinColumn(name = "MaSPS")
+    SanPhamSize sanphamsize;
+	
+	
+	@Column(name = "SoLuong")
+	Integer soLuong;
+	 
+	
+	
 }
