@@ -25,6 +25,7 @@ public class DanhMuc  implements Serializable{
 	@Id
 	@NotNull(message = "{NotNull.DanhMuc.MaSize}")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "MaDM")
 	private int MaDM;
 	
 	@NotBlank(message = "{NotBlank.DanhMuc.Size}")
