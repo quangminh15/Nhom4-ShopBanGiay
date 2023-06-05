@@ -25,6 +25,7 @@ public class SanPhamSize  implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotNull(message = "{NotNull.SanPhamSize.MaSPS}")
+	@Column(name = "MaSPS")
 	private int MaSPS;
 	
 	@NotNull(message = "{NotNull.SanPhamSize.MaSP}")

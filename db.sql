@@ -1,4 +1,4 @@
-﻿
+﻿go
 use master
 go
 create database nhom4_shopBanGiay
@@ -147,8 +147,6 @@ go
 ALTER TABLE  ThanhToan ADD CONSTRAINT unique1 UNIQUE (MaDH);
 go
 ALTER TABLE  SanPhamSize ADD CONSTRAINT unique2 UNIQUE (MaSP, MaSize);
-go
-ALTER TABLE  GioHang ADD CONSTRAINT unique3 UNIQUE (MaSPS);
 go
 
 --Tạo liên kết các bảng

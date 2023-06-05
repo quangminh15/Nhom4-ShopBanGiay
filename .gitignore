@@ -1,2 +1,5 @@
-*.project
-*.properties
+bin
+target
+.project
+.settings
+.idea
