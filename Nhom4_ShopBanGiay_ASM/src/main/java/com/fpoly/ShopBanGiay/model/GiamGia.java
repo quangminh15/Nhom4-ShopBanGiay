@@ -18,12 +18,12 @@ import lombok.Data;
 public class GiamGia  implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer MaGiamGia;
-	String TenGiamGia;
-	Float GiamGia;
-	Date NgayTao = new Date();
-	Date NgayKetThuc = new Date();
-	String MoTa;
+	Integer magiamgia;
+	String tengiamgia;
+	Float giamgia;
+	Date ngaytao = new Date();
+	Date ngayketthuc = new Date();
+	String mota;
 	
 	@OneToMany(mappedBy = "giamgia")
     List<SanPham> sanpham;

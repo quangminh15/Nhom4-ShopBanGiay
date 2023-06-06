@@ -26,19 +26,19 @@ import lombok.NoArgsConstructor;
 public class ThanhToan implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MaTT")
+    @Column(name = "matt")
     Integer maTT;
 	
-	@Column(name = "NgayTao")
+	@Column(name = "ngaytao")
     java.util.Date ngayTao = new java.util.Date();
 	
-	@Column(name = "PhuongThuc")
+	@Column(name = "phuongthuc")
 	String phuongThuc;
 	
-	@Column(name = "TrangThai")
+	@Column(name = "trangthai")
 	String trangThai;
 	
 	@OneToOne
-	@JoinColumn(name = "MaDH")
+	@JoinColumn(name = "madh",referencedColumnName = "madh")
     DonHang donhang;
 }

@@ -20,10 +20,14 @@ public class GioHang implements Serializable{
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MaGH")
+    @Column(name = "magh")
     Integer maGH;
+	 
+//	@OneToOne
+//	@JoinColumn(name = "masps")
+//    SanPhamSize sanphamsize;
 	
 	@ManyToOne
-    @JoinColumn(name = "MaND")
+    @JoinColumn(name = "mand")
     NguoiDung nguoidung;
 }

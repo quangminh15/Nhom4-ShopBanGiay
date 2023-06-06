@@ -22,36 +22,35 @@ import lombok.Data;
 public class DonHang implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "MaDH")
+	@Column(name = "madh")
 	Integer maDH;
 
-	@Column(name = "NgayTao")
+	@Column(name = "ngaytao")
 	java.util.Date ngayTao = new java.util.Date();
 
-	@Column(name = "TongTien")
+	@Column(name = "tongtien")
 	Double tongTien;
 
-	@Column(name = "DiaChiGiaoHang")
+	@Column(name = "diachigiaohang")
 	String diaChiGiaoHang;
 
-	@Column(name = "NguoiNhan")
+	@Column(name = "nguoinhan")
 	String nguoiNhan;
 
-	@Column(name = "SdtNhanHang")
+	@Column(name = "sdtnhanhang")
 	String sdtNhanHang;
 
-	@Column(name = "TrangThai")
+	@Column(name = "trangthai")
 	String trangThai;
 
 	@ManyToOne
-	@JoinColumn(name = "MaND")
+	@JoinColumn(name = "mand")
 	NguoiDung nguoidung;
 	
-	@OneToOne
-	@JoinColumn(name = "MaDH")
+	@OneToOne(mappedBy = "donhang")
     ThanhToan thanhtoan;
 	
-	@OneToMany(mappedBy = "MaDH")
+	@OneToMany(mappedBy = "madh")
     List<ChiTietDonHang> chitietdonhang;
 	
 	

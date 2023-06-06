@@ -244,56 +244,63 @@
                             Form Sản Phẩm
                         </div>
                         <div class="card-body">
-                            <form action="">
+                            <form th:action="@{/admin_sanpham}" method="post" th:object="${sanpham}">
                                 <div class="row">
                                     <div class="mb-3 col-md-12">
                                         <label for="masanpham" class="form-label fs-17">Mã sản phẩm:</label>
-                                        <input type="text" class="form-control" id="masanpham" placeholder="">
+                                        <input type="text" class="form-control" id="masanpham" th:field="*{MaSP}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('MaSP')}" th:errors="*{MaSP}"></div>
                                     </div>
                                     <div class="mb-3 col-md-12">
                                         <label for="tensanphamm" class="form-label fs-17">Tên sản phẩm:</label>
-                                        <input type="number" class="form-control" id="tensanphamm" placeholder="">
+                                        <input type="number" class="form-control" id="tensanphamm" th:field="*{TenSP}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('TenSP')}" th:errors="*{TenSP}"></div>
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-md-4">
                                             <label for="anhsanpham1" class="form-label fs-17">Ảnh 1:</label> <br>
                                             <img src="./images/default.png" style="width: 200px; height: fit-content;"
                                                 alt="hinhanh">
-                                            <input type="file" class="form-control" id="anhsanpham1" placeholder="">
+                                            <input type="file" class="form-control" id="anhsanpham1" th:field="*{HinhAnh1}">
+                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('HinhAnh1')}" th:errors="*{HinhAnh1}"></div>
                                         </div>
                                         <div class="mb-3 col-md-4">
                                             <label for="anhsanpham2" class="form-label fs-17">Ảnh 2:</label> <br>
                                             <img src="./images/default.png" style="width: 200px; height: fit-content;"
                                                 alt="hinhanh">
-                                            <input type="file" class="form-control" id="anhsanpham2" placeholder="">
+                                            <input type="file" class="form-control" id="anhsanpham2" th:field="*{HinhAnh2}">
+                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('HinhAnh2')}" th:errors="*{HinhAnh2}"></div>
                                         </div>
                                         <div class="mb-3 col-md-4">
                                             <label for="anhsanpham3" class="form-label fs-17">Ảnh 3:</label> <br>
                                             <img src="./images/default.png" style="width: 200px; height: fit-content;"
                                                 alt="hinhanh">
-                                            <input type="file" class="form-control" id="anhsanpham3" placeholder="">
+                                            <input type="file" class="form-control" id="anhsanpham3" th:field="*{HinhAnh3}">
+                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('HinhAnh3')}" th:errors="*{HinhAnh3}"></div>
                                         </div>
                                         <label class="form-label fs-17">Loại giày:</label> <br>
 							                <div class="d-inline-flex">
 							                    <div class="form-check mx-4">
-							                        <input type="radio" class="form-check-input" id="radio1"  value="true"
+							                        <input type="radio" class="form-check-input" id="radio1"  value="true" th:field="*{Loai}"
 							                            checked>
 							                        <label class="form-check-label fs-17" for="radio1">Cao</label>
 							                    </div>
-<!-- 							                    th:field="*{gender}" -->
 							                    <div class="form-check ">
-							                        <input type="radio" class="form-check-input" id="radio2"  value="false">
+							                        <input type="radio" class="form-check-input" id="radio2"  value="false" th:field="*{Loai}"> 
 							                        <label class="form-check-label fs-17" for="radio2">Thấp</label>
 							                    </div>
+							                    
 							                </div>
-<!-- 							                <div class="alert alert-danger" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></div> -->
+							                <div class="alert alert-danger" th:if="${#fields.hasErrors('Loai')}" th:errors="*{Loai}"></div>
                                         <div class="mb-3 col-md-12">
                                             <label for="giassanpham" class="form-label fs-17">Giá:</label>
-                                            <input type="number" class="form-control" id="giassanpham" placeholder="">
+                                            <input type="number" class="form-control" id="giassanpham" th:field="*{MoTa}">
+                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('Gia')}" th:errors="*{Gia}"></div>
                                         </div>
                                         <div class="mb-3 col-md-12"> 
                                             <label for="motaaa" class="form-label fs-17">Mô tả:</label>
-                                            <input type="number" class="form-control" id="motaaa" placeholder="">
+                                            <input type="number" class="form-control" id="motaaa" th:field="*{MoTa}">
+                      						<div class="alert alert-danger" th:if="${#fields.hasErrors('MoTa')}" th:errors="*{Mota}"></div>
                                         </div>
                                         <div class="mb-3 col-md-12">
                                             <label for="madanhmcu" class="form-label fs-17">Mã danh mục:</label>

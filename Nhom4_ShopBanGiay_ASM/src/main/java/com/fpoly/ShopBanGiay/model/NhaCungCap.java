@@ -17,11 +17,11 @@ import lombok.Data;
 public class NhaCungCap  implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer MaNCC;
-	String TenNCC;
-	String Email;
-	String SDT;
-	String DiaChi;
+	Integer mancc;
+	String tenncc;
+	String email;
+	String sdt;
+	String diachi;
 	
 	@OneToMany(mappedBy = "nhacungcap")
     List<SanPham> sanpham;
