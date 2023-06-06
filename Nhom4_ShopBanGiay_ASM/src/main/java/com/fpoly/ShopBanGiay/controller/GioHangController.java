@@ -8,6 +8,6 @@ public class GioHangController {
 
 	@GetMapping("/giohang")
 	public String GioHang() {
-		return "giohang";
+		return "/nguoidung/giohang";
 	}
 }

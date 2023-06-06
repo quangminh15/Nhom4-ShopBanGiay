@@ -8,6 +8,6 @@ public class ThongTInController {
 
 	@GetMapping("/thongtin")
 	public String ThongTin() {
-		return "thongtin";
+		return "/nguoidung/thongtin";
 	}
 }
