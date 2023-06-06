@@ -31,8 +31,8 @@ public class admin_sizeController {
 		return "/admin/admin_size";
 	}
 	
-	@RequestMapping("/edit/{MaSize}")
-	public String edit(Model model, @PathVariable("MaSize") Integer MaSize) {
+	@RequestMapping("/edit/{masize}")
+	public String edit(Model model, @PathVariable("masize") Integer MaSize) {
 		Size size = sizeDAO.findById(MaSize).get();
 		model.addAttribute("size",size);
 		List<Size> sizes = sizeDAO.findAll();
@@ -59,20 +59,20 @@ public class admin_sizeController {
 			return "/admin/admin_size";
 		}
 		sizeDAO.save(size);
-		return "redirect:/edit/" + size.getMaSize();
+		return "redirect:/edit/" + size.getMasize();
 	}
 	
 	@RequestMapping("/delete/{MaSize}")
-	public String create(@PathVariable("MaSize") Integer MaSize) {
+	public String create(@PathVariable("masize") Integer MaSize) {
 		sizeDAO.deleteById(MaSize);
 		return "redirect:/admin/admin_size";
 	}
 	
 	@PostMapping("/clear")
 	public String clear(@ModelAttribute("size") Size size) {
-		size.setMaSize(0);
+		size.setMasize(0);
 		size.setSize(null);
-		size.setTrangThai(true);
+		size.setTrangthai(true);
 		return "redirect:/admin/admin_size";
 	}
 }

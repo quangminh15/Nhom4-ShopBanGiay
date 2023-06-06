@@ -11,24 +11,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.ShopBanGiay.dao.ChiTietGioHangDAO;
+import com.fpoly.ShopBanGiay.model.ChiTietDonHang;
+import com.fpoly.ShopBanGiay.model.ChiTietGioHang;
 import com.fpoly.ShopBanGiay.model.SanPhamSize;
+import com.fpoly.ShopBanGiay.model.Size;
 
 
 @Controller
 public class GioHangController {
 	@Autowired
 	ChiTietGioHangDAO dao;
-	@GetMapping("/giohang")
-	public String GioHang(Model model) {
-		SanPhamSize item = new SanPhamSize();
-		model.addAttribute("carts", item);
-		
-	
-		List<SanPhamSize> products = dao.getGioHang();
-
-		
-		model.addAttribute("carts", products);
-		
+	@RequestMapping("/giohang")
+	public String getGioHang(ChiTietGioHang gh, Model model) {
+		ChiTietGioHang ctgh = new ChiTietGioHang();
+		model.addAttribute("cart",ctgh);
+		List<ChiTietGioHang> carts = dao.findAll();
+		model.addAttribute("carts", carts);
 		return "/nguoidung/giohang";
 	}
 	

@@ -6,5 +6,4 @@ import com.fpoly.ShopBanGiay.model.ChiTietDonHang;
 
 
 public interface ChiTietDonHangDAO extends JpaRepository<ChiTietDonHang, Integer>{
-
 }

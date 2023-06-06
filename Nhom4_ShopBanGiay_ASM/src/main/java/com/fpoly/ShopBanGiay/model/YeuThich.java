@@ -3,6 +3,7 @@ package com.fpoly.ShopBanGiay.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,16 +19,18 @@ import lombok.Data;
 public class YeuThich  implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ma_yeu_thich")
 	Integer mayeuthich;
+	@Column(name = "ngay_thich")
 	Date ngaythich = new Date();
-	Integer mand;
-	Integer masp;
+//	Integer mand;
+//	Integer masp;
 	
 	@ManyToOne
-    @JoinColumn(name = "mand")
+    @JoinColumn(name = "ma_nd")
     NguoiDung nguoidung;
 	
 	@ManyToOne
-	@JoinColumn(name = "masp")
+	@JoinColumn(name = "ma_sp")
     SanPham sanpham;
 }

@@ -19,21 +19,21 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "Size")
+@Table(name = "size")
 public class Size  implements Serializable{
 	@Id
 	@NotNull(message = "{NotNull.Size.MaSize}")
-	@Column(name = "masize")
+	@Column(name = "ma_size")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int MaSize;
+	private int masize;
 	
 	@NotNull(message = "{NotNull.Size.Size}")
-	@Column(name = "sizegiay")
-	private Float Size;
+	@Column(name = "size_giay")
+	private Float size;
 	
 	@NotNull(message = "{NotNull.Size.TrangThai}")
-	@Column(name = "trangthai")
-	private Boolean TrangThai;
+	@Column(name = "trang_thai")
+	private Boolean trangthai;
 	
 	@OneToMany(mappedBy = "size")
     List<SanPhamSize> sanphamsize;

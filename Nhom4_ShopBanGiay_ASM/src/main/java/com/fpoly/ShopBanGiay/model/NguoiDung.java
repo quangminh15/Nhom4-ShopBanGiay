@@ -21,46 +21,46 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "NguoiDung")
+@Table(name = "nguoidung")
 public class NguoiDung  implements Serializable{
 	@Id
 	@NotNull(message = "{NotNull.NguoiDung.MaND}")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "mand")
-	int MaND;
+	@Column(name = "ma_nd")
+	int mand;
 		
 	@NotBlank(message = "{NotBlank.NguoiDung.MatKhau}")
-	@Column(name = "matkhau")
-	String MatKhau;
+	@Column(name = "mat_khau")
+	String matkhau;
 	
 	@NotBlank(message = "{NotBlank.NguoiDung.HoTen}")
-	@Column(name = "hoten")
-	String HoTen;
+	@Column(name = "ho_ten")
+	String hoten;
 	
 	@NotBlank(message = "{NotBlank.NguoiDung.DiaChi}")
-	@Column(name = "diachi")
-	String DiaChi ;
+	@Column(name = "dia_chi")
+	String diachi ;
 	
 	@NotBlank(message = "{NotBlank.NguoiDung.SDT}")
 	@Column(name = "sdt")
-	String SDT ;
+	String sdt ;
 	
 	@NotBlank(message = "{NotBlank.NguoiDung.Email}")
 	@Email(message = "{Email.NguoiDung.Email}")
 	@Column(name = "email")
-	String Email ;
+	String email ;
 	
 	@NotNull(message = "{NotNull.NguoiDung.TrangThai}")
-	@Column(name = "trangthai")
-	boolean TrangThai;
+	@Column(name = "trang_thai")
+	boolean trangthai;
 	
 	@NotBlank(message = "{NotBlank.NguoiDung.Hinh}")
 	@Column(name = "hinh")
-	String Hinh ;
+	String hinh ;
 	
 	@NotNull(message = "{NotBlank.NguoiDung.VaiTro}")
-	@Column(name = "vaitro")
-	boolean VaiTro ;
+	@Column(name = "vai_tro")
+	boolean vaitro ;
 	
 	@OneToMany(mappedBy = "nguoidung")
     List<YeuThich> yeuthich;

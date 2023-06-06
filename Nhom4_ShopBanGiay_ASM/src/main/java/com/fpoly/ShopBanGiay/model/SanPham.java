@@ -29,51 +29,51 @@ public class SanPham implements Serializable{
 	@Id
 	@NotNull(message = "{NotNull.SanPham.MaSP}")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "masp")
-	private int MaSP;
+	@Column(name = "ma_sp")
+	private int masp;
 	
-	@Column(name = "tensp")
+	@Column(name = "ten_sp")
 	@NotBlank(message = "{NotBlank.SanPham.TenSP}")
-	private String TenSP;
+	private String tensp;
 	
-	@Column(name = "hinhanh1")
+	@Column(name = "hinh_anh1")
 	@NotBlank(message = "{NotBlank.SanPham.HinhAnh1}")
-	private String HinhAnh1;
+	private String hinhanh1;
 	
-	@Column(name = "hinhanh2")
+	@Column(name = "hinh_anh2")
 	@NotBlank(message = "{NotBlank.SanPham.HinhAnh2}")
-	private String HinhAnh2;
+	private String hinhanh2;
 	
-	@Column(name = "hinhanh3")
+	@Column(name = "hinh_anh3")
 	@NotBlank(message = "{NotBlank.SanPham.HinhAnh3}")
-	private String HinhAnh3;
+	private String hinhanh3;
 	
 	@Column(name = "loai")
 	@NotNull(message = "{NotNull.SanPham.Loai}")
-	private Boolean Loai;
+	private Boolean loai;
 	
 	@Column(name = "gia")
 	@NotBlank(message = "{NotBlank.SanPham.Gia}")
-	private Float Gia;
+	private Float gia;
 	
-	@Column(name = "mota")
+	@Column(name = "mo_ta")
 	@NotBlank(message = "{NotBlank.SanPham.MoTa}")
-	private String MoTa;
+	private String mota;
 	
-	@Column(name = "trangthai")
+	@Column(name = "trang_thai")
 	@NotBlank(message = "{NotBlank.SanPham.TrangThai}")
-	private boolean TrangThai;
+	private boolean trangthai;
 	
-	@Column(name = "madm")
-	@NotNull(message = "{NotNull.SanPham.MaDM}")
-	private int MaDM;
+//	@Column(name = "madm")
+//	@NotNull(message = "{NotNull.SanPham.MaDM}")
+//	private int MaDM;
+//	
+//	@Column(name = "mancc")
+//	@NotNull(message = "{NotNull.SanPham.MaNCC}")
+//	private int MaNCC;
 	
-	@Column(name = "mancc")
-	@NotNull(message = "{NotNull.SanPham.MaNCC}")
-	private int MaNCC;
-	
-	@Column(name = "magiamgia")
-	private int MaGiamGia;
+//	@Column(name = "magiamgia")
+//	private int MaGiamGia;
 	
 	@OneToMany(mappedBy = "sanpham")
 	List<YeuThich> yeuthich;
@@ -82,14 +82,14 @@ public class SanPham implements Serializable{
     List<SanPhamSize> sanphamsize;
 	
 	@ManyToOne
-    @JoinColumn(name = "madm")
+    @JoinColumn(name = "ma_dm")
     DanhMuc danhmuc;
 	
 	@ManyToOne
-    @JoinColumn(name = "mancc")
+    @JoinColumn(name = "ma_ncc")
     NhaCungCap nhacungcap;
 	
 	@ManyToOne
-    @JoinColumn(name = "magiamgia")
+    @JoinColumn(name = "ma_giam_gia")
     GiamGia giamgia;
 }

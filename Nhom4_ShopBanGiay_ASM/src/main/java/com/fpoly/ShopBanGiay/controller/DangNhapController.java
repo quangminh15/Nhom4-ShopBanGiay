@@ -23,10 +23,10 @@ public class DangNhapController {
 	@PostMapping("/dangnhap")
 	public String validDangNhap(@Valid @ModelAttribute("nguoidung") NguoiDung nguoidung, BindingResult result,
 			Model model) {
-		if (nguoidung.getEmail().equals("nguoidung@gmail.com") && nguoidung.getMatKhau().equals("12345")) {
+		if (nguoidung.getEmail().equals("nguoidung@gmail.com") && nguoidung.getMatkhau().equals("12345")) {
 			return "/nguoidung/trangchu";
 		}
-		if (nguoidung.getEmail().equals("admin@gmail.com") && nguoidung.getMatKhau().equals("12345")) {
+		if (nguoidung.getEmail().equals("admin@gmail.com") && nguoidung.getMatkhau().equals("12345")) {
 			return "/admin/admin_nguoidung";
 		}
 

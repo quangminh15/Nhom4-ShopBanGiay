@@ -18,20 +18,20 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="ChiTietDonHang")
+@Table(name="chitietdonhang")
 public class ChiTietDonHang {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "mactdh")
-    Integer maCTDH;
+    @Column(name = "ma_ctdh")
+    Integer mactdh;
 
-	@Column(name = "soluong")
-	Integer soLuong;
+	@Column(name = "so_luong")
+	Integer soluong;
 	
 	@ManyToOne
-    @JoinColumn(name = "madh")
+    @JoinColumn(name = "ma_dh")
     DonHang donhang;
 	
-	@OneToMany(mappedBy = "masps")
+	@OneToMany(mappedBy = "chitietdonhang")
     List<SanPhamSize> sanphamsize;
 }

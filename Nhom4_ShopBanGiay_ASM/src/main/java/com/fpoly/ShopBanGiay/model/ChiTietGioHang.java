@@ -16,22 +16,28 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
-@Embeddable
+
+@Entity
+@Table(name="chitietgiohang")
 public class ChiTietGioHang implements Serializable{
 	
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ma_ctgh")
+	int mactgh;
+	
 	@ManyToOne
-	@JoinColumn(name = "MaGH")
-    GioHang gioHang;
+	@JoinColumn(name = "ma_gh")
+    GioHang giohang;
 	
 	
 	@ManyToOne
-	@JoinColumn(name = "MaSPS")
+	@JoinColumn(name = "ma_sps")
     SanPhamSize sanphamsize;
 	
 	
-	@Column(name = "SoLuong")
-	Integer soLuong;
+	@Column(name = "so_luong")
+	Integer soluong;
 	 
 	
 	

@@ -22,23 +22,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="ThanhToan")
+@Table(name="thanhtoan")
 public class ThanhToan implements Serializable{
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "matt")
-    Integer maTT;
+    @Column(name = "ma_tt")
+    Integer matt;
 	
-	@Column(name = "ngaytao")
-    java.util.Date ngayTao = new java.util.Date();
+	@Column(name = "ngay_tao")
+    java.util.Date ngaytao = new java.util.Date();
 	
-	@Column(name = "phuongthuc")
-	String phuongThuc;
+	@Column(name = "phuong_thuc")
+	String phuongthuc;
 	
-	@Column(name = "trangthai")
-	String trangThai;
+	@Column(name = "trang_thai")
+	String trangthai;
 	
 	@OneToOne
-	@JoinColumn(name = "madh",referencedColumnName = "madh")
+	@JoinColumn(name = "ma_dh",referencedColumnName = "ma_dh")
     DonHang donhang;
 }
