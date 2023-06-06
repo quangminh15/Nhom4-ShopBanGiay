@@ -26,40 +26,40 @@ public class NguoiDung  implements Serializable{
 	@Id
 	@NotNull(message = "{NotNull.NguoiDung.MaND}")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "MaND")
+	@Column(name = "mand")
 	int MaND;
 		
 	@NotBlank(message = "{NotBlank.NguoiDung.MatKhau}")
-	@Column(name = "MatKhau")
+	@Column(name = "matkhau")
 	String MatKhau;
 	
 	@NotBlank(message = "{NotBlank.NguoiDung.HoTen}")
-	@Column(name = "HoTen")
+	@Column(name = "hoten")
 	String HoTen;
 	
 	@NotBlank(message = "{NotBlank.NguoiDung.DiaChi}")
-	@Column(name = "DiaChi")
+	@Column(name = "diachi")
 	String DiaChi ;
 	
 	@NotBlank(message = "{NotBlank.NguoiDung.SDT}")
-	@Column(name = "SDT")
+	@Column(name = "sdt")
 	String SDT ;
 	
 	@NotBlank(message = "{NotBlank.NguoiDung.Email}")
 	@Email(message = "{Email.NguoiDung.Email}")
-	@Column(name = "Email")
+	@Column(name = "email")
 	String Email ;
 	
 	@NotNull(message = "{NotNull.NguoiDung.TrangThai}")
-	@Column(name = "TrangThai")
+	@Column(name = "trangthai")
 	boolean TrangThai;
 	
 	@NotBlank(message = "{NotBlank.NguoiDung.Hinh}")
-	@Column(name = "Hinh")
+	@Column(name = "hinh")
 	String Hinh ;
 	
 	@NotNull(message = "{NotBlank.NguoiDung.VaiTro}")
-	@Column(name = "VaiTro")
+	@Column(name = "vaitro")
 	boolean VaiTro ;
 	
 	@OneToMany(mappedBy = "nguoidung")

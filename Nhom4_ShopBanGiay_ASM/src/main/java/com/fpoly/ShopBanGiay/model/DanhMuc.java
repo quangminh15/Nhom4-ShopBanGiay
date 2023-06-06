@@ -25,19 +25,19 @@ public class DanhMuc  implements Serializable{
 	@Id
 	@NotNull(message = "{NotNull.DanhMuc.MaSize}")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "MaDM")
+	@Column(name = "madm")
 	private int MaDM;
 	
 	@NotBlank(message = "{NotBlank.DanhMuc.Size}")
-	@Column(name = "TenDM")
+	@Column(name = "tendm")
 	private String TenDM;
 	
 	@NotBlank(message = "{NotBlank.DanhMuc.Size}")
-	@Column(name = "AnhDM")
+	@Column(name = "anhdm")
 	private String AnhDM;
 	
 	@NotNull(message = "{NotNull.DanhMuc.TrangThai}")
-	@Column(name = "TrangThai")
+	@Column(name = "trangthai")
 	private Boolean TrangThai;
 	
 	@OneToMany(mappedBy = "danhmuc")

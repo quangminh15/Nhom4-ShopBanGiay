@@ -22,16 +22,16 @@ import lombok.Data;
 public class ChiTietDonHang {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MaCTDH")
+    @Column(name = "mactdh")
     Integer maCTDH;
 
-	@Column(name = "SoLuong")
+	@Column(name = "soluong")
 	Integer soLuong;
 	
 	@ManyToOne
-    @JoinColumn(name = "MaDH")
+    @JoinColumn(name = "madh")
     DonHang donhang;
 	
-	@OneToMany(mappedBy = "MaSPS")
+	@OneToMany(mappedBy = "masps")
     List<SanPhamSize> sanphamsize;
 }

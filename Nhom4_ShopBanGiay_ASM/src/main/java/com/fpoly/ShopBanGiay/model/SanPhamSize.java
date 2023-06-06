@@ -25,34 +25,34 @@ public class SanPhamSize  implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotNull(message = "{NotNull.SanPhamSize.MaSPS}")
-	@Column(name = "MaSPS")
+	@Column(name = "masps")
 	private int MaSPS;
 	
 	@NotNull(message = "{NotNull.SanPhamSize.MaSP}")
-	@Column(name = "MaSP")
+	@Column(name = "masp")
 	private int MaSP;
 	
-	@Column(name = "MaSize")
+	@Column(name = "masize")
 	@NotNull(message = "{NotNull.SanPhamSize.MaSize}")
 	private int MaSize;
 	
-	@Column(name = "SoLuong")
+	@Column(name = "soluong")
 	@NotNull(message = "{NotNull.SanPhamSize.SoLuong}")
 	private int SoLuong;
 	
 	@ManyToOne
-    @JoinColumn(name = "MaSize")
+    @JoinColumn(name = "masize")
     Size size;
 	
 	@ManyToOne
-    @JoinColumn(name = "MaSP")
+    @JoinColumn(name = "masp")
     SanPham sanpham;
 	
 	@ManyToOne
-    @JoinColumn(name = "MaSPS")
+    @JoinColumn(name = "masps")
     ChiTietDonHang chitietdonhang;
 	
-	@OneToOne
-	@JoinColumn(name = "MaSPS")
-    GioHang giohang;
+//	@OneToOne
+//	@JoinColumn(name = "masps")
+//    GioHang giohang;
 }

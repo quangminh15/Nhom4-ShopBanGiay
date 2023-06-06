@@ -29,67 +29,67 @@ public class SanPham implements Serializable{
 	@Id
 	@NotNull(message = "{NotNull.SanPham.MaSP}")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "MaSP")
+	@Column(name = "masp")
 	private int MaSP;
 	
-	@Column(name = "TenSP")
+	@Column(name = "tensp")
 	@NotBlank(message = "{NotBlank.SanPham.TenSP}")
 	private String TenSP;
 	
-	@Column(name = "HinhAnh1")
+	@Column(name = "hinhanh1")
 	@NotBlank(message = "{NotBlank.SanPham.HinhAnh1}")
 	private String HinhAnh1;
 	
-	@Column(name = "HinhAnh2")
+	@Column(name = "hinhanh2")
 	@NotBlank(message = "{NotBlank.SanPham.HinhAnh2}")
 	private String HinhAnh2;
 	
-	@Column(name = "HinhAnh3")
+	@Column(name = "hinhanh3")
 	@NotBlank(message = "{NotBlank.SanPham.HinhAnh3}")
 	private String HinhAnh3;
 	
-	@Column(name = "Loai")
+	@Column(name = "loai")
 	@NotNull(message = "{NotNull.SanPham.Loai}")
 	private Boolean Loai;
 	
-	@Column(name = "Gia")
+	@Column(name = "gia")
 	@NotBlank(message = "{NotBlank.SanPham.Gia}")
 	private Float Gia;
 	
-	@Column(name = "MoTa")
+	@Column(name = "mota")
 	@NotBlank(message = "{NotBlank.SanPham.MoTa}")
 	private String MoTa;
 	
-	@Column(name = "TrangThai")
+	@Column(name = "trangthai")
 	@NotBlank(message = "{NotBlank.SanPham.TrangThai}")
 	private boolean TrangThai;
 	
-	@Column(name = "MaDM")
+	@Column(name = "madm")
 	@NotNull(message = "{NotNull.SanPham.MaDM}")
 	private int MaDM;
 	
-	@Column(name = "MaNCC")
+	@Column(name = "mancc")
 	@NotNull(message = "{NotNull.SanPham.MaNCC}")
 	private int MaNCC;
 	
-	@Column(name = "MaGiamGia")
+	@Column(name = "magiamgia")
 	private int MaGiamGia;
 	
-	@OneToOne(mappedBy = "sanpham")
-    YeuThich yeuthich;
+	@OneToMany(mappedBy = "sanpham")
+	List<YeuThich> yeuthich;
 	
 	@OneToMany(mappedBy = "sanpham")
     List<SanPhamSize> sanphamsize;
 	
 	@ManyToOne
-    @JoinColumn(name = "MaDM")
+    @JoinColumn(name = "madm")
     DanhMuc danhmuc;
 	
 	@ManyToOne
-    @JoinColumn(name = "MaNCC")
+    @JoinColumn(name = "mancc")
     NhaCungCap nhacungcap;
 	
 	@ManyToOne
-    @JoinColumn(name = "MaGiamGia")
+    @JoinColumn(name = "magiamgia")
     GiamGia giamgia;
 }

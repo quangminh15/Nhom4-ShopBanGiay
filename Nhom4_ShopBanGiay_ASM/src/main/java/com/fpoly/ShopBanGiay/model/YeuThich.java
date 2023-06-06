@@ -18,16 +18,16 @@ import lombok.Data;
 public class YeuThich  implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer MaYeuThich;
-	Date NgayThich = new Date();
-	Integer MaND;
-	Integer MaSP;
+	Integer mayeuthich;
+	Date ngaythich = new Date();
+	Integer mand;
+	Integer masp;
 	
 	@ManyToOne
-    @JoinColumn(name = "MaND")
+    @JoinColumn(name = "mand")
     NguoiDung nguoidung;
 	
 	@ManyToOne
-	@JoinColumn(name = "MaSP")
+	@JoinColumn(name = "masp")
     SanPham sanpham;
 }

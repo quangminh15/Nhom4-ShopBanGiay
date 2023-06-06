@@ -23,16 +23,16 @@ import lombok.NoArgsConstructor;
 public class Size  implements Serializable{
 	@Id
 	@NotNull(message = "{NotNull.Size.MaSize}")
-	@Column(name = "MaSize")
+	@Column(name = "masize")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int MaSize;
 	
 	@NotNull(message = "{NotNull.Size.Size}")
-	@Column(name = "Size")
+	@Column(name = "sizegiay")
 	private Float Size;
 	
 	@NotNull(message = "{NotNull.Size.TrangThai}")
-	@Column(name = "TrangThai")
+	@Column(name = "trangthai")
 	private Boolean TrangThai;
 	
 	@OneToMany(mappedBy = "size")
