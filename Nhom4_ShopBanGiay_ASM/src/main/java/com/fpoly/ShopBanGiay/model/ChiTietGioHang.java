@@ -3,6 +3,7 @@ package com.fpoly.ShopBanGiay.model;
 import java.io.Serializable;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Embeddable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,17 +16,16 @@ import jakarta.persistence.Table;
 import lombok.Data;
 
 @Data
-@Entity
-@Table(name="ChiTietGioHang")
+@Embeddable
 public class ChiTietGioHang implements Serializable{
 	
-	@Id
-	@OneToMany
-    @Column(name = "MaGH")
+
+	@ManyToOne
+	@JoinColumn(name = "MaGH")
     GioHang gioHang;
 	
-	@Id
-	@OneToMany
+	
+	@ManyToOne
 	@JoinColumn(name = "MaSPS")
     SanPhamSize sanphamsize;
 	
