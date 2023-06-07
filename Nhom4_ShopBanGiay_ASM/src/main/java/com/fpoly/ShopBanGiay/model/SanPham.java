@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "SanPham")
+@Table(name = "sanpham")
 public class SanPham implements Serializable{
 	@Id
 	@NotNull(message = "{NotNull.SanPham.MaSP}")

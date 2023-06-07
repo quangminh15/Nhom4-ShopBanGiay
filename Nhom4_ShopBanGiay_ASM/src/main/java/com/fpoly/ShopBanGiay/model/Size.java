@@ -22,21 +22,27 @@ import lombok.NoArgsConstructor;
 @Table(name = "size")
 public class Size  implements Serializable{
 	@Id
-	@NotNull(message = "{NotNull.Size.MaSize}")
-	@Column(name = "ma_size")
+	@NotNull(message = "{NotNull.Size.masize}")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "ma_size")
 	private int masize;
 	
-	@NotNull(message = "{NotNull.Size.Size}")
+	@NotNull(message = "{NotNull.Size.sizegiay}")
 	@Column(name = "size_giay")
-	private Float size;
+	private Float sizegiay;
 	
-	@NotNull(message = "{NotNull.Size.TrangThai}")
+	@NotNull(message = "{NotNull.Size.trangthai}")
 	@Column(name = "trang_thai")
 	private Boolean trangthai;
 	
 	@OneToMany(mappedBy = "size")
     List<SanPhamSize> sanphamsize;
 	
+	public String getTrangThaiGiay() {
+		if (trangthai = true) {
+			return "Hoạt động";
+		} else
+			return "Không hoạt động";
+	}
 	
 }
