@@ -37,8 +37,8 @@
         <div class="offcanvas-body p-0">
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
-                    <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#"><img class="img-logo"
-                            src="./images/logo.png" alt="logo"></a>
+                    <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#">
+                    <img class="img-logo" th:src="@{./images/logo.png}"  alt="logo"></a>
                     <li class="my-4">
                         <hr class="dropdown-divider bg-light" />
                     </li>
@@ -252,9 +252,9 @@
                                         <div class="alert alert-danger" th:if="${#fields.hasErrors('masize')}" th:errors="*{masize}"></div>
                                     </div>
                                     <div class="mb-3 col-md-12">
-                                        <label for="sizeee" class="form-label">Size:</label>
-                                        <input type="number" class="form-control" id="sizeee" th:field="*{size}">
-                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('size')}" th:errors="*{Size}"></div>
+                                        <label for="sizeee" class="form-label">Size giày:</label>
+                                        <input type="number" class="form-control" id="sizeee" th:field="*{sizegiay}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('sizegiay')}" th:errors="*{sizegiay}"></div>
                                     </div>
                                     <label class="form-label fs-17">Trạng thái:</label> <br>
 							                <div class="d-inline-flex">
@@ -272,10 +272,10 @@
 							                <div class="alert alert-danger" th:if="${#fields.hasErrors('trangthai')}" th:errors="*{trangthai}"></div>
                                 </div>
 
-                                <button type="submit" th:formaction="@{/create}" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
-                                <button type="submit" th:formaction="@{/update}" class="btn btn-success"><i class="bi bi-card-list"></i> Sửa</button>
-                                <button type="submit" th:formaction="@{/delete/__${size.masize}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
-                                <button type="submit" th:formaction="@{/clear}" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
+                                <button type="submit" th:formaction="@{/admin_size/create}" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
+                                <button type="submit" th:formaction="@{/admin_size/update}" class="btn btn-success"><i class="bi bi-card-list"></i> Sửa</button>
+                                <button type="submit" th:formaction="@{/admin_size/delete/__${size.masize}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
+                                <button type="submit" th:formaction="@{/admin_size/clear}" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
 
                             </form>
                         </div>
@@ -306,11 +306,12 @@
                                 <tbody>
                                     <tr th:each="size: ${sizes}">
                                         <td th:text="${size.masize}"></td>
-                                    	<td th:text="${size.size}"></td>
-                                    	<td th:text="${size.trangthai}"></td>
+                                    	<td th:text="${size.sizegiay}"></td>
+                                    	<td th:text="${size.trangthai}" ></td>
+                                    	
                                         <td>
-                                            <button type="submit" th:href="@{/delete/__${size.masize}__}" class="btn btn-warning">Sửa</button>
-                                            <button type="submit" th:href="@{/edit/__${size.masize}__}" class="btn btn-danger">Xóa</button>
+                                            <a type="submit" th:href="@{/admin_size/edit/__${size.masize}__}" class="btn btn-warning">Chọn</a>
+                                            <a type="submit" th:href="@{/admin_size/delete/__${size.masize}__}" class="btn btn-danger">Xóa</a>
                                         </td>
                                     </tr>
                                 </tbody>

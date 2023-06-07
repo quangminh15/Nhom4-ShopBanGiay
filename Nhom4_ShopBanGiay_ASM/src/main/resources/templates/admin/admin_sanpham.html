@@ -244,66 +244,72 @@
                             Form Sản Phẩm
                         </div>
                         <div class="card-body">
-                            <form th:action="@{/admin_sanpham}" method="post" th:object="${sanpham}">
+                            <form method="post" th:object="${sanpham}">
                                 <div class="row">
                                     <div class="mb-3 col-md-12">
                                         <label for="masanpham" class="form-label fs-17">Mã sản phẩm:</label>
-                                        <input type="text" class="form-control" id="masanpham" th:field="*{MaSP}">
-                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('MaSP')}" th:errors="*{MaSP}"></div>
+                                        <input type="number" class="form-control" id="masanpham" th:field="*{masp}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('masp')}" th:errors="*{masp}"></div>
                                     </div>
                                     <div class="mb-3 col-md-12">
                                         <label for="tensanphamm" class="form-label fs-17">Tên sản phẩm:</label>
-                                        <input type="number" class="form-control" id="tensanphamm" th:field="*{TenSP}">
-                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('TenSP')}" th:errors="*{TenSP}"></div>
+                                        <input type="text" class="form-control" id="tensanphamm" th:field="*{tensp}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('tensp')}" th:errors="*{tensp}"></div>
                                     </div>
                                     <div class="row">
                                         <div class="mb-3 col-md-4">
                                             <label for="anhsanpham1" class="form-label fs-17">Ảnh 1:</label> <br>
-                                            <img src="./images/default.png" style="width: 200px; height: fit-content;"
+                                            <img th:src="@{./imageSP/{img}(img=${sanpham.hinhanh1})}" style="width: 200px; height: fit-content;"
                                                 alt="hinhanh">
-                                            <input type="file" class="form-control" id="anhsanpham1" th:field="*{HinhAnh1}">
-                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('HinhAnh1')}" th:errors="*{HinhAnh1}"></div>
+                                            <input type="file" class="form-control" id="anhsanpham1" th:field="*{hinhanh1}">
+                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('hinhanh1')}" th:errors="*{hinhanh1}"></div>
                                         </div>
                                         <div class="mb-3 col-md-4">
                                             <label for="anhsanpham2" class="form-label fs-17">Ảnh 2:</label> <br>
-                                            <img src="./images/default.png" style="width: 200px; height: fit-content;"
+                                            <img th:src="@{./imageSP/{img}(img=${sanpham.hinhanh2})}" style="width: 200px; height: fit-content;"
                                                 alt="hinhanh">
-                                            <input type="file" class="form-control" id="anhsanpham2" th:field="*{HinhAnh2}">
-                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('HinhAnh2')}" th:errors="*{HinhAnh2}"></div>
+                                            <input type="file" class="form-control" id="anhsanpham2" th:field="*{hinhanh2}">
+                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('hinhanh2')}" th:errors="*{hinhanh2}"></div>
                                         </div>
                                         <div class="mb-3 col-md-4">
                                             <label for="anhsanpham3" class="form-label fs-17">Ảnh 3:</label> <br>
-                                            <img src="./images/default.png" style="width: 200px; height: fit-content;"
+                                            <img th:src="@{./imageSP/{img}(img=${sanpham.hinhanh3})}" style="width: 200px; height: fit-content;"
                                                 alt="hinhanh">
-                                            <input type="file" class="form-control" id="anhsanpham3" th:field="*{HinhAnh3}">
-                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('HinhAnh3')}" th:errors="*{HinhAnh3}"></div>
+                                            <input type="file" class="form-control" id="anhsanpham3" th:field="*{hinhanh3}">
+                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('hinhanh3')}" th:errors="*{hinhanh3}"></div>
                                         </div>
                                         <label class="form-label fs-17">Loại giày:</label> <br>
 							                <div class="d-inline-flex">
 							                    <div class="form-check mx-4">
-							                        <input type="radio" class="form-check-input" id="radio1"  value="true" th:field="*{Loai}"
-							                            checked>
+							                        <input type="radio" class="form-check-input" id="radio1"  value="true" th:field="*{loai}">
 							                        <label class="form-check-label fs-17" for="radio1">Cao</label>
 							                    </div>
 							                    <div class="form-check ">
-							                        <input type="radio" class="form-check-input" id="radio2"  value="false" th:field="*{Loai}"> 
+							                        <input type="radio" class="form-check-input" id="radio2"  value="false" th:field="*{loai}"> 
 							                        <label class="form-check-label fs-17" for="radio2">Thấp</label>
 							                    </div>
 							                    
 							                </div>
-							                <div class="alert alert-danger" th:if="${#fields.hasErrors('Loai')}" th:errors="*{Loai}"></div>
+							                <div class="alert alert-danger" th:if="${#fields.hasErrors('loai')}" th:errors="*{loai}"></div>
                                         <div class="mb-3 col-md-12">
                                             <label for="giassanpham" class="form-label fs-17">Giá:</label>
-                                            <input type="number" class="form-control" id="giassanpham" th:field="*{MoTa}">
-                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('Gia')}" th:errors="*{Gia}"></div>
+                                            <input type="number" class="form-control" id="giassanpham" th:field="*{gia}">
+                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('gia')}" th:errors="*{gia}"></div>
                                         </div>
                                         <div class="mb-3 col-md-12"> 
                                             <label for="motaaa" class="form-label fs-17">Mô tả:</label>
-                                            <input type="number" class="form-control" id="motaaa" th:field="*{MoTa}">
-                      						<div class="alert alert-danger" th:if="${#fields.hasErrors('MoTa')}" th:errors="*{Mota}"></div>
+                                            <input type="text" class="form-control" id="motaaa" th:field="*{mota}">
+                      						<div class="alert alert-danger" th:if="${#fields.hasErrors('mota')}" th:errors="*{mota}"></div>
                                         </div>
+<!--                                         <div class="mb-3 col-md-12"> -->
+<!--                                             <label for="madanhmcu" class="form-label fs-17">Mã danh mục:</label> -->
+<!--                                             <select class="form-select" th:field="*{danhmuc}"> -->
+<!--                                                 <option value="">Chọn danh mục</option> -->
+<!--                                                 <option th:each="sp : ${danhmucs}" th:value="${sp.madm}" th:text="${sp.tendm}"></option> -->
+<!--                                             </select> -->
+<!--                                         </div> -->
                                         <div class="mb-3 col-md-12">
-                                            <label for="madanhmcu" class="form-label fs-17">Mã danh mục:</label>
+                                            <label for="manhacungcap" class="form-label fs-17">Mã nhà cung cấp:</label>
                                             <select class="form-select" aria-label="Default select example">
                                                 <option selected>Open this select menu</option>
                                                 <option value="1">One</option>
@@ -312,7 +318,7 @@
                                             </select>
                                         </div>
                                         <div class="mb-3 col-md-12">
-                                            <label for="manhacungcap" class="form-label fs-17">Mã nhà cung cấp:</label>
+                                            <label for="giamgia" class="form-label fs-17">Giảm giá:</label>
                                             <select class="form-select" aria-label="Default select example">
                                                 <option selected>Open this select menu</option>
                                                 <option value="1">One</option>
@@ -323,12 +329,10 @@
                                     </div>
                                 </div>
 
-                                <button type="button" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
-                                <button type="button" class="btn btn-success"><i class="bi bi-card-list"></i>
-                                    Sửa</button>
-                                <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
-                                <button type="button" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm
-                                    mới</button>
+                                <button type="submit" th:formaction="@{/admin_sanpham/create}" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
+                                <button type="submit" th:formaction="@{/admin_sanpham/update}" class="btn btn-success"><i class="bi bi-card-list"></i>Sửa</button>
+                                <button type="submit" th:formaction="@{/admin_sanpham/delete/__${sanpham.masp}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
+                                <button type="submit" th:formaction="@{/admin_sanpham/clear}" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
 
                             </form>
                         </div>
@@ -358,110 +362,33 @@
                                         <th>Loại</th>
                                         <th>GIÁ</th>
                                         <th class="w-20" style="text-align: center;">MÔ TẢ</th>
-                                        <th>MÃ DANH MỤC</th>
-                                        <th>MÃ NHÀ CUNG CẤP</th>
+<!--                                         <th>MÃ DANH MỤC</th> -->
+<!--                                         <th>MÃ NHÀ CUNG CẤP</th> -->
+<!--                                         <th>MÃ GIẢM GIÁ</th> -->
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Converse</td>
-                                        <td><img src="./images/default.png" style="width: 100px; height: fit-content;"
+                                    <tr th:each="sanpham: ${sanphams}">
+                                        <td th:text="${sanpham.masp}"></td>
+                                        <td th:text="${sanpham.tensp}"></td>
+                                        <td><img th:src="@{./imageSP/{img}(img=${sanpham.hinhanh1})}" style="width: 100px; height: fit-content;"
                                                 alt="hinhanh"></td>
-                                        <td><img src="./images/default.png" style="width: 100px; height: fit-content;"
+                                        <td><img th:src="@{./imageSP/{img}(img=${sanpham.hinhanh2})}" style="width: 100px; height: fit-content;"
                                                 alt="hinhanh"></td>
-                                        <td><img src="./images/default.png" style="width: 100px; height: fit-content;"
+                                        <td><img th:src="@{./imageSP/{img}(img=${sanpham.hinhanh3})}" style="width: 100px; height: fit-content;"
                                                 alt="hinhanh"></td>
-                                                <td>Cao</td>
-                                        <td>950.000đ</td>
-                                        <td class="w-20">Converse 1970s là 1 trong những dòng sản phẩm
-                                            bán chạy nhất của Converse.Phần đế màu trắng
-                                            ngà vintage được phủ 1 lớp bóng bên ngoài là điểm nhấn riêng cho dòng
-                                            1970s, dễ vệ sinh bán chạy nhất của Converse.Phần đế màu trắng
-                                            ngà vintage được phủ 1 lớp bóng bên ngoài là điểm nhấn riêng cho dòng
-                                            1970s, dễ vệ sinh
-                                            hơn.</td>
-                                        <td>1</td>
-                                        <td>1</td>
+                                                <td th:text="${sanpham.loai}"></td>
+                                        <td th:text="${sanpham.gia}"></td>
+                                        <td class="w-20" th:text="${sanpham.mota}"></td>
+<!--                                         <td th:text="${sanpham.danhmuc.madm}"></td> -->
+<!--                                         <td>1</td> -->
+<!--                                         <td>1</td> -->
                                         <td>
-                                            <button type="button" class="btn btn-warning">Sửa</button>
-                                            <button type="button" class="btn btn-danger">Xóa</button>
+                                            <a type="submit" th:href="@{/admin_sanpham/edit/__${sanpham.masp}__}" class="btn btn-warning">Chọn</a>
+                                            <a type="submit" th:href="@{/admin_sanpham/delete/__${sanpham.masp}__}" class="btn btn-danger">Xóa</a>
                                         </td>
                                     </tr>
-
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Converse</td>
-                                        <td><img src="./images/default.png" style="width: 100px; height: fit-content;"
-                                                alt="hinhanh"></td>
-                                        <td><img src="./images/default.png" style="width: 100px; height: fit-content;"
-                                                alt="hinhanh"></td>
-                                        <td><img src="./images/default.png" style="width: 100px; height: fit-content;"
-                                                alt="hinhanh"></td>
-                                                <td>Cao</td>
-                                        <td>950.000đ</td>
-                                        <td class="w-20">Converse 1970s là 1 trong những dòng sản phẩm
-                                            bán chạy nhất của Converse.Phần đế màu trắng
-                                            ngà vintage được phủ 1 lớp bóng bên ngoài là điểm nhấn riêng cho dòng
-                                            1970s, dễ vệ sinh
-                                            hơn.</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning">Sửa</button>
-                                            <button type="button" class="btn btn-danger">Xóa</button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Converse</td>
-                                        <td><img src="./images/default.png" style="width: 100px; height: fit-content;"
-                                                alt="hinhanh"></td>
-                                        <td><img src="./images/default.png" style="width: 100px; height: fit-content;"
-                                                alt="hinhanh"></td>
-                                        <td><img src="./images/default.png" style="width: 100px; height: fit-content;"
-                                                alt="hinhanh"></td>
-                                                <td>Cao</td>
-                                        <td>950.000đ</td>
-                                        <td class="w-20">Converse 1970s là 1 trong những dòng sản phẩm
-                                            bán chạy nhất của Converse.Phần đế màu trắng
-                                            ngà vintage được phủ 1 lớp bóng bên ngoài là điểm nhấn riêng cho dòng
-                                            1970s, dễ vệ sinh
-                                            hơn.</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning">Sửa</button>
-                                            <button type="button" class="btn btn-danger">Xóa</button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Converse</td>
-                                        <td><img src="./images/default.png" style="width: 100px; height: fit-content;"
-                                                alt="hinhanh"></td>
-                                        <td><img src="./images/default.png" style="width: 100px; height: fit-content;"
-                                                alt="hinhanh"></td>
-                                        <td><img src="./images/default.png" style="width: 100px; height: fit-content;"
-                                                alt="hinhanh"></td>
-                                                <td>Cao</td>
-                                        <td>950.000đ</td>
-                                        <td class="w-20">Converse 1970s là 1 trong những dòng sản phẩm
-                                            bán chạy nhất của Converse.Phần đế màu trắng
-                                            ngà vintage được phủ 1 lớp bóng bên ngoài là điểm nhấn riêng cho dòng
-                                            1970s, dễ vệ sinh
-                                            hơn.</td>
-                                        <td>1</td>
-                                        <td>1</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning">Sửa</button>
-                                            <button type="button" class="btn btn-danger">Xóa</button>
-                                        </td>
-                                    </tr>
-
                                 </tbody>
                             </table>
                         </div>
