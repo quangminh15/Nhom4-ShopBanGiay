@@ -305,12 +305,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                    <tr th:each="item: ${NCC}">
+                                        <td th:text="${item.mancc}"></td>
+                                        <td th:text="${item.tenncc}"></td>
+                                        <td th:text="${item.email}"></td>
+                                        <td th:text="${item.sdt}"></td>
+                                        <td th:text="${item.diachi}"></td>
                                         <td>
                                 <button type="button" class="btn btn-success"><i class="bi bi-card-list"></i>
                                     Sửa</button>
