@@ -3,6 +3,7 @@ package com.fpoly.ShopBanGiay.model;
 import java.io.Serializable;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,15 +14,20 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="NhaCungCap")
+@Table(name="nhacungcap")
 public class NhaCungCap  implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer MaNCC;
-	String TenNCC;
-	String Email;
-	String SDT;
-	String DiaChi;
+	@Column(name = "ma_ncc")
+	Integer mancc;
+	@Column(name = "ten_ncc")
+	String tenncc;
+	@Column(name = "email")
+	String email;
+	@Column(name = "sdt")
+	String sdt;
+	@Column(name = "dia_chi")
+	String diachi;
 	
 	@OneToMany(mappedBy = "nhacungcap")
     List<SanPham> sanpham;

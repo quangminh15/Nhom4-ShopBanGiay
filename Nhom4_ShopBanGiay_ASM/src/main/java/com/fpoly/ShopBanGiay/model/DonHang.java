@@ -18,40 +18,37 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "DonHang")
+@Table(name = "donhang")
 public class DonHang implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "MaDH")
-	Integer maDH;
+	@Column(name = "ma_dh")
+	Integer madh;
 
-	@Column(name = "NgayTao")
-	java.util.Date ngayTao = new java.util.Date();
+	@Column(name = "ngay_tao")
+	java.util.Date ngaytao = new java.util.Date();
 
-	@Column(name = "TongTien")
-	Double tongTien;
+	@Column(name = "tong_tien")
+	Double tongtien;
 
-	@Column(name = "DiaChiGiaoHang")
-	String diaChiGiaoHang;
+	@Column(name = "dia_chigiaohang")
+	String diachigiaohang;
 
-	@Column(name = "NguoiNhan")
-	String nguoiNhan;
+	@Column(name = "nguoi_nhan")
+	String nguoinhan;
 
-	@Column(name = "SdtNhanHang")
-	String sdtNhanHang;
+	@Column(name = "sdt_nhanhang")
+	String sdtnhanhang;
 
-	@Column(name = "TrangThai")
-	String trangThai;
+	@Column(name = "trang_thai")
+	String trangthai;
 
 	@ManyToOne
-	@JoinColumn(name = "MaND")
+	@JoinColumn(name = "ma_nd")
 	NguoiDung nguoidung;
 	
-	@OneToOne
-	@JoinColumn(name = "MaDH")
-    ThanhToan thanhtoan;
 	
-	@OneToMany(mappedBy = "MaDH")
+	@OneToMany(mappedBy = "donhang")
     List<ChiTietDonHang> chitietdonhang;
 	
 	

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,16 +15,22 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="GiamGia")
+@Table(name="giamgia")
 public class GiamGia  implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer MaGiamGia;
-	String TenGiamGia;
-	Float GiamGia;
-	Date NgayTao = new Date();
-	Date NgayKetThuc = new Date();
-	String MoTa;
+	@Column(name = "ma_giam_gia")
+	Integer magiamgia;
+	@Column(name = "ten_giam_gia")
+	String tengiamgia;
+	@Column(name = "giam_gia")
+	Float giamgia;
+	@Column(name = "ngay_tao")
+	Date ngaytao = new Date();
+	@Column(name = "ngay_ket_thuc")
+	Date ngayketthuc = new Date();
+	@Column(name = "mo_ta")
+	String mota;
 	
 	@OneToMany(mappedBy = "giamgia")
     List<SanPham> sanpham;

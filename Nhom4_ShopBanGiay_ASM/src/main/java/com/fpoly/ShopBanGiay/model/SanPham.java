@@ -29,67 +29,67 @@ public class SanPham implements Serializable{
 	@Id
 	@NotNull(message = "{NotNull.SanPham.MaSP}")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "MaSP")
-	private int MaSP;
+	@Column(name = "ma_sp")
+	private int masp;
 	
-	@Column(name = "TenSP")
+	@Column(name = "ten_sp")
 	@NotBlank(message = "{NotBlank.SanPham.TenSP}")
-	private String TenSP;
+	private String tensp;
 	
-	@Column(name = "HinhAnh1")
+	@Column(name = "hinh_anh1")
 	@NotBlank(message = "{NotBlank.SanPham.HinhAnh1}")
-	private String HinhAnh1;
+	private String hinhanh1;
 	
-	@Column(name = "HinhAnh2")
+	@Column(name = "hinh_anh2")
 	@NotBlank(message = "{NotBlank.SanPham.HinhAnh2}")
-	private String HinhAnh2;
+	private String hinhanh2;
 	
-	@Column(name = "HinhAnh3")
+	@Column(name = "hinh_anh3")
 	@NotBlank(message = "{NotBlank.SanPham.HinhAnh3}")
-	private String HinhAnh3;
+	private String hinhanh3;
 	
-	@Column(name = "Loai")
+	@Column(name = "loai")
 	@NotNull(message = "{NotNull.SanPham.Loai}")
-	private Boolean Loai;
+	private Boolean loai;
 	
-	@Column(name = "Gia")
+	@Column(name = "gia")
 	@NotBlank(message = "{NotBlank.SanPham.Gia}")
-	private Float Gia;
+	private Float gia;
 	
-	@Column(name = "MoTa")
+	@Column(name = "mo_ta")
 	@NotBlank(message = "{NotBlank.SanPham.MoTa}")
-	private String MoTa;
+	private String mota;
 	
-	@Column(name = "TrangThai")
+	@Column(name = "trang_thai")
 	@NotBlank(message = "{NotBlank.SanPham.TrangThai}")
-	private boolean TrangThai;
+	private boolean trangthai;
 	
-	@Column(name = "MaDM")
-	@NotNull(message = "{NotNull.SanPham.MaDM}")
-	private int MaDM;
+//	@Column(name = "madm")
+//	@NotNull(message = "{NotNull.SanPham.MaDM}")
+//	private int MaDM;
+//	
+//	@Column(name = "mancc")
+//	@NotNull(message = "{NotNull.SanPham.MaNCC}")
+//	private int MaNCC;
 	
-	@Column(name = "MaNCC")
-	@NotNull(message = "{NotNull.SanPham.MaNCC}")
-	private int MaNCC;
+//	@Column(name = "magiamgia")
+//	private int MaGiamGia;
 	
-	@Column(name = "MaGiamGia")
-	private int MaGiamGia;
-	
-	@OneToOne(mappedBy = "sanpham")
-    YeuThich yeuthich;
+	@OneToMany(mappedBy = "sanpham")
+	List<YeuThich> yeuthich;
 	
 	@OneToMany(mappedBy = "sanpham")
     List<SanPhamSize> sanphamsize;
 	
 	@ManyToOne
-    @JoinColumn(name = "MaDM")
+    @JoinColumn(name = "ma_dm")
     DanhMuc danhmuc;
 	
 	@ManyToOne
-    @JoinColumn(name = "MaNCC")
+    @JoinColumn(name = "ma_ncc")
     NhaCungCap nhacungcap;
 	
 	@ManyToOne
-    @JoinColumn(name = "MaGiamGia")
+    @JoinColumn(name = "ma_giam_gia")
     GiamGia giamgia;
 }

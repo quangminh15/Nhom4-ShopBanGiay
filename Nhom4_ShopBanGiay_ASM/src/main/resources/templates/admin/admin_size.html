@@ -244,24 +244,38 @@
                             Form Size
                         </div>
                         <div class="card-body">
-                            <form th:action="@{/admin_size}" method="post" th:object="${size}">
+                            <form method="post" th:object="${size}">
                                 <div class="row">
                                     <div class="mb-3 col-md-12">
                                         <label for="masize" class="form-label">Mã Size:</label>
-                                        <input type="number" class="form-control" id="masize" th:field="*{MaSize}">
-                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('MaSize')}" th:errors="*{MaSize}"></div>
+                                        <input type="number" class="form-control" id="masize" th:field="*{masize}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('masize')}" th:errors="*{masize}"></div>
                                     </div>
                                     <div class="mb-3 col-md-12">
                                         <label for="sizeee" class="form-label">Size:</label>
-                                        <input type="number" class="form-control" id="sizeee" th:field="*{Size}">
-                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('Size')}" th:errors="*{Size}"></div>
+                                        <input type="number" class="form-control" id="sizeee" th:field="*{size}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('size')}" th:errors="*{Size}"></div>
                                     </div>
+                                    <label class="form-label fs-17">Trạng thái:</label> <br>
+							                <div class="d-inline-flex">
+							                    <div class="form-check mx-4">
+							                        <input type="radio" class="form-check-input" id="radio1"  value="true" th:field="*{trangthai}"
+							                            checked>
+							                        <label class="form-check-label fs-17" for="radio1">Hoạt động</label>
+							                    </div>
+							                    <div class="form-check ">
+							                        <input type="radio" class="form-check-input" id="radio2"  value="false" th:field="*{trangthai}"> 
+							                        <label class="form-check-label fs-17" for="radio2">Không hoạt động</label>
+							                    </div>
+							                    
+							                </div>
+							                <div class="alert alert-danger" th:if="${#fields.hasErrors('trangthai')}" th:errors="*{trangthai}"></div>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
-                                <button type="submit" class="btn btn-success"><i class="bi bi-card-list"></i> Sửa</button>
-                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
-                                <button type="submit" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
+                                <button type="submit" th:formaction="@{/create}" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
+                                <button type="submit" th:formaction="@{/update}" class="btn btn-success"><i class="bi bi-card-list"></i> Sửa</button>
+                                <button type="submit" th:formaction="@{/delete/__${size.masize}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
+                                <button type="submit" th:formaction="@{/clear}" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
 
                             </form>
                         </div>
@@ -285,46 +299,20 @@
                                     <tr style="font-size: 20px;">
                                         <th>MÃ SIZE</th>
                                         <th>SIZE</th>
+                                        <th>TRẠNG THÁI</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>35</td>
+                                    <tr th:each="size: ${sizes}">
+                                        <td th:text="${size.masize}"></td>
+                                    	<td th:text="${size.size}"></td>
+                                    	<td th:text="${size.trangthai}"></td>
                                         <td>
-                                            <button type="button" class="btn btn-warning">Sửa</button>
-                                            <button type="button" class="btn btn-danger">Xóa</button>
+                                            <button type="submit" th:href="@{/delete/__${size.masize}__}" class="btn btn-warning">Sửa</button>
+                                            <button type="submit" th:href="@{/edit/__${size.masize}__}" class="btn btn-danger">Xóa</button>
                                         </td>
                                     </tr>
-
-                                    <tr>
-                                        <td>2</td>
-                                        <td>35</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning">Sửa</button>
-                                            <button type="button" class="btn btn-danger">Xóa</button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>3</td>
-                                        <td>35</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning">Sửa</button>
-                                            <button type="button" class="btn btn-danger">Xóa</button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>4</td>
-                                        <td>35</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning">Sửa</button>
-                                            <button type="button" class="btn btn-danger">Xóa</button>
-                                        </td>
-                                    </tr>
-
                                 </tbody>
                             </table>
                         </div>

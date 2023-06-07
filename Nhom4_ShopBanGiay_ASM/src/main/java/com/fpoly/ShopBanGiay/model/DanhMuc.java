@@ -20,25 +20,25 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "DanhMuc")
+@Table(name = "danhmuc")
 public class DanhMuc  implements Serializable{
 	@Id
 	@NotNull(message = "{NotNull.DanhMuc.MaSize}")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "MaDM")
-	private int MaDM;
+	@Column(name = "ma_dm")
+	private int madm;
 	
 	@NotBlank(message = "{NotBlank.DanhMuc.Size}")
-	@Column(name = "TenDM")
-	private String TenDM;
+	@Column(name = "ten_dm")
+	private String tendm;
 	
 	@NotBlank(message = "{NotBlank.DanhMuc.Size}")
-	@Column(name = "AnhDM")
-	private String AnhDM;
+	@Column(name = "anh_dm")
+	private String anhdm;
 	
 	@NotNull(message = "{NotNull.DanhMuc.TrangThai}")
-	@Column(name = "TrangThai")
-	private Boolean TrangThai;
+	@Column(name = "trang_thai")
+	private Boolean trangthai;
 	
 	@OneToMany(mappedBy = "danhmuc")
     List<SanPham> sanpham;

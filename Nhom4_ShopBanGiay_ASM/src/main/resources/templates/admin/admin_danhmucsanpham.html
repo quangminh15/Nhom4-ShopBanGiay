@@ -244,20 +244,23 @@
                             Form Danh Mục Sản Phẩm
                         </div>
                         <div class="card-body">
-                            <form action="">
+                            <form th:action="@{/admin_danhmucsanpham}" method="post" th:object="${danhmuc}">
                                 <div class="row">
                                     <div class="mb-3 col-md-12">
                                         <label for="madanhmuc" class="form-label">Mã danh mục:</label>
-                                        <input type="text" class="form-control" id="madanhmuc" placeholder="">
+                                        <input type="text" class="form-control" id="madanhmuc" th:field="*{MaDM}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('MaDM')}" th:errors="*{MaDM}"></div>
                                     </div>
                                     <div class="mb-3 col-md-12">
                                         <label for="tendanhmuc" class="form-label">Tên danh mục:</label>
-                                        <input type="number" class="form-control" id="tendanhmuc" placeholder="">
+                                        <input type="number" class="form-control" id="tendanhmuc" th:field="*{TenDM}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('TenDM')}" th:errors="*{TenDM}"></div>
                                     </div>
                                     <div class="mb-3 col-md-12">
                                         <label for="anhdanhmuc" class="form-label">Ảnh:</label> <br>
                                         <img src="./images/default.png" style="width: 200px; height: fit-content;" alt="hinhanh">
-                                        <input type="file" class="form-control" id="anhdanhmuc" placeholder="">
+                                        <input type="file" class="form-control" id="anhdanhmuc" th:field="*{AnhDM}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('AnhDM')}" th:errors="*{AnhDM}"></div>
                                     </div>
                                 </div>
 
