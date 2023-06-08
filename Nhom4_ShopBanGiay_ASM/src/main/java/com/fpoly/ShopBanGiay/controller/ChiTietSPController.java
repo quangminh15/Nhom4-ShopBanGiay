@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class ChiTietSPController {
 
-	@GetMapping("/chitietsp")
-	public String ChiTietsp() {
-		return "/nguoidung/chitietsp";
-	}
+//	@GetMapping("/chitietsp")
+//	public String ChiTietsp() {
+//		return "/nguoidung/chitietsp";
+//	}
 }

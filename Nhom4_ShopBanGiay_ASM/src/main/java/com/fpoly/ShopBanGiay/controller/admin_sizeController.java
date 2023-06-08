@@ -31,8 +31,8 @@ public class admin_sizeController {
 		return "/admin/admin_size";
 	}
 	
-	@RequestMapping("/edit/{masize}")
-	public String edit(Model model, @PathVariable("masize") Integer MaSize) {
+	@RequestMapping("/admin_size/edit/{masize}")
+	public String editsize(Model model, @PathVariable("masize") Integer MaSize) {
 		Size size = sizeDAO.findById(MaSize).get();
 		model.addAttribute("size",size);
 		List<Size> sizes = sizeDAO.findAll();
@@ -40,39 +40,39 @@ public class admin_sizeController {
 		return "/admin/admin_size";
 	}
 	
-	@PostMapping("/create")
-	public String create(@Valid @ModelAttribute("size") Size size, BindingResult result, Model model) {
+	@PostMapping("/admin_size/create")
+	public String createsize(@Valid @ModelAttribute("size") Size size, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			List<Size> sizes = sizeDAO.findAll();
 			model.addAttribute("sizes", sizes);
 			return "/admin/admin_size";
 		}
 		sizeDAO.save(size);
-		return "redirect:/admin/admin_size";
+		return "redirect:/admin_size";
 	}
 	
-	@PostMapping("/update")
-	public String update(@Valid @ModelAttribute("size") Size size, BindingResult result, Model model) {
+	@PostMapping("/admin_size/update")
+	public String updatesize(@Valid @ModelAttribute("size") Size size, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			List<Size> sizes = sizeDAO.findAll();
 			model.addAttribute("sizes", sizes);
 			return "/admin/admin_size";
 		}
 		sizeDAO.save(size);
-		return "redirect:/edit/" + size.getMasize();
+		return "redirect:/admin_size/edit/" + size.getMasize();
 	}
 	
-	@RequestMapping("/delete/{MaSize}")
-	public String create(@PathVariable("masize") Integer MaSize) {
+	@RequestMapping("/admin_size/delete/{masize}")
+	public String deletesize(@PathVariable("masize") Integer MaSize) {
 		sizeDAO.deleteById(MaSize);
-		return "redirect:/admin/admin_size";
+		return "redirect:/admin_size";
 	}
 	
-	@PostMapping("/clear")
+	@PostMapping("/admin_size/clear")
 	public String clear(@ModelAttribute("size") Size size) {
 		size.setMasize(0);
-		size.setSize(null);
+		size.setSizegiay(null);
 		size.setTrangthai(true);
-		return "redirect:/admin/admin_size";
+		return "redirect:/admin_size";
 	}
 }
