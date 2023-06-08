@@ -26,9 +26,9 @@ public class GiamGia  implements Serializable{
 	@Column(name = "giam_gia")
 	Float giamgia;
 	@Column(name = "ngay_tao")
-	Date ngaytao = new Date();
+	String ngaytao;
 	@Column(name = "ngay_ket_thuc")
-	Date ngayketthuc = new Date();
+	String ngayketthuc;
 	@Column(name = "mo_ta")
 	String mota;
 	
