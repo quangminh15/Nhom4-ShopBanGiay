@@ -32,7 +32,7 @@ public class admin_sizeController {
 	}
 	
 	@RequestMapping("/admin_size/edit/{masize}")
-	public String edit(Model model, @PathVariable("masize") Integer MaSize) {
+	public String editsize(Model model, @PathVariable("masize") Integer MaSize) {
 		Size size = sizeDAO.findById(MaSize).get();
 		model.addAttribute("size",size);
 		List<Size> sizes = sizeDAO.findAll();
@@ -41,7 +41,7 @@ public class admin_sizeController {
 	}
 	
 	@PostMapping("/admin_size/create")
-	public String create(@Valid @ModelAttribute("size") Size size, BindingResult result, Model model) {
+	public String createsize(@Valid @ModelAttribute("size") Size size, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			List<Size> sizes = sizeDAO.findAll();
 			model.addAttribute("sizes", sizes);
@@ -52,7 +52,7 @@ public class admin_sizeController {
 	}
 	
 	@PostMapping("/admin_size/update")
-	public String update(@Valid @ModelAttribute("size") Size size, BindingResult result, Model model) {
+	public String updatesize(@Valid @ModelAttribute("size") Size size, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			List<Size> sizes = sizeDAO.findAll();
 			model.addAttribute("sizes", sizes);
@@ -63,7 +63,7 @@ public class admin_sizeController {
 	}
 	
 	@RequestMapping("/admin_size/delete/{masize}")
-	public String create(@PathVariable("masize") Integer MaSize) {
+	public String deletesize(@PathVariable("masize") Integer MaSize) {
 		sizeDAO.deleteById(MaSize);
 		return "redirect:/admin_size";
 	}

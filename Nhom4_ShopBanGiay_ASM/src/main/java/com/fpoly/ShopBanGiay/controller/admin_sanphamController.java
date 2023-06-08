@@ -12,10 +12,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fpoly.ShopBanGiay.dao.DanhMucDAO;
+import com.fpoly.ShopBanGiay.dao.NhaCungCapDAO;
 import com.fpoly.ShopBanGiay.dao.SanPhamDAO;
 import com.fpoly.ShopBanGiay.model.DanhMuc;
+import com.fpoly.ShopBanGiay.model.NhaCungCap;
 import com.fpoly.ShopBanGiay.model.SanPham;
 
 import jakarta.validation.Valid;
@@ -28,6 +32,10 @@ public class admin_sanphamController {
 	
 	@Autowired
 	DanhMucDAO danhmucDAO;
+	
+	@Autowired
+	NhaCungCapDAO nhacungcapDAO;
+	
 	
 	
 	@GetMapping("/admin_sanpham")
@@ -48,16 +56,16 @@ public class admin_sanphamController {
 		return danhmuc;
 	}
 	
-//	@ModelAttribute("nhacungcap")
-//	public List<NhaCungCap> getNhaCungCapsp() {
-//		List<NhaCungCap> nhacungcap = nhacungcapDAO.findAll();
-//		return nhacungcap;
-//	}
+	@ModelAttribute("nhacungcap")
+	public List<NhaCungCap> getNhaCungCapsp() {
+		List<NhaCungCap> nhacungcap = nhacungcapDAO.findAll();
+		return nhacungcap;
+	}
 	
 	@RequestMapping("/admin_sanpham/edit/{masp}")
 	public String edit(Model model, @PathVariable("masp") Integer MaSP) {
 		SanPham sanpham = sanphamDAO.findById(MaSP).get();
-		sanpham.getDanhmuc().getMadm();
+		
 		model.addAttribute("sanpham",sanpham);
 		List<SanPham> sanphams = sanphamDAO.findAll();
 		
@@ -72,6 +80,8 @@ public class admin_sanphamController {
 			model.addAttribute("sanphams", sanphams);
 			return "/admin/admin_sanpham";
 		}
+		
+		
 		sanphamDAO.save(sanpham);
 		return "redirect:/admin_sanpham";
 	}

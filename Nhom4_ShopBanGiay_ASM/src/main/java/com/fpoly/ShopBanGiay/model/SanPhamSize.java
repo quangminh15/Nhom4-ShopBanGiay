@@ -26,7 +26,7 @@ import lombok.NoArgsConstructor;
 public class SanPhamSize  implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull(message = "{NotNull.SanPhamSize.MaSPS}")
+	@NotNull(message = "{NotNull.SanPhamSize.masps}")
 	@Column(name = "ma_sps")
 	private int masps;
 	
@@ -39,7 +39,7 @@ public class SanPhamSize  implements Serializable{
 //	private int MaSize;
 	
 	@Column(name = "so_luong")
-	@NotNull(message = "{NotNull.SanPhamSize.SoLuong}")
+	@NotNull(message = "{NotNull.SanPhamSize.soluong}")
 	private int soluong;
 	
 	@ManyToOne
