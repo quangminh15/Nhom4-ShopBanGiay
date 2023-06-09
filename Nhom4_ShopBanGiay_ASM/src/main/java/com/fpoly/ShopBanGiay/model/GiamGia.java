@@ -11,9 +11,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name="giamgia")
 public class GiamGia  implements Serializable{
@@ -21,6 +26,8 @@ public class GiamGia  implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_giam_gia")
 	Integer magiamgia;
+	
+	@NotNull(message = "{NotNull.GiamGia.tengiamgia}")
 	@Column(name = "ten_giam_gia")
 	String tengiamgia;
 	@Column(name = "giam_gia")

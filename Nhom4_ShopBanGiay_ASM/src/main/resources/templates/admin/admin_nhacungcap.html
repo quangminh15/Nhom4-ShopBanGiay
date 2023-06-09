@@ -247,22 +247,23 @@
                             <form th:action="${Action}" th:object="${NCCS}" method="post">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Tên Nhà Cung Cấp</label>
+                                        <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Tên Nhà Cung Cấp</b></label>
                                         <input type="text" class="form-control" id="tenncc" name="tenncc"
                                             placeholder="" th:field="*{tenncc}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('tenncc')}" th:errors="*{tenncc}"></div>
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Email</label>
+                                        <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Email</b></label>
                                         <input type="email" class="form-control" id="email" name="email"
                                             placeholder="" th:field="*{email}">
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Số Điện Thoại</label>
-                                        <input type="number" class="form-control" id="sdt" name="sdt"
+                                        <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Số Điện Thoại</b></label>
+                                        <input type="text" class="form-control" id="sdt" name="sdt"
                                             placeholder="" th:field="*{sdt}">
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Địa Chỉ</label>
+                                        <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Địa Chỉ</b></label>
                                         <input type="text" class="form-control" id="diachi" name="diachi"
                                             placeholder="" th:field="*{diachi}">
                                     </div>
@@ -326,6 +327,23 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <nav aria-label="Page navigation example">
+								<ul class="pagination">
+									<li class="page-item" th:if="${currIndex}>0"><a
+										class="page-link"
+										th:href="@{/page1?p=__${currIndex-1}__}" href="#">Previous</a></li>
+									<tr th:each="i: ${#numbers.sequence(0, numberOfPages - 1)}">
+										<li class="page-item"><a
+											th:style="${'background-color:' + (i==currIndex?'lightgrey':'white')}"
+											th:href="@{/page1?p=__${i}__}" class="page-link" href="#"
+											th:text="${i+1}"></a></li>
+									</tr>
+									<li class="page-item"
+										th:if="(${currIndex}>-1 and (${currIndex})<${numberOfPages-1})"><a
+										class="page-link" th:href="@{/page1?p=__${currIndex+1}__}"
+										href="#">Next</a></li>
+								</ul>
+							</nav>
                         </div>
                         <div class="card-footer text-muted">
 

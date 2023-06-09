@@ -3,6 +3,8 @@ package com.fpoly.ShopBanGiay.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.ShopBanGiay.dao.NhaCungCapDAO;
 import com.fpoly.ShopBanGiay.model.NhaCungCap;
@@ -20,19 +23,30 @@ public class admin_nhacungcapController {
 	NhaCungCapDAO nhacungcapDAO;
 	
 	@GetMapping("/admin_nhacungcap")
-	public String admin_nhacungcap(Model model) {
+	public String admin_nhacungcap(Model model, @RequestParam("p") Optional<Integer> p) {
 		NhaCungCap n = new NhaCungCap();
-		model.addAttribute("NCC", nhacungcapDAO.findAll());
 		model.addAttribute("NCCS", n);
+		
+		Pageable pageable = PageRequest.of(p.orElse(0), 5);
+		var nhacungcap = nhacungcapDAO.findAll(pageable);
+		var numberOfPages = nhacungcap.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+	    model.addAttribute("numberOfPages", numberOfPages);
+	    model.addAttribute("NCC", nhacungcap);
 		model.addAttribute("Action", "save_nhacungcap");
 		return "/admin/admin_nhacungcap";
+	}
+	
+	@GetMapping("/page1")
+	public String page1(Model model, @RequestParam("p") Optional<Integer> p) {
+		return this.admin_nhacungcap(model, p);
 	}
 	
 	@PostMapping("/save_nhacungcap")
 	public String save_nhacungcap(Model model, @ModelAttribute("NCCS") NhaCungCap nhacungcap) {
 		nhacungcapDAO.save(nhacungcap);
 		model.addAttribute("NCC", nhacungcapDAO.findAll());
-		return "/admin/admin_nhacungcap";
+		return "redirect:/admin_nhacungcap";
 	}
 	
 	@RequestMapping("/edit_nhacungcap/{mancc}")
@@ -52,6 +66,7 @@ public class admin_nhacungcapController {
 		nhacungcapDAO.deleteById(mancc);
 		model.addAttribute("NCCS", n);
 		model.addAttribute("NCC", nhacungcapDAO.findAll());
+		model.addAttribute("Action", "/save_nhacungcap");
 		return "/admin/admin_nhacungcap";
 	}
 }
