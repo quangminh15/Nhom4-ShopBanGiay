@@ -1,5 +1,8 @@
 package com.fpoly.ShopBanGiay.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -7,11 +10,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.fpoly.ShopBanGiay.dao.NguoiDungDAO;
 import com.fpoly.ShopBanGiay.model.NguoiDung;
+import com.fpoly.ShopBanGiay.service.CookieService;
+import com.fpoly.ShopBanGiay.service.ParamService;
+import com.fpoly.ShopBanGiay.service.SessionService;
+
 import jakarta.validation.Valid;
 
 @Controller
 public class DangNhapController {
+	
+	@Autowired
+	CookieService cookieService;
+
+	@Autowired
+	ParamService paramService;
+
+	@Autowired
+	SessionService sessionService;
+	
+	@Autowired 
+	NguoiDungDAO nguoidungDAO;
 
 	@GetMapping("/dangnhap")
 	public String DangNhap(NguoiDung nguoidung, Model model) {
@@ -20,21 +40,68 @@ public class DangNhapController {
 		return "/nguoidung/dangnhap";
 	}
 
-	@PostMapping("/dangnhap")
-	public String validDangNhap(@Valid @ModelAttribute("nguoidung") NguoiDung nguoidung, BindingResult result,
-			Model model) {
-		if (nguoidung.getEmail().equals("nguoidung@gmail.com") && nguoidung.getMatkhau().equals("12345")) {
-			return "/nguoidung/trangchu";
-		}
-		if (nguoidung.getEmail().equals("admin@gmail.com") && nguoidung.getMatkhau().equals("12345")) {
-			return "/admin/admin_nguoidung";
-		}
-
-		if (result.hasErrors()) {
-			return "/nguoidung/dangnhap";
-		}
-		model.addAttribute("nguoidung", nguoidung);
-		return "/nguoidung/dangnhap";
+//	@PostMapping("/dangnhap")
+//	public String validDangNhap(@Valid @ModelAttribute("nguoidung") NguoiDung nguoidung, BindingResult result,
+//			Model model) {
+//		if (nguoidung.getEmail().equals("nguoidung@gmail.com") && nguoidung.getMatkhau().equals("12345")) {
+//			return "/nguoidung/trangchu";
+//		}
+//		if (nguoidung.getEmail().equals("admin@gmail.com") && nguoidung.getMatkhau().equals("12345")) {
+//			return "/admin/admin_nguoidung";
+//		}
+//
+//		if (result.hasErrors()) {
+//			return "/nguoidung/dangnhap";
+//		}
+//		model.addAttribute("nguoidung", nguoidung);
+//		return "/nguoidung/dangnhap";
+//	}
+	
+	@PostMapping("/loginConfirm")
+	public String DangNhap1(Model model, @ModelAttribute("user") NguoiDung u) {
+		model.addAttribute("nguoidung", new NguoiDung());
+	    // Xác thực đăng nhập và kiểm tra thông tin người dùng
+	    if (authenticate(u)) {
+	        // Lưu thông tin người dùng vào session
+	    	sessionService.setSessionAttribute("Id", u.getMand());
+	    	sessionService.setSessionAttribute("Email", u.getEmail());
+	    	sessionService.setSessionAttribute("Role", u.isVaitro());
+	    	
+	    	// Lưu thông tin vào Cookie
+	    	
+	    	boolean remember = paramService.getBoolean("remember", false);System.out.println("Remember: "+remember);
+	    	if(remember) {
+	    		System.out.println("Đã tick remember");
+	    		cookieService.addCookie("email", u.getEmail(), 2);
+	    		cookieService.addCookie("pass", u.getMatkhau(), 2);
+	    	}else {
+	    		System.out.println("Không tick remember");
+	    		cookieService.removeCookie("email");
+	    		cookieService.removeCookie("pass");
+	    	}
+	    	
+	    	// Lấy user đầy đủ
+	    	NguoiDung user = nguoidungDAO.findByEmail(u.getEmail());
+	    	
+	        // Đăng nhập thành công, chuyển hướng đến trang chính
+	    	System.out.println("Vai trò: "+user.isVaitro());
+	    	if(user.isVaitro()) {
+	    		return "redirect:/admin-nguoidung";
+	    	}else {
+	    		return "redirect:/trangchu";
+	    	}
+	    } else {
+	        // Đăng nhập không thành công, xử lý lỗi hoặc hiển thị thông báo
+	    	model.addAttribute("messageLoginFail", "Thông tin đăng nhập chưa chính xác");
+	        return "/nguoidung/dangnhap";
+	    }
 	}
 
+	public boolean authenticate(NguoiDung u) {
+		List<NguoiDung> list =  nguoidungDAO.findForAuthenticate(u.getEmail(), u.getMatkhau());
+		if(!list.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
 }
