@@ -27,41 +27,41 @@ import lombok.NoArgsConstructor;
 @Table(name = "sanpham")
 public class SanPham implements Serializable{
 	@Id
-	@NotNull(message = "{NotNull.SanPham.MaSP}")
+	@NotNull(message = "{NotNull.SanPham.masp}")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_sp")
 	private int masp;
 	
 	@Column(name = "ten_sp")
-	@NotBlank(message = "{NotBlank.SanPham.TenSP}")
+	@NotBlank(message = "{NotBlank.SanPham.tensp}")
 	private String tensp;
 	
 	@Column(name = "hinh_anh1")
-	@NotBlank(message = "{NotBlank.SanPham.HinhAnh1}")
+	@NotBlank(message = "{NotBlank.SanPham.hinhanh1}")
 	private String hinhanh1;
 	
 	@Column(name = "hinh_anh2")
-	@NotBlank(message = "{NotBlank.SanPham.HinhAnh2}")
+	@NotBlank(message = "{NotBlank.SanPham.hinhanh2}")
 	private String hinhanh2;
 	
 	@Column(name = "hinh_anh3")
-	@NotBlank(message = "{NotBlank.SanPham.HinhAnh3}")
+	@NotBlank(message = "{NotBlank.SanPham.hinhanh3}")
 	private String hinhanh3;
 	
 	@Column(name = "loai")
-	@NotNull(message = "{NotNull.SanPham.Loai}")
+	@NotNull(message = "{NotNull.SanPham.loai}")
 	private Boolean loai;
 	
 	@Column(name = "gia")
-	@NotBlank(message = "{NotBlank.SanPham.Gia}")
+	@NotBlank(message = "{NotBlank.SanPham.gia}")
 	private Float gia;
 	
 	@Column(name = "mo_ta")
-	@NotBlank(message = "{NotBlank.SanPham.MoTa}")
+	@NotBlank(message = "{NotBlank.SanPham.mota}")
 	private String mota;
 	
 	@Column(name = "trang_thai")
-	@NotBlank(message = "{NotBlank.SanPham.TrangThai}")
+	@NotBlank(message = "{NotBlank.SanPham.trangthai}")
 	private boolean trangthai;
 	
 	@OneToMany(mappedBy = "sanpham")

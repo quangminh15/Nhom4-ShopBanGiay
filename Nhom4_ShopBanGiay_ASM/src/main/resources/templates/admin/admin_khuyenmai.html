@@ -300,17 +300,19 @@
                                         <th>Tên Khuyến Mãi</th>
                                         <th>Giảm Giá</th>
                                         <th>Ngày Tạo</th>
+                                        <th>Ngày Kết Thúc</th>
                                         <th>Mô Tả</th>
                                         <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                    <tr th:each="item: ${KM}">
+                                        <td th:text="${item.magiamgia}"></td>
+                                        <td th:text="${item.tengiamgia}"></td>
+                                        <td th:text="${item.giamgia}"></td>
+                                        <td th:text="${item.ngaytao}"></td>
+                                        <td th:text="${item.ngayketthuc}"></td>
+                                        <td th:text="${item.mota}"></td>
                                         <td>
                                             <button type="button" class="btn btn-success"><i class="bi bi-card-list"></i>
                                                 Sửa</button>

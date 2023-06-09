@@ -23,20 +23,20 @@ import lombok.NoArgsConstructor;
 @Table(name = "danhmuc")
 public class DanhMuc  implements Serializable{
 	@Id
-	@NotNull(message = "{NotNull.DanhMuc.MaSize}")
+	@NotNull(message = "{NotNull.DanhMuc.madm}")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_dm")
 	private int madm;
 	
-	@NotBlank(message = "{NotBlank.DanhMuc.Size}")
+	@NotBlank(message = "{NotBlank.DanhMuc.tendm}")
 	@Column(name = "ten_dm")
 	private String tendm;
 	
-	@NotBlank(message = "{NotBlank.DanhMuc.Size}")
+	@NotBlank(message = "{NotBlank.DanhMuc.anhdm}")
 	@Column(name = "anh_dm")
 	private String anhdm;
 	
-	@NotNull(message = "{NotNull.DanhMuc.TrangThai}")
+	@NotNull(message = "{NotNull.DanhMuc.trangthai}")
 	@Column(name = "trang_thai")
 	private Boolean trangthai;
 	
