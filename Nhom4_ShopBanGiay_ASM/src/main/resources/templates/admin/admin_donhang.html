@@ -254,63 +254,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>28346</td>
-                                        <td>1/1/2003</td>
-                                        <td>950.000đ</td>
-                                        <td>Chờ xác nhận</td>
+                                    <tr th:each="order:${orders}">
+                                        <td >1</td>
+                                        <td th:text=${order.madh}>28346</td>
+                                        <td th:text=${order.ngaytao}>1/1/2003</td>
+                                        <td th:text=${order.tongtien}>950.000đ</td>
+                                        <td th:text=${order.trangthai}>Chờ xác nhận</td>
                                         <td>Tiền Mặt</td>
                                         <td>
-                                            <a th:href="@{/admin_chitietdonhang}" class="btn btn-primary">Chi Tiết</a>
+                                            <a th:href="@{/admin_chitietdonhang/__${order.madh}__}" class="btn btn-primary">Chi Tiết</a>
                                             <button type="button" class="btn btn-success">Xác Nhận</button>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>28346</td>
-                                        <td>1/1/2003</td>
-                                        <td>950.000đ</td>
-                                        <td>Chờ xác nhận</td>
-                                        <td>Tiền Mặt</td>
-                                        <td>
-                                            <a th:href="@{/admin_chitietdonhang}" class="btn btn-primary">Chi Tiết</a>
-                                            <button type="button" class="btn btn-success">Xác Nhận</button>
-                                        </td>
-                                    </tr>  <tr>
-                                        <td>1</td>
-                                        <td>28346</td>
-                                        <td>1/1/2003</td>
-                                        <td>950.000đ</td>
-                                        <td>Chờ xác nhận</td>
-                                        <td>Tiền Mặt</td>
-                                        <td>
-                                            <a th:href="@{/admin_chitietdonhang}" class="btn btn-primary">Chi Tiết</a>
-                                            <button type="button" class="btn btn-success">Xác Nhận</button>
-                                        </td>
-                                    </tr>  <tr>
-                                        <td>1</td>
-                                        <td>28346</td>
-                                        <td>1/1/2003</td>
-                                        <td>950.000đ</td>
-                                        <td>Chờ xác nhận</td>
-                                        <td>Tiền Mặt</td>
-                                        <td>
-                                            <a th:href="@{/admin_chitietdonhang}" class="btn btn-primary">Chi Tiết</a>
-                                            <button type="button" class="btn btn-success">Xác Nhận</button>
-                                        </td>
-                                    </tr>  <tr>
-                                        <td>1</td>
-                                        <td>28346</td>
-                                        <td>1/1/2003</td>
-                                        <td>950.000đ</td>
-                                        <td>Chờ xác nhận</td>
-                                        <td>Tiền Mặt</td>
-                                        <td>
-                                            <a th:href="@{/admin_chitietdonhang}" class="btn btn-primary">Chi Tiết</a>
-                                            <button type="button" class="btn btn-success">Xác Nhận</button>
-                                        </td>
-                                    </tr>
+                                   
 
                                 </tbody>
                             </table>

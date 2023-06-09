@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "SanPham")
+@Table(name = "sanpham")
 public class SanPham implements Serializable{
 	@Id
 	@NotNull(message = "{NotNull.SanPham.MaSP}")
@@ -63,17 +63,6 @@ public class SanPham implements Serializable{
 	@Column(name = "trang_thai")
 	@NotBlank(message = "{NotBlank.SanPham.TrangThai}")
 	private boolean trangthai;
-	
-//	@Column(name = "madm")
-//	@NotNull(message = "{NotNull.SanPham.MaDM}")
-//	private int MaDM;
-//	
-//	@Column(name = "mancc")
-//	@NotNull(message = "{NotNull.SanPham.MaNCC}")
-//	private int MaNCC;
-	
-//	@Column(name = "magiamgia")
-//	private int MaGiamGia;
 	
 	@OneToMany(mappedBy = "sanpham")
 	List<YeuThich> yeuthich;

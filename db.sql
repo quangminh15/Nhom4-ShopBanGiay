@@ -302,7 +302,29 @@ VALUES (1,3,3),
 --11 đơn hàng
 go
 INSERT INTO donhang(ma_nd,ngay_tao,tong_tien,dia_chigiaohang,nguoi_nhan,sdt_nhanhang,trang_thai)
-VALUES (2,'2023-06-28',0,N'123 Đường Số 1, Phường An Bình, Quận Ninh Kiều Cần Thơ,',N'Nguyễn Trần Minh Nhân','0943857632',N'Đang Chờ Xác Nhận');
+VALUES (2,'2023-06-28',0,N'123 Đường Số 1, Phường An Bình, Quận Ninh Kiều Cần Thơ,',N'Nguyễn Trần Minh Nhân','0943857632',N'Đang Chờ Xác Nhận'),
+	   (3,'2023-05-5',0,N'123 Đường Số 6, Phường An Bình, Quận Ninh Kiều Cần Thơ,',N'Nguyễn Minh Mẫn','0943857999',N'Đang Chờ Xác Nhận'),
+	   (3,'2023-04-3',0,N'123 Đường Số 3, Phường An Bình, Quận Ninh Kiều Cần Thơ,',N'Trần Thị Tho','0943857666',N'Đang Chờ Xác Nhận'),
+	   (2,'2023-05-1',0,N'123 Đường Số 1, Phường An Bình, Quận Ninh Kiều Cần Thơ,',N'Nguyễn Trần Minh Nhân','0943857888',N'Đang Chờ Xác Nhận'),
+	   (2,'2023-05-12',0,N'123 Đường Số 2, Phường An Bình, Quận Ninh Kiều Cần Thơ,',N'Nguyễn Trần Minh Hà','0943857112',N'Đang Chờ Xác Nhận');
 --12 chi tiết đơn hàng
+go
+INSERT INTO chitietdonhang(ma_dh,ma_sps,so_luong)
+VALUES (1,2,1),
+	   (1,3,1),
+	   (1,4,1),
+	   (2,2,1),
+	   (3,5,1),
+	   (4,2,1),
+	   (4,3,1),
+	   (4,4,1),
+	   (4,5,1);
+
+select c.ma_dh, sum(s.gia)
+from chitietdonhang c join sanphamsize z on c.ma_sps = z.ma_sps
+	join sanpham s on z.ma_sp = s.ma_sp
+group by c.ma_dh
+
+
 --13 thanh toán
 

@@ -237,7 +237,7 @@
                         <div class="card-header"
                             style="font-weight: bolder; font-size: 2rem; color: rgb(25, 31, 32);">
                             
-                           <p style="margin: 0; padding: 2rem 0;">MÃ ĐƠN: 28346</p>
+                           <p style="margin: 0; padding: 2rem 0;">MÃ ĐƠN: <span th:text="${madh}">28346</span></p> 
                         </div>
                         <div class="card-body">
                             <table class="table text-center table-hover table-size fs-17">
@@ -253,45 +253,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td><img src="images/hight/anh10-1.png"
-                                                style="width: 100px; height: fit-content;" alt=""></td>
-                                        <td>Converse</td>
-                                        <td>
+                                    <tr th:each="order:${orderdetails}">
+                                        <td >1</td>
+                                        <td ><img th:src="@{./images/hight/{img}(img=${order.sanpham.hinhanh2})}" ></td>
+                                        <td th:text="${order.sanpham.tensp}">Converse</td>
+                                        <td th:text="${order.soluong}">
                                             4
                                         </td>
-                                        <td>
+                                        <td th:text="${order.size.size}">
                                             40
                                         </td>
-                                        <td>4000000</td>
+                                        <td th:text="${order.sanpham.gia}">4000000</td>
                                     </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td><img src="images/hight/anh10-1.png"
-                                                style="width: 100px; height: fit-content;" alt=""></td>
-                                        <td>Converse</td>
-                                        <td>
-                                            4
-                                        </td>
-                                        <td>
-                                            40
-                                        </td>
-                                        <td>4000000</td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td><img src="images/hight/anh10-1.png"
-                                                style="width: 100px; height: fit-content;" alt=""></td>
-                                        <td>Converse</td>
-                                        <td>
-                                            4
-                                        </td>
-                                        <td>
-                                            40
-                                        </td>
-                                        <td>4000000</td>
-                                    </tr>
+                                   
 
                                 </tbody>
                             </table>
@@ -300,9 +274,9 @@
                             <div class="row">
                                 <div class="col-md-6" style="color: black;">
                                     <h3>Thông tin nhận hàng</h3>
-                                    <h5>Nguyễn Văn Ánh</h5>
-                                    <p>09823823JQK</p>
-                                    <p>497 Hoàng Văn Thụ, Phường 4, Q. Tân Bình, TP.HCM.</p>
+                                    <h5 th:text="${nguoinhan}">Nguyễn Văn Ánh</h5>
+                                    <p th:text="${sdt}">09823823JQK</p>
+                                    <p th:text="${diachi}">497 Hoàng Văn Thụ, Phường 4, Q. Tân Bình, TP.HCM.</p>
                                 </div>
                                 <div class="col-md-6" style=" text-align: right;">
                                     <div class="row">
@@ -311,11 +285,11 @@
                                     </div>
                                     <div class="row">
                                         <h4 class="col-6">Tổng tiền hàng:</h5>
-                                        <h5 class="col-4">12000000đ</h5>
+                                        <h5 class="col-4" th:text="${tongtien}">12000000đ</h5>
                                     </div>
                                     <div class="row" style="color: tomato;">
                                         <h3 class="col-6">Thành tiền:</h3>
-                                        <h3 class="col-4">12000000đ</h3>
+                                        <h3 class="col-4" th:text="${tongtien}">12000000đ</h3>
                                     </div>
 
 
