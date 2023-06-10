@@ -27,7 +27,7 @@
                 aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
             </button> -->
-            <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#"><img src="./images/logo.png"
+            <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#"><img src="/images/logo.png"
                     alt="logo" style="margin-left: 25px;"></a>
         </div>
     </nav>
@@ -38,7 +38,7 @@
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
                     <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#"><img class="img-logo"
-                            src="./images/logo.png" alt="logo"></a>
+                            src="/images/logo.png" alt="logo"></a>
                     <li class="my-4">
                         <hr class="dropdown-divider bg-light" />
                     </li>
@@ -248,7 +248,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-12">
                                         <label for="madanhmuc" class="form-label">Mã danh mục:</label>
-                                        <input type="number" class="form-control" id="madanhmuc" th:field="*{madm}">
+                                        <input type="number" class="form-control" id="madanhmuc" th:field="*{madm}" readonly="true">
                                         <div class="alert alert-danger" th:if="${#fields.hasErrors('madm')}" th:errors="*{madm}"></div>
                                     </div>
                                     <div class="mb-3 col-md-12">
@@ -258,8 +258,8 @@
                                     </div>
                                     <div class="mb-3 col-md-12">
                                         <label for="anhdanhmuc" class="form-label">Ảnh:</label> <br>
-                                        <img th:src="@{./imageSP/{img}(img=${danhmuc.anhdm})}" style="width: 200px; height: fit-content;" alt="hinhanh">
-                                        <input type="file" class="form-control" id="anhdanhmuc" name="file">
+                                        <img th:src="@{/imageSP/{img}(img=${danhmuc.anhdm})}" style="width: 200px; height: fit-content;" alt="hinhanh">
+                                        <input type="file" class="form-control" id="anhdanhmuc" name="image">
                                         <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
                                     </div>
                                     
@@ -267,7 +267,7 @@
 
                                 <button type="submit" th:formaction="@{/admin_danhmucsanpham/create}" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
                                 <button type="submit" th:formaction="@{/admin_danhmucsanpham/update}" class="btn btn-success"><i class="bi bi-card-list"></i> Sửa</button>
-                                <button type="submit" th:formaction="@{/admin_danhmucsanpham/delete/__${danhmuc.madm}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
+                                <button type="submit" th:formaction="@{/delete/__${danhmuc.madm}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
                                 <button type="submit" th:formaction="@{/admin_danhmucsanpham/clear}" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
 
                             </form>
@@ -290,10 +290,10 @@
 
                                 <thead>
                                     <tr style="font-size: 20px;">
-                                        <th>MÃ DANH MỤC</th>
-                                        <th>TÊN DANH MỤC</th>
-                                        <th>ẢNH</th>
-                                        <th>TRẠNG THÁI</th>
+                                    <th><a th:href="@{/admin_danhmucsanpham?field=madm}">MÃ DANH MỤC</a></th>
+                                    <th><a th:href="@{/admin_danhmucsanpham?field=tendm}">TÊN DANH MỤC</a></th>
+                                    <th><a th:href="@{/admin_danhmucsanpham?field=anhdm}">ẢNH</a></th>
+                                    <th><a th:href="@{/admin_danhmucsanpham?field=trangthai}">TRẠNG THÁI</a></th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -301,15 +301,44 @@
                                     <tr th:each="danhmuc: ${danhmucs}">
                                         <td th:text="${danhmuc.madm}"></td>
                                         <td th:text="${danhmuc.tendm}"></td>
-                                        <td><img th:src="@{./imageSP/{img}(img=${danhmuc.anhdm})}" style="width: 200px; height: fit-content;" alt="hinhanh"></td>
+                                        <td><img th:src="@{/imageSP/{img}(img=${danhmuc.anhdm})}" style="width: 200px; height: fit-content;" alt="hinhanh"></td>
                                         <td th:text="${danhmuc.trangthai}" ></td>
                                         <td>
                                             <a type="submit" th:href="@{/admin_danhmucsanpham/edit/__${danhmuc.madm}__}" class="btn btn-warning">Chọn</a>
-                                            <a type="submit" th:href="@{/admin_danhmucsanpham/delete/__${danhmuc.madm}__}" class="btn btn-danger">Xóa</a>
+                                            <a type="submit" th:href="@{/delete/__${danhmuc.madm}__}" class="btn btn-danger">Xóa</a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="d-flex justify-content-between">
+								<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item" th:if="${currIndex}>0"><a
+											class="page-link"
+											th:href="@{/admin_danhmucsanpham/page?p=__${currIndex-1}__}" href="#">Previous</a></li>
+										<tr th:each="i: ${#numbers.sequence(0, numberOfPages - 1)}">
+											<li class="page-item"><a
+												th:style="${'background-color:' + (i==currIndex?'lightgrey':'white')}"
+												th:href="@{/admin_danhmucsanpham/page?p=__${i}__}" class="page-link"
+												href="#" th:text="${i+1}"></a></li>
+										</tr>
+										<li class="page-item"
+											th:if="(${currIndex}>-1 and (${currIndex})<${numberOfPages-1})"><a
+											class="page-link"
+											th:href="@{/admin_danhmucsanpham/page?p=__${currIndex+1}__}" href="#">Next</a></li>
+									</ul>
+								</nav>
+								<div class="d-flex justify-content-around">
+									<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item"><a class="page-link" th:href="@{/admin_danhmucsanpham/page?p=0}">First</a></li>
+										<li class="page-item"><a
+										class="page-link"
+										th:href="@{/admin_danhmucsanpham/page?p=__${numberOfPages-1}__}">Last</a></li>
+									</ul>
+								</nav>
+								</div>
+							</div>
                         </div>
                         <div class="card-footer text-muted">
 

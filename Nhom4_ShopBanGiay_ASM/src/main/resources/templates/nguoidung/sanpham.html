@@ -27,7 +27,7 @@
         <div class="menu">
             <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" th:href="@{/trangchu}"><img src="./images/logo.png" alt="logo"></a>
+                    <a class="navbar-brand" th:href="@{/trangchu}"><img src="/images/logo.png" alt="logo"></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -122,11 +122,8 @@
                 <div class="col-md-3">
                     <div class="danhmuc-sp">
                         <h5>DANH MỤC SẢN PHẨM</h5>
-                        <ul>
-                            <li><a href="#">Converse</a></li>
-                            <li><a href="#">Vans</a></li>
-                            <li><a href="#">Supreme</a></li>
-                            <li><a href="#">Adidas</a></li>
+                        <ul th:each="sp : ${danhmucs}"  >
+                            <li><a th:value="${sp.madm}" th:href="@{/sanpham/dm}" th:text="${sp.tendm}"></a></li>
                         </ul>
                     </div>
                     <div class="danhmuc-sp mt-5">
@@ -141,7 +138,7 @@
                     <div class="row">
                         <div th:each="sanpham: ${sanphams}" class="col-xl-3 col-lg-4 col-sm-6 col-12 mb-4">
                             <div class="card" style="width:100%">
-                                <a th:href="@{/sanpham/chitietsp/__${sanpham.masp}__}"><img class="card-img-top" th:src="@{./imageSP/{img}(img=${sanpham.hinhanh1})}"
+                                <a th:href="@{/sanpham/chitietsp/__${sanpham.masp}__}"><img class="card-img-top" th:src="@{/imageSP/{img}(img=${sanpham.hinhanh1})}"
                                         alt="Card image" style="width:100%"></a>
                                 <div class="card-body">
                                     <a th:href="@{/sanpham/chitietsp/__${sanpham.masp}__}">
@@ -167,6 +164,35 @@
                        
                         
                     </div>
+                    <div class="d-flex justify-content-between">
+								<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item" th:if="${currIndex}>0"><a
+											class="page-link"
+											th:href="@{/sanpham/page?p=__${currIndex-1}__}" href="#">Previous</a></li>
+										<tr th:each="i: ${#numbers.sequence(0, numberOfPages - 1)}">
+											<li class="page-item"><a
+												th:style="${'background-color:' + (i==currIndex?'lightgrey':'white')}"
+												th:href="@{/sanpham/page?p=__${i}__}" class="page-link"
+												href="#" th:text="${i+1}"></a></li>
+										</tr>
+										<li class="page-item"
+											th:if="(${currIndex}>-1 and (${currIndex})<${numberOfPages-1})"><a
+											class="page-link"
+											th:href="@{/sanpham/page?p=__${currIndex+1}__}" href="#">Next</a></li>
+									</ul>
+								</nav>
+								<div class="d-flex justify-content-around">
+									<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item"><a class="page-link" th:href="@{/sanpham/page?p=0}">First</a></li>
+										<li class="page-item"><a
+										class="page-link"
+										th:href="@{/sanpham/page?p=__${numberOfPages-1}__}">Last</a></li>
+									</ul>
+								</nav>
+								</div>
+							</div>
                 </div>
             </div>
         </div>

@@ -62,6 +62,8 @@ public class NguoiDung  implements Serializable{
 	@Column(name = "vai_tro")
 	boolean vaitro ;
 	
+
+	
 	@OneToMany(mappedBy = "nguoidung")
     List<YeuThich> yeuthich;
 	

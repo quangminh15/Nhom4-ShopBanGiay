@@ -16,11 +16,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fpoly.ShopBanGiay.dao.DanhMucDAO;
+import com.fpoly.ShopBanGiay.dao.KhuyenMaiDAO;
 import com.fpoly.ShopBanGiay.dao.NhaCungCapDAO;
 import com.fpoly.ShopBanGiay.dao.SanPhamDAO;
 import com.fpoly.ShopBanGiay.model.DanhMuc;
+import com.fpoly.ShopBanGiay.model.GiamGia;
 import com.fpoly.ShopBanGiay.model.NhaCungCap;
 import com.fpoly.ShopBanGiay.model.SanPham;
+import com.fpoly.ShopBanGiay.model.YeuThich;
 
 import jakarta.validation.Valid;
 
@@ -35,6 +38,9 @@ public class admin_sanphamController {
 	
 	@Autowired
 	NhaCungCapDAO nhacungcapDAO;
+	
+	@Autowired
+	KhuyenMaiDAO giamgiaDAO;
 	
 	
 	
@@ -56,10 +62,16 @@ public class admin_sanphamController {
 		return danhmuc;
 	}
 	
-	@ModelAttribute("nhacungcap")
+	@ModelAttribute("nhacungcaps")
 	public List<NhaCungCap> getNhaCungCapsp() {
 		List<NhaCungCap> nhacungcap = nhacungcapDAO.findAll();
 		return nhacungcap;
+	}
+	
+	@ModelAttribute("giamgias")
+	public List<GiamGia> getGiamGiasp() {
+		List<GiamGia> giamgia = giamgiaDAO.findAll();
+		return giamgia;
 	}
 	
 	@RequestMapping("/admin_sanpham/edit/{masp}")

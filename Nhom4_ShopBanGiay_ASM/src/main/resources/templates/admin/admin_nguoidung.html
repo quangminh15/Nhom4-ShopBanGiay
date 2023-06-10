@@ -11,7 +11,7 @@
     <link rel="stylesheet" th:href="@{css/admin_css.css}" />
     <link th:href="@{/css/mycss.css}" rel="stylesheet" />
     <link th:href="@{/font/themify-icons/themify-icons.css}" rel="stylesheet" />
-    <title>CONVERSE - Thông tin cá nhân</title>
+    <title>CONVERSE - Quản Lý Người Dùng</title>
 </head>
 
 <body style="background-color: rgb(238, 238, 238);">
@@ -27,7 +27,7 @@
                 aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
             </button> -->
-            <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#"><img src="./images/logo.png"
+            <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#"><img src="/images/logo.png"
                     alt="logo" style="margin-left: 25px;"></a>
         </div>
     </nav>
@@ -38,7 +38,7 @@
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
                     <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#"><img class="img-logo"
-                            src="./images/logo.png" alt="logo"></a>
+                            src="/images/logo.png" alt="logo"></a>
                     <li class="my-4">
                         <hr class="dropdown-divider bg-light" />
                     </li>
@@ -251,60 +251,67 @@
                             Form Người Dùng
                         </div>
                         <div class="card-body">
-                            <form action="">
+                            <form th:object="${u}">
                                 <div class="row">
+                                    <div class="mb-3 col-md-6">
+                                        <label for="exampleFormControlInput1" class="form-label">Mã người dùng</label>
+                                        <input type="number" class="form-control" id="exampleFormControlInput1"
+                                            placeholder="" th:field="*{mand}" readonly="true" >
+                                    </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label">Họ và tên</label>
                                         <input type="text" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="">
+                                            placeholder="" th:field="*{hoten}">
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Email</label>
+                                        <label for="exampleFormControlInputEmail" class="form-label">Email</label>
                                         <input type="email" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="">
+                                            placeholder="" th:field="*{email}">
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label">Số Điện Thoại</label>
                                         <input type="number" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="">
+                                            placeholder="" th:field="*{sdt}">
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label">Địa Chỉ</label>
                                         <input type="text" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="">
+                                            placeholder="" th:field="*{diachi}">
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label">Mật khẩu</label>
                                         <input type="text" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="">
+                                            placeholder="" th:field="*{matkhau}">
                                     </div>
-                                    <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Ngày sinh</label>
-                                        <input type="date" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="">
-                                    </div>
+
                                     <div class="mb-3 col-md-6">
                                         <label for="anh" class="form-label">Hình ảnh</label> <br>
-                                        <img src="https://via.placeholder.com/150"
-                                            style="width: 200px; height: fit-content;" alt="hinhanh">
-                                        <input type="file" class="form-control" id="anh" placeholder="">
+<!-- Nếu đối tượng user không null và có đường dẫn hình ảnh -->
+
+<img th:if="${u.hinh != null }" th:src="@{'/images/userImages/'+${u.hinh}}"  alt="User Image" th:field="*{hinh}"/>
+
+<!-- Nếu không có đường dẫn hình ảnh hoặc đối tượng user là null -->
+<img th:unless="${u.hinh != null }" src="https://via.placeholder.com/150" alt="Default Image" th:field="*{hinh}"/>
+
+                                        <input type="file" class="form-control" id="anh" placeholder="" th:field="*{hinh}" name="hinh" accept=".jpg, .jpeg, .png, .gif" style="">
                                     </div>
-                                    <br>
-                                    <div class="mb-3 col-md-6">
+									<div class="mb-3 col-md-6">
                                         <p>Vai trò</p>
-                                        <input type="radio" id="admin" name="role" value="admin">
+                                        <input type="radio" id="admin" name="role" th:checked="${vaitro == null || vaitro == false}" value="true" th:field="*{vaitro}">
                                         <label for="html">Quản lý</label><br>
-                                        <input type="radio" id="customer" name="role" value="customer">
+                                        <input type="radio" id="customer" name="role" th:checked="${vaitro == true}" value="false" th:field="*{vaitro}">
                                         <label for="html">Khách hàng</label><br>
                                     </div>
+                                    <br>
+                                    
                                     
                                     
                                 </div><br><br>
-                                <button type="button" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
-                                <button type="button" class="btn btn-success"><i class="bi bi-card-list"></i>
+                                <button class="btn btn-primary" th:formaction="@{/admin-nguoidung/add}"><i class="bi bi-save2"></i> Thêm</button>
+                                <button class="btn btn-success" th:formaction="@{/admin-nguoidung/update}"><i class="bi bi-card-list"></i>
                                     Sửa</button>
-                                <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
-                                <button type="button" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm
+                                <button class="btn btn-danger" th:formaction="@{/admin-nguoidung/remove/__${u.mand}__}"><i class="bi bi-trash"></i> Xóa</button>
+                                <button class="btn btn-info" th:formaction="@{/admin-nguoidung/clear}"><i class="bi bi-arrow-clockwise"></i> Làm
                                     mới</button>
                             </form>
                         </div>
@@ -328,7 +335,6 @@
                                         <th>Mã Người Dùng</th>
                                         <th>Ảnh</th>
                                         <th>Họ và tên</th>
-                                        <th>Ngày sinh</th>
                                         <th>Email</th>
                                         <th>Số Điện Thoại</th>
                                         <th>Vai trò</th>
@@ -336,25 +342,38 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td><img src="https://via.placeholder.com/150"
+                                    <tr th:each="user : ${userList}">
+                                        <td th:text="${user.mand}"></td>
+                                      	<td><img th:src="@{'/images/userImages/'+${user.hinh}}"
                                                 style="width: 100px; height: fit-content;" alt="hinhanh"></td>
-                                        <td>Bùi Thanh Bùi</td>
-                                        <td>22-10-2000</td>
-                                        <td>BTB@gmail.com</td>
-                                        <td>0123456987</td>
-                                        <td>Quản lý</td>
+                                      	<td th:text="${user.hoten}"></td>
+                                      	<td th:text="${user.email}"></td>
+                                      	<td th:text="${user.sdt}"></td>
+                                      	<div th:if="${user.vaitro}">
+										     <td>Quản lý</td>
+										</div>
+										<div th:unless="${user.vaitro}">
+										     <td>Khách hàng</td>
+										</div>
                                         <td>
-                                            <button type="button" class="btn btn-success"><i
+                                            <a th:href="@{/admin-nguoidung/edit/__${user.mand}__}" type="button" class="btn btn-success"><i
                                                     class="bi bi-card-list"></i>
-                                                Sửa</button>
-                                            <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i>
-                                                Xóa</button>
+                                                Sửa</a>
+                                            <a th:href="@{/admin-nguoidung/remove/__${user.mand}__}" type="button" class="btn btn-danger"><i class="bi bi-trash"></i>
+                                                Xóa</a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                         <nav aria-label="Page navigation example">
+					      <ul class="pagination">
+					        <li class="page-item" th:if="${currIndex}>0" ><a class="page-link" th:href="@{/pageNguoiDung?p=__${currIndex-1}__}" href="#">Previous</a></li>
+					        <tr th:each="i: ${#numbers.sequence(0, numberOfPages - 1)}">
+					          <li class="page-item"><a th:style="${'background-color:' + (i==currIndex?'lightgrey':'white')}" th:href="@{/pageNguoiDung?p=__${i}__}" class="page-link" href="#" th:text="${i+1}"></a></li>
+					        </tr>
+					        <li class="page-item" th:if="(${currIndex}>-1 and (${currIndex})<${numberOfPages-1})"><a class="page-link" th:href="@{/pageNguoiDung?p=__${currIndex+1}__}" href="#">Next</a></li>
+					      </ul>
+					    </nav>
                         </div>
                         <div class="card-footer text-muted">
                         </div>

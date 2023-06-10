@@ -6,8 +6,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -23,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fpoly.ShopBanGiay.dao.DanhMucDAO;
 import com.fpoly.ShopBanGiay.model.DanhMuc;
 import com.fpoly.ShopBanGiay.model.Size;
+import com.fpoly.ShopBanGiay.service.ParamService;
 
 import jakarta.validation.Valid;
 
@@ -30,20 +37,35 @@ import jakarta.validation.Valid;
 public class admin_danhmucsanphamController {
 
 	@Autowired
+	ParamService paramservice;
+	
+	@Autowired
 	DanhMucDAO danhmucDAO;
-	
-	private final String UPLOAD_DIR = "./uploads/";
-	
+
 	@RequestMapping("/admin_danhmucsanpham")
-	public String admin_danhmucsanpham(DanhMuc danhmuc, Model model) {
-		danhmuc = new DanhMuc();
+	public String admin_danhmucsanpham(Model model, @RequestParam("field") Optional<String> field,
+			@RequestParam("p") Optional<Integer> p) {
+		DanhMuc danhmuc = new DanhMuc();
 		danhmuc.setAnhdm("default.png");
-		model.addAttribute("danhmuc",danhmuc);
-		List<DanhMuc> danhmucs = danhmucDAO.findAll();
+		model.addAttribute("danhmuc", danhmuc);
+
+		Pageable pageable = PageRequest.of(p.orElse(0), 4, Sort.by(Direction.DESC, field.orElse("madm")).ascending());
+		Page<DanhMuc> danhmucs = danhmucDAO.findAll(pageable);
+
+		var numberOfPages = danhmucs.getTotalPages();
+
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
 		model.addAttribute("danhmucs", danhmucs);
 		return "/admin/admin_danhmucsanpham";
 	}
-	
+
+	@GetMapping("/admin_danhmucsanpham/page")
+	public String pagedanhmuc(Model model, @RequestParam("field") Optional<String> field,
+			@RequestParam("p") Optional<Integer> p) {
+		return this.admin_danhmucsanpham(model, field, p);
+	}
+
 	@RequestMapping("/admin_danhmucsanpham/edit/{madm}")
 	public String editdm(Model model, @PathVariable("madm") Integer MaDM) {
 		DanhMuc danhmuc = danhmucDAO.findById(MaDM).get();
@@ -52,37 +74,26 @@ public class admin_danhmucsanphamController {
 		model.addAttribute("danhmucs", danhmucs);
 		return "/admin/admin_danhmucsanpham";
 	}
-	
+
 	@PostMapping("/admin_danhmucsanpham/create")
-	public String createdm(@Valid @ModelAttribute("danhmuc") DanhMuc danhmuc, BindingResult result, Model model,@RequestParam("file") MultipartFile file) {
+	public String createdm(@Valid @ModelAttribute("danhmuc") DanhMuc danhmuc, BindingResult result, Model model,
+			@RequestParam("image") MultipartFile multipartfile) throws IOException {
+		
 		if (result.hasErrors()) {
 			List<DanhMuc> danhmucs = danhmucDAO.findAll();
 			model.addAttribute("danhmucs", danhmucs);
 			return "/admin/admin_danhmucsanpham";
 		}
+
+		String filename = StringUtils.cleanPath(multipartfile.getOriginalFilename());
+		String uploadDir = "/imageSP";
+		ParamService.saveFile(uploadDir, filename, multipartfile);
 		
-		// check if file is empty
-        if (file.isEmpty()) {
-            model.addAttribute("error", "Chưa chọn ảnh");
-            System.out.println("chưa chọn ảnh");
-            return "/admin/admin_danhmucsanpham";
-        }
-		
-		// normalize the file path
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
-        
-     // save the file on the local file system
-        try {
-            Path path = Paths.get(UPLOAD_DIR + fileName);
-            Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        danhmuc.setAnhdm(fileName);
+		danhmuc.setAnhdm(filename);
 		danhmucDAO.save(danhmuc);
 		return "redirect:/admin_danhmucsanpham";
 	}
-	
+
 	@PostMapping("/admin_danhmucsanpham/update")
 	public String updatedm(@Valid @ModelAttribute("danhmuc") DanhMuc danhmuc, BindingResult result, Model model) {
 		if (result.hasErrors()) {
@@ -93,13 +104,13 @@ public class admin_danhmucsanphamController {
 		danhmucDAO.save(danhmuc);
 		return "redirect:/admin_danhmucsanpham/edit/" + danhmuc.getMadm();
 	}
-	
-	@RequestMapping("/admin_size/delete/{madm}")
-	public String deletedm(@PathVariable("madm") Integer MaDM) {
-		danhmucDAO.deleteById(MaDM);
+
+	@RequestMapping("/delete/{madm}")
+	public String deletedm(@PathVariable("madm") Integer madm) {
+		danhmucDAO.deleteById(madm);
 		return "redirect:/admin_danhmucsanpham";
 	}
-	
+
 	@PostMapping("/admin_danhmucsanpham/clear")
 	public String clear(@ModelAttribute("danhmuc") DanhMuc danhmuc) {
 		danhmuc.setMadm(0);
