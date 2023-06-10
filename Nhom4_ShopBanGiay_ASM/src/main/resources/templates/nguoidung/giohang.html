@@ -255,6 +255,35 @@
         integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
         crossorigin="anonymous"></script>
         
+        
+        <script >
+        $(document).ready(function(){
+        	//nut "-"
+        	$(".minusButton").on("click",function(evt){
+        		evt.preventDefault();//khong chuyen huong trinh duyet
+        	//Ma SanPhamSize
+        		masps = $(this).attr("pid");//lay gia trị cua th:pid
+        		qtyInput = $("#quantity" + masps);
+        								 
+        								  //value
+        		newQty = parseInt(qtyInput.val())-1;
+        		if (newQty >0)qtyInput.val(newQty) ;
+        	})
+        	
+        	//nut "+"
+        	$(".plusButton").on("click",function(evt){		
+        		evt.preventDefault();//khong chuyen huong trinh duyet
+        	//Ma SanPhamSize
+        		masps = $(this).attr("pid");//lay gia trị cua th:pid
+        		qtyInput = $("#quantity" + masps);
+        								 
+        								  //value
+        		newQty = parseInt(qtyInput.val())+1;
+        		if (newQty >0)qtyInput.val(newQty) ;
+        	})
+        })
+        </script>
+        
        <script type="text/javascript">
 		$('#qty').on('chage',function(){
 			$.ajax({

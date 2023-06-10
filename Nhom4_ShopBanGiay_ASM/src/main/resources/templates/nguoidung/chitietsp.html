@@ -182,9 +182,9 @@
                                 </select>
                            </form>
                         </div>
-						<form th:object="${sanphamsize}">
-						 <div th:replace="~{quantitycontrol :: quantitycontrol(1,${sanphamsize.masps})}"></div>
-						 </form>
+						
+						 <div th:replace="~{quantitycontrol :: quantitycontrol(1,${sanpham.masp})}"></div>
+						 
                         <!-- <div class="row mt-4 mb-4">
                             <span class="col-md-3 size1" >Số lượng: </span>
                             <div class="col-md-9">

@@ -115,8 +115,7 @@ public class SanPhamController {
 		List<SanPhamSize>spsizes = spsizeDAO.findByMaSP(MaSP);
 		model.addAttribute("sizes", spsizes);
 		
-		SanPhamSize sanphamsize = spsizeDAO.findById(masps).get();
-		model.addAttribute("sanpham", sanphamsize);
+		
 		
 		return "/nguoidung/chitietsp";
 	}
