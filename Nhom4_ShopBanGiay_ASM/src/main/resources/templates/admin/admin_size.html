@@ -27,7 +27,7 @@
                 aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
             </button> -->
-            <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#"><img src="./images/logo.png"
+            <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#"><img src="/images/logo.png"
                     alt="logo" style="margin-left: 25px;"></a>
         </div>
     </nav>
@@ -248,7 +248,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-12">
                                         <label for="masize" class="form-label">Mã Size:</label>
-                                        <input type="number" class="form-control" id="masize" th:field="*{masize}">
+                                        <input type="number" class="form-control" id="masize" th:field="*{masize}" readonly="true">
                                         <div class="alert alert-danger" th:if="${#fields.hasErrors('masize')}" th:errors="*{masize}"></div>
                                     </div>
                                     <div class="mb-3 col-md-12">
@@ -274,7 +274,7 @@
 
                                 <button type="submit" th:formaction="@{/admin_size/create}" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
                                 <button type="submit" th:formaction="@{/admin_size/update}" class="btn btn-success"><i class="bi bi-card-list"></i> Sửa</button>
-                                <button type="submit" th:formaction="@{/admin_size/delete/__${size.masize}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
+                                <button type="submit" th:formaction="@{/delete/__${size.masize}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
                                 <button type="submit" th:formaction="@{/admin_size/clear}" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
 
                             </form>
@@ -297,9 +297,9 @@
 
                                 <thead>
                                     <tr style="font-size: 20px;">
-                                        <th>MÃ SIZE</th>
-                                        <th>SIZE</th>
-                                        <th>TRẠNG THÁI</th>
+                                        <th><a th:href="@{/admin_size?field=masize}">MÃ SIZE</a></th>
+                                        <th><a th:href="@{/admin_size?field=sizegiay}">SIZE</a></th>
+                                        <th><a th:href="@{/admin_size?field=trangthai}">TRẠNG THÁI</a></th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -311,11 +311,40 @@
                                     	
                                         <td>
                                             <a type="submit" th:href="@{/admin_size/edit/__${size.masize}__}" class="btn btn-warning">Chọn</a>
-                                            <a type="submit" th:href="@{/admin_size/delete/__${size.masize}__}" class="btn btn-danger">Xóa</a>
+                                            <a type="submit" th:href="@{/delete/__${size.masize}__}" class="btn btn-danger">Xóa</a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="d-flex justify-content-between">
+								<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item" th:if="${currIndex}>0"><a
+											class="page-link"
+											th:href="@{/admin_size/page?p=__${currIndex-1}__}" href="#">Previous</a></li>
+										<tr th:each="i: ${#numbers.sequence(0, numberOfPages - 1)}">
+											<li class="page-item"><a
+												th:style="${'background-color:' + (i==currIndex?'lightgrey':'white')}"
+												th:href="@{/admin_size/page?p=__${i}__}" class="page-link"
+												href="#" th:text="${i+1}"></a></li>
+										</tr>
+										<li class="page-item"
+											th:if="(${currIndex}>-1 and (${currIndex})<${numberOfPages-1})"><a
+											class="page-link"
+											th:href="@{/admin_size/page?p=__${currIndex+1}__}" href="#">Next</a></li>
+									</ul>
+								</nav>
+								<div class="d-flex justify-content-around">
+									<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item"><a class="page-link" th:href="@{/admin_size/page?p=0}">First</a></li>
+										<li class="page-item"><a
+										class="page-link"
+										th:href="@{/admin_size/page?p=__${numberOfPages-1}__}">Last</a></li>
+									</ul>
+								</nav>
+								</div>
+							</div>
                         </div>
                         <div class="card-footer text-muted">
 

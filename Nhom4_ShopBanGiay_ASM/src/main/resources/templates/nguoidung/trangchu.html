@@ -26,7 +26,7 @@
         <div class="menu">
             <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" th:href="@{/trangchu}"><img src="./images/logo.png" alt="logo"></a>
+                    <a class="navbar-brand" th:href="@{/trangchu}"><img src="/images/logo.png" alt="logo"></a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
                         <span class="navbar-toggler-icon"></span>
                     </button>
@@ -175,7 +175,7 @@
                         
                             <div th:each="dm : ${danhmucs}" th:value="${dm.madm}"  class="item mb-4">
                                 <div class="card border-0 shadow">
-                                    <a href="#"><img th:src="@{./imageSP/{img}(img=${dm.anhdm})}" alt="hinhanh" class="card-img-top"
+                                    <a href="#"><img th:src="@{/imageSP/{img}(img=${dm.anhdm})}" alt="hinhanh" class="card-img-top"
                                             style="height: 300px;">
                                         <div class="card-body">
                                             <div class="card-title text-center">
@@ -199,7 +199,7 @@
                 <div class="row">
                     <div th:each="sanpham: ${sanphams}" class="col-xl-2 col-lg-3 col-sm-4 col-6 mb-4">
                         <div class="card" style="width:100%">
-                            <a th:href="@{/sanpham/chitietsp/__${sanpham.masp}__}"><img class="card-img-top" th:src="@{./imageSP/{img}(img=${sanpham.hinhanh1})}"
+                            <a th:href="@{/sanpham/chitietsp/__${sanpham.masp}__}"><img class="card-img-top" th:src="@{/imageSP/{img}(img=${sanpham.hinhanh1})}"
                                     alt="Card image" style="width:100%"></a>
                             <div class="card-body">
                                 <a th:href="@{/sanpham/chitietsp/__${sanpham.masp}__}">

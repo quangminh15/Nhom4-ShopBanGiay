@@ -53,7 +53,7 @@ public class SanPham implements Serializable{
 	private Boolean loai;
 	
 	@Column(name = "gia")
-	@NotBlank(message = "{NotBlank.SanPham.gia}")
+	@NotNull(message = "{NotNull.SanPham.gia}")
 	private Float gia;
 	
 	@Column(name = "mo_ta")
@@ -61,7 +61,7 @@ public class SanPham implements Serializable{
 	private String mota;
 	
 	@Column(name = "trang_thai")
-	@NotBlank(message = "{NotBlank.SanPham.trangthai}")
+	@NotNull(message = "{NotNull.SanPham.trangthai}")
 	private boolean trangthai;
 	
 //	@Column(name = "madm")
@@ -81,14 +81,17 @@ public class SanPham implements Serializable{
 	@OneToMany(mappedBy = "sanpham")
     List<SanPhamSize> sanphamsize;
 	
+	@NotNull(message = "{NotNull.SanPham.danhmuc}")
 	@ManyToOne
     @JoinColumn(name = "ma_dm")
     DanhMuc danhmuc;
 	
+	@NotNull(message = "{NotNull.SanPham.nhacungcap}")
 	@ManyToOne
     @JoinColumn(name = "ma_ncc")
     NhaCungCap nhacungcap;
 	
+	@NotNull(message = "{NotNull.SanPham.giamgia}")
 	@ManyToOne
     @JoinColumn(name = "ma_giam_gia")
     GiamGia giamgia;

@@ -2,6 +2,11 @@ package com.fpoly.ShopBanGiay.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,6 +14,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -79,5 +85,19 @@ public class ParamService {
 	        }
 	    }
 	    return null;
+	}
+	
+	public static void saveFile(String uploadDir, String filename, MultipartFile multipartfile) throws IOException{
+		Path path = Paths.get(uploadDir);
+		if(!Files.exists(path)) {
+			Files.createDirectories(path);
+		}
+		
+		try(InputStream inputStream = multipartfile.getInputStream()) {
+			Path filePath = path.resolve(filename);
+			Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
+		} catch (Exception e) {
+			throw new IOException("Lưu thất bại file "+ filename);
+		}
 	}
 }
