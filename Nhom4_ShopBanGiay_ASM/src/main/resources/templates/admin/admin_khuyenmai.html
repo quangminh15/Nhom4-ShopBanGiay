@@ -244,37 +244,48 @@
                             Form Khuyến Mãi
                         </div>
                         <div class="card-body">
-                            <form action="">
+                            <form th:action="${Action}" th:object="${KMS}" method="post">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Tên Khuyến Mãi</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="">
+                                        <label for="exampleFormControlInput1" class="form-label" ><b>Tên Khuyến Mãi</b></label>
+                                        <input type="text" class="form-control" id="tengiamgia"
+                                            placeholder="" th:field="*{tengiamgia}">
+                                        <div class="alert alert-warning" th:if="${#fields.hasErrors('tengiamgia')}" th:errors="*{tengiamgia}"></div>
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Giảm Giá</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="">
+                                        <label for="exampleFormControlInput1" class="form-label" ><b>Giảm Giá (%)</b></label>
+                                        <input type="text" class="form-control" id="giamgia" name="giamgia"
+                                            placeholder="" th:field="*{giamgia}">
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Ngày Tạo</label>
-                                        <input type="date" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="">
+                                        <label for="exampleFormControlInput1" class="form-label" ><b>Ngày Tạo</b></label>
+                                        <input type="date" class="form-control" id="ngaytao" name="ngaytao"
+                                            placeholder="" th:field="*{ngaytao}">
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label">Mô tả</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1"
-                                            placeholder="">
+                                        <label for="exampleFormControlInput1" class="form-label" ><b>Ngày Kết Thúc</b></label>
+                                        <input type="date" class="form-control" id="ngayketthuc" name="ngayketthuc"
+                                            placeholder="" th:field="*{ngayketthuc}">
+                                    </div>
+                                    <div class="mb-3 col-md-6">
+                                        <label for="exampleFormControlInput1" class="form-label" ><b>Mô tả</b></label><br>
+                                        <textarea rows="10" cols="163"  id="mota" name="mota" th:field="*{mota}"></textarea>
+<!--                                         <input type="text" class="form-control" id="exampleFormControlInput1" -->
+<!--                                             placeholder=""> -->
+                                    </div><br>
+                                    <div class="mb-3 col-md-6">
+                                        <input type="text" class="form-control" id="magiamgia" name="magiamgia"
+                                            placeholder="" th:field="*{magiamgia}" hidden="">
                                     </div>
                                     
 
                                 </div>
 
-                                <button type="button" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
-                                <button type="button" class="btn btn-success"><i class="bi bi-card-list"></i>
+                                <button type="submit" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
+                                <button type="submit" class="btn btn-success"><i class="bi bi-card-list"></i>
                                     Sửa</button>
-                                <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
-                                <button type="button" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm
+                                <a type="button" class="btn btn-danger"  th:href="@{'/delete_khuyenmai/'+ ${magiamgia}}"><i class="bi bi-trash"></i> Xóa</a>
+                                <button type="submit" th:formaction="@{/admin_khuyenmai/clear}" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm
                                     mới</button>
 
                             </form>
@@ -298,7 +309,7 @@
                                     <tr style="font-size: 20px;">
                                         <th>Mã Khuyến Mãi</th>
                                         <th>Tên Khuyến Mãi</th>
-                                        <th>Giảm Giá</th>
+                                        <th>Giảm Giá (%)</th>
                                         <th>Ngày Tạo</th>
                                         <th>Ngày Kết Thúc</th>
                                         <th>Mô Tả</th>
@@ -314,14 +325,35 @@
                                         <td th:text="${item.ngayketthuc}"></td>
                                         <td th:text="${item.mota}"></td>
                                         <td>
-                                            <button type="button" class="btn btn-success"><i class="bi bi-card-list"></i>
-                                                Sửa</button>
-                                                <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
+                                            <a type="button"
+												class="btn btn-success" th:href="@{'/edit_khuyenmai/'+ ${item.magiamgia}}">
+												<i class="bi bi-card-list"></i> Sửa
+											</a>
+											<a type="button" class="btn btn-danger" th:href="@{'/delete_khuyenmai/'+ ${item.magiamgia}}" >
+												<i class="bi bi-trash"></i> Xóa
+											</a>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                        </div>
+							<nav aria-label="Page navigation example">
+								<ul class="pagination">
+									<li class="page-item" th:if="${currIndex}>0"><a
+										class="page-link"
+										th:href="@{/page?p=__${currIndex-1}__}" href="#">Previous</a></li>
+									<tr th:each="i: ${#numbers.sequence(0, numberOfPages - 1)}">
+										<li class="page-item"><a
+											th:style="${'background-color:' + (i==currIndex?'lightgrey':'white')}"
+											th:href="@{/page?p=__${i}__}" class="page-link" href="#"
+											th:text="${i+1}"></a></li>
+									</tr>
+									<li class="page-item"
+										th:if="(${currIndex}>-1 and (${currIndex})<${numberOfPages-1})"><a
+										class="page-link" th:href="@{/page?p=__${currIndex+1}__}"
+										href="#">Next</a></li>
+								</ul>
+							</nav>
+						</div>
                         <div class="card-footer text-muted">
 
                         </div>
