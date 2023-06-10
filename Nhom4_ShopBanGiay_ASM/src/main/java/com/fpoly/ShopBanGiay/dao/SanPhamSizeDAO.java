@@ -11,8 +11,9 @@ public interface SanPhamSizeDAO extends JpaRepository<SanPhamSize, Integer>{
 
 	
 	
+	@Query("select z from SanPhamSize z where z.sanpham.masp like ?1")
+	List<SanPhamSize> findByMaSP(Integer madh);
 	
-	
-	@Query("select z from SanPhamSize z where z.chitietdonhang.donhang.madh = ?1")
+	@Query("select z from SanPhamSize z where z.chitietdonhang.donhang.madh like ?1")
 	List<SanPhamSize> findByMaDH(Integer madh);
 }

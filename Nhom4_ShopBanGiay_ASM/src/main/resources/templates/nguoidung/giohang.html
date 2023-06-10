@@ -131,17 +131,17 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="cart: ${carts}">
+                    <tr id="table" th:each="cart: ${carts}">
                         <td ><span class="ti-close"></span></td>
-                        <td ><img th:src="@{./images/hight/{img}(img=${cart.sanphamsize.sanpham.hinhanh3})}" ></td>
+                        <td ><img th:src="@{./imageSP/{img}(img=${cart.sanphamsize.sanpham.hinhanh3})}" ></td>
                         <td th:text="${cart.sanphamsize.sanpham.tensp}">Chuck 70s High AllWhite</td>
                         <td th:text="${cart.sanphamsize.sanpham.gia}">950.000đ</td>
                         <td>
                             <div class="input-cart">
-                                <input type="number" class="form-control input-cart1 text-center" value="1">
+                                <input id="qty"  th:value="${cart.soluong}" type="number" class="form-control input-cart1 text-center" >
                             </div>
                         </td>
-                        <td>950.000đ</td>
+                        <td class="amount" th:text="${#numbers.formatInteger(cart.soluong*cart.sanphamsize.sanpham.gia,0)}" id="total" name="total">950.000đ</td>
                     </tr>
                     <!-- tr>
                         <td><span class="ti-close"></span></td>
@@ -260,6 +260,23 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"
         integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw=="
         crossorigin="anonymous"></script>
+        
+       <script type="text/javascript">
+		$('#qty').on('chage',function(){
+			$.ajax({
+				type:'post',
+				url:'/save',
+				data:$('#table').serialize(),
+			/* 	contentType: "application/json", */
+				success: function(response){
+					$('#total').textContent=response.gia*reponse.soluong
+				},
+				error:function(){
+					alert('error')
+				}
+			})
+		})
+	</script>
     <script>
         $('.owl-carousel').owlCarousel({
             loop: true,

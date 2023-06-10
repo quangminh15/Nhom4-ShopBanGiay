@@ -14,11 +14,13 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "sanphamsize", uniqueConstraints = {
 		@UniqueConstraint(columnNames = {"ma_size","ma_sp"})
@@ -47,7 +49,7 @@ public class SanPhamSize  implements Serializable{
     ChiTietDonHang chitietdonhang;
 	
 	@OneToMany(mappedBy = "sanphamsize")
-	List<ChiTietGioHang> chitietgiohang;
+	List<GioHang>giohang;
 	
 
 }

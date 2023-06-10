@@ -13,11 +13,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
 
 @Data
 @Entity
-@Table(name="giohang")
+@Table(name="giohang", uniqueConstraints = {
+		@UniqueConstraint(columnNames = {"ma_nd","ma_sps"})
+})
 public class GioHang implements Serializable{
 	
 	@Id
@@ -25,8 +28,13 @@ public class GioHang implements Serializable{
     @Column(name = "ma_gh")
     Integer magh;
 	
-	@OneToMany(mappedBy = "giohang")
-	List<ChiTietGioHang> chitietgiohang;
+	@Column(name = "so_luong")
+    Integer soluong;
+	
+	
+	@ManyToOne
+    @JoinColumn(name = "ma_sps")
+    SanPhamSize sanphamsize;
 	
 	@ManyToOne
     @JoinColumn(name = "ma_nd")

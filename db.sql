@@ -85,32 +85,17 @@ create table sanphamsize(
 	ma_sps bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	ma_sp bigint NOT NULL,
 	ma_size bigint NOT NULL,
-	so_luong bigint not null
+	so_luong int not null
 )
 --9 giỏ hàng
 go 
 create table giohang(
 	ma_gh bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
-	ma_nd bigint NOT NULL
+	ma_nd bigint NOT NULL,
+	ma_sps bigint NOT NULL,
+	so_luong int
 )
---10 Chi tiết Giỏ Hàng
-go
-create table chitietgiohang(
-	ma_ctgh bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
-	ma_gh bigint  NOT NULL,
-	ma_sps bigint  NOT NULL,
-	so_luong int  NOT NULL,
-	
-	
-	
-	CONSTRAINT FK_Cart FOREIGN KEY (ma_gh)
-    REFERENCES giohang(ma_gh),
-
-	CONSTRAINT FK_Productsize FOREIGN KEY (ma_sps)
-    REFERENCES sanphamsize(ma_sps)
-
-)
---11 đơn hàng
+--10 đơn hàng
 go 
 create table donhang(
 	ma_dh bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
@@ -122,17 +107,17 @@ create table donhang(
 	sdt_nhanhang varchar(11) NOT NULL,
 	trang_thai nvarchar(50) NOT NULL
 )
-
---12 chi tiết đơn hàng
+--11 chi tiết đơn hàng
 
 go 
 create table chitietdonhang(
 	ma_ctdh bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	ma_dh bigint NOT NULL,
-	ma_spsize bigint NOT NULL,
+	ma_sps bigint NOT NULL,
 	so_luong int NOT NULL
 )
---13 thanh toán
+
+--12  thanh toán
 go
 create table thanhtoan(
 	ma_tt bigint PRIMARY KEY IDENTITY(1,1) NOT NULL,
@@ -141,14 +126,15 @@ create table thanhtoan(
 	phuong_thuc nvarchar(50) NOT NULL,
 	trang_thai bit NOT NULL Default 0
 )
+
 -- Tạo các khóa duy nhất
 go
 ALTER TABLE  thanhtoan ADD CONSTRAINT unique1 UNIQUE (ma_dh);
 go
 ALTER TABLE  sanphamsize ADD CONSTRAINT unique2 UNIQUE (ma_sp, ma_size);
 go
-ALTER TABLE chitietgiohang
-  ADD CONSTRAINT uqchitietgiohang UNIQUE(ma_gh, ma_sps);
+ALTER TABLE giohang
+  ADD CONSTRAINT uqgiohang UNIQUE(ma_gh, ma_sps);
 go
 --Tạo liên kết các bảng
 ALTER TABLE sanpham
@@ -185,11 +171,11 @@ ALTER TABLE donhang
 ADD CONSTRAINT FK_NDtoDH
 FOREIGN KEY (ma_nd) REFERENCES nguoidung(ma_nd);
 
-/*go
+
 ALTER TABLE giohang
 ADD CONSTRAINT FK_SPStoGH
 FOREIGN KEY (ma_sps) REFERENCES sanphamsize(ma_sps);
-*/
+
 go
 ALTER TABLE giohang
 ADD CONSTRAINT FK_NDtoGH
@@ -213,7 +199,7 @@ FOREIGN KEY (ma_dh) REFERENCES donhang(ma_dh);
 go
 ALTER TABLE chitietdonhang
 ADD CONSTRAINT FK_SPStoCTDH
-FOREIGN KEY (ma_spsize) REFERENCES sanphamsize(ma_sps);
+FOREIGN KEY (ma_sps) REFERENCES sanphamsize(ma_sps);
 
 --Thêm dữ liệu
 --1 người dùng
@@ -287,19 +273,18 @@ VALUES (1,1,5),
 
 --9 giỏ hàng
 go
-INSERT INTO giohang(ma_nd) 
-VALUES (3),
-	   (3),
-	   (3),
-	   (2),
-	   (2);
+INSERT INTO giohang(ma_nd,ma_sps,so_luong) 
+VALUES (3,2,1),
+	   (3,3,1),
+	   (3,4,1),
+	   (3,5,1),
+	   (3,4,1),
+	   (2,2,1),
+	   (2,3,1),
+	   (2,4,1),
+	   (2,5,1);
 	   
---10 Giỏ hàng chi tiết
-go
-INSERT INTO chitietgiohang(ma_gh,ma_sps,so_luong) 
-VALUES (1,3,3),
-		(2,3,3);
---11 đơn hàng
+--10 đơn hàng
 go
 INSERT INTO donhang(ma_nd,ngay_tao,tong_tien,dia_chigiaohang,nguoi_nhan,sdt_nhanhang,trang_thai)
 VALUES (2,'2023-06-28',0,N'123 Đường Số 1, Phường An Bình, Quận Ninh Kiều Cần Thơ,',N'Nguyễn Trần Minh Nhân','0943857632',N'Đang Chờ Xác Nhận'),
@@ -307,7 +292,7 @@ VALUES (2,'2023-06-28',0,N'123 Đường Số 1, Phường An Bình, Quận Ninh
 	   (3,'2023-04-3',0,N'123 Đường Số 3, Phường An Bình, Quận Ninh Kiều Cần Thơ,',N'Trần Thị Tho','0943857666',N'Đang Chờ Xác Nhận'),
 	   (2,'2023-05-1',0,N'123 Đường Số 1, Phường An Bình, Quận Ninh Kiều Cần Thơ,',N'Nguyễn Trần Minh Nhân','0943857888',N'Đang Chờ Xác Nhận'),
 	   (2,'2023-05-12',0,N'123 Đường Số 2, Phường An Bình, Quận Ninh Kiều Cần Thơ,',N'Nguyễn Trần Minh Hà','0943857112',N'Đang Chờ Xác Nhận');
---12 chi tiết đơn hàng
+--11 chi tiết đơn hàng
 go
 INSERT INTO chitietdonhang(ma_dh,ma_sps,so_luong)
 VALUES (1,2,1),
@@ -325,6 +310,9 @@ from chitietdonhang c join sanphamsize z on c.ma_sps = z.ma_sps
 	join sanpham s on z.ma_sp = s.ma_sp
 group by c.ma_dh
 
+update donhang
+set tong_tien = 900
+where ma_dh = 3
+--12 thanh toán
 
---13 thanh toán
 
