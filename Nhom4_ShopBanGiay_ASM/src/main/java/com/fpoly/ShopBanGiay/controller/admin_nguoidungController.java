@@ -24,7 +24,7 @@ public class admin_nguoidungController {
 	@Autowired
 	NguoiDungDAO dao;
 	
-	@GetMapping("/admin_nguoidung")
+	@GetMapping("/admin/admin_nguoidung")
 	public String admin_nguoidung(Model model, @RequestParam("p") Optional<Integer> p) {
 		System.out.println("----------Index----------");
 		model.addAttribute("u", new NguoiDung());
@@ -44,7 +44,7 @@ public class admin_nguoidungController {
         return this.admin_nguoidung(model, p);
     }
 	
-	@RequestMapping("/admin_nguoidung/add")
+	@RequestMapping("/admin/admin_nguoidung/add")
 	public String add(Model model, @ModelAttribute("user") NguoiDung u,@RequestParam("p") Optional<Integer> p) {
 	System.out.println("----------Add----------");
 	System.out.println("User:"+u);
@@ -71,7 +71,7 @@ public class admin_nguoidungController {
 	return "/admin/admin_nguoidung";
 	}
 	
-	@RequestMapping("/admin_nguoidung/edit/{id}")
+	@RequestMapping("/admin/admin_nguoidung/edit/{id}")
 	public String edit(Model model, @PathVariable("id") Integer id, @RequestParam("p") Optional<Integer> p) {
 		System.out.println("----------Edit----------");
 	//	Optional<Category> item = cateDAO.findById(id);
@@ -88,7 +88,7 @@ public class admin_nguoidungController {
 		return "/admin/admin_nguoidung";
 	}
 	
-	@RequestMapping("/admin_nguoidung/remove/{mand}")
+	@RequestMapping("/admin/admin_nguoidung/remove/{mand}")
 	public String remove(Model model, @PathVariable("mand") Integer id, @RequestParam("p") Optional<Integer> p) {
 		System.out.println("----------Remove----------");
 			System.out.println("id:"+id);
@@ -121,7 +121,7 @@ public class admin_nguoidungController {
 //		return "/admin/admin_nguoidung";
 //	}
 	
-	@RequestMapping("/admin_nguoidung/update")
+	@RequestMapping("/admin/admin_nguoidung/update")
 	public String update(Model model, @ModelAttribute("user") NguoiDung u, @RequestParam("p") Optional<Integer> p) {
 		System.out.println("----------Update----------");
 		dao.save(u);
@@ -136,8 +136,8 @@ public class admin_nguoidungController {
 		return "/admin/admin_nguoidung";
 	}
 	
-	@RequestMapping("/admin_nguoidung/clear")
-	public String update(Model model, @RequestParam("p") Optional<Integer> p) {
+	@RequestMapping("/admin/admin_nguoidung/clear")
+	public String clear(Model model, @RequestParam("p") Optional<Integer> p) {
 		System.out.println("----------Clear----------");
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
 		var list = dao.findAll(pageable);
