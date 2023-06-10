@@ -12,6 +12,11 @@ public interface NguoiDungDAO extends JpaRepository<NguoiDung, Integer>{
 	@Query("SELECT o FROM NguoiDung o Where o.email Like  ?1 AND o.matkhau Like ?2")
 	List<NguoiDung> findForAuthenticate(String Email, String pass);
 	
+	// for Sign in
 	@Query("SELECT o FROM NguoiDung o Where o.email Like  ?1")
 	NguoiDung findByEmail(String Email);
+	
+	// for sign up
+	@Query("SELECT o FROM NguoiDung o Where o.email Like  ?1")
+	List<NguoiDung> findByEmails(String Email);
 }

@@ -233,6 +233,9 @@
             <div class="row" style="background-color: white; box-shadow: 10px 10px 25px grey; ">
                 <div class="col-md-7">
                     <h4 style="padding: 2rem 0;">Quản Lý Người Dùng</h4>
+                    <div th:if="${message}">
+                    	<h5 class="text-danger text-center" th:text="${message}"></h5>
+                    </div>
                 </div>
                 <div class="col-md-5">
                     <form class="d-flex" style="padding-top: 4%;">
@@ -307,11 +310,11 @@
                                     
                                     
                                 </div><br><br>
-                                <button class="btn btn-primary" th:formaction="@{/admin-nguoidung/add}"><i class="bi bi-save2"></i> Thêm</button>
-                                <button class="btn btn-success" th:formaction="@{/admin-nguoidung/update}"><i class="bi bi-card-list"></i>
+                                <button class="btn btn-primary" th:formaction="@{/admin_nguoidung/add}"><i class="bi bi-save2"></i> Thêm</button>
+                                <button class="btn btn-success" th:formaction="@{/admin_nguoidung/update}"><i class="bi bi-card-list"></i>
                                     Sửa</button>
-                                <button class="btn btn-danger" th:formaction="@{/admin-nguoidung/remove/__${u.mand}__}"><i class="bi bi-trash"></i> Xóa</button>
-                                <button class="btn btn-info" th:formaction="@{/admin-nguoidung/clear}"><i class="bi bi-arrow-clockwise"></i> Làm
+                                <button class="btn btn-danger" th:formaction="@{/admin_nguoidung/remove/__${u.mand}__}"><i class="bi bi-trash"></i> Xóa</button>
+                                <button class="btn btn-info" th:formaction="@{/admin_nguoidung/clear}"><i class="bi bi-arrow-clockwise"></i> Làm
                                     mới</button>
                             </form>
                         </div>
@@ -356,10 +359,10 @@
 										     <td>Khách hàng</td>
 										</div>
                                         <td>
-                                            <a th:href="@{/admin-nguoidung/edit/__${user.mand}__}" type="button" class="btn btn-success"><i
+                                            <a th:href="@{/admin_nguoidung/edit/__${user.mand}__}" type="button" class="btn btn-success"><i
                                                     class="bi bi-card-list"></i>
                                                 Sửa</a>
-                                            <a th:href="@{/admin-nguoidung/remove/__${user.mand}__}" type="button" class="btn btn-danger"><i class="bi bi-trash"></i>
+                                            <a th:href="@{/admin_nguoidung/remove/__${user.mand}__}" type="button" class="btn btn-danger"><i class="bi bi-trash"></i>
                                                 Xóa</a>
                                         </td>
                                     </tr>
