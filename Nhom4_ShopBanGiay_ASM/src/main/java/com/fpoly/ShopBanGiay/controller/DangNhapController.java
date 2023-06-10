@@ -60,12 +60,17 @@ public class DangNhapController {
 	@PostMapping("/loginConfirm")
 	public String DangNhap1(Model model, @ModelAttribute("user") NguoiDung u) {
 		model.addAttribute("nguoidung", new NguoiDung());
-	    // Xác thực đăng nhập và kiểm tra thông tin người dùng
-	    if (authenticate(u)) {
+	    
+		// Lấy user đầy đủ
+		NguoiDung user = nguoidungDAO.findByEmail(u.getEmail());
+		
+		// Xác thực đăng nhập và kiểm tra thông tin người dùng
+	    if (authenticate(user)) {
 	        // Lưu thông tin người dùng vào session
-	    	sessionService.setSessionAttribute("Id", u.getMand());
-	    	sessionService.setSessionAttribute("Email", u.getEmail());
-	    	sessionService.setSessionAttribute("Role", u.isVaitro());
+	    	System.out.println("Mã: "+user.getMand());
+	    	System.out.println("Email: "+user.getEmail());
+	    	System.out.println("Vai trò: "+user.isVaitro());
+	    	sessionService.setSessionAttribute("user", user);
 	    	
 	    	// Lưu thông tin vào Cookie
 	    	
@@ -79,14 +84,10 @@ public class DangNhapController {
 	    		cookieService.removeCookie("email");
 	    		cookieService.removeCookie("pass");
 	    	}
-	    	
-	    	// Lấy user đầy đủ
-	    	NguoiDung user = nguoidungDAO.findByEmail(u.getEmail());
-	    	
+	    	   	
 	        // Đăng nhập thành công, chuyển hướng đến trang chính
-	    	System.out.println("Vai trò: "+user.isVaitro());
 	    	if(user.isVaitro()) {
-	    		return "redirect:/admin-nguoidung";
+	    		return "redirect:/admin/admin_nguoidung";
 	    	}else {
 	    		return "redirect:/trangchu";
 	    	}
