@@ -248,37 +248,37 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-12">
                                         <label for="masanphamsize" class="form-label">Mã sản phẩm size:</label>
-                                        <input type="text" class="form-control" id="masanphamsize" th:field="*{masps}">
+                                        <input type="text" class="form-control" id="masanphamsize" th:field="*{masps}" readonly="true">
                                         <div class="alert alert-danger" th:if="${#fields.hasErrors('masps')}" th:errors="*{masps}"></div>
                                     </div>
                                    
                                      <div class="mb-3 col-md-12">
                                             <label class="form-label fs-17">Tên sản phẩm:</label>
-                                            <select class="form-select" th:field="*{sanpham}">
+                                            <select class="form-select" th:field="*{sanpham.masp}">
                                                 <option value="">Chọn chọn mã sản phẩm</option>
                                                 <option th:each="sp : ${sanphams}" th:value="${sp.masp}" th:text="${sp.tensp}"></option>
                                             </select>
-                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></div>
+                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('sanpham.masp')}" th:errors="*{sanpham.masp}"></div>
                                         </div>
                                     <div class="mb-3 col-md-12">
                                             <label class="form-label fs-17">Size giày:</label>
-                                            <select class="form-select" th:field="*{size}">
+                                            <select class="form-select" th:field="*{size.masize}">
                                                 <option value="">Chọn chọn mã size</option>
                                                 <option th:each="sp : ${sizes}" th:value="${sp.masize}" th:text="${sp.sizegiay}"></option>
                                             </select>
-                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('size')}" th:errors="*{size}"></div>
+                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('size.masize')}" th:errors="*{size.masize}"></div>
                                         </div>
                                     <div class="mb-3 col-md-12">
                                         <label for="soluongsanpham" class="form-label">Số lượng:</label>
-                                        <input type="number" class="form-control" id="soluongsanpham" th:field="*{SoLuong}">
-                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('SoLuong')}" th:errors="*{SoLuong}"></div>
+                                        <input type="number" class="form-control" id="soluongsanpham" th:field="*{soluong}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('soluong')}" th:errors="*{soluong}"></div>
                                     </div>
                                 </div>
 
-                                <button type="submit" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
-                                <button type="submit" class="btn btn-success"><i class="bi bi-card-list"></i> Sửa</button>
-                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
-                                <button type="submit" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
+                                <button type="submit" th:formaction="@{/admin_sanphamsize/create}" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
+                                <button type="submit" th:formaction="@{/admin_sanphamsize/update}" class="btn btn-success"><i class="bi bi-card-list"></i>Sửa</button>
+                                <button type="submit" th:formaction="@{/admin_sanphamsize/delete/__${sanphamsize.masps}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
+                                <button type="submit" th:formaction="@{/admin_sanphamsize/clear}" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
 
                             </form>
                         </div>
@@ -308,50 +308,47 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>12</td>
-                                        <td>11</td>
-                                        <td>20</td>
+                                    <tr th:each="sanphamsize: ${sanphamsizes}">
+                                        <td th:text="${sanphamsize.masps}"></td>
+                                        <td th:text="${sanphamsize.sanpham.tensp}"></td>
+                                        <td th:text="${sanphamsize.size.sizegiay}"></td>
+                                        <td th:text="${sanphamsize.soluong}"></td>
                                         <td>
-                                            <button type="button" class="btn btn-warning">Sửa</button>
-                                            <button type="button" class="btn btn-danger">Xóa</button>
+                                            <a type="submit" th:href="@{/admin_sanphamsize/edit/__${sanphamsize.masps}__}" class="btn btn-warning">Chọn</a>
+                                            <a type="submit" th:href="@{/admin_sanphamsize/delete/__${sanphamsize.masps}__}" class="btn btn-danger">Xóa</a>
                                         </td>
                                     </tr>
-
-                                    <tr>
-                                        <td>1</td>
-                                        <td>12</td>
-                                        <td>11</td>
-                                        <td>20</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning">Sửa</button>
-                                            <button type="button" class="btn btn-danger">Xóa</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>12</td>
-                                        <td>11</td>
-                                        <td>20</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning">Sửa</button>
-                                            <button type="button" class="btn btn-danger">Xóa</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>12</td>
-                                        <td>11</td>
-                                        <td>20</td>
-                                        <td>
-                                            <button type="button" class="btn btn-warning">Sửa</button>
-                                            <button type="button" class="btn btn-danger">Xóa</button>
-                                        </td>
-                                    </tr>
-
                                 </tbody>
                             </table>
+                             <div class="d-flex justify-content-between">
+								<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item" th:if="${currIndex}>0"><a
+											class="page-link"
+											th:href="@{/admin_sanphamsize/page?p=__${currIndex-1}__}" href="#">Previous</a></li>
+										<tr th:each="i: ${#numbers.sequence(0, numberOfPages - 1)}">
+											<li class="page-item"><a
+												th:style="${'background-color:' + (i==currIndex?'lightgrey':'white')}"
+												th:href="@{/admin_sanphamsize/page?p=__${i}__}" class="page-link"
+												href="#" th:text="${i+1}"></a></li>
+										</tr>
+										<li class="page-item"
+											th:if="(${currIndex}>-1 and (${currIndex})<${numberOfPages-1})"><a
+											class="page-link"
+											th:href="@{/admin_sanphamsize/page?p=__${currIndex+1}__}" href="#">Next</a></li>
+									</ul>
+								</nav>
+								<div class="d-flex justify-content-around">
+									<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item"><a class="page-link" th:href="@{/admin_sanphamsize/page?p=0}">First</a></li>
+										<li class="page-item"><a
+										class="page-link"
+										th:href="@{/admin_sanphamsize/page?p=__${numberOfPages-1}__}">Last</a></li>
+									</ul>
+								</nav>
+								</div>
+							</div>
                         </div>
                         <div class="card-footer text-muted">
 

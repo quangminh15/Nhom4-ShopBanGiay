@@ -244,7 +244,7 @@
                             Form Danh Mục Sản Phẩm
                         </div>
                         <div class="card-body">
-                            <form method="post" th:object="${danhmuc}" enctype="multipart/form-data">
+                            <form th:object="${danhmuc}" method="post">
                                 <div class="row">
                                     <div class="mb-3 col-md-12">
                                         <label for="madanhmuc" class="form-label">Mã danh mục:</label>
@@ -258,16 +258,28 @@
                                     </div>
                                     <div class="mb-3 col-md-12">
                                         <label for="anhdanhmuc" class="form-label">Ảnh:</label> <br>
-                                        <img th:src="@{/imageSP/{img}(img=${danhmuc.anhdm})}" style="width: 200px; height: fit-content;" alt="hinhanh">
-                                        <input type="file" class="form-control" id="anhdanhmuc" name="image">
-                                        <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+                                        <img th:src="@{'/imageSP/'+${danhmuc.anhdm}}" style="width: 200px; height: fit-content;" alt="hinhanh">
+                                        <input type="file" class="form-control" id="anhdanhmuc" th:field="*{anhdm}" >
+                                        
                                     </div>
-                                    
+                                    <label class="form-label fs-17">Trạng thái:</label> <br>
+							                <div class="d-inline-flex">
+							                    <div class="form-check mx-4">
+							                        <input type="radio" class="form-check-input" id="radio1"  value="true" th:field="*{trangthai}">
+							                        <label class="form-check-label fs-17" for="radio1">Hoạt động</label>
+							                    </div>
+							                    <div class="form-check ">
+							                        <input type="radio" class="form-check-input" id="radio2"  value="false" th:field="*{trangthai}"> 
+							                        <label class="form-check-label fs-17" for="radio2">Không hoạt động</label>
+							                    </div>
+							                    
+							                </div>
+							                <div class="alert alert-danger" th:if="${#fields.hasErrors('trangthai')}" th:errors="*{trangthai}"></div>
                                 </div>
 
                                 <button type="submit" th:formaction="@{/admin_danhmucsanpham/create}" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
                                 <button type="submit" th:formaction="@{/admin_danhmucsanpham/update}" class="btn btn-success"><i class="bi bi-card-list"></i> Sửa</button>
-                                <button type="submit" th:formaction="@{/delete/__${danhmuc.madm}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
+                                <button type="submit" th:formaction="@{/admin_danhmucsanpham/delete/__${danhmuc.madm}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
                                 <button type="submit" th:formaction="@{/admin_danhmucsanpham/clear}" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
 
                             </form>
@@ -302,10 +314,16 @@
                                         <td th:text="${danhmuc.madm}"></td>
                                         <td th:text="${danhmuc.tendm}"></td>
                                         <td><img th:src="@{/imageSP/{img}(img=${danhmuc.anhdm})}" style="width: 200px; height: fit-content;" alt="hinhanh"></td>
-                                        <td th:text="${danhmuc.trangthai}" ></td>
+<!--                                         <td th:text="${danhmuc.trangthai}" ></td> -->
+                                        <div th:if="${danhmuc.trangthai}">
+										     <td>Hoạt động</td>
+										</div>
+										<div th:unless="${danhmuc.trangthai}">
+										     <td>không hoạt động</td>
+										</div>
                                         <td>
                                             <a type="submit" th:href="@{/admin_danhmucsanpham/edit/__${danhmuc.madm}__}" class="btn btn-warning">Chọn</a>
-                                            <a type="submit" th:href="@{/delete/__${danhmuc.madm}__}" class="btn btn-danger">Xóa</a>
+                                            <a type="submit" th:href="@{/admin_danhmucsanpham/delete/__${danhmuc.madm}__}" class="btn btn-danger">Xóa</a>
                                         </td>
                                     </tr>
                                 </tbody>

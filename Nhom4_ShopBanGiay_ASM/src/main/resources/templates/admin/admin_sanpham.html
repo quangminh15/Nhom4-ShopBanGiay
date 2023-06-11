@@ -248,7 +248,7 @@
                                 <div class="row">
                                     <div class="mb-3 col-md-12">
                                         <label for="masanpham" class="form-label fs-17">Mã sản phẩm:</label>
-                                        <input type="number" class="form-control" id="masanpham" th:field="*{masp}">
+                                        <input type="number" class="form-control" id="masanpham" th:field="*{masp}" readonly="true">
                                         <div class="alert alert-danger" th:if="${#fields.hasErrors('masp')}" th:errors="*{masp}"></div>
                                     </div>
                                     <div class="mb-3 col-md-12">
@@ -259,21 +259,21 @@
                                     <div class="row">
                                         <div class="mb-3 col-md-4">
                                             <label for="anhsanpham1" class="form-label fs-17">Ảnh 1:</label> <br>
-                                            <img th:src="@{/imageSP/{img}(img=${sanpham.hinhanh1})}" style="width: 200px; height: fit-content;"
+                                            <img th:src="@{'/imageSP/'+${sanpham.hinhanh1}}" style="width: 200px; height: fit-content;"
                                                 alt="hinhanh">
                                             <input type="file" class="form-control" id="anhsanpham1" th:field="*{hinhanh1}">
                                             <div class="alert alert-danger" th:if="${#fields.hasErrors('hinhanh1')}" th:errors="*{hinhanh1}"></div>
                                         </div>
                                         <div class="mb-3 col-md-4">
                                             <label for="anhsanpham2" class="form-label fs-17">Ảnh 2:</label> <br>
-                                            <img th:src="@{/imageSP/{img}(img=${sanpham.hinhanh2})}" style="width: 200px; height: fit-content;"
+                                            <img th:src="@{'/imageSP/'+${sanpham.hinhanh2}}" style="width: 200px; height: fit-content;"
                                                 alt="hinhanh">
                                             <input type="file" class="form-control" id="anhsanpham2" th:field="*{hinhanh2}">
                                             <div class="alert alert-danger" th:if="${#fields.hasErrors('hinhanh2')}" th:errors="*{hinhanh2}"></div>
                                         </div>
                                         <div class="mb-3 col-md-4">
                                             <label for="anhsanpham3" class="form-label fs-17">Ảnh 3:</label> <br>
-                                            <img th:src="@{/imageSP/{img}(img=${sanpham.hinhanh3})}" style="width: 200px; height: fit-content;"
+                                            <img th:src="@{'/imageSP/'+${sanpham.hinhanh3}}" style="width: 200px; height: fit-content;"
                                                 alt="hinhanh">
                                             <input type="file" class="form-control" id="anhsanpham3" th:field="*{hinhanh3}">
                                             <div class="alert alert-danger" th:if="${#fields.hasErrors('hinhanh3')}" th:errors="*{hinhanh3}"></div>
@@ -304,42 +304,41 @@
 										
                                         <div class="mb-3 col-md-4">
                                             <label class="form-label fs-17">Mã danh mục:</label>
-                                            <select class="form-select" th:field="*{danhmuc}">
+                                            <select class="form-select" th:field="*{danhmuc.madm}">
                                                 <option value="">Chọn danh mục</option>
                                                 <option th:each="sp : ${danhmucs}" th:value="${sp.madm}" th:text="${sp.tendm}"></option>
                                             </select>
-                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('danhmuc')}" th:errors="*{danhmuc}"></div>
+                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('danhmuc.madm')}" th:errors="*{danhmuc.madm}"></div>
                                         </div>
                                         <div class="mb-3 col-md-4">
                                             <label class="form-label fs-17">Nhà cung cấp :</label>
-                                            <select class="form-select" th:field="*{nhacungcap}">
+                                            <select class="form-select" th:field="*{nhacungcap.mancc}">
                                                 <option value="">Chọn nhà cung cấp</option>
-                                                <option th:each="sp : ${nhacungcaps}" th:value="${sp.mancc}" th:text="${sp.tenncc}"></option>
+                                                <option th:each="sp : ${nhacungcaps}" th:value="${sp.mancc}" th:text="${sp.tenncc}" ></option>
                                             </select>
-                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('nhacungcap')}" th:errors="*{nhacungcap}"></div>
+                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('nhacungcap.mancc')}" th:errors="*{nhacungcap.mancc}"></div>
                                         </div>
                                         <div class="mb-3 col-md-4">
                                             <label class="form-label fs-17">Giảm giá:</label>
-                                            <select class="form-select" th:field="*{giamgia}">
+                                            <select class="form-select" th:field="*{giamgia.magiamgia}">
                                                 <option value="">Chọn giá trị giảm giá (%)</option>
-                                                <option value="0">Không giảm</option>
                                                 <option th:each="sp : ${giamgias}" th:value="${sp.magiamgia}" th:text="${sp.giamgia}+ '%'"></option>
                                             </select>
-                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('giamgia')}" th:errors="*{giamgia}"></div>
+                                            <div class="alert alert-danger" th:if="${#fields.hasErrors('giamgia.magiamgia')}" th:errors="*{giamgia.magiamgia}"></div>
                                         </div>
                                         <label class="form-label fs-17">Trạng thái:</label> <br>
 							                <div class="d-inline-flex">
 							                    <div class="form-check mx-4">
-							                        <input type="radio" class="form-check-input" id="radio1"  value="true" th:field="*{trangthai}">
-							                        <label class="form-check-label fs-17" for="radio1">Hoạt động</label>
+							                        <input type="radio" class="form-check-input" id="radio11"  value="true" th:field="*{trangthai}">
+							                        <label class="form-check-label fs-17" for="radio11">Hoạt động</label>
 							                    </div>
 							                    <div class="form-check ">
-							                        <input type="radio" class="form-check-input" id="radio2"  value="false" th:field="*{trangthai}"> 
-							                        <label class="form-check-label fs-17" for="radio2">Không hoạt động</label>
+							                        <input type="radio" class="form-check-input" id="radio22"  value="false" th:field="*{trangthai}"> 
+							                        <label class="form-check-label fs-17" for="radio22">Không hoạt động</label>
 							                    </div>
 							                    
 							                </div>
-							                <div class="alert alert-danger" th:if="${#fields.hasErrors('loai')}" th:errors="*{loai}"></div>
+							                <div class="alert alert-danger" th:if="${#fields.hasErrors('trangthai')}" th:errors="*{trangthai}"></div>
                                     </div>
                                 </div>
 
@@ -373,12 +372,12 @@
                                         <th>ẢNH 1</th>
                                         <th>ẢNH 2</th>
                                         <th>ẢNH 3</th>
-                                        <th>Loại</th>
+                                        <th>LOẠI</th>
                                         <th>GIÁ</th>
                                         <th class="w-20" style="text-align: center;">MÔ TẢ</th>
-<!--                                         <th>MÃ DANH MỤC</th> -->
-<!--                                         <th>MÃ NHÀ CUNG CẤP</th> -->
-<!--                                         <th>MÃ GIẢM GIÁ</th> -->
+                                        <th>DANH MỤC</th>
+                                        <th>NHÀ CUNG CẤP</th>
+                                        <th>GIẢM GIÁ</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -386,18 +385,24 @@
                                     <tr th:each="sanpham: ${sanphams}">
                                         <td th:text="${sanpham.masp}"></td>
                                         <td th:text="${sanpham.tensp}"></td>
-                                        <td><img th:src="@{/imageSP/{img}(img=${sanpham.hinhanh1})}" style="width: 100px; height: fit-content;"
+                                        <td><img th:src="@{'/imageSP/'+${sanpham.hinhanh1}}" style="width: 100px; height: fit-content;"
                                                 alt="hinhanh"></td>
-                                        <td><img th:src="@{/imageSP/{img}(img=${sanpham.hinhanh2})}" style="width: 100px; height: fit-content;"
+                                        <td><img th:src="@{'/imageSP/'+${sanpham.hinhanh2}}" style="width: 100px; height: fit-content;"
                                                 alt="hinhanh"></td>
-                                        <td><img th:src="@{/imageSP/{img}(img=${sanpham.hinhanh3})}" style="width: 100px; height: fit-content;"
+                                        <td><img th:src="@{'/imageSP/'+${sanpham.hinhanh3}}" style="width: 100px; height: fit-content;"
                                                 alt="hinhanh"></td>
-                                                <td th:text="${sanpham.loai}"></td>
+<!--                                                 <td th:text="${sanpham.loai}"></td> -->
+                                                <div th:if="${sanpham.loai}">
+										     <td>Cao</td>
+										</div>
+										<div th:unless="${sanpham.loai}">
+										     <td>Thấp</td>
+										</div>
                                         <td th:text="${sanpham.gia}"></td>
                                         <td class="w-20" th:text="${sanpham.mota}"></td>
-<!--                                         <td th:text="${sanpham.danhmuc.madm}"></td> -->
-<!--                                         <td>1</td> -->
-<!--                                         <td>1</td> -->
+                                        <td th:text="${sanpham.danhmuc.tendm}"></td>
+                                        <td th:text="${sanpham.nhacungcap.tenncc}"></td>
+                                        <td th:text="${sanpham.giamgia.giamgia}"></td>
                                         <td>
                                             <a type="submit" th:href="@{/admin_sanpham/edit/__${sanpham.masp}__}" class="btn btn-warning">Chọn</a>
                                             <a type="submit" th:href="@{/admin_sanpham/delete/__${sanpham.masp}__}" class="btn btn-danger">Xóa</a>
@@ -405,6 +410,35 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div class="d-flex justify-content-between">
+								<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item" th:if="${currIndex}>0"><a
+											class="page-link"
+											th:href="@{/admin_sanpham/page?p=__${currIndex-1}__}" href="#">Previous</a></li>
+										<tr th:each="i: ${#numbers.sequence(0, numberOfPages - 1)}">
+											<li class="page-item"><a
+												th:style="${'background-color:' + (i==currIndex?'lightgrey':'white')}"
+												th:href="@{/admin_sanpham/page?p=__${i}__}" class="page-link"
+												href="#" th:text="${i+1}"></a></li>
+										</tr>
+										<li class="page-item"
+											th:if="(${currIndex}>-1 and (${currIndex})<${numberOfPages-1})"><a
+											class="page-link"
+											th:href="@{/admin_sanpham/page?p=__${currIndex+1}__}" href="#">Next</a></li>
+									</ul>
+								</nav>
+								<div class="d-flex justify-content-around">
+									<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item"><a class="page-link" th:href="@{/admin_sanpham/page?p=0}">First</a></li>
+										<li class="page-item"><a
+										class="page-link"
+										th:href="@{/admin_sanpham/page?p=__${numberOfPages-1}__}">Last</a></li>
+									</ul>
+								</nav>
+								</div>
+							</div>
                         </div>
                         <div class="card-footer text-muted">
 
