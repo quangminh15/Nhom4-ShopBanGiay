@@ -23,10 +23,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "danhmuc")
 public class DanhMuc  implements Serializable{
 	@Id
-	@NotNull(message = "{NotNull.DanhMuc.madm}")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_dm")
-	private int madm;
+	Integer madm;
 	
 	@NotBlank(message = "{NotBlank.DanhMuc.tendm}")
 	@Column(name = "ten_dm")

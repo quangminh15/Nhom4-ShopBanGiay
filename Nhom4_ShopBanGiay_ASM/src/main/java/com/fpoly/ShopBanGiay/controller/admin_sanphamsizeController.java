@@ -14,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.ShopBanGiay.dao.SanPhamDAO;
@@ -35,56 +37,134 @@ public class admin_sanphamsizeController {
 
 	@Autowired
 	SanPhamSizeDAO sanphamsizeDAO;
-	
+
 	@Autowired
 	SanPhamDAO sanphamDAO;
-	
+
 	@Autowired
 	SizeDAO sizeDAO;
-	
+
 	@GetMapping("/admin_sanphamsize")
-	public String admin_sanphamsize(Model model, @RequestParam("field") Optional<String> field,
-			@RequestParam("p") Optional<Integer> p) {
+	public String admin_danhmucsp(Model model, @RequestParam("p") Optional<Integer> p,
+			@RequestParam("field") Optional<String> field) {
 		SanPhamSize sanphamsize = new SanPhamSize();
-		model.addAttribute("sanphamsize",sanphamsize);
-		
+		model.addAttribute("sanphamsize", sanphamsize);
+
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by(Direction.DESC, field.orElse("masps")).ascending());
-		Page<SanPhamSize> sanphamsizes = sanphamsizeDAO.findAll(pageable);
-
-		var numberOfPages = sanphamsizes.getTotalPages();
-
+		var list = sanphamsizeDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
 		model.addAttribute("numberOfPages", numberOfPages);
-		model.addAttribute("sanphamsizes", sanphamsizes);
-		
-		return "admin/admin_sanphamsize";
+		model.addAttribute("sanphamsizes", list);
+
+		return "/admin/admin_sanphamsize";
 	}
-	
+
 	@GetMapping("/admin_sanphamsize/page")
-	public String page(Model model, @RequestParam("field") Optional<String> field,
-			@RequestParam("p") Optional<Integer> p) {
-		return this.admin_sanphamsize(model, field, p);
+	public String paginate(Model model, @RequestParam("p") Optional<Integer> p,
+			@RequestParam("field") Optional<String> field) {
+		return this.admin_danhmucsp(model, p, field);
 	}
-	
+
 	@ModelAttribute("sanphams")
 	public List<SanPham> getsanpham() {
 		List<SanPham> sanpham = sanphamDAO.findAll();
 		return sanpham;
 	}
-	
+
 	@ModelAttribute("sizes")
 	public List<Size> getsizegiayy() {
 		List<Size> sizee = sizeDAO.findAll();
 		return sizee;
 	}
-	
-	@PostMapping("/admin_sanphamsize")
-	public String validSize(@Valid @ModelAttribute("sanphamsize") SanPhamSize sanphamsize, BindingResult result,
-			Model model) {
+
+	@RequestMapping("/admin_sanphamsize/create")
+	public String add(@Valid @ModelAttribute("sanphamsize") SanPhamSize sanphamsize, BindingResult result, Model model,
+			@RequestParam("p") Optional<Integer> p) {
 		if (result.hasErrors()) {
-			return "admin/admin_sanphamsize";
+			List<SanPhamSize> sanphamsizes = sanphamsizeDAO.findAll();
+			model.addAttribute("sanphamsizes", sanphamsizes);
+			return "/admin/admin_sanphamsize";
 		}
-		model.addAttribute("sanphamsize",sanphamsize);
-		return "admin/admin_sanphamsize";
+
+		sanphamsizeDAO.save(sanphamsize);
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
+		var list = sanphamsizeDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("sanphamsizes", list);
+		sanphamsize = new SanPhamSize();
+
+		model.addAttribute("sanphamsize", sanphamsize);
+
+		return "/admin/admin_sanphamsize";
+	}
+
+	@RequestMapping("/admin_sanphamsize/edit/{id}")
+	public String edit(Model model, @PathVariable("id") Integer id, @RequestParam("p") Optional<Integer> p) {
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
+		var list = sanphamsizeDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("sanphamsizes", list);
+		SanPhamSize sanphamsize = sanphamsizeDAO.findById(id).orElse(null);
+//		sanpham.getHinhanh1();
+//		sanpham.getHinhanh2();
+//		sanpham.getHinhanh3();
+//		sanpham.getDanhmuc().getMadm();
+//		sanpham.getNhacungcap().getMancc();
+//		sanpham.getGiamgia().getMagiamgia();
+		model.addAttribute("sanphamsize", sanphamsize);
+		return "/admin/admin_sanphamsize";
+	}
+
+	@RequestMapping("/admin_sanphamsize/delete/{masp}")
+	public String remove(Model model, @PathVariable("masps") Integer id, @RequestParam("p") Optional<Integer> p) {
+		sanphamsizeDAO.deleteById(id);
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
+		var list = sanphamsizeDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("sanphamsizes", list);
+		SanPhamSize sanphamsize = new SanPhamSize();
+		model.addAttribute("sanphamsize", sanphamsize);
+		return "/admin/admin_sanphamsize";
+	}
+
+	@RequestMapping("/admin_sanphamsize/update")
+	public String update(Model model, @Valid @ModelAttribute("sanphamsize") SanPhamSize sanphamsize, BindingResult result,
+			@RequestParam("p") Optional<Integer> p) {
+		if (result.hasErrors()) {
+			List<SanPhamSize> sanphamsizes = sanphamsizeDAO.findAll();
+			model.addAttribute("sanphamsizes", sanphamsizes);
+			return "/admin/admin_sanphamsize";
+		}
+
+		sanphamsizeDAO.save(sanphamsize);
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
+		var list = sanphamsizeDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("sanphamsizes", list);
+		sanphamsize = new SanPhamSize();
+		model.addAttribute("sanphamsize", sanphamsize);
+		return "/admin/admin_sanphamsize";
+	}
+
+	@RequestMapping("/admin_sanphamsize/clear")
+	public String update(Model model, @RequestParam("p") Optional<Integer> p) {
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
+		var list = sanphamsizeDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("sanphamsizes", list);
+		SanPhamSize sanphamsize = new SanPhamSize();
+		model.addAttribute("sanphamsize", sanphamsize);
+		return "/admin/admin_sanphamsize";
 	}
 }

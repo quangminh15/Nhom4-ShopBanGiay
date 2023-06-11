@@ -30,7 +30,7 @@ public class SanPham implements Serializable{
 	@NotNull(message = "{NotNull.SanPham.masp}")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_sp")
-	private int masp;
+	private Integer masp;
 	
 	@Column(name = "ten_sp")
 	@NotBlank(message = "{NotBlank.SanPham.tensp}")
@@ -62,7 +62,7 @@ public class SanPham implements Serializable{
 	
 	@Column(name = "trang_thai")
 	@NotNull(message = "{NotNull.SanPham.trangthai}")
-	private boolean trangthai;
+	private Boolean trangthai;
 	
 	@OneToMany(mappedBy = "sanpham")
 	List<YeuThich> yeuthich;
@@ -84,4 +84,5 @@ public class SanPham implements Serializable{
 	@ManyToOne
     @JoinColumn(name = "ma_giam_gia")
     GiamGia giamgia;
+
 }
