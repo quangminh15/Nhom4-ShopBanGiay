@@ -130,11 +130,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Chuck 70s High AllWhite</td>
-                    <td>12/02/2022</td>
-                    <td>950.000đ</td>
+                <tr th:each="item: ${yeus}">
+                    <td th:text="${item.mayeuthich}"></td>
+                    <td ></td>
+                    <td th:text="${item.ngaythich}"></td>
+                    <td></td>
                     <td class="d-flex justify-content-around" style="font-size: 27px;">
                         <a class="color-black" th:href="@{/chitietsp}"><i class="ti-pencil"></i></a>
                         <a class="color-black" href="#"><i class="ti-trash"></i></a>

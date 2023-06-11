@@ -10,7 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,16 +24,23 @@ public class NhaCungCap  implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_ncc")
-	Integer mancc;
+	private Integer mancc;
 	
+	@NotBlank(message = "{NotNull.NhaCungCap.tenncc}")
 	@Column(name = "ten_ncc")
-	String tenncc;
+	private String tenncc;
+	
+	@NotBlank(message = "{NotNull.NhaCungCap.email}")
 	@Column(name = "email")
-	String email;
+	private String email;
+	
+	@NotBlank(message = "{NotNull.NhaCungCap.sdt}")
 	@Column(name = "sdt")
-	String sdt;
+	private String sdt;
+	
+	@NotBlank(message = "{NotNull.NhaCungCap.diachi}")
 	@Column(name = "dia_chi")
-	String diachi;
+	private String diachi;
 	
 	@OneToMany(mappedBy = "nhacungcap")
     List<SanPham> sanpham;

@@ -244,7 +244,7 @@
                             Form Nhà Cung Cấp
                         </div>
                         <div class="card-body">
-                            <form th:action="${Action}" th:object="${NCCS}" method="post">
+                            <form th:action="${Action}" th:object="${nccs}" method="post">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Tên Nhà Cung Cấp</b></label>
@@ -256,16 +256,19 @@
                                         <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Email</b></label>
                                         <input type="email" class="form-control" id="email" name="email"
                                             placeholder="" th:field="*{email}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Số Điện Thoại</b></label>
                                         <input type="text" class="form-control" id="sdt" name="sdt"
                                             placeholder="" th:field="*{sdt}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('sdt')}" th:errors="*{sdt}"></div>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Địa Chỉ</b></label>
                                         <input type="text" class="form-control" id="diachi" name="diachi"
                                             placeholder="" th:field="*{diachi}">
+                                       	<div class="alert alert-danger" th:if="${#fields.hasErrors('diachi')}" th:errors="*{diachi}"></div>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <input type="text" class="form-control" id="mancc" name="mancc"

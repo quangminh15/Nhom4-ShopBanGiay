@@ -244,28 +244,31 @@
                             Form Khuyến Mãi
                         </div>
                         <div class="card-body">
-                            <form th:action="${Action}" th:object="${KMS}" method="post">
+                            <form th:action="${Action}" th:object="${kms}" method="post">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label" ><b>Tên Khuyến Mãi</b></label>
                                         <input type="text" class="form-control" id="tengiamgia"
                                             placeholder="" th:field="*{tengiamgia}">
-                                        <div class="alert alert-warning" th:if="${#fields.hasErrors('tengiamgia')}" th:errors="*{tengiamgia}"></div>
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('tengiamgia')}" th:errors="*{tengiamgia}"></div>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label" ><b>Giảm Giá (%)</b></label>
                                         <input type="text" class="form-control" id="giamgia" name="giamgia"
                                             placeholder="" th:field="*{giamgia}">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('giamgia')}" th:errors="*{giamgia}"></div>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label" ><b>Ngày Tạo</b></label>
                                         <input type="date" class="form-control" id="ngaytao" name="ngaytao"
                                             placeholder="" th:field="*{ngaytao}">
+                                       	<div class="alert alert-danger" th:if="${#fields.hasErrors('ngaytao')}" th:errors="*{ngaytao}"></div>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label" ><b>Ngày Kết Thúc</b></label>
                                         <input type="date" class="form-control" id="ngayketthuc" name="ngayketthuc"
                                             placeholder="" th:field="*{ngayketthuc}">
+                                       	<div class="alert alert-danger" th:if="${#fields.hasErrors('ngayketthuc')}" th:errors="*{ngayketthuc}"></div>
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label" ><b>Mô tả</b></label><br>
@@ -336,7 +339,8 @@
                                     </tr>
                                 </tbody>
                             </table>
-							<nav aria-label="Page navigation example">
+                            <div>
+                            <!-- <nav aria-label="Page navigation example">
 								<ul class="pagination">
 									<li class="page-item" th:if="${currIndex}>0"><a
 										class="page-link"
@@ -352,7 +356,9 @@
 										class="page-link" th:href="@{/page?p=__${currIndex+1}__}"
 										href="#">Next</a></li>
 								</ul>
-							</nav>
+							</nav> -->
+                            </div>
+							
 						</div>
                         <div class="card-footer text-muted">
 
