@@ -28,7 +28,7 @@ public class admin_nhacungcapController {
 	@GetMapping("/admin_nhacungcap")
 	public String admin_nhacungcap(Model model, @RequestParam("p") Optional<Integer> p) {
 		NhaCungCap n = new NhaCungCap();
-		model.addAttribute("nccs", n);
+		model.addAttribute("NCCS", n);
 		
 		Pageable pageable = PageRequest.of(p.orElse(0), 5);
 		var nhacungcap = nhacungcapDAO.findAll(pageable);
@@ -46,11 +46,12 @@ public class admin_nhacungcapController {
 	}
 	
 	@PostMapping("/save_nhacungcap")
-	public String save_nhacungcap(@Valid @ModelAttribute("nccs") NhaCungCap nhacungcap, Model model, BindingResult result) {
+	public String save_nhacungcap(@Valid @ModelAttribute("NCCS") NhaCungCap nhacungcap, BindingResult result, Model model) {
 		if(result.hasErrors()) {
-			model.addAttribute("NCC",nhacungcapDAO.findAll());
-			return "/admin/admin_nhacungcap";
+			model.addAttribute("NCC", nhacungcapDAO.findAll());
+			return "/admin/admin_nhacungcap"; 
 		}
+		
 		nhacungcapDAO.save(nhacungcap);
 //		model.addAttribute("NCC", nhacungcapDAO.findAll());
 		return "redirect:/admin_nhacungcap";
@@ -60,7 +61,7 @@ public class admin_nhacungcapController {
 	public String eidt_nhacungcap(Model model, @PathVariable(name="mancc") Integer mancc) {
 		Optional<NhaCungCap> n = nhacungcapDAO.findById(mancc);
 		if(n.isPresent()) {
-			model.addAttribute("nccs", n.get());
+			model.addAttribute("NCCS", n.get());
 			model.addAttribute("NCC", nhacungcapDAO.findAll());
 		}
 		model.addAttribute("Action", "/save_nhacungcap");
@@ -71,7 +72,7 @@ public class admin_nhacungcapController {
 	public String delete_nhacungcap(Model model, @PathVariable(name="mancc") Integer mancc) {
 		NhaCungCap n = new NhaCungCap();
 		nhacungcapDAO.deleteById(mancc);
-		model.addAttribute("nccs", n);
+		model.addAttribute("NCCS", n);
 		model.addAttribute("NCC", nhacungcapDAO.findAll());
 		model.addAttribute("Action", "/save_nhacungcap");
 		return "redirect:/admin_nhacungcap";

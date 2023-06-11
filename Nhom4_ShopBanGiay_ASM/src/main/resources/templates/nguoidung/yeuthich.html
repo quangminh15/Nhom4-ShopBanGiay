@@ -132,9 +132,9 @@
             <tbody>
                 <tr th:each="item: ${yeus}">
                     <td th:text="${item.mayeuthich}"></td>
-                    <td ></td>
+                    <td th:text="${item.sanpham.tensp}"></td>
                     <td th:text="${item.ngaythich}"></td>
-                    <td></td>
+                    <td th:text="${item.sanpham.gia}"></td>
                     <td class="d-flex justify-content-around" style="font-size: 27px;">
                         <a class="color-black" th:href="@{/chitietsp}"><i class="ti-pencil"></i></a>
                         <a class="color-black" href="#"><i class="ti-trash"></i></a>
@@ -149,47 +149,7 @@
 
 
     <!-- FOOTER start-->
-    <footer class="text-center text-lg-start bg-light text-muted">
-        <section class="">
-            <div class="container-fluid text-justify text-md-start mt-5">
-                <div class="row mt-3">
-                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                        <p style="text-indent: 30px; text-align: justify;margin-top: 37px; font-size: 17px;">
-                            Tìm thấy câu trả lời cho độ bền không giới hạn mà CONVERSE luôn hướng tới để tiếp tục
-                            phát triển bền bỉ.Đó là lý tưởng của sự mạnh mẽ, chức năng và khả năng hoạt động
-                            tốt kết hợp với độ cứng cáp tuyệt đối.Lý tưởng này là nguồn gốc của độ cứng cáp
-                            mà CONVERSE luôn tìm kiếm.
-                        </p>
-                    </div>
-
-                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <h4 class="text-uppercase fw-bold mb-4">CỬA HÀNG TẠI HÀ NỘI</h4>
-                        <p class="fs-17">187 Phố Vọng, Hai Bà Trưng, Hà Nội.</p>
-                        <p class="fs-17">187 Phố Vọng-Quân Hai Bà Trưng-Hà Nội.</p>
-                        <p class="fs-17">82 Cầu Giấy, Quan Hoa, Cầu Giấy.</p>
-                    </div>
-
-                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <h4 class="text-uppercase fw-bold mb-4">CỬA HÀNG TẠI TP.HCM</h4>
-                        <p class="fs-17">497 Hoàng Văn Thụ, Phường 4, Q. Tân Bình, TP.HCM.</p>
-                        <p class="fs-17">676 Lê Trọng Tấn, P. Bình Hưng Hòa, Q. Bình Tân, HCM.</p>
-                        <p class="fs-17">20 đường 3 tháng 2, Phường 12, Quận 10, TPHCM.</p>
-                    </div>
-
-                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                        <h4 class="text-uppercase fw-bold mb-4">LIÊN LẠC</h4>
-                        <p class="fs-17">CONVERSEvietnam.net@gmail.com</p>
-                        <p class="fs-17">0105517236</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="text-center p-4 fs-17" style="background-color: rgba(0, 0, 0, 0.05)">
-            © 2023 Copyright:
-            <a class="text-reset fw-bold" href="https://conversestore.vn/">Converse.Store_</a>
-        </div>
-    </footer>
+    <div th:replace = "~{/layout/footer :: footer}"></div>
     <button type="button" class="btn btn-primary btn-floating btn-lg" id="btn-back-to-top">
         <i class="ti-angle-double-up"></i>
     </button>

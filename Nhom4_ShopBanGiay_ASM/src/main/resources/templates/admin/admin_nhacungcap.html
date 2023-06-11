@@ -244,11 +244,11 @@
                             Form Nhà Cung Cấp
                         </div>
                         <div class="card-body">
-                            <form th:action="${Action}" th:object="${nccs}" method="post">
+                            <form th:action="${Action}" th:object="${NCCS}" method="post">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Tên Nhà Cung Cấp</b></label>
-                                        <input type="text" class="form-control" id="tenncc" name="tenncc"
+                                        <input type="text" class="form-control" id="tenncc"
                                             placeholder="" th:field="*{tenncc}">
                                         <div class="alert alert-danger" th:if="${#fields.hasErrors('tenncc')}" th:errors="*{tenncc}"></div>
                                     </div>

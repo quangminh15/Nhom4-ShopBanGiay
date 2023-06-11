@@ -3,8 +3,11 @@ package com.fpoly.ShopBanGiay.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.ShopBanGiay.dao.KhuyenMaiDAO;
 import com.fpoly.ShopBanGiay.model.GiamGia;
+import com.fpoly.ShopBanGiay.model.Size;
 
 import jakarta.validation.Valid;
 
@@ -57,13 +61,21 @@ public class admin_khuyenmaiController {
 	}
 
 	@RequestMapping("/edit_khuyenmai/{magiamgia}")
-	public String edit_khuyenmai(Model model, @PathVariable(name = "magiamgia") Integer magiamgia) {
+	public String edit_khuyenmai(Model model, @PathVariable(name = "magiamgia") Integer magiamgia, @RequestParam("p") Optional<Integer> p) {
 		Optional<GiamGia> g = khuyenmaiDao.findById(magiamgia);
 		if (g.isPresent()) {
 			model.addAttribute("kms", g.get());
 			model.addAttribute("KM", khuyenmaiDao.findAll());
 		}
+		Pageable pageable = PageRequest.of(p.orElse(0), 5);
+		Page<GiamGia> kmss = khuyenmaiDao.findAll(pageable);
 
+		var numberOfPages = kmss.getTotalPages();
+
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+
+		model.addAttribute("KM", kmss);
 		model.addAttribute("Action", "/save_khuyenmai");
 		return "/admin/admin_khuyenmai";
 	}
