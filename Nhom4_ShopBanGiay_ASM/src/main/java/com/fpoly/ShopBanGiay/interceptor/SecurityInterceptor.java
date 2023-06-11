@@ -28,7 +28,6 @@ public class SecurityInterceptor implements HandlerInterceptor{
         if (user == null) {
             error = "NoLogin";
         } else if (!user.isVaitro() && uri.startsWith("/admin")) {
-        	System.out.println("Có user");
             error = "AccessDenied";
         }
 

@@ -54,7 +54,7 @@ public class DangKyController {
 		System.out.println("Mã code user nhập: "+codeFormUser);
 		System.out.println("Mã code: "+code);
 		if(code.equals(codeFormUser)) {
-			user.setHinh("https://via.placeholder.com/150");
+			user.setHinh("150.png");
 			user.setDiachi("Việt Nam");
 			user.setSdt("0");
 			nguoiDungDAO.save(user);
