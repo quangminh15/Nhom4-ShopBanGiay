@@ -1,6 +1,8 @@
 package com.fpoly.ShopBanGiay.controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.http.HttpRequest;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -28,6 +30,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fpoly.ShopBanGiay.dao.DanhMucDAO;
 import com.fpoly.ShopBanGiay.model.DanhMuc;
+import com.fpoly.ShopBanGiay.model.NguoiDung;
+import com.fpoly.ShopBanGiay.model.SanPham;
 import com.fpoly.ShopBanGiay.model.Size;
 import com.fpoly.ShopBanGiay.service.ParamService;
 
@@ -38,85 +42,114 @@ public class admin_danhmucsanphamController {
 
 	@Autowired
 	ParamService paramservice;
-	
+
 	@Autowired
 	DanhMucDAO danhmucDAO;
 
-	@RequestMapping("/admin_danhmucsanpham")
-	public String admin_danhmucsanpham(Model model, @RequestParam("field") Optional<String> field,
-			@RequestParam("p") Optional<Integer> p) {
+	@GetMapping("/admin_danhmucsanpham")
+	public String admin_danhmucsp(Model model,  @RequestParam("p") Optional<Integer> p,@RequestParam("field") Optional<String> field) {
 		DanhMuc danhmuc = new DanhMuc();
 		danhmuc.setAnhdm("default.png");
 		model.addAttribute("danhmuc", danhmuc);
-
-		Pageable pageable = PageRequest.of(p.orElse(0), 4, Sort.by(Direction.DESC, field.orElse("madm")).ascending());
-		Page<DanhMuc> danhmucs = danhmucDAO.findAll(pageable);
-
-		var numberOfPages = danhmucs.getTotalPages();
-
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by(Direction.DESC, field.orElse("madm")).ascending());
+		var list = danhmucDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
 		model.addAttribute("numberOfPages", numberOfPages);
-		model.addAttribute("danhmucs", danhmucs);
+		model.addAttribute("danhmucs", list);
+
 		return "/admin/admin_danhmucsanpham";
 	}
 
 	@GetMapping("/admin_danhmucsanpham/page")
-	public String pagedanhmuc(Model model, @RequestParam("field") Optional<String> field,
-			@RequestParam("p") Optional<Integer> p) {
-		return this.admin_danhmucsanpham(model, field, p);
+	public String paginate(Model model, @RequestParam("p") Optional<Integer> p,@RequestParam("field") Optional<String> field) {
+		return this.admin_danhmucsp(model,p,field);
 	}
 
-	@RequestMapping("/admin_danhmucsanpham/edit/{madm}")
-	public String editdm(Model model, @PathVariable("madm") Integer MaDM) {
-		DanhMuc danhmuc = danhmucDAO.findById(MaDM).get();
+	@RequestMapping("/admin_danhmucsanpham/create")
+	public String add(@Valid @ModelAttribute("danhmuc") DanhMuc danhmuc, BindingResult result,Model model, @RequestParam("p") Optional<Integer> p) {
+		if (result.hasErrors()) {
+			List<DanhMuc> danhmucs = danhmucDAO.findAll();
+			model.addAttribute("danhmucs", danhmucs);
+			return "/admin/admin_danhmucsanpham";
+		}
+		
+		danhmucDAO.save(danhmuc);
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("madm").ascending());
+		var list = danhmucDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("danhmucs", list);
+		danhmuc = new DanhMuc();
+		danhmuc.setAnhdm("default.png");
 		model.addAttribute("danhmuc", danhmuc);
-		List<DanhMuc> danhmucs = danhmucDAO.findAll();
-		model.addAttribute("danhmucs", danhmucs);
+
 		return "/admin/admin_danhmucsanpham";
 	}
 
-	@PostMapping("/admin_danhmucsanpham/create")
-	public String createdm(@Valid @ModelAttribute("danhmuc") DanhMuc danhmuc, BindingResult result, Model model,
-			@RequestParam("image") MultipartFile multipartfile) throws IOException {
-		
-		if (result.hasErrors()) {
-			List<DanhMuc> danhmucs = danhmucDAO.findAll();
-			model.addAttribute("danhmucs", danhmucs);
-			return "/admin/admin_danhmucsanpham";
-		}
-
-		String filename = StringUtils.cleanPath(multipartfile.getOriginalFilename());
-		String uploadDir = "/imageSP";
-		ParamService.saveFile(uploadDir, filename, multipartfile);
-		
-		danhmuc.setAnhdm(filename);
-		danhmucDAO.save(danhmuc);
-		return "redirect:/admin_danhmucsanpham";
+	@RequestMapping("/admin_danhmucsanpham/edit/{id}")
+	public String edit(Model model, @PathVariable("id") Integer id, @RequestParam("p") Optional<Integer> p) {
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("madm").ascending());
+		var list = danhmucDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("danhmucs", list);
+		DanhMuc danhmuc = danhmucDAO.findById(id).orElse(null);
+		danhmuc.setAnhdm(danhmuc.getAnhdm());
+		model.addAttribute("danhmuc", danhmuc);
+		return "/admin/admin_danhmucsanpham";
 	}
 
-	@PostMapping("/admin_danhmucsanpham/update")
-	public String updatedm(@Valid @ModelAttribute("danhmuc") DanhMuc danhmuc, BindingResult result, Model model) {
-		if (result.hasErrors()) {
-			List<DanhMuc> danhmucs = danhmucDAO.findAll();
-			model.addAttribute("danhmucs", danhmucs);
-			return "/admin/admin_danhmucsanpham";
-		}
-		danhmucDAO.save(danhmuc);
-		return "redirect:/admin_danhmucsanpham/edit/" + danhmuc.getMadm();
-	}
-
-	@RequestMapping("/delete/{madm}")
-	public String deletedm(@PathVariable("madm") Integer madm) {
-		danhmucDAO.deleteById(madm);
-		return "redirect:/admin_danhmucsanpham";
-	}
-
-	@PostMapping("/admin_danhmucsanpham/clear")
-	public String clear(@ModelAttribute("danhmuc") DanhMuc danhmuc) {
-		danhmuc.setMadm(0);
-		danhmuc.setTendm(null);
+	@RequestMapping("/admin_danhmucsanpham/delete/{madm}")
+	public String remove(Model model, @PathVariable("madm") Integer id, @RequestParam("p") Optional<Integer> p) {
+		danhmucDAO.deleteById(id);
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("madm").ascending());
+		var list = danhmucDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("danhmucs", list);
+		DanhMuc danhmuc = new DanhMuc();
 		danhmuc.setAnhdm("default.png");
-		danhmuc.setTrangthai(true);
-		return "redirect:/admin_danhmucsanpham";
+		model.addAttribute("danhmuc", danhmuc);
+		return "/admin/admin_danhmucsanpham";
+	}
+
+	@RequestMapping("/admin_danhmucsanpham/update")
+	public String update(Model model,@Valid @ModelAttribute("danhmuc") DanhMuc danhmuc, BindingResult result,
+			@RequestParam("p") Optional<Integer> p) {
+		if (result.hasErrors()) {
+			List<DanhMuc> danhmucs = danhmucDAO.findAll();
+			model.addAttribute("danhmucs", danhmucs);
+			return "/admin/admin_danhmucsanpham";
+		}
+		
+		danhmucDAO.save(danhmuc);
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("madm").ascending());
+		var list = danhmucDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("danhmucs", list);
+		danhmuc = new DanhMuc();
+		danhmuc.setAnhdm("default.png");
+		model.addAttribute("danhmuc", danhmuc);
+		return "/admin/admin_danhmucsanpham";
+	}
+
+	@RequestMapping("/admin_danhmucsanpham/clear")
+	public String update(Model model, @RequestParam("p") Optional<Integer> p) {
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("madm").ascending());
+		var list = danhmucDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("danhmucs", list);
+		DanhMuc danhmuc = new DanhMuc();
+		danhmuc.setAnhdm("default.png");
+		model.addAttribute("danhmuc", danhmuc);
+		return "/admin/admin_danhmucsanpham";
 	}
 }

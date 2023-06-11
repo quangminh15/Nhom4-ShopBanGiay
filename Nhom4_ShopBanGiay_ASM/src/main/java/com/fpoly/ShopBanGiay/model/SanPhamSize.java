@@ -22,34 +22,30 @@ import lombok.Setter;
 
 @Data
 @Entity
-@Table(name = "sanphamsize", uniqueConstraints = {
-		@UniqueConstraint(columnNames = {"ma_size","ma_sp"})
-})
-public class SanPhamSize  implements Serializable{
+@Table(name = "sanphamsize", uniqueConstraints = { @UniqueConstraint(columnNames = { "ma_size", "ma_sp" }) })
+public class SanPhamSize implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@NotNull(message = "{NotNull.SanPhamSize.masps}")
 	@Column(name = "ma_sps")
-	private int masps;
-	
+	Integer masps;
+
 	@Column(name = "so_luong")
 	@NotNull(message = "{NotNull.SanPhamSize.soluong}")
-	private int soluong;
-	
+	Integer soluong;
+
 	@ManyToOne
-    @JoinColumn(name = "ma_size")
-    Size size;
-	
+	@JoinColumn(name = "ma_size")
+	Size size;
+
 	@ManyToOne
-    @JoinColumn(name = "ma_sp")
-    SanPham sanpham;
-	
+	@JoinColumn(name = "ma_sp")
+	SanPham sanpham;
+
 	@ManyToOne
-    @JoinColumn(name = "ma_sps",insertable=false, updatable=false)
-    ChiTietDonHang chitietdonhang;
-	
+	@JoinColumn(name = "ma_sps", insertable = false, updatable = false)
+	ChiTietDonHang chitietdonhang;
+
 	@OneToMany(mappedBy = "sanphamsize")
-	List<GioHang>giohang;
-	
+	List<GioHang> giohang;
 
 }
