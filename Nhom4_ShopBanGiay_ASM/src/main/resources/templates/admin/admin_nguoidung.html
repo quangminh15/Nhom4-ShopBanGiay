@@ -61,7 +61,7 @@
                         <div class="collapse" id="nguoidung">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a th:href="@{/admin_nguoidung}" class="nav-link px-3">
+                                    <a th:href="@{/admin/admin_nguoidung}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-person-circle"></i></span>
                                         <span>Người dùng</span>
                                     </a>
@@ -73,7 +73,7 @@
 
                     <!-- Quản lý nhà cung cấp bắt đầu  -->
                     <li>
-                        <a th:href="@{/admin_nhacungcap}" class="nav-link px-3">
+                        <a th:href="@{/admin/admin_nhacungcap}" class="nav-link px-3">
                             <span class="me-2"><i class="bi bi-book-fill"></i></span>
                             <span>Quản lý nhà cung cấp</span>
                         </a>
@@ -95,7 +95,7 @@
                         <div class="collapse" id="khuyenmai">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a th:href="@{/admin_khuyenmai}" class="nav-link px-3">
+                                    <a th:href="@{/admin/admin_khuyenmai}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-window-sidebar"></i></span>
                                         <span>Khuyến mãi</span>
                                     </a>
@@ -121,25 +121,25 @@
                         <div class="collapse" id="sanpham">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a th:href="@{/admin_danhmucsanpham}" class="nav-link px-3">
+                                    <a th:href="@{/admin/admin_danhmucsanpham}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-menu-button-fill"></i></span>
                                         <span>Danh mục sản phẩm</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/admin_sanpham}" class="nav-link px-3">
+                                    <a th:href="@{/admin/admin_sanpham}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-menu-app-fill"></i></span>
                                         <span>Sản phẩm</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/admin_size}" class="nav-link px-3">
+                                    <a th:href="@{/admin/admin_size}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-menu-app"></i></span>
                                         <span>Size</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/admin_sanphamsize}" class="nav-link px-3">
+                                    <a th:href="@{/admin/admin_sanphamsize}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-menu-app"></i></span>
                                         <span>Sản phẩm Size</span>
                                     </a>
@@ -163,13 +163,13 @@
                         <div class="collapse" id="donhang">
                             <ul class="navbar-nav ps-3">
                                 <li>
-                                    <a th:href="@{/admin_donhang}" class="nav-link px-3">
+                                    <a th:href="@{/admin/admin_donhang}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-bag"></i></span>
                                         <span>Đơn hàng</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/admin_donhang}" class="nav-link px-3">
+                                    <a th:href="@{/admin/admin_donhang}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-bag-check"></i></span>
                                         <span>Đơn hàng đã giao</span>
                                     </a>
@@ -208,7 +208,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/admin_thongtincanhan}" class="nav-link px-3">
+                                    <a th:href="@{/admin/admin_thongtincanhan}" class="nav-link px-3">
                                         <span class="me-2"><i class="bi bi-bag-check"></i></span>
                                         <span>Thông tin cá nhân</span>
                                     </a>
@@ -233,6 +233,9 @@
             <div class="row" style="background-color: white; box-shadow: 10px 10px 25px grey; ">
                 <div class="col-md-7">
                     <h4 style="padding: 2rem 0;">Quản Lý Người Dùng</h4>
+                    <div th:if="${message}">
+                    	<h5 class="text-danger text-center" th:text="${message}"></h5>
+                    </div>
                 </div>
                 <div class="col-md-5">
                     <form class="d-flex" style="padding-top: 4%;">
@@ -307,11 +310,11 @@
                                     
                                     
                                 </div><br><br>
-                                <button class="btn btn-primary" th:formaction="@{/admin-nguoidung/add}"><i class="bi bi-save2"></i> Thêm</button>
-                                <button class="btn btn-success" th:formaction="@{/admin-nguoidung/update}"><i class="bi bi-card-list"></i>
+                                <button class="btn btn-primary" th:formaction="@{/admin/admin_nguoidung/add}"><i class="bi bi-save2"></i> Thêm</button>
+                                <button class="btn btn-success" th:formaction="@{/admin/admin_nguoidung/update}"><i class="bi bi-card-list"></i>
                                     Sửa</button>
-                                <button class="btn btn-danger" th:formaction="@{/admin-nguoidung/remove/__${u.mand}__}"><i class="bi bi-trash"></i> Xóa</button>
-                                <button class="btn btn-info" th:formaction="@{/admin-nguoidung/clear}"><i class="bi bi-arrow-clockwise"></i> Làm
+                                <button class="btn btn-danger" th:formaction="@{/admin/admin_nguoidung/remove/__${u.mand}__}"><i class="bi bi-trash"></i> Xóa</button>
+                                <button class="btn btn-info" th:formaction="@{/admin/admin_nguoidung/clear}"><i class="bi bi-arrow-clockwise"></i> Làm
                                     mới</button>
                             </form>
                         </div>
@@ -356,10 +359,10 @@
 										     <td>Khách hàng</td>
 										</div>
                                         <td>
-                                            <a th:href="@{/admin-nguoidung/edit/__${user.mand}__}" type="button" class="btn btn-success"><i
+                                            <a th:href="@{/admin/admin_nguoidung/edit/__${user.mand}__}" type="button" class="btn btn-success"><i
                                                     class="bi bi-card-list"></i>
                                                 Sửa</a>
-                                            <a th:href="@{/admin-nguoidung/remove/__${user.mand}__}" type="button" class="btn btn-danger"><i class="bi bi-trash"></i>
+                                            <a th:href="@{/admin/admin_nguoidung/remove/__${user.mand}__}" type="button" class="btn btn-danger"><i class="bi bi-trash"></i>
                                                 Xóa</a>
                                         </td>
                                     </tr>

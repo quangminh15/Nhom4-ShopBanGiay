@@ -13,6 +13,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
 
@@ -39,4 +40,15 @@ public class GioHang implements Serializable{
 	@ManyToOne
     @JoinColumn(name = "ma_nd")
     NguoiDung nguoidung;
+	
+	@Transient
+	public Double getSubtotal() {
+		 double total=0.0;
+		try {
+		  total = this.getSanphamsize().getSanpham().getGia() * soluong;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return total;
+	}
 }

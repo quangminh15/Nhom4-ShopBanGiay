@@ -104,16 +104,20 @@ public class SanPhamController {
 	}
 
 	@RequestMapping("/sanpham/chitietsp/{masp}")
-	public String chitietspa(Model model, @PathVariable("masp") Integer masp) {
+	public String chitietspa(Model model, @PathVariable("masp") Integer masp,@Param("masps")Integer masps) {
 		SanPham sanpham = sanphamDAO.findById(masp).orElse(null);
 
 		model.addAttribute("sanpham", sanpham);
+		
+		
 		List<SanPham> sanphams = sanphamDAO.findAll();
-
 		model.addAttribute("sanphams", sanphams);
 		
 		List<SanPhamSize>spsizes = spsizeDAO.findByMaSP(masp);
 		model.addAttribute("sizes", spsizes);
+		
+		
+		
 		return "/nguoidung/chitietsp";
 	}
 	
@@ -123,13 +127,7 @@ public class SanPhamController {
 		return danhmuc;
 	}
 	
-	@RequestMapping("/addtogiohang")
-	public String themGioHang(@ModelAttribute("giohang") GioHang gh,@Param("mand")Integer mand,@Param("masps")Integer masps,@Param("soluong")Integer soluong,Model model) {
-		
-		giohangDAO.save(gh);
-		
-		return "/nguoidung/chitietsp";
-	}
+	
 
 //	@ModelAttribute("danhmucs")
 //	public List<DanhMuc> getDanhMucsp() {
