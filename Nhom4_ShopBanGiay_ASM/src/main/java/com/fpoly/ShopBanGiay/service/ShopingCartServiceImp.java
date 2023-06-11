@@ -11,7 +11,10 @@ import com.fpoly.ShopBanGiay.model.GioHang;
 import com.fpoly.ShopBanGiay.model.NguoiDung;
 import com.fpoly.ShopBanGiay.model.SanPhamSize;
 
+import jakarta.transaction.Transactional;
+
 @Service
+@Transactional
 public class ShopingCartServiceImp implements ShoppingCartService {
 
 	@Autowired
@@ -33,15 +36,28 @@ public class ShopingCartServiceImp implements ShoppingCartService {
 		
 		GioHang cart = ghDAO.findByNguoidungAndSanphamsize(nguoiDung, sps);
 		
+		if (cart != null) {
+			addQty = cart.getSoluong()+soluong;
+			cart.setSoluong(addQty);
+		}else {
 		cart = new GioHang();
 		cart.setNguoidung(nguoiDung);
 		cart.setSanphamsize(sps);
 		cart.setSoluong(soluong);
-		
+		}
 		
 		ghDAO.save(cart);
 		
 		
 		return addQty;
+	}
+
+	@Override
+	public Float updateQuty(Integer masps, Integer soluong, NguoiDung nguoidung) {
+		ghDAO.updateQty(soluong, masps, nguoidung.getMand());
+		System.out.print(masps+","+soluong+","+nguoidung.getMand());
+		SanPhamSize sps = spsDAO.findById(masps).get();
+		float subtotal = sps.getSanpham().getGia()*soluong;
+		return subtotal;
 	}
 }

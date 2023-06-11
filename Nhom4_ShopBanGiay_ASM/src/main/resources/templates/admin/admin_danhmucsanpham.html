@@ -15,217 +15,9 @@
 </head>
 
 <body style="background-color: rgb(238, 238, 238);">
-    <!-- top navigation bar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-
-        <div class="container-fluid">
-            <button class="btn btn-outline-secondary" type="button" data-bs-toggle="offcanvas"
-                data-bs-target="#sidebar">
-                <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
-            </button>
-            <!-- <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar"
-                aria-controls="offcanvasExample">
-                <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
-            </button> -->
-            <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#"><img src="/images/logo.png"
-                    alt="logo" style="margin-left: 25px;"></a>
-        </div>
-    </nav>
-    <!-- top navigation bar -->
-    <!-- MENU đứng bắt đầu -->
-    <div class="offcanvas offcanvas-start sidebar-nav bg-dark" tabindex="-1" id="sidebar" style="font-size: 16px;">
-        <div class="offcanvas-body p-0">
-            <nav class="navbar-dark">
-                <ul class="navbar-nav">
-                    <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#"><img class="img-logo"
-                            src="/images/logo.png" alt="logo"></a>
-                    <li class="my-4">
-                        <hr class="dropdown-divider bg-light" />
-                    </li>
-                    <li>
-                        <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
-                            Quản lý
-                        </div>
-                    </li>
-                    <!-- Quản lý người dùng bắt đầu  -->
-                    <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#nguoidung">
-                            <span class="me-2"><i class="bi bi-person"></i></span>
-                            <span>Quản lý người dùng</span>
-                            <span class="ms-auto">
-                                <span class="right-icon">
-                                    <i class="bi bi-chevron-down"></i>
-                                </span>
-                            </span>
-                        </a>
-                        <div class="collapse" id="nguoidung">
-                            <ul class="navbar-nav ps-3">
-                                <li>
-                                    <a th:href="@{/admin_nguoidung}" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-person-circle"></i></span>
-                                        <span>Người dùng</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <!-- Quản lý người dùng kết thúc  -->
-
-                    <!-- Quản lý nhà cung cấp bắt đầu  -->
-                    <li>
-                        <a th:href="@{/admin_nhacungcap}" class="nav-link px-3">
-                            <span class="me-2"><i class="bi bi-book-fill"></i></span>
-                            <span>Quản lý nhà cung cấp</span>
-                        </a>
-                    </li>
-
-                    <!-- Quản lý nhà cung cấp kết thúc  -->
-
-                    <!-- Quản lý khuyến mãi bắt đầu  -->
-                    <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#khuyenmai">
-                            <span class="me-2"><i class="bi bi-window"></i></span>
-                            <span>Quản lý khuyến mãi</span>
-                            <span class="ms-auto">
-                                <span class="right-icon">
-                                    <i class="bi bi-chevron-down"></i>
-                                </span>
-                            </span>
-                        </a>
-                        <div class="collapse" id="khuyenmai">
-                            <ul class="navbar-nav ps-3">
-                                <li>
-                                    <a th:href="@{/admin_khuyenmai}" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-window-sidebar"></i></span>
-                                        <span>Khuyến mãi</span>
-                                    </a>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                    </li>
-
-                    <!-- Quản lý khuyến mãi kết thúc  -->
-
-                    <!-- Quản lý sản phẩm bắt đầu  -->
-                    <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#sanpham">
-                            <span class="me-2"><i class="bi bi-menu-button-wide-fill"></i></span>
-                            <span>Quản lý sản phẩm</span>
-                            <span class="ms-auto">
-                                <span class="right-icon">
-                                    <i class="bi bi-chevron-down"></i>
-                                </span>
-                            </span>
-                        </a>
-                        <div class="collapse" id="sanpham">
-                            <ul class="navbar-nav ps-3">
-                                <li>
-                                    <a th:href="@{/admin_danhmucsanpham}" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-menu-button-fill"></i></span>
-                                        <span>Danh mục sản phẩm</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/admin_sanpham}" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-menu-app-fill"></i></span>
-                                        <span>Sản phẩm</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/admin_size}" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-menu-app"></i></span>
-                                        <span>Size</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/admin_sanphamsize}" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-menu-app"></i></span>
-                                        <span>Sản phẩm Size</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <!-- Quản lý sản phẩm kết thúc  -->
-
-                    <!-- Quản lý đơn hàng bắt đầu  -->
-                    <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#donhang">
-                            <span class="me-2"><i class="bi bi-bag-fill"></i></span>
-                            <span>Quản lý đơn hàng</span>
-                            <span class="ms-auto">
-                                <span class="right-icon">
-                                    <i class="bi bi-chevron-down"></i>
-                                </span>
-                            </span>
-                        </a>
-                        <div class="collapse" id="donhang">
-                            <ul class="navbar-nav ps-3">
-                                <li>
-                                    <a th:href="@{/admin_donhang}" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-bag"></i></span>
-                                        <span>Đơn hàng</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/admin_donhang}" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-bag-check"></i></span>
-                                        <span>Đơn hàng đã giao</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-
-                    <!-- Quản lý đơn hàng kết thúc  -->
-
-                    <li class="my-4">
-                        <hr class="dropdown-divider bg-light" />
-                    </li>
-                    <!-- Quản lý tài khoản bắt đầu  -->
-                    <li>
-                        <div class="text-muted small fw-bold text-uppercase px-3 mb-3">
-                            Tài khoản
-                        </div>
-                    </li>
-                    <li>
-                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#taikhoan">
-                            <span class="me-2"><i class="bi bi-bag-fill"></i></span>
-                            <span>Xin chào Quang Minh</span>
-                            <span class="ms-auto">
-                                <span class="right-icon">
-                                    <i class="bi bi-chevron-down"></i>
-                                </span>
-                            </span>
-                        </a>
-                        <div class="collapse" id="taikhoan">
-                            <ul class="navbar-nav ps-3">
-                                <li>
-                                    <a th:href="@{/doimatkhau}" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-bag"></i></span>
-                                        <span>Đổi mật khẩu</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/admin_thongtincanhan}" class="nav-link px-3">
-                                        <span class="me-2"><i class="bi bi-bag-check"></i></span>
-                                        <span>Thông tin cá nhân</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <!-- Quản lý tài khoản kết thúc  -->
-
-                    <li class="my-4">
-                        <hr class="dropdown-divider bg-light" />
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
-    <!-- MENU đứng kết thúc -->
+<!-- Admin_Menu bắt đầu-->
+   <div th:replace = "~{/layout/admin_menu :: admin_menu}"></div>
+<!-- Admin_Menu kết thúc-->
 
     <!-- main content start  -->
     <main id="#main-order">
@@ -244,7 +36,7 @@
                             Form Danh Mục Sản Phẩm
                         </div>
                         <div class="card-body">
-                            <form method="post" th:object="${danhmuc}" enctype="multipart/form-data">
+                            <form th:object="${danhmuc}" method="post">
                                 <div class="row">
                                     <div class="mb-3 col-md-12">
                                         <label for="madanhmuc" class="form-label">Mã danh mục:</label>
@@ -258,17 +50,29 @@
                                     </div>
                                     <div class="mb-3 col-md-12">
                                         <label for="anhdanhmuc" class="form-label">Ảnh:</label> <br>
-                                        <img th:src="@{/imageSP/{img}(img=${danhmuc.anhdm})}" style="width: 200px; height: fit-content;" alt="hinhanh">
-                                        <input type="file" class="form-control" id="anhdanhmuc" name="image">
-                                        <div class="alert alert-danger" th:if="${error}" th:text="${error}"></div>
+                                        <img th:src="@{'/imageSP/'+${danhmuc.anhdm}}" style="width: 200px; height: fit-content;" alt="hinhanh">
+                                        <input type="file" class="form-control" id="anhdanhmuc" th:field="*{anhdm}" >
+                                        
                                     </div>
-                                    
+                                    <label class="form-label fs-17">Trạng thái:</label> <br>
+							                <div class="d-inline-flex">
+							                    <div class="form-check mx-4">
+							                        <input type="radio" class="form-check-input" id="radio1"  value="true" th:field="*{trangthai}">
+							                        <label class="form-check-label fs-17" for="radio1">Hoạt động</label>
+							                    </div>
+							                    <div class="form-check ">
+							                        <input type="radio" class="form-check-input" id="radio2"  value="false" th:field="*{trangthai}"> 
+							                        <label class="form-check-label fs-17" for="radio2">Không hoạt động</label>
+							                    </div>
+							                    
+							                </div>
+							                <div class="alert alert-danger" th:if="${#fields.hasErrors('trangthai')}" th:errors="*{trangthai}"></div>
                                 </div>
 
-                                <button type="submit" th:formaction="@{/admin_danhmucsanpham/create}" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
-                                <button type="submit" th:formaction="@{/admin_danhmucsanpham/update}" class="btn btn-success"><i class="bi bi-card-list"></i> Sửa</button>
-                                <button type="submit" th:formaction="@{/delete/__${danhmuc.madm}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
-                                <button type="submit" th:formaction="@{/admin_danhmucsanpham/clear}" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
+                                <button type="submit" th:formaction="@{/admin/admin_danhmucsanpham/create}" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
+                                <button type="submit" th:formaction="@{/admin/admin_danhmucsanpham/update}" class="btn btn-success"><i class="bi bi-card-list"></i> Sửa</button>
+                                <button type="submit" th:formaction="@{/admin/admin_danhmucsanpham/delete/__${danhmuc.madm}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
+                                <button type="submit" th:formaction="@{/admin/admin_danhmucsanpham/clear}" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
 
                             </form>
                         </div>
@@ -290,10 +94,10 @@
 
                                 <thead>
                                     <tr style="font-size: 20px;">
-                                    <th><a th:href="@{/admin_danhmucsanpham?field=madm}">MÃ DANH MỤC</a></th>
-                                    <th><a th:href="@{/admin_danhmucsanpham?field=tendm}">TÊN DANH MỤC</a></th>
-                                    <th><a th:href="@{/admin_danhmucsanpham?field=anhdm}">ẢNH</a></th>
-                                    <th><a th:href="@{/admin_danhmucsanpham?field=trangthai}">TRẠNG THÁI</a></th>
+                                    <th><a th:href="@/admin{/admin_danhmucsanpham?field=madm}">MÃ DANH MỤC</a></th>
+                                    <th><a th:href="@{/admin/admin_danhmucsanpham?field=tendm}">TÊN DANH MỤC</a></th>
+                                    <th><a th:href="@{/admin/admin_danhmucsanpham?field=anhdm}">ẢNH</a></th>
+                                    <th><a th:href="@{/admin/admin_danhmucsanpham?field=trangthai}">TRẠNG THÁI</a></th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -302,10 +106,16 @@
                                         <td th:text="${danhmuc.madm}"></td>
                                         <td th:text="${danhmuc.tendm}"></td>
                                         <td><img th:src="@{/imageSP/{img}(img=${danhmuc.anhdm})}" style="width: 200px; height: fit-content;" alt="hinhanh"></td>
-                                        <td th:text="${danhmuc.trangthai}" ></td>
+<!--                                         <td th:text="${danhmuc.trangthai}" ></td> -->
+                                        <div th:if="${danhmuc.trangthai}">
+										     <td>Hoạt động</td>
+										</div>
+										<div th:unless="${danhmuc.trangthai}">
+										     <td>không hoạt động</td>
+										</div>
                                         <td>
-                                            <a type="submit" th:href="@{/admin_danhmucsanpham/edit/__${danhmuc.madm}__}" class="btn btn-warning">Chọn</a>
-                                            <a type="submit" th:href="@{/delete/__${danhmuc.madm}__}" class="btn btn-danger">Xóa</a>
+                                            <a type="submit" th:href="@{/admin/admin_danhmucsanpham/edit/__${danhmuc.madm}__}" class="btn btn-warning">Chọn</a>
+                                            <a type="submit" th:href="@{/admin/admin_danhmucsanpham/delete/__${danhmuc.madm}__}" class="btn btn-danger">Xóa</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -315,26 +125,26 @@
 									<ul class="pagination">
 										<li class="page-item" th:if="${currIndex}>0"><a
 											class="page-link"
-											th:href="@{/admin_danhmucsanpham/page?p=__${currIndex-1}__}" href="#">Previous</a></li>
+											th:href="@{/admin/admin_danhmucsanpham/page?p=__${currIndex-1}__}" href="#">Previous</a></li>
 										<tr th:each="i: ${#numbers.sequence(0, numberOfPages - 1)}">
 											<li class="page-item"><a
 												th:style="${'background-color:' + (i==currIndex?'lightgrey':'white')}"
-												th:href="@{/admin_danhmucsanpham/page?p=__${i}__}" class="page-link"
+												th:href="@{/admin/admin_danhmucsanpham/page?p=__${i}__}" class="page-link"
 												href="#" th:text="${i+1}"></a></li>
 										</tr>
 										<li class="page-item"
 											th:if="(${currIndex}>-1 and (${currIndex})<${numberOfPages-1})"><a
 											class="page-link"
-											th:href="@{/admin_danhmucsanpham/page?p=__${currIndex+1}__}" href="#">Next</a></li>
+											th:href="@{/admin/admin_danhmucsanpham/page?p=__${currIndex+1}__}" href="#">Next</a></li>
 									</ul>
 								</nav>
 								<div class="d-flex justify-content-around">
 									<nav aria-label="Page navigation example">
 									<ul class="pagination">
-										<li class="page-item"><a class="page-link" th:href="@{/admin_danhmucsanpham/page?p=0}">First</a></li>
+										<li class="page-item"><a class="page-link" th:href="@{/admin/admin_danhmucsanpham/page?p=0}">First</a></li>
 										<li class="page-item"><a
 										class="page-link"
-										th:href="@{/admin_danhmucsanpham/page?p=__${numberOfPages-1}__}">Last</a></li>
+										th:href="@{/admin/admin_danhmucsanpham/page?p=__${numberOfPages-1}__}">Last</a></li>
 									</ul>
 								</nav>
 								</div>

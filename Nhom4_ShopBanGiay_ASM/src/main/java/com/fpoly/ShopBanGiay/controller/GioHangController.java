@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fpoly.ShopBanGiay.dao.GioHangDAO;
 import com.fpoly.ShopBanGiay.dao.NguoiDungDAO;
+import com.fpoly.ShopBanGiay.dao.SanPhamSizeDAO;
 import com.fpoly.ShopBanGiay.model.GioHang;
 import com.fpoly.ShopBanGiay.model.NguoiDung;
 import com.fpoly.ShopBanGiay.model.SanPhamSize;
@@ -38,6 +40,9 @@ public class GioHangController {
 	NguoiDungDAO nddao;
 	
 	@Autowired
+	SanPhamSizeDAO spsdao;
+	
+	@Autowired
 	ShopingCartServiceImp cart;
 	
 	@Autowired
@@ -47,21 +52,36 @@ public class GioHangController {
 	public String getGioHang(GioHang gh, Model model) {
 		GioHang ctgh = new GioHang();
 		model.addAttribute("cart",ctgh);
-		List<GioHang> carts = dao.findGioHangByMaND(2);
+		List<GioHang> carts = dao.findGioHangByMaND(4);
 		model.addAttribute("carts", carts);
+		
+//		int tongTien =  dao.tongTien(4);
+//		model.addAttribute("totalAmount",tongTien);
+//		System.out.println(tongTien);
+		
 		return "/nguoidung/giohang";
+		
 	}
+	
 	
 	@PostMapping("/addtocart")
 	public String addToCart(@Param("masps")Integer masps,@Param("soluong")Integer soluong) {
 		
 		
-		
-		
 		NguoiDung nguoidung = nddao.findById(4).get();
 		
-		cart.addToCart(masps, soluong, nguoidung);
+		Integer qty = cart.addToCart(masps, soluong, nguoidung);
 		return "redirect:/giohang";
+		}
+	
+	@PostMapping("/updateqty/{id}/{qty}")
+	public String updateQty(@PathVariable("id")Integer masps,@PathVariable("qty")Integer soluong) {
+		
+	
+		NguoiDung nguoidung = nddao.findById(4).get();
+		
+		float subtotal = cart.updateQuty(masps, soluong, nguoidung);
+		return String.valueOf(subtotal);
 		}
 	
 	

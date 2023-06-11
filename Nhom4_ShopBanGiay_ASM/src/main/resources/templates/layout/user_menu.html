@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div th:fragment="user_menu">
+<!-- header start -->
+    <div id="header">
+        <div class="menu">
+            <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" th:href="@{/trangchu}"><img src="/images/logo.png" alt="logo"></a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="mynavbar">
+                        <ul class="navbar-nav mx-auto">
+                            <li class="nav-item"> 
+                                <a class="nav-link nav-link-custom" th:href="@{/trangchu}">TRANG CHỦ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" th:href="@{/sanpham}">SẢN PHẨM</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" th:href="@{/thongtin}">THÔNG TIN</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link nav-link-custom" th:href="@{/giohang}">GIỎ HÀNG</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link nav-link-custom dropdown-toggle" href="#" role="button"
+                                    data-bs-toggle="dropdown">TÀI
+                                    KHOẢN</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" th:href="@{/dangnhap}">ĐĂNG NHẬP</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/dangky}">ĐĂNG KÝ</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/doimatkhau}">ĐỔI MẬT KHẨU</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/quenmatkhau}">QUÊN MẬT KHẨU</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/thaydoithongtin}">THÔNG TIN CÁ NHÂN</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/donhang}">ĐƠN HÀNG</a></li>
+                                    <li><a class="dropdown-item" th:href="@{/dangnhap}">ĐĂNG XUẤT</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="p-3">
+                            <a href="#" class="icon position-relative fs-4" data-bs-toggle="offcanvas"
+                                data-bs-target="#demo">
+                                <i class="ti-search"></i>
+                            </a>
+                        </div>
+                        <div class="offcanvas offcanvas-bottom" id="demo">
+                            <div class="offcanvas-header">
+                                <h1 class="offcanvas-title" style="margin-left: 43%;">Tìm kiếm</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <div class="container input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Bạn muốn tìm gì?">
+                                    <button class="btn btn-success" type="submit">OK</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-3">
+                            <a th:href="@{/yeuthich}" class="icon position-relative fs-4">
+                                <i class="ti-heart"></i>
+                                <span
+                                    class="small-icon position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    0
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+        <div class="menu-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 menu-item">
+                        <h6>HÀNG CÓ SẴN CHÍNH HÃNG</h6>
+                    </div>
+                    <div class="col-md-4 menu-item">
+                        <h6>ĐỔI TRẢ LINH HOẠT</h5>
+                    </div>
+                    <div class="col-md-4 menu-item">
+                        <h6>SHIP HÀNG TOÀN QUỐC</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <marquee class="marquee-test" width="100%" scrollamount="20" direction="left" height="auto"
+            onmouseover="this.stop()" onmouseout="this.start()">
+            Converse xin chào tất cả các bạn. Chào mừng các bạn đã đến với cửa hàng của chúng tôi. Chúng tôi luôn lấy uy
+            tín đặt trên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!
+        </marquee>
+    </div>
+    <!-- header end -->
+</div>
+</body>
+</html>

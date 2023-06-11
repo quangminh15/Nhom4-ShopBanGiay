@@ -12,16 +12,16 @@
 		<nav>
 			<ul class="pagination">
 				<li class="page-item">
-					<a class="page-link minusButton" href="" th:pid=${id}>
+					<a class="page-link minusButton" name="masps" th:value="${id}" href="" th:pid=${id}>
 						<b>-</b>
 					</a>
 				</li>
 				<li class="page-item">
 					<input type="number" name ="soluong" th:value="${qtyValue}" class="form-control text-center"
-					onkeydown="return false" th:id="'quantity'+${id}">
+					onkeydown="return false" th:id="'quantity'+${id}" style="width:5em">
 				</li>
 				<li class="page-item">
-					<a class="page-link plusButton" href="" th:pid=${id}>
+					<a class="page-link plusButton" name="masps" href="${id}" th:pid=${id}>
 						<b>+</b>
 					</a>
 				</li>

@@ -11,7 +11,7 @@ import com.fpoly.ShopBanGiay.model.GioHang;
 import com.fpoly.ShopBanGiay.model.NguoiDung;
 import com.fpoly.ShopBanGiay.model.SanPhamSize;
 
-import jakarta.transaction.Transactional;
+
 
 public interface GioHangDAO extends JpaRepository<GioHang, Integer>{
 	
@@ -21,6 +21,15 @@ public interface GioHangDAO extends JpaRepository<GioHang, Integer>{
 	
 	@Query ("select gh from GioHang gh where gh.nguoidung.mand like ?1")
 	List<GioHang> findGioHangByMaND(Integer mand);
+	
+//	@Query ("select sum(gh.soluong*gh.sanphamsize.sanpham.gia) from GioHang gh where gh.nguoidung.mand = ?1 ")
+//	Integer tongTien(Integer mand);
+	
+	@Query ("Update GioHang gh set gh.soluong = ?1 where gh.sanphamsize.masps = ?2 and gh.nguoidung.mand = ?3 ")
+	@Modifying
+	public void updateQty(Integer soluong,Integer masps,Integer mand);
+
+	
 	
 //	 @Query(value = " insert into GioHang(mand,masps,soluong) values (:mand,:masps,:soluong)", nativeQuery = true)
 //	    @Modifying

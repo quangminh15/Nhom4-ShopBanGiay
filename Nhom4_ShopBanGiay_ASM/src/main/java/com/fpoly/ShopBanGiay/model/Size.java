@@ -25,7 +25,7 @@ public class Size  implements Serializable{
 	@NotNull(message = "{NotNull.Size.masize}")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_size")
-	private int masize;
+	private Integer masize;
 	
 	@NotNull(message = "{NotNull.Size.sizegiay}")
 	@Column(name = "size_giay")
