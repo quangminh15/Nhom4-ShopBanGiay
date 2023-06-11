@@ -158,7 +158,7 @@
                             <div th:replace="~{/layout/quantitycontrol :: quantitycontrol(${cart.soluong},${cart.sanphamsize.masps})}"></div>
                             
                         </td>
-                        <td class="subtotal" th:id="'subtotal'+${cart.sanphamsize.masps}">[[${cart.subtotal}]]</td>
+                        <td class="subtotal" th:id="'total'+${cart.sanphamsize.masps}" >[[${cart.subtotal}]]</td>
                     </tr>
                    	
                 </tbody>
@@ -286,6 +286,10 @@
 
 	
 	<!-- CAP NHAT TONG TIEN  -->
+	<script type="text/javascript">
+		contextPath="[[@{/}]]";
+		
+	</script>
 <script type="text/javascript">
 		$(document).ready(function() {
 			
@@ -330,21 +334,28 @@
 		}
 		
 		function updateQty(masps,qty){
-			contextPath="[[@{/}]]"
+			
 			url= contextPath + "updateqty/" + masps +"/"+ qty;
 			
 			$.ajax({
 				type: "POST",
 				url: url,
-				
-			}).done(function(newSubtotal){
-				updateSubtotal(newSubTotal, masps);
+				data: JSON.stringify(masps,newQty),
+	              contentType: "application/json",
+
+            	success: function (newSubtotal) {
+                console.log(newSubtotal);
+              
 				updateTotal()
+                $("#total" + masps).text(newSubtotal);
+            },
+				
 			})
 		}
-		function updateSubtotal(newSubtotal, masps){
-			$("#subtotal"+masps).text(newSubtotal);
-		}
+	
+		 /* function updateSubtotal(newSubtotal, masps){
+			$("#total" + masps).text(newSubtotal);
+		}  */
 		function updateTotal() {
 			var total = 0.0;
 			console.log(total)
@@ -362,7 +373,7 @@
 
 </body>
 
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		$('#qty').on('chage', function() {
 			$.ajax({
 				type : 'post',
@@ -377,7 +388,7 @@
 				}
 			})
 		})
-	</script>
+	</script> -->
 	<script>
 		$('.owl-carousel').owlCarousel({
 			loop : true,

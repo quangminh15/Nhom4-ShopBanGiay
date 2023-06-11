@@ -74,10 +74,11 @@ public class GioHangController {
 		return "redirect:/giohang";
 		}
 	
+	@ResponseBody
 	@PostMapping("/updateqty/{id}/{qty}")
 	public String updateQty(@PathVariable("id")Integer masps,@PathVariable("qty")Integer soluong) {
 		
-	
+		
 		NguoiDung nguoidung = nddao.findById(4).get();
 		
 		float subtotal = cart.updateQuty(masps, soluong, nguoidung);
