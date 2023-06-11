@@ -26,7 +26,7 @@ public class InterConfig implements WebMvcConfigurer{
 		
 		registry.addInterceptor(auth)
 			.addPathPatterns("/admin/**")
-			.excludePathPatterns("/dangnhap", "/dangky","trangchu");
+			.excludePathPatterns("/static","/dangnhap", "/dangky","trangchu");
 		
 	}
 }
