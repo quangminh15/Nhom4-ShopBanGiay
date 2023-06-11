@@ -3,6 +3,7 @@ package com.fpoly.ShopBanGiay.controller;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.ShopBanGiay.dao.NhaCungCapDAO;
+import com.fpoly.ShopBanGiay.model.GiamGia;
 import com.fpoly.ShopBanGiay.model.NhaCungCap;
 
 import jakarta.validation.Valid;
@@ -58,12 +60,22 @@ public class admin_nhacungcapController {
 	}
 	
 	@RequestMapping("/edit_nhacungcap/{mancc}")
-	public String eidt_nhacungcap(Model model, @PathVariable(name="mancc") Integer mancc) {
+	public String eidt_nhacungcap(Model model, @PathVariable(name="mancc") Integer mancc,  @RequestParam("p") Optional<Integer> p) {
 		Optional<NhaCungCap> n = nhacungcapDAO.findById(mancc);
 		if(n.isPresent()) {
 			model.addAttribute("NCCS", n.get());
 			model.addAttribute("NCC", nhacungcapDAO.findAll());
 		}
+		
+		Pageable pageable = PageRequest.of(p.orElse(0), 5);
+		Page<NhaCungCap> nccss = nhacungcapDAO.findAll(pageable);
+
+		var numberOfPages = nccss.getTotalPages();
+
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+
+		model.addAttribute("NCC", nccss);
 		model.addAttribute("Action", "/save_nhacungcap");
 		return "/admin/admin_nhacungcap";
 	}
@@ -75,6 +87,17 @@ public class admin_nhacungcapController {
 		model.addAttribute("NCCS", n);
 		model.addAttribute("NCC", nhacungcapDAO.findAll());
 		model.addAttribute("Action", "/save_nhacungcap");
+		return "redirect:/admin_nhacungcap";
+	}
+	
+	@PostMapping("/admin_nhacungcap/clear")
+	public String clear_nhacungcap(@ModelAttribute("nhacungcap") NhaCungCap nhacungcap) {
+		nhacungcap.setMancc(null);
+		nhacungcap.setTenncc(null);
+		nhacungcap.setEmail(null);
+		nhacungcap.setDiachi(null);
+		nhacungcap.setSdt(null);
+		
 		return "redirect:/admin_nhacungcap";
 	}
 }

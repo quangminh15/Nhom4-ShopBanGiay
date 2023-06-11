@@ -5,10 +5,8 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.fpoly.ShopBanGiay.model.GioHang;
 import com.fpoly.ShopBanGiay.model.NguoiDung;
 import com.fpoly.ShopBanGiay.model.SanPham;
-import com.fpoly.ShopBanGiay.model.SanPhamSize;
 import com.fpoly.ShopBanGiay.model.YeuThich;
 
 public interface YeuThichDAO extends JpaRepository<YeuThich, Integer> {
