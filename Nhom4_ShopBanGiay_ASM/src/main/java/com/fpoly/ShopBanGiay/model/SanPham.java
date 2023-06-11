@@ -27,7 +27,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "sanpham")
 public class SanPham implements Serializable{
 	@Id
-	@NotNull(message = "{NotNull.SanPham.masp}")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_sp")
 	private Integer masp;

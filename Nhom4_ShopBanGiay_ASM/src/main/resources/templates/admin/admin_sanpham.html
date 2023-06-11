@@ -134,10 +134,10 @@
                                     </div>
                                 </div>
 
-                                <button type="submit" th:formaction="@{/admin_sanpham/create}" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
-                                <button type="submit" th:formaction="@{/admin_sanpham/update}" class="btn btn-success"><i class="bi bi-card-list"></i>Sửa</button>
-                                <button type="submit" th:formaction="@{/admin_sanpham/delete/__${sanpham.masp}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
-                                <button type="submit" th:formaction="@{/admin_sanpham/clear}" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
+                                <button type="submit" th:formaction="@{/admin/admin_sanpham/create}" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
+                                <button type="submit" th:formaction="@{/admin/admin_sanpham/update}" class="btn btn-success"><i class="bi bi-card-list"></i>Sửa</button>
+                                <button type="submit" th:formaction="@{/admin/admin_sanpham/delete/__${sanpham.masp}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
+                                <button type="submit" th:formaction="@{/admin/admin_sanpham/clear}" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
 
                             </form>
                         </div>
@@ -196,8 +196,8 @@
                                         <td th:text="${sanpham.nhacungcap.tenncc}"></td>
                                         <td th:text="${sanpham.giamgia.giamgia}"></td>
                                         <td>
-                                            <a type="submit" th:href="@{/admin_sanpham/edit/__${sanpham.masp}__}" class="btn btn-warning">Chọn</a>
-                                            <a type="submit" th:href="@{/admin_sanpham/delete/__${sanpham.masp}__}" class="btn btn-danger">Xóa</a>
+                                            <a type="submit" th:href="@{/admin/admin_sanpham/edit/__${sanpham.masp}__}" class="btn btn-warning">Chọn</a>
+                                            <a type="submit" th:href="@{/admin/admin_sanpham/delete/__${sanpham.masp}__}" class="btn btn-danger">Xóa</a>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -207,26 +207,26 @@
 									<ul class="pagination">
 										<li class="page-item" th:if="${currIndex}>0"><a
 											class="page-link"
-											th:href="@{/admin_sanpham/page?p=__${currIndex-1}__}" href="#">Previous</a></li>
+											th:href="@{/admin/admin_sanpham/page?p=__${currIndex-1}__}" href="#">Previous</a></li>
 										<tr th:each="i: ${#numbers.sequence(0, numberOfPages - 1)}">
 											<li class="page-item"><a
 												th:style="${'background-color:' + (i==currIndex?'lightgrey':'white')}"
-												th:href="@{/admin_sanpham/page?p=__${i}__}" class="page-link"
+												th:href="@{/admin/admin_sanpham/page?p=__${i}__}" class="page-link"
 												href="#" th:text="${i+1}"></a></li>
 										</tr>
 										<li class="page-item"
 											th:if="(${currIndex}>-1 and (${currIndex})<${numberOfPages-1})"><a
 											class="page-link"
-											th:href="@{/admin_sanpham/page?p=__${currIndex+1}__}" href="#">Next</a></li>
+											th:href="@{/admin/admin_sanpham/page?p=__${currIndex+1}__}" href="#">Next</a></li>
 									</ul>
 								</nav>
 								<div class="d-flex justify-content-around">
 									<nav aria-label="Page navigation example">
 									<ul class="pagination">
-										<li class="page-item"><a class="page-link" th:href="@{/admin_sanpham/page?p=0}">First</a></li>
+										<li class="page-item"><a class="page-link" th:href="@{/admin/admin_sanpham/page?p=0}">First</a></li>
 										<li class="page-item"><a
 										class="page-link"
-										th:href="@{/admin_sanpham/page?p=__${numberOfPages-1}__}">Last</a></li>
+										th:href="@{/admin/admin_sanpham/page?p=__${numberOfPages-1}__}">Last</a></li>
 									</ul>
 								</nav>
 								</div>

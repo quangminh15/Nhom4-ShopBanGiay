@@ -33,7 +33,7 @@ public class admin_sizeController {
 	@Autowired
 	SizeDAO sizeDAO;
 
-	@RequestMapping("/admin_size")
+	@RequestMapping("/admin/admin_size")
 	public String admin_size(Model model, @RequestParam("field") Optional<String> field,
 			@RequestParam("p") Optional<Integer> p) {
 		Size size = new Size();
@@ -50,13 +50,13 @@ public class admin_sizeController {
 		return "/admin/admin_size";
 	}
 
-	@GetMapping("/admin_size/page")
+	@GetMapping("/admin/admin_size/page")
 	public String page(Model model, @RequestParam("field") Optional<String> field,
 			@RequestParam("p") Optional<Integer> p) {
 		return this.admin_size(model, field, p);
 	}
 
-	@RequestMapping("/admin_size/edit/{masize}")
+	@RequestMapping("/admin/admin_size/edit/{masize}")
 	public String editsize(Model model, @PathVariable("masize") Integer MaSize,
 			@RequestParam("field") Optional<String> field, @RequestParam("p") Optional<Integer> p) {
 		Size size = sizeDAO.findById(MaSize).get();
@@ -74,7 +74,7 @@ public class admin_sizeController {
 		return "/admin/admin_size";
 	}
 
-	@PostMapping("/admin_size/create")
+	@PostMapping("/admin/admin_size/create")
 	public String createsize(@Valid @ModelAttribute("size") Size size, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			List<Size> sizes = sizeDAO.findAll();
@@ -85,7 +85,7 @@ public class admin_sizeController {
 		return "redirect:/admin_size";
 	}
 
-	@PostMapping("/admin_size/update")
+	@PostMapping("/admin/admin_size/update")
 	public String updatesize(@Valid @ModelAttribute("size") Size size, BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			List<Size> sizes = sizeDAO.findAll();
@@ -96,13 +96,13 @@ public class admin_sizeController {
 		return "redirect:/admin_size/edit/" + size.getMasize();
 	}
 
-	@RequestMapping("/delete/{masize}")
+	@RequestMapping("/admin/delete/{masize}")
 	public String deletesize(@PathVariable("masize") Integer masize) {
 		sizeDAO.deleteById(masize);
 		return "redirect:/admin_size";
 	}
 
-	@PostMapping("/admin_size/clear")
+	@PostMapping("/admin/admin_size/clear")
 	public String clear(@ModelAttribute("size") Size size) {
 		size.setMasize(0);
 		size.setSizegiay(null);
