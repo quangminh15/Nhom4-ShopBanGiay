@@ -46,7 +46,7 @@ public class admin_danhmucsanphamController {
 	@Autowired
 	DanhMucDAO danhmucDAO;
 
-	@GetMapping("/admin_danhmucsanpham")
+	@GetMapping("/admin/admin_danhmucsanpham")
 	public String admin_danhmucsp(Model model,  @RequestParam("p") Optional<Integer> p,@RequestParam("field") Optional<String> field) {
 		DanhMuc danhmuc = new DanhMuc();
 		danhmuc.setAnhdm("default.png");
@@ -66,7 +66,7 @@ public class admin_danhmucsanphamController {
 		return this.admin_danhmucsp(model,p,field);
 	}
 
-	@RequestMapping("/admin_danhmucsanpham/create")
+	@RequestMapping("/admin/admin_danhmucsanpham/create")
 	public String add(@Valid @ModelAttribute("danhmuc") DanhMuc danhmuc, BindingResult result,Model model, @RequestParam("p") Optional<Integer> p) {
 		if (result.hasErrors()) {
 			List<DanhMuc> danhmucs = danhmucDAO.findAll();
@@ -88,7 +88,7 @@ public class admin_danhmucsanphamController {
 		return "/admin/admin_danhmucsanpham";
 	}
 
-	@RequestMapping("/admin_danhmucsanpham/edit/{id}")
+	@RequestMapping("/admin/admin_danhmucsanpham/edit/{id}")
 	public String edit(Model model, @PathVariable("id") Integer id, @RequestParam("p") Optional<Integer> p) {
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("madm").ascending());
 		var list = danhmucDAO.findAll(pageable);
@@ -102,7 +102,7 @@ public class admin_danhmucsanphamController {
 		return "/admin/admin_danhmucsanpham";
 	}
 
-	@RequestMapping("/admin_danhmucsanpham/delete/{madm}")
+	@RequestMapping("/admin/admin_danhmucsanpham/delete/{madm}")
 	public String remove(Model model, @PathVariable("madm") Integer id, @RequestParam("p") Optional<Integer> p) {
 		danhmucDAO.deleteById(id);
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("madm").ascending());
@@ -117,7 +117,7 @@ public class admin_danhmucsanphamController {
 		return "/admin/admin_danhmucsanpham";
 	}
 
-	@RequestMapping("/admin_danhmucsanpham/update")
+	@RequestMapping("/admin/admin_danhmucsanpham/update")
 	public String update(Model model,@Valid @ModelAttribute("danhmuc") DanhMuc danhmuc, BindingResult result,
 			@RequestParam("p") Optional<Integer> p) {
 		if (result.hasErrors()) {
@@ -139,7 +139,7 @@ public class admin_danhmucsanphamController {
 		return "/admin/admin_danhmucsanpham";
 	}
 
-	@RequestMapping("/admin_danhmucsanpham/clear")
+	@RequestMapping("/admin/admin_danhmucsanpham/clear")
 	public String update(Model model, @RequestParam("p") Optional<Integer> p) {
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("madm").ascending());
 		var list = danhmucDAO.findAll(pageable);
