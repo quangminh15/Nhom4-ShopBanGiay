@@ -24,7 +24,7 @@ public class admin_nguoidungController {
 	@Autowired
 	NguoiDungDAO dao;
 	
-	@GetMapping("/admin-nguoidung")
+	@GetMapping("/admin/admin_nguoidung")
 	public String admin_nguoidung(Model model, @RequestParam("p") Optional<Integer> p) {
 		System.out.println("----------Index----------");
 		model.addAttribute("u", new NguoiDung());
@@ -44,10 +44,21 @@ public class admin_nguoidungController {
         return this.admin_nguoidung(model, p);
     }
 	
-	@RequestMapping("/admin-nguoidung/add")
+	@RequestMapping("/admin/admin_nguoidung/add")
 	public String add(Model model, @ModelAttribute("user") NguoiDung u,@RequestParam("p") Optional<Integer> p) {
 	System.out.println("----------Add----------");
 	System.out.println("User:"+u);
+	if(!checkEmailAlreadyExists(u.getEmail())) {
+		model.addAttribute("message","Lỗi: Email này đã tồn tại!");
+		model.addAttribute("u", new NguoiDung());
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
+		var list = dao.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+	    model.addAttribute("numberOfPages", numberOfPages);
+	    model.addAttribute("userList", list);
+		return "/admin/admin_nguoidung";
+	}
 	dao.save(u);
 	Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
 	var list = dao.findAll(pageable);
@@ -60,7 +71,7 @@ public class admin_nguoidungController {
 	return "/admin/admin_nguoidung";
 	}
 	
-	@RequestMapping("/admin-nguoidung/edit/{id}")
+	@RequestMapping("/admin/admin_nguoidung/edit/{id}")
 	public String edit(Model model, @PathVariable("id") Integer id, @RequestParam("p") Optional<Integer> p) {
 		System.out.println("----------Edit----------");
 	//	Optional<Category> item = cateDAO.findById(id);
@@ -77,7 +88,7 @@ public class admin_nguoidungController {
 		return "/admin/admin_nguoidung";
 	}
 	
-	@RequestMapping("/admin-nguoidung/remove/{mand}")
+	@RequestMapping("/admin/admin_nguoidung/remove/{mand}")
 	public String remove(Model model, @PathVariable("mand") Integer id, @RequestParam("p") Optional<Integer> p) {
 		System.out.println("----------Remove----------");
 			System.out.println("id:"+id);
@@ -110,7 +121,7 @@ public class admin_nguoidungController {
 //		return "/admin/admin_nguoidung";
 //	}
 	
-	@RequestMapping("/admin-nguoidung/update")
+	@RequestMapping("/admin/admin_nguoidung/update")
 	public String update(Model model, @ModelAttribute("user") NguoiDung u, @RequestParam("p") Optional<Integer> p) {
 		System.out.println("----------Update----------");
 		dao.save(u);
@@ -125,8 +136,8 @@ public class admin_nguoidungController {
 		return "/admin/admin_nguoidung";
 	}
 	
-	@RequestMapping("/admin-nguoidung/clear")
-	public String update(Model model, @RequestParam("p") Optional<Integer> p) {
+	@RequestMapping("/admin/admin_nguoidung/clear")
+	public String clear(Model model, @RequestParam("p") Optional<Integer> p) {
 		System.out.println("----------Clear----------");
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
 		var list = dao.findAll(pageable);
@@ -137,5 +148,13 @@ public class admin_nguoidungController {
 		model.addAttribute("u", new NguoiDung());
 		System.out.println("----------***----------");
 		return "/admin/admin_nguoidung";
+	}
+	
+	public  boolean checkEmailAlreadyExists(String email) {
+		List<NguoiDung> list = dao.findByEmails(email);
+		if(list.isEmpty()) {
+			return true;
+		}
+		return false;
 	}
 }

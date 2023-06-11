@@ -68,6 +68,13 @@ public class DangKyController {
 	public String validDangNhap(@Valid @ModelAttribute("nguoidung") NguoiDung nguoidung,BindingResult result, Model model) {System.out.println("Thông tin đk: "+nguoidung);
 		
 		if(nguoidung != null) {
+			if(!checkEmailAlreadyExists(nguoidung.getEmail())) {
+				System.out.println("Email đã tồn tại");
+				model.addAttribute("messageConfirmPassWrong", "Lỗi: Email này đã tồn tại!");
+				nguoidung.setEmail("");
+				model.addAttribute("nguoidung", nguoidung);
+				return "/nguoidung/dangky";
+			}
 			System.out.println("Đang xác thực pass...");
 			if(!nguoidung.getMatkhau().equalsIgnoreCase(nguoidung.getHinh())) {
 				System.out.println("chưa khớp");
