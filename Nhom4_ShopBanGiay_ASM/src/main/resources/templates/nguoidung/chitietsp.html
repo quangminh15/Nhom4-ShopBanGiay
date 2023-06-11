@@ -51,21 +51,22 @@
     <!-- mainChitietsp start -->
     <div id="mainChitietsp">
         <div class="container-fluid">
-            <div class="row m-4">
+            
             <form method="post" th:object="${sanpham}">
+            <div class="row m-4">
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-3">
                             <div class="pictur-demo">
-                                <img class="image-demo" th:src="@{./imageSP/{img}(img=${sanpham.hinhanh1})}" alt="hinhanh">
-                                <img class="image-demo" th:src="@{./imageSP/{img}(img=${sanpham.hinhanh2})}" alt="hinhanh">
-                                <img class="image-demo" th:src="@{./imageSP/{img}(img=${sanpham.hinhanh3})}" alt="hinhanh">
+                                <img class="image-demo" th:src="@{'/imageSP/'+${sanpham.hinhanh1}}" alt="hinhanh">
+                                <img class="image-demo" th:src="@{'/imageSP/'+${sanpham.hinhanh2}}" alt="hinhanh">
+                                <img class="image-demo" th:src="@{'/imageSP/'+${sanpham.hinhanh3}}" alt="hinhanh">
                             </div>
                         </div>
                         <div class="col-md-9">
                             <div class="picture-main zoom">
-                                <img class="image-main" th:src="@{./imageSP/{img}(img=${sanpham.hinhanh1})}" alt="hinhanh">
-                                <img class="image-main" th:src="@{./imageSP/{img}(img=${sanpham.hinhanh1})}" id="imgZoom" alt="hinhanh">
+                                <img class="image-main" th:src="@{'/imageSP/'+${sanpham.hinhanh1}}" alt="hinhanh">
+                                <img class="image-main" th:src="@{'/imageSP/'+${sanpham.hinhanh1}}" id="imgZoom" alt="hinhanh">
                             </div>
                         </div>
                     </div>
@@ -73,11 +74,12 @@
 
                 <div class="col-md-6">
                     <div class="picture-content">
-                    <h1 th:text="${sanpham.masp}"></h1>
+                    
                         <h1 th:text="${sanpham.tensp}"></h1>
 
-                        <h2 class="mt-4 mb-4" th:text="${sanpham.gia}"></h2>
-
+<!--                         <h2 class="mt-4 mb-4" th:text="${sanpham.gia}"></h2> -->
+						<h2 class="mt-4 mb-4"><span  style="font-size: 20px;" class="card-title-old"   th:text="${sanpham.gia} + 'vnđ'" ></span></h2>
+						<h2 class="mt-4 mb-4"><span style="font-size: 40px;" class="card-title-sale"  th:text="${sanpham.gia}-${sanpham.gia}*${sanpham.giamgia.giamgia}/100 + ' vnđ'"></span></h2>
                         <div class="description mt-4 mb-4" th:text="${sanpham.mota}">
                         </div>
 
@@ -195,8 +197,9 @@
                         <!-- The Modal End-->
                     </div>
                 </div>
+                </div>
                 </form>
-            </div>
+            
         </div>
     </div>
 
@@ -208,269 +211,28 @@
             <div class="row">
                 <div class="col-12 m-auto">
                     <div class="owl-carousel owl-theme">
-                        <div class="item mb-4">
+                    
+                        <div th:each="sanpham: ${sanphams}" class="item mb-4">
                             <div class="card border-0 shadow">
-                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
+                                <a th:href="@{/sanpham/chitietsp/__${sanpham.masp}__}"><img class="card-img-top" th:src="@{/imageSP/{img}(img=${sanpham.hinhanh1})}"
                                         alt="Card image" style="width:100%"></a>
                                 <div class="card-body">
-                                    <a href="./chitietsp.html">
-                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
+                                    <a th:href="@{/sanpham/chitietsp/__${sanpham.masp}__}">
+                                        <h4 class="card-title text-center" th:text="${sanpham.tensp}"></h4>
                                         <div class="price-product">
-                                            <h4 class="card-title">Giá : <span
-                                                    class="card-title-normal">1.990.000đ</span>
-                                            </h4>
+                                           <h4 class="card-title"><span class="card-title-old"  th:text="${sanpham.gia} + 'vnđ'"></span></h4>
+											 <h4 class="card-title"><span class="card-title-sale"  th:text="${sanpham.gia}-${sanpham.gia}*${sanpham.giamgia.giamgia}/100 + ' vnđ'"></span></h4>
                                         </div>
                                     </a>
                                     <div class="row d-flex justify-content-center">
-                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
+                                        <a th:href="@{/giohang}" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
                                             hàng</a>
-                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
+                                        <a th:href="@{/yeuthich}" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="item mb-4">
-                            <div class="card border-0 shadow">
-                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
-                                        alt="Card image" style="width:100%"></a>
-                                <div class="card-body">
-                                    <a href="./chitietsp.html">
-                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
-                                        <div class="price-product">
-                                            <h4 class="card-title">Giá : <span
-                                                    class="card-title-normal">1.990.000đ</span>
-                                            </h4>
-                                        </div>
-                                    </a>
-                                    <div class="row d-flex justify-content-center">
-                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
-                                            hàng</a>
-                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item mb-4">
-                            <div class="card border-0 shadow">
-                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
-                                        alt="Card image" style="width:100%"></a>
-                                <div class="card-body">
-                                    <a href="./chitietsp.html">
-                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
-                                        <div class="price-product">
-                                            <h4 class="card-title">Giá : <span
-                                                    class="card-title-normal">1.990.000đ</span>
-                                            </h4>
-                                        </div>
-                                    </a>
-                                    <div class="row d-flex justify-content-center">
-                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
-                                            hàng</a>
-                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item mb-4">
-                            <div class="card border-0 shadow">
-                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
-                                        alt="Card image" style="width:100%"></a>
-                                <div class="card-body">
-                                    <a href="./chitietsp.html">
-                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
-                                        <div class="price-product">
-                                            <h4 class="card-title">Giá : <span
-                                                    class="card-title-normal">1.990.000đ</span>
-                                            </h4>
-                                        </div>
-                                    </a>
-                                    <div class="row d-flex justify-content-center">
-                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
-                                            hàng</a>
-                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item mb-4">
-                            <div class="card border-0 shadow">
-                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
-                                        alt="Card image" style="width:100%"></a>
-                                <div class="card-body">
-                                    <a href="./chitietsp.html">
-                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
-                                        <div class="price-product">
-                                            <h4 class="card-title">Giá : <span
-                                                    class="card-title-normal">1.990.000đ</span>
-                                            </h4>
-                                        </div>
-                                    </a>
-                                    <div class="row d-flex justify-content-center">
-                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
-                                            hàng</a>
-                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item mb-4">
-                            <div class="card border-0 shadow">
-                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
-                                        alt="Card image" style="width:100%"></a>
-                                <div class="card-body">
-                                    <a href="./chitietsp.html">
-                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
-                                        <div class="price-product">
-                                            <h4 class="card-title">Giá : <span
-                                                    class="card-title-normal">1.990.000đ</span>
-                                            </h4>
-                                        </div>
-                                    </a>
-                                    <div class="row d-flex justify-content-center">
-                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
-                                            hàng</a>
-                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item mb-4">
-                            <div class="card border-0 shadow">
-                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
-                                        alt="Card image" style="width:100%"></a>
-                                <div class="card-body">
-                                    <a href="./chitietsp.html">
-                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
-                                        <div class="price-product">
-                                            <h4 class="card-title">Giá : <span
-                                                    class="card-title-normal">1.990.000đ</span>
-                                            </h4>
-                                        </div>
-                                    </a>
-                                    <div class="row d-flex justify-content-center">
-                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
-                                            hàng</a>
-                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item mb-4">
-                            <div class="card border-0 shadow">
-                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
-                                        alt="Card image" style="width:100%"></a>
-                                <div class="card-body">
-                                    <a href="./chitietsp.html">
-                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
-                                        <div class="price-product">
-                                            <h4 class="card-title">Giá : <span
-                                                    class="card-title-normal">1.990.000đ</span>
-                                            </h4>
-                                        </div>
-                                    </a>
-                                    <div class="row d-flex justify-content-center">
-                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
-                                            hàng</a>
-                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item mb-4">
-                            <div class="card border-0 shadow">
-                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
-                                        alt="Card image" style="width:100%"></a>
-                                <div class="card-body">
-                                    <a href="./chitietsp.html">
-                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
-                                        <div class="price-product">
-                                            <h4 class="card-title">Giá : <span
-                                                    class="card-title-normal">1.990.000đ</span>
-                                            </h4>
-                                        </div>
-                                    </a>
-                                    <div class="row d-flex justify-content-center">
-                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
-                                            hàng</a>
-                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item mb-4">
-                            <div class="card border-0 shadow">
-                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
-                                        alt="Card image" style="width:100%"></a>
-                                <div class="card-body">
-                                    <a href="./chitietsp.html">
-                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
-                                        <div class="price-product">
-                                            <h4 class="card-title">Giá : <span
-                                                    class="card-title-normal">1.990.000đ</span>
-                                            </h4>
-                                        </div>
-                                    </a>
-                                    <div class="row d-flex justify-content-center">
-                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
-                                            hàng</a>
-                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item mb-4">
-                            <div class="card border-0 shadow">
-                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
-                                        alt="Card image" style="width:100%"></a>
-                                <div class="card-body">
-                                    <a href="./chitietsp.html">
-                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
-                                        <div class="price-product">
-                                            <h4 class="card-title">Giá : <span
-                                                    class="card-title-normal">1.990.000đ</span>
-                                            </h4>
-                                        </div>
-                                    </a>
-                                    <div class="row d-flex justify-content-center">
-                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
-                                            hàng</a>
-                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="item mb-4">
-                            <div class="card border-0 shadow">
-                                <a href="./chitietsp.html"><img class="card-img-top" src="./images/hight/anh1-1.png"
-                                        alt="Card image" style="width:100%"></a>
-                                <div class="card-body">
-                                    <a href="./chitietsp.html">
-                                        <h4 class="card-title text-center">Converse Renew Canvas</h4>
-                                        <div class="price-product">
-                                            <h4 class="card-title">Giá : <span
-                                                    class="card-title-normal">1.990.000đ</span>
-                                            </h4>
-                                        </div>
-                                    </a>
-                                    <div class="row d-flex justify-content-center">
-                                        <a href="#" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
-                                            hàng</a>
-                                        <a href="#" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -481,48 +243,9 @@
 
     <!-- mainChitietsp end -->
 
-    <!-- FOOTER -->
-    <footer class="text-center text-lg-start bg-light text-muted">
-        <section class="">
-            <div class="container-fluid text-justify text-md-start mt-5">
-                <div class="row mt-3">
-                    <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                        <p style="text-indent: 30px; text-align: justify;margin-top: 37px; font-size: 17px;">
-                            Tìm thấy câu trả lời cho độ bền không giới hạn mà CONVERSE luôn hướng tới để tiếp tục
-                            phát triển bền bỉ.Đó là lý tưởng của sự mạnh mẽ, chức năng và khả năng hoạt động
-                            tốt kết hợp với độ cứng cáp tuyệt đối.Lý tưởng này là nguồn gốc của độ cứng cáp
-                            mà CONVERSE luôn tìm kiếm.
-                        </p>
-                    </div>
-
-                    <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <h4 class="text-uppercase fw-bold mb-4">CỬA HÀNG TẠI HÀ NỘI</h4>
-                        <p class="fs-17">187 Phố Vọng, Hai Bà Trưng, Hà Nội.</p>
-                        <p class="fs-17">187 Phố Vọng-Quân Hai Bà Trưng-Hà Nội.</p>
-                        <p class="fs-17">82 Cầu Giấy, Quan Hoa, Cầu Giấy.</p>
-                    </div>
-
-                    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                        <h4 class="text-uppercase fw-bold mb-4">CỬA HÀNG TẠI TP.HCM</h4>
-                        <p class="fs-17">497 Hoàng Văn Thụ, Phường 4, Q. Tân Bình, TP.HCM.</p>
-                        <p class="fs-17">676 Lê Trọng Tấn, P. Bình Hưng Hòa, Q. Bình Tân, HCM.</p>
-                        <p class="fs-17">20 đường 3 tháng 2, Phường 12, Quận 10, TPHCM.</p>
-                    </div>
-
-                    <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                        <h4 class="text-uppercase fw-bold mb-4">LIÊN LẠC</h4>
-                        <p class="fs-17">CONVERSEvietnam.net@gmail.com</p>
-                        <p class="fs-17">0105517236</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div class="text-center p-4 fs-17" style="background-color: rgba(0, 0, 0, 0.05)">
-            © 2023 Copyright:
-            <a class="text-reset fw-bold" href="https://conversestore.vn/">Converse.Store_</a>
-        </div>
-    </footer>
+    <!-- FOOTER bắt đầu-->
+    <div th:replace = "~{/layout/footer :: footer}"></div>
+    <!-- FOOTER kết thúc-->
     <button type="button" class="btn btn-primary btn-floating btn-lg" id="btn-back-to-top">
         <i class="ti-angle-double-up"></i>
     </button>
