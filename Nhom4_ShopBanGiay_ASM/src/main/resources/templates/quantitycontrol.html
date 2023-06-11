@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+    xmlns:th="http://www.thymeleaf.org" 
+    xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:fragment="quantitycontrol(qtyValue,id)">
+		<nav>
+			<ul class="pagination">
+				<li class="page-item">
+					<a class="page-link minusButton" href="" th:pid=${id}>
+						<b>-</b>
+					</a>
+				</li>
+				<li class="page-item">
+					<input type="number" name ="soluong" th:value="${qtyValue}" class="form-control text-center"
+					onkeydown="return false" th:id="'quantity'+${id}">
+				</li>
+				<li class="page-item">
+					<a class="page-link plusButton" href="" th:pid=${id}>
+						<b>+</b>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</body>
+</html>

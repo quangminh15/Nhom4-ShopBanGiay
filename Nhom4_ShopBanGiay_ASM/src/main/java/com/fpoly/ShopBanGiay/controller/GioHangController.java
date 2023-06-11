@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,14 +14,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.RestController;
 
 import com.fpoly.ShopBanGiay.dao.GioHangDAO;
-
-
+import com.fpoly.ShopBanGiay.dao.NguoiDungDAO;
 import com.fpoly.ShopBanGiay.model.GioHang;
+import com.fpoly.ShopBanGiay.model.NguoiDung;
 import com.fpoly.ShopBanGiay.model.SanPhamSize;
 import com.fpoly.ShopBanGiay.model.Size;
+import com.fpoly.ShopBanGiay.service.SessionService;
+import com.fpoly.ShopBanGiay.service.ShopingCartServiceImp;
 
 
 
@@ -31,7 +34,15 @@ public class GioHangController {
 	@Autowired
 	GioHangDAO dao;
 	
-
+	@Autowired
+	NguoiDungDAO nddao;
+	
+	@Autowired
+	ShopingCartServiceImp cart;
+	
+	@Autowired
+	SessionService session;
+	
 	@RequestMapping("/giohang")
 	public String getGioHang(GioHang gh, Model model) {
 		GioHang ctgh = new GioHang();
@@ -40,18 +51,21 @@ public class GioHangController {
 		model.addAttribute("carts", carts);
 		return "/nguoidung/giohang";
 	}
-//	@RequestMapping("/save")
-//	public String update(@ModelAttribute("cart")GioHang item,Model model) {
-//		
-//		dao.save(item);
-//		return "redirect:/giohang";
-//	}
-//	 @ResponseBody
-//	    @PostMapping("/item/update")
-//	    public GioHang updateCardItem(@RequestBody GioHang item) {
-//	        // Process the data received via AJAX
-//		 GioHang updatedItem = cart.update(item.getMagh(), item.getSoluong());
-//	        return updatedItem;
-//	    }
+	
+	@PostMapping("/addtocart")
+	public String addToCart(@Param("masps")Integer masps,@Param("soluong")Integer soluong) {
+		
+		
+		
+		
+		NguoiDung nguoidung = nddao.findById(4).get();
+		
+		cart.addToCart(masps, soluong, nguoidung);
+		return "redirect:/giohang";
+		}
+	
 	
 }
+
+	
+
