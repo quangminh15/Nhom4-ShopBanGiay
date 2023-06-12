@@ -29,7 +29,7 @@ public class admin_khuyenmaiController {
 	@Autowired
 	KhuyenMaiDAO khuyenmaiDao;
 
-	@GetMapping("/admin_khuyenmai")
+	@GetMapping("/admin/admin_khuyenmai")
 	public String admin_khuyenmai(Model model, @RequestParam("p") Optional<Integer> p) {
 		GiamGia g = new GiamGia();
 		model.addAttribute("kms", g);
@@ -57,7 +57,7 @@ public class admin_khuyenmaiController {
 		}
 		khuyenmaiDao.save(giamgia);
 //		model.addAttribute("KM", khuyenmaiDao.findAll());
-		return "redirect:/admin_khuyenmai";
+		return "redirect:/admin/admin_khuyenmai";
 	}
 
 	@RequestMapping("/edit_khuyenmai/{magiamgia}")
@@ -87,7 +87,7 @@ public class admin_khuyenmaiController {
 		model.addAttribute("kms", g);
 		model.addAttribute("KM", khuyenmaiDao.findAll());
 		model.addAttribute("Action", "/save_khuyenmai");
-		return "redirect:/admin_khuyenmai";
+		return "redirect:/admin/admin_khuyenmai";
 	}
 
 	@PostMapping("/admin_khuyenmai/clear")
@@ -98,6 +98,6 @@ public class admin_khuyenmaiController {
 		khuyenmai.setMota(null);
 		khuyenmai.setNgayketthuc(null);
 		khuyenmai.setNgaytao(null);
-		return "redirect:/admin_khuyenmai";
+		return "redirect:/admin/admin_khuyenmai";
 	}
 }

@@ -40,10 +40,18 @@ public class YeuThichController {
 		return "/nguoidung/yeuthich";
 	}
 	
-	@RequestMapping("/add1/{masp}")
+	@RequestMapping("/addyeuthich/{masp}")
 	public String add1(@PathVariable("masp")Integer masp) {
 		NguoiDung nguoidung = nguoidungDao.findById(2).get();
 		Date da = ytimp.add(nguoidung, null, masp);
+		return "redirect:/yeuthich";
+	}
+	
+	@RequestMapping("/delete_yeuthich/{mayeuthich}")
+	public String delete_yeuthich(Model model, @PathVariable(name = "mayeuthich") Integer mayeuthich) {
+		yeuthichDao.deleteById(mayeuthich);
+		List<YeuThich> yeu = yeuthichDao.findYeuThichByID(2);
+		model.addAttribute("yeus", yeu);
 		return "redirect:/yeuthich";
 	}
 	

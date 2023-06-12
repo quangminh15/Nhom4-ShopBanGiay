@@ -47,7 +47,7 @@
                     <td th:text="${item.sanpham.gia}"></td>
                     <td class="d-flex justify-content-around" style="font-size: 27px;">
                         <a class="color-black" th:href="@{/chitietsp}"><i class="ti-pencil"></i></a>
-                        <a class="color-black" href="#"><i class="ti-trash"></i></a>
+                        <a class="color-black"th:href="@{'/delete_yeuthich/'+ ${mayeuthich}}"><i class="ti-trash"></i></a>
                     </td>
                 </tr>
 
