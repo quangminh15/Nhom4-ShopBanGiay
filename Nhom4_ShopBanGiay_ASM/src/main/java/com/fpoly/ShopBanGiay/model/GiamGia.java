@@ -1,6 +1,7 @@
 package com.fpoly.ShopBanGiay.model;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -11,7 +12,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,19 +32,28 @@ public class GiamGia  implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_giam_gia")
-	Integer magiamgia;
+	private Integer magiamgia;
 	
-	@NotNull(message = "{NotNull.GiamGia.tengiamgia}")
+	@NotBlank(message = "{NotNull.GiamGia.tengiamgia}")
 	@Column(name = "ten_giam_gia")
-	String tengiamgia;
+	private String tengiamgia;
+	
+	@NotNull(message = "{NotNull.GiamGia.giamgia}")
+	@Min(value = 0, message = "Khuyến mãi từ 0 đến 100 (%)")
+	@Max(value = 100, message = "Khuyến mãi từ 0 đến 100 (%)")
 	@Column(name = "giam_gia")
-	Float giamgia;
+	private Float giamgia;
+	
+	@NotBlank(message = "{NotNull.GiamGia.ngaytao}")
 	@Column(name = "ngay_tao")
-	String ngaytao;
+	private String ngaytao;
+	
+	@NotBlank(message = "{NotNull.GiamGia.ngayketthuc}")
 	@Column(name = "ngay_ket_thuc")
-	String ngayketthuc;
+	private String ngayketthuc;
+	
 	@Column(name = "mo_ta")
-	String mota;
+	private String mota;
 	
 	@OneToMany(mappedBy = "giamgia")
     List<SanPham> sanpham;

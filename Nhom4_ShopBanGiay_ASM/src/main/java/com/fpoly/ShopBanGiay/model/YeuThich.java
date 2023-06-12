@@ -1,6 +1,7 @@
 package com.fpoly.ShopBanGiay.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import jakarta.persistence.Column;
@@ -15,7 +16,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="YeuThich")
+@Table(name="yeuthich")
 public class YeuThich  implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +24,11 @@ public class YeuThich  implements Serializable{
 	Integer mayeuthich;
 	@Column(name = "ngay_thich")
 	Date ngaythich = new Date();
+	
+//	@Column(name = "ma_nd")
 //	Integer mand;
+//	
+//	@Column(name = "ma_sp")
 //	Integer masp;
 	
 	@ManyToOne
