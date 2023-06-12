@@ -120,7 +120,7 @@ public class admin_sanphamsizeController {
 		return "/admin/admin_sanphamsize";
 	}
 
-	@RequestMapping("/admin/delete/{masp}")
+	@RequestMapping("/admin/admin_sanphamsize/delete/{masps}")
 	public String remove(Model model, @PathVariable("masps") Integer id, @RequestParam("p") Optional<Integer> p) {
 		sanphamsizeDAO.deleteById(id);
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());

@@ -69,7 +69,7 @@
 
                                 <button type="submit" th:formaction="@{/admin/admin_sanphamsize/create}" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
                                 <button type="submit" th:formaction="@{/admin/admin_sanphamsize/update}" class="btn btn-success"><i class="bi bi-card-list"></i>Sửa</button>
-                                <button type="submit" th:formaction="@{/admin/delete/__${sanphamsize.masps}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
+                                <button type="submit" th:formaction="@{/admin/admin_sanphamsize/delete/__${sanphamsize.masps}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
                                 <button type="submit" th:formaction="@{/admin/admin_sanphamsize/clear}" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
 
                             </form>
@@ -93,8 +93,8 @@
                                 <thead>
                                     <tr style="font-size: 20px;">
                                     <th><a th:href="@{/admin/admin_sanphamsize?field=masps}">MÃ SẢN PHẨM SIZE</a></th>
-                                    <th><a th:href="@{/admin/admin_sanphamsize?field=masp}">MÃ SẢN PHẨM</a></th>
-                                    <th><a th:href="@{/admin/admin_sanphamsize?field=masize}">MÃ SIZE</a></th>
+                                    <th><a th:href="@{/admin/admin_sanphamsize?field=sanpham.tensp}">MÃ SẢN PHẨM</a></th>
+                                    <th><a th:href="@{/admin/admin_sanphamsize?field=size.sizegiay}">MÃ SIZE</a></th>
                                     <th><a th:href="@{/admin/admin_sanphamsize?field=soluong}">SỐ LƯỢNG</a></th>
                                         <th></th>
                                     </tr>
@@ -107,7 +107,7 @@
                                         <td th:text="${sanphamsize.soluong}"></td>
                                         <td>
                                             <a type="submit" th:href="@{/admin/admin_sanphamsize/edit/__${sanphamsize.masps}__}" class="btn btn-warning">Chọn</a>
-                                            <a type="submit" th:href="@{/admin/delete/__${sanphamsize.masps}__}" class="btn btn-danger">Xóa</a>
+                                            <a type="submit" th:href="@{/admin/admin_sanphamsize/delete/__${sanphamsize.masps}__}" class="btn btn-danger">Xóa</a>
                                         </td>
                                     </tr>
                                 </tbody>

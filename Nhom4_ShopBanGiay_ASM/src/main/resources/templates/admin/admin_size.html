@@ -66,7 +66,7 @@
 
                                 <button type="submit" th:formaction="@{/admin/admin_size/create}" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
                                 <button type="submit" th:formaction="@{/admin/admin_size/update}" class="btn btn-success"><i class="bi bi-card-list"></i> Sửa</button>
-                                <button type="submit" th:formaction="@{/admin/delete/__${size.masize}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
+                                <button type="submit" th:formaction="@{/admin/admin_size/delete/__${size.masize}__}" class="btn btn-danger"><i class="bi bi-trash"></i> Xóa</button>
                                 <button type="submit" th:formaction="@{/admin/admin_size/clear}" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm mới</button>
 
                             </form>
@@ -103,7 +103,7 @@
                                     	
                                         <td>
                                             <a type="submit" th:href="@{/admin/admin_size/edit/__${size.masize}__}" class="btn btn-warning">Chọn</a>
-                                            <a type="submit" th:href="@{/admin/delete/__${size.masize}__}" class="btn btn-danger">Xóa</a>
+                                            <a type="submit" th:href="@{/admin/admin_size/delete/__${size.masize}__}" class="btn btn-danger">Xóa</a>
                                         </td>
                                     </tr>
                                 </tbody>
