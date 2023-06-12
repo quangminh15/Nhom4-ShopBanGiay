@@ -47,7 +47,7 @@
                                 </ul>
                             </li>
                         </ul>
-
+<!-- 							Tìm kiếm bắt đầu -->
                         <div class="p-3">
                             <a href="#" class="icon position-relative fs-4" data-bs-toggle="offcanvas"
                                 data-bs-target="#demo">
@@ -60,12 +60,44 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
                             </div>
                             <div class="offcanvas-body">
+                            <form method="post">
                                 <div class="container input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Bạn muốn tìm gì?">
-                                    <button class="btn btn-success" type="submit">OK</button>
+                                
+                                    <input type="text" class="form-control" name="keywords" th:value="${keywords}" placeholder="Bạn muốn tìm gì?">
+                                    <button class="btn btn-success" th:formaction="@{/sanpham/timkiem}" type="submit">OK</button>
+                               
                                 </div>
+                                </form>
                             </div>
                         </div>
+<!--                         tìm kiếm kết thúc -->
+
+<!-- 						Lọc theo giá sản phẩm bắt đầu  -->
+							<div class="p-3">
+                            <a href="#" class="icon position-relative fs-4" data-bs-toggle="offcanvas"
+                                data-bs-target="#demo1">
+                                <i class="ti-bar-chart-alt"></i>
+                            </a>
+                        </div>
+                        <div class="offcanvas offcanvas-bottom" style="height: 42vh;" id="demo1">
+                            <div class="offcanvas-header">
+                                <h1 class="offcanvas-title" style="margin-left: 30%;">Tìm kiếm sản phẩm theo khoảng giá</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                            <form method="post">
+                               <div class="container mb-4">
+                               
+                                
+                                    <input type="text" class="form-control" name="min" th:value="${min}" placeholder="Nhập giá thấp nhất"> <br>
+                                    <input type="text" class="form-control" name="max" th:value="${max}" placeholder="Nhập giá cao nhất"><br>
+                                    <button class="btn btn-success mb-4" th:formaction="@{/sanpham/timkiemgia}" type="submit">OK</button>
+                               </div>
+                                
+                                </form>
+                            </div>
+                        </div>
+<!--                         lọc theo giá sản phẩm kết thúc -->
                         <div class="p-3">
                             <a th:href="@{/yeuthich}" class="icon position-relative fs-4">
                                 <i class="ti-heart"></i>

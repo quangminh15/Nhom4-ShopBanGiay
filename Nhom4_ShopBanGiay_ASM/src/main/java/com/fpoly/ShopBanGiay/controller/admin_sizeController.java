@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.ShopBanGiay.dao.SizeDAO;
+import com.fpoly.ShopBanGiay.model.DanhMuc;
 import com.fpoly.ShopBanGiay.model.Size;
 import com.fpoly.ShopBanGiay.service.SessionService;
 
@@ -32,81 +33,105 @@ public class admin_sizeController {
 
 	@Autowired
 	SizeDAO sizeDAO;
-
-	@RequestMapping("/admin/admin_size")
-	public String admin_size(Model model, @RequestParam("field") Optional<String> field,
-			@RequestParam("p") Optional<Integer> p) {
+	
+	@GetMapping("/admin/admin_size")
+	public String admin_size(Model model,  @RequestParam("p") Optional<Integer> p,@RequestParam("field") Optional<String> field) {
 		Size size = new Size();
 		model.addAttribute("size", size);
-
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by(Direction.DESC, field.orElse("masize")).ascending());
-		Page<Size> sizes = sizeDAO.findAll(pageable);
-
-		var numberOfPages = sizes.getTotalPages();
-
+		var list = sizeDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
 		model.addAttribute("numberOfPages", numberOfPages);
-		model.addAttribute("sizes", sizes);
+		model.addAttribute("sizes", list);
+
 		return "/admin/admin_size";
 	}
 
 	@GetMapping("/admin/admin_size/page")
-	public String page(Model model, @RequestParam("field") Optional<String> field,
-			@RequestParam("p") Optional<Integer> p) {
-		return this.admin_size(model, field, p);
+	public String paginate(Model model, @RequestParam("p") Optional<Integer> p,@RequestParam("field") Optional<String> field) {
+		return this.admin_size(model,p,field);
 	}
 
-	@RequestMapping("/admin/admin_size/edit/{masize}")
-	public String editsize(Model model, @PathVariable("masize") Integer MaSize,
-			@RequestParam("field") Optional<String> field, @RequestParam("p") Optional<Integer> p) {
-		Size size = sizeDAO.findById(MaSize).get();
-		model.addAttribute("size", size);
-
-		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by(Direction.DESC, field.orElse("masize")).ascending());
-		Page<Size> sizes = sizeDAO.findAll(pageable);
-
-		var numberOfPages = sizes.getTotalPages();
-
+	@RequestMapping("/admin/admin_size/create")
+	public String add(@Valid @ModelAttribute("size") Size size, BindingResult result,Model model, @RequestParam("p") Optional<Integer> p) {
+		if (result.hasErrors()) {
+			List<Size> sizes = sizeDAO.findAll();
+			model.addAttribute("sizes", sizes);
+			return "/admin/admin_size";
+		}
+		
+		sizeDAO.save(size);
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masize").ascending());
+		var list = sizeDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
 		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("sizes", list);
+		size = new Size();
+		model.addAttribute("size", size);
 
-		model.addAttribute("sizes", sizes);
 		return "/admin/admin_size";
 	}
 
-	@PostMapping("/admin/admin_size/create")
-	public String createsize(@Valid @ModelAttribute("size") Size size, BindingResult result, Model model) {
+	@RequestMapping("/admin/admin_size/edit/{id}")
+	public String edit(Model model, @PathVariable("id") Integer id, @RequestParam("p") Optional<Integer> p) {
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masize").ascending());
+		var list = sizeDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("sizes", list);
+		Size size = sizeDAO.findById(id).orElse(null);
+		model.addAttribute("size", size);
+		return "/admin/admin_size";
+	}
+
+	@RequestMapping("/admin/admin_size/delete/{masize}")
+	public String remove(Model model, @PathVariable("masize") Integer id, @RequestParam("p") Optional<Integer> p) {
+		sizeDAO.deleteById(id);
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masize").ascending());
+		var list = sizeDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("sizes", list);
+		Size size = new Size();
+		model.addAttribute("size", size);
+		return "/admin/admin_size";
+	}
+
+	@RequestMapping("/admin/admin_size/update")
+	public String update(Model model,@Valid @ModelAttribute("size") Size size, BindingResult result,
+			@RequestParam("p") Optional<Integer> p) {
 		if (result.hasErrors()) {
 			List<Size> sizes = sizeDAO.findAll();
 			model.addAttribute("sizes", sizes);
 			return "/admin/admin_size";
 		}
+		
 		sizeDAO.save(size);
-		return "redirect:/admin_size";
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masize").ascending());
+		var list = sizeDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("sizes", list);
+		size = new Size();
+		model.addAttribute("size", size);
+		return "/admin/admin_size";
 	}
 
-	@PostMapping("/admin/admin_size/update")
-	public String updatesize(@Valid @ModelAttribute("size") Size size, BindingResult result, Model model) {
-		if (result.hasErrors()) {
-			List<Size> sizes = sizeDAO.findAll();
-			model.addAttribute("sizes", sizes);
-			return "/admin/admin_size";
-		}
-		sizeDAO.save(size);
-		return "redirect:/admin_size/edit/" + size.getMasize();
-	}
-
-	@RequestMapping("/admin/delete/{masize}")
-	public String deletesize(@PathVariable("masize") Integer masize) {
-		sizeDAO.deleteById(masize);
-		return "redirect:/admin_size";
-	}
-
-	@PostMapping("/admin/admin_size/clear")
-	public String clear(@ModelAttribute("size") Size size) {
-		size.setMasize(0);
-		size.setSizegiay(null);
-		size.setTrangthai(true);
-		return "redirect:/admin_size";
+	@RequestMapping("/admin/admin_size/clear")
+	public String update(Model model, @RequestParam("p") Optional<Integer> p) {
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masize").ascending());
+		var list = sizeDAO.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("sizes", list);
+		Size size = new Size();
+		model.addAttribute("size", size);
+		return "/admin/admin_size";
 	}
 }

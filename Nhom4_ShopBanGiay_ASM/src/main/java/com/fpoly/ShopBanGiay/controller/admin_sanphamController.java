@@ -157,6 +157,10 @@ public class admin_sanphamController {
 	public String update(Model model, @Valid @ModelAttribute("sanpham") SanPham sanpham, BindingResult result,
 			@RequestParam("p") Optional<Integer> p) {
 		if (result.hasErrors()) {
+			sanpham.setHinhanh1("default.png");
+			sanpham.setHinhanh2("default.png");
+			sanpham.setHinhanh3("default.png");
+			model.addAttribute("sanpham", sanpham);
 			List<SanPham> sanphams = sanphamDAO.findAll();
 			model.addAttribute("sanphams", sanphams);
 			return "/admin/admin_sanpham";
