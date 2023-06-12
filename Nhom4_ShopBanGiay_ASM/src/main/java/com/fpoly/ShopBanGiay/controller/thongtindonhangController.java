@@ -70,10 +70,7 @@ public class thongtindonhangController {
 		
 		cart.removeAll(id);
 		
-		return "redirect:/thongtindonhang";
-	}
-	@RequestMapping("/giohang/thangcong")
-	public String o() {
 		return "/nguoidung/success";
 	}
+
 }
