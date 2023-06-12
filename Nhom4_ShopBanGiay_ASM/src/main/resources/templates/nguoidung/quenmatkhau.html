@@ -31,12 +31,37 @@
                 <div class="col-lg-6 login-form  p-5">
                     <h2 class="text-center">QUÊN MẬT KHẨU</h2>
                     <p class="slogan">Vui lòng nhập email chúng tôi sẽ gửi mật khẩu đến cho bạn.</p>
-                    <form th:action="@{/quenmatkhauthatbai}" method="post" th:object="${nguoidung}">
+                    <div th:if="${message != null && message != 'show'}">
+                    	<h5 class="text-danger text-center" th:text="${message}"></h5>
+                    </div>
+                    <div th:if="${message == 'show'}">
+                    	<!-- Dialog Trigger Button -->
+						    <button id="dialogTrigger" style="display: none;" data-bs-toggle="modal" data-bs-target="#myModal"></button>
+						
+						    <!-- Dialog Modal -->
+						    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
+						        <div class="modal-dialog">
+						            <div class="modal-content">
+						                <div class="modal-header">
+						                    <h5 class="modal-title" id="myModalLabel">Thông báo</h5>
+						                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						                </div>
+						                <div class="modal-body">
+						                    <h6>Chúng tôi đã gửi cho bạn mật khẩu qua Email của bạn. CONVERSE xin cảm ơn!</h6>
+						                </div>
+						                <div class="modal-footer">
+						                    <a  class="btn btn-primary" data-bs-dismiss="modal">OK</a>
+						                </div>
+						            </div>
+						        </div>
+						    </div>
+                    </div>
+                    <form th:action="@{/quenmatkhau/confirm}" method="post" >
                         <div class="mb-4 mt-3">
                             <label for="email">Email:</label>
                             <input type="text" class="form-control" id="email" placeholder="Nhập email tại đây"
-                                th:field="*{Email}" >
-                            <div class="alert alert-danger" th:if="${#fields.hasErrors('Email')}" th:errors="*{Email}"></div>
+                                name="email" >
+                            <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                         </div>
                         <button type="submit" class="btn btn-login">OK</button>
                         <h6 class="mt-4 text-center"><a th:href="@{/dangnhap}">Đăng nhập</a> hoặc <a
@@ -44,13 +69,13 @@
                     </form>
                 </div>
                 <div class="col-lg-6" style="padding: 0;">
-                    <img src="./images/forgotpass1.jpeg" alt="HinhAnh">
+                    <img src="/images/forgotpass1.jpeg" alt="HinhAnh">
                 </div>
             </div>
         </div>
     </div>
     <!-- main login end -->
-
+ 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -167,6 +192,14 @@
     </script>
     <!-- Validation form end -->
 
+	    <!-- Script to automatically trigger the dialog -->
+    <script>
+        window.onload = function() {
+            var dialogTrigger = document.getElementById('dialogTrigger');
+            dialogTrigger.click();
+        };
+    </script>
+	
 
 </body>
 
