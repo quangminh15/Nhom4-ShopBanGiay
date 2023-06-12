@@ -53,11 +53,11 @@ public class ShopingCartServiceImp implements ShoppingCartService {
 	}
 
 	@Override
-	public Float updateQuty(Integer masps, Integer soluong, NguoiDung nguoidung) {
+	public Double updateQuty(Integer masps, Integer soluong, NguoiDung nguoidung) {
 		ghDAO.updateQty(soluong, masps, nguoidung.getMand());
 		System.out.print(masps+","+soluong+","+nguoidung.getMand());
 		SanPhamSize sps = spsDAO.findById(masps).get();
-		float subtotal = sps.getSanpham().getGia()*soluong;
+		double subtotal = sps.getSanpham().getGiamgiasp()*soluong;
 		return subtotal;
 	}
 }

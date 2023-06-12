@@ -81,7 +81,7 @@ public class GioHangController {
 		
 		NguoiDung nguoidung = nddao.findById(4).get();
 		
-		float subtotal = cart.updateQuty(masps, soluong, nguoidung);
+		double subtotal = cart.updateQuty(masps, soluong, nguoidung);
 		return String.valueOf(subtotal);
 		}
 	
