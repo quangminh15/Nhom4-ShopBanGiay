@@ -27,7 +27,7 @@ public class admin_nhacungcapController {
 	@Autowired
 	NhaCungCapDAO nhacungcapDAO;
 	
-	@GetMapping("/admin_nhacungcap")
+	@GetMapping("/admin/admin_nhacungcap")
 	public String admin_nhacungcap(Model model, @RequestParam("p") Optional<Integer> p) {
 		NhaCungCap n = new NhaCungCap();
 		model.addAttribute("NCCS", n);
@@ -56,7 +56,7 @@ public class admin_nhacungcapController {
 		
 		nhacungcapDAO.save(nhacungcap);
 //		model.addAttribute("NCC", nhacungcapDAO.findAll());
-		return "redirect:/admin_nhacungcap";
+		return "redirect:/admin/admin_nhacungcap";
 	}
 	
 	@RequestMapping("/edit_nhacungcap/{mancc}")
@@ -87,7 +87,7 @@ public class admin_nhacungcapController {
 		model.addAttribute("NCCS", n);
 		model.addAttribute("NCC", nhacungcapDAO.findAll());
 		model.addAttribute("Action", "/save_nhacungcap");
-		return "redirect:/admin_nhacungcap";
+		return "redirect:/admin/admin_nhacungcap";
 	}
 	
 	@PostMapping("/admin_nhacungcap/clear")
@@ -98,6 +98,6 @@ public class admin_nhacungcapController {
 		nhacungcap.setDiachi(null);
 		nhacungcap.setSdt(null);
 		
-		return "redirect:/admin_nhacungcap";
+		return "redirect:/admin/admin_nhacungcap";
 	}
 }
