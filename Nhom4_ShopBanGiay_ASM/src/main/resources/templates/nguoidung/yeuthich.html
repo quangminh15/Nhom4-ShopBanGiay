@@ -46,8 +46,8 @@
                     <td th:text="${item.ngaythich}"></td>
                     <td th:text="${item.sanpham.gia}"></td>
                     <td class="d-flex justify-content-around" style="font-size: 27px;">
-                        <a class="color-black" th:href="@{/chitietsp}"><i class="ti-pencil"></i></a>
-                        <a class="color-black"th:href="@{'/delete_yeuthich/'+ ${mayeuthich}}"><i class="ti-trash"></i></a>
+                        <a class="color-black" th:href="@{/sanpham1/chitietsp/__${item.sanpham.masp}__}"><i class="ti-pencil"></i></a>
+                        <a class="color-black" th:href="@{'/delete_yeuthich/'+ ${item.mayeuthich}}"><i class="ti-trash"></i></a>
                     </td>
                 </tr>
 
