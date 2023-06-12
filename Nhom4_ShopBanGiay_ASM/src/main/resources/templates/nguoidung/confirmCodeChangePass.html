@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONVERSE || QUÊN MẬT KHẨU</title>
+    <title>CONVERSE || XÁC NHẬN</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -27,55 +27,34 @@
     <div id="mainLogin">
         <div class="container">
             <div class="row m-5 login1">
-
-                <div class="col-lg-6 login-form  p-5">
-                    <h2 class="text-center">QUÊN MẬT KHẨU</h2>
-                    <p class="slogan">Vui lòng nhập email chúng tôi sẽ gửi mật khẩu đến cho bạn.</p>
-                    <div th:if="${message != null && message != 'show'}">
-                    	<h5 class="text-danger text-center" th:text="${message}"></h5>
+                <div class="col-md-6" style="padding: 0; ">
+                    <img style="    
+                    object-fit: cover;
+                    height: 700px;" src="/images/signup.jpg" alt="HinhAnh">
+                </div>
+                <div class="col-md-6 login-form  p-5">
+                    <h2 class="text-center">CONVERSE XÁC THỰC</h2>
+                    <div th:if="${messageConfirmPassWrong}">
+                    	<h5 class="text-danger text-center" th:text="${messageConfirmPassWrong}"></h5>
                     </div>
-                    <div th:if="${message == 'show'}">
-                    	<!-- Dialog Trigger Button -->
-						    <button id="dialogTrigger" style="display: none;" data-bs-toggle="modal" data-bs-target="#myModal"></button>
-						
-						    <!-- Dialog Modal -->
-						    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
-						        <div class="modal-dialog">
-						            <div class="modal-content">
-						                <div class="modal-header">
-						                    <h5 class="modal-title" id="myModalLabel">Thông báo</h5>
-						                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						                </div>
-						                <div class="modal-body">
-						                    <h6>Chúng tôi đã gửi cho bạn mật khẩu qua Email của bạn. CONVERSE xin cảm ơn!</h6>
-						                </div>
-						                <div class="modal-footer">
-						                    <a  class="btn btn-primary" data-bs-dismiss="modal">OK</a>
-						                </div>
-						            </div>
-						        </div>
-						    </div>
-                    </div>
-                    <form th:action="@{/quenmatkhau/confirm}" method="post" >
+                    <form th:action="@{/doimatkhau/xacnhanS2}" method="post" >
                         <div class="mb-4 mt-3">
-                            <label for="email">Email:</label>
-                            <input type="text" class="form-control" id="email" placeholder="Nhập email tại đây"
-                                name="email" >
-                            <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                            <label for="fullname">Mã xác thực</label>
+                            <input type="number" class="form-control" id="fullname" placeholder="Nhập mã xác thực"
+                               name="code">
                         </div>
-                        <button type="submit" class="btn btn-login">OK</button>
-                        <h6 class="mt-4 text-center"><a th:href="@{/dangnhap}">Đăng nhập</a> hoặc <a
-                                th:href="@{/dangky}">Đăng ký</a></h6>
+
+                        <button type="submit" class="btn btn-login">Xác Nhận</button>
+                        <h6 class="mt-4 text-center"><a th:href="@{/doimatkhau/xacnhan}">Gửi lại mã</a></h6>
+                        </h6>
                     </form>
                 </div>
-                <div class="col-lg-6" style="padding: 0;">
-                    <img src="/images/forgotpass1.jpeg" alt="HinhAnh">
-                </div>
+
             </div>
         </div>
     </div>
     <!-- main login end -->
- 
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
@@ -191,16 +170,6 @@
         })()
     </script>
     <!-- Validation form end -->
-
-	    <!-- Script to automatically trigger the dialog -->
-    <script>
-        window.onload = function() {
-            var dialogTrigger = document.getElementById('dialogTrigger');
-            dialogTrigger.click();
-        };
-    </script>
-	
-
 </body>
 
 </html>

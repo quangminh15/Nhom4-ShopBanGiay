@@ -28,11 +28,11 @@ public interface GioHangDAO extends JpaRepository<GioHang, Integer>{
 	@Query ("Update GioHang gh set gh.soluong = ?1 where gh.sanphamsize.masps = ?2 and gh.nguoidung.mand = ?3 ")
 	@Modifying
 	public void updateQty(Integer soluong,Integer masps,Integer mand);
+	
+	@Query ("delete GioHang gh where gh.nguoidung.mand = ?1")
+	@Modifying
+	public void clear(Integer mand);
+	
+	
 
-	
-	
-//	 @Query(value = " insert into GioHang(mand,masps,soluong) values (:mand,:masps,:soluong)", nativeQuery = true)
-//	    @Modifying
-//	    @Transactional
-//	    void insertCart(Integer mand,Integer masps,Integer soluong);
 }

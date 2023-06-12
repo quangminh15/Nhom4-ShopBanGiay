@@ -1,6 +1,7 @@
 package com.fpoly.ShopBanGiay.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -26,7 +27,7 @@ public class DonHang implements Serializable {
 	Integer madh;
 
 	@Column(name = "ngay_tao")
-	java.util.Date ngaytao = new java.util.Date();
+	String ngaytao;
 
 	@Column(name = "tong_tien")
 	Double tongtien;
@@ -51,5 +52,7 @@ public class DonHang implements Serializable {
 	@OneToMany(mappedBy = "donhang")
     List<ChiTietDonHang> chitietdonhang;
 	
-	
+	@OneToOne
+	(mappedBy =  "donhang")
+    ThanhToan thantoan;
 }

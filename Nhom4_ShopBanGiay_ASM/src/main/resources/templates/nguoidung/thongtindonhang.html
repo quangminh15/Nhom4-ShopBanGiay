@@ -121,28 +121,29 @@
                 <div class="card-header" >
                 <h2 class="mb-0" style="padding: 2rem;">Thông tin mua hàng</h2></div>
                 <div class="card-body">
-                    <form action="">
+                    <form action="/giohang/thanhtoan"  method="post">
                         <div class="row">
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Họ Và Tên:</label>
-                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                                <input type="text" class="form-control" name="nguoinhan" th:value="${user.hoten}" id="exampleFormControlInput1" placeholder="">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Email:</label>
-                                <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="">
+                                <input type="email" class="form-control" name="email" th:value="${user.email}" id="exampleFormControlInput1" placeholder="">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Số Điện Thoại:</label>
-                                <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="">
+                                <input type="text" class="form-control" name="sdt" th:value="${user.sdt}" id="exampleFormControlInput1" placeholder="">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Địa Chỉ:</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <textarea class="form-control" name="diachi" th:text="${user.diachi}" id="exampleFormControlTextarea1" rows="3"></textarea>
                             </div>
 
                         </div>
 
-
+						<button class="btn btn-success"
+                                style="width: 100%;height: 4rem; font-size: 20px; font-weight: bold; color: white;"type="submit">Đặt hàng</button>
                     </form>
                 </div>
             </div>
@@ -152,9 +153,10 @@
 
                     <table class="table table-striped text-center table-hover table-size fs-17">
                         <thead>
-                            <tr style="font-size: 20px;">
+                            <tr style="font-size: 16px;">
                                 <th class="left">Sản Phẩm</th>
                                 <th>Size</th>
+                                 <th>Đơn Giá</th>
                                 <th>Số Lượng</th>
                                 <th class="right">Giá</th>
 
@@ -164,6 +166,7 @@
                             <tr th:each="item : ${items}">
                                 <td th:text="${item.sanphamsize.sanpham.tensp}" class="left">Converse Renew Canvas</td>
                                 <td th:text="${item.sanphamsize.size.sizegiay}">38</td>
+                                <td th:text="${item.sanphamsize.sanpham.giamgiasp}">38</td>
                                 <td th:text="${item.soluong}">1</td>
                                 <td th:text="${item.subtotal}" class="right">1.990.000đ</td>
 
@@ -177,14 +180,14 @@
                                 <th class="left">Tạm Tính:</th>
                                 <th></th>
                                 <th></th>
-                                <th class="right">7.960.000đ</th>
+                                <th class="right" th:text="${total}">7.960.000đ</th>
 
                             </tr>
                             <tr style="font-size: 30px;">
                                 <th class="left">Tổng Tiền:</th>
                                 <th></th>
                                 <th></th>
-                                <th class="right">7.960.000đ</th>
+                                <th class="right" th:text="${total}">7.960.000đ</th>
 
                             </tr>
                         </thead>
@@ -199,8 +202,7 @@
                              Thanh toán tiền mặt
                             </label>
                           </div>
-                            <button class="btn btn-success"
-                                style="width: 100%;height: 4rem; font-size: 20px; font-weight: bold; color: white;">Đặt hàng</button>
+                            
                         </div>
                     </div>
                 </div>
@@ -210,47 +212,7 @@
         <!-- main changeinfo end -->
 
         <!-- FOOTER start -->
-        <footer class="text-center text-lg-start bg-light text-muted">
-            <section class="">
-                <div class="container-fluid text-justify text-md-start mt-5">
-                    <div class="row mt-3">
-                        <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
-                            <p style="text-indent: 30px; text-align: justify;margin-top: 37px; font-size: 17px;">
-                                Tìm thấy câu trả lời cho độ bền không giới hạn mà CONVERSE luôn hướng tới để tiếp tục
-                                phát triển bền bỉ.Đó là lý tưởng của sự mạnh mẽ, chức năng và khả năng hoạt động
-                                tốt kết hợp với độ cứng cáp tuyệt đối.Lý tưởng này là nguồn gốc của độ cứng cáp
-                                mà CONVERSE luôn tìm kiếm.
-                            </p>
-                        </div>
-
-                        <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <h4 class="text-uppercase fw-bold mb-4">CỬA HÀNG TẠI HÀ NỘI</h4>
-                            <p class="fs-17">187 Phố Vọng, Hai Bà Trưng, Hà Nội.</p>
-                            <p class="fs-17">187 Phố Vọng-Quân Hai Bà Trưng-Hà Nội.</p>
-                            <p class="fs-17">82 Cầu Giấy, Quan Hoa, Cầu Giấy.</p>
-                        </div>
-
-                        <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
-                            <h4 class="text-uppercase fw-bold mb-4">CỬA HÀNG TẠI TP.HCM</h4>
-                            <p class="fs-17">497 Hoàng Văn Thụ, Phường 4, Q. Tân Bình, TP.HCM.</p>
-                            <p class="fs-17">676 Lê Trọng Tấn, P. Bình Hưng Hòa, Q. Bình Tân, HCM.</p>
-                            <p class="fs-17">20 đường 3 tháng 2, Phường 12, Quận 10, TPHCM.</p>
-                        </div>
-
-                        <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                            <h4 class="text-uppercase fw-bold mb-4">LIÊN LẠC</h4>
-                            <p class="fs-17">CONVERSEvietnam.net@gmail.com</p>
-                            <p class="fs-17">0105517236</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <div class="text-center p-4 fs-17" style="background-color: rgba(0, 0, 0, 0.05)">
-                © 2023 Copyright:
-                <a class="text-reset fw-bold" href="https://conversestore.vn/">Converse.Store_</a>
-            </div>
-        </footer>
+        <div th:replace="~{/layout/footer::footer}"></div>
         <button type="button" class="btn btn-primary btn-floating btn-lg" id="btn-back-to-top">
             <i class="ti-angle-double-up"></i>
         </button>

@@ -36,7 +36,7 @@
                     <form th:action="@{/loginConfirm}" method="post" th:object="${nguoidung}">
                         <div class="mb-4 mt-3">
                             <label for="email">Email:</label>
-                            <input type="text" class="form-control" id="email" placeholder="Nhập email" th:field="*{email}">
+                            <input type="text" class="form-control" id="email" placeholder="Nhập email" th:field="*{email}" value="cc@gmail.com">
                             <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                         </div>
 

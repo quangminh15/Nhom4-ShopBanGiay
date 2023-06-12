@@ -48,26 +48,14 @@ public class SanPhamController {
 	@Autowired
 	GioHangDAO giohangDAO;
 
-//	@RequestMapping("/sanpham")
-//	public String SanPhamsp(Model model, @RequestParam("p") Optional<Integer> p,
-//			@RequestParam("temdm") Optional<String> kw) {
-//		List<DanhMuc> danhmuc = danhmucDAO.findAll();
-//		model.addAttribute("danhmucs",danhmuc);
-//		
-//		SanPham sanpham = new SanPham();
-//		model.addAttribute("sanpham", sanpham);
-//
-//		Pageable pageable = PageRequest.of(p.orElse(0), 4);
-//		Page<SanPham> sanphams = sanphamDAO.findAll(pageable);
-//
-//		var numberOfPages = sanphams.getTotalPages();
-//
-//		model.addAttribute("currIndex", p.orElse(0));
-//		model.addAttribute("numberOfPages", numberOfPages);
-//
-//		model.addAttribute("sanphams", sanphams);
-//		return "/nguoidung/sanpham";
-//	}
+	@RequestMapping("/trangchu")
+	public String DangNhap(SanPham sanpham, Model model) {
+		sanpham = new SanPham();
+		model.addAttribute("sanpham", sanpham);
+		List<SanPham> sanphams = sanphamDAO.findAll();
+		model.addAttribute("sanphams", sanphams);
+		return "/nguoidung/trangchu";
+	}
 
 	@RequestMapping("/sanpham")
 	public String SanPhamsp(Model model, @RequestParam("p") Optional<Integer> p,
@@ -93,22 +81,36 @@ public class SanPhamController {
 		return this.SanPhamsp(model, p, kw);
 	}
 
-	@RequestMapping("/sanpham/dm")
-	public String SortDanhMuc(SanPham sanpham, Model model, @RequestParam("p") Optional<Integer> p,
-			@RequestParam("keywords") Optional<String> kw) {
-		String tendms = kw.orElse(sanpham.getDanhmuc().getTendm());
-		session.getSessionAttribute("keywords");
-		session.setSessionAttribute("keywords", tendms);
+	@RequestMapping("/sanpham/loai/{loai}")
+	public String SanPhama(Model model, @RequestParam("p") Optional<Integer> p, @PathVariable("loai") Boolean loai) {
+		SanPham sanpham = new SanPham();
+		model.addAttribute("sanpham", sanpham);
 
-		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masp").ascending());
-		Page<SanPham> sanphams = sanphamDAO.findAllBytendmLike("%" + tendms + "%", pageable);
+		Pageable pageable = PageRequest.of(p.orElse(0), 8);
+		Page<SanPham> sanphams = sanphamDAO.findAllByLoai(loai, pageable);
 
 		var numberOfPages = sanphams.getTotalPages();
 
 		model.addAttribute("currIndex", p.orElse(0));
 		model.addAttribute("numberOfPages", numberOfPages);
-		model.addAttribute("sanphams", sanphams);
 
+		model.addAttribute("sanphams", sanphams);
+		return "/nguoidung/sanpham";
+	}
+
+	@RequestMapping("/sanpham/dm/{madm}")
+	public String SortDanhMuc(Model model, @PathVariable("madm") Integer madm, @RequestParam("p") Optional<Integer> p) {
+		SanPham sanpham = sanphamDAO.findById(madm).orElse(null);
+		model.addAttribute("sanpham", sanpham);
+
+		Pageable pageable = PageRequest.of(p.orElse(0), 5);
+		Page<SanPham> sanphams = sanphamDAO.findAllBytendm(madm, pageable);
+		var numberOfPages = sanphams.getTotalPages();
+
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+
+		model.addAttribute("sanphams", sanphams);
 		return "/nguoidung/sanpham";
 	}
 
@@ -117,7 +119,7 @@ public class SanPhamController {
 			@RequestParam("keywords") Optional<String> kw) {
 		SanPham sanpham = sanphamDAO.findById(masp).orElse(null);
 		model.addAttribute("sanpham", sanpham);
-		
+
 		String kwords = kw.orElse(sanpham.getDanhmuc().getTendm());
 		session.getSessionAttribute("keywords");
 		session.setSessionAttribute("keywords", kwords);
@@ -128,6 +130,43 @@ public class SanPhamController {
 		model.addAttribute("sizes", spsizes);
 
 		return "/nguoidung/chitietsp";
+	}
+
+	@RequestMapping("/sanpham/timkiem")
+	public String getTimKiem(Model model, @RequestParam("p") Optional<Integer> p,
+			@RequestParam("keywords") Optional<String> kw) {
+		String kwords = kw.orElse("");
+		session.getSessionAttribute("keywords");
+		session.setSessionAttribute("keywords", kwords);
+
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masp").ascending());
+		Page<SanPham> sanphams = sanphamDAO.findAllBytenspLike("%" + kwords + "%", pageable);
+
+		var numberOfPages = sanphams.getTotalPages();
+		;
+
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("sanphams", sanphams);
+		return "/nguoidung/sanpham";
+	}
+
+	@RequestMapping("/sanpham/timkiemgia")
+	public String getProduct(Model model, @RequestParam("p") Optional<Integer> p,
+			@RequestParam("min") Optional<Double> min, @RequestParam("max") Optional<Double> max) {
+		double minPrice = min.orElse(Double.MIN_VALUE);
+		double maxPrice = max.orElse(Double.MAX_VALUE);
+		session.setSessionAttribute("min", minPrice);
+		session.setSessionAttribute("max", maxPrice);
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masp").ascending());
+		Page<SanPham> sanphams = sanphamDAO.findBygiaBetween(minPrice, maxPrice, pageable);
+
+		var numberOfPages = sanphams.getTotalPages();
+
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("sanphams", sanphams);
+		return "/nguoidung/sanpham";
 	}
 
 	@ModelAttribute("danhmucs")

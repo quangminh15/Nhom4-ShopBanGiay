@@ -35,7 +35,7 @@ public class admin_chitietdonhangController {
 	@GetMapping("/admin_chitietdonhang/{id}")
 	public String admin_chitietdonhang(Model model, @PathVariable("id") Integer id) {
 
-		List<SanPhamSize>  orderDetails = spsDao.findByMaDH(id);
+		List<ChiTietDonHang>  orderDetails = chiTietDHDao.findByMaDH(id);
 		Optional<DonHang> dh = dhDao.findById(id);
 		model.addAttribute("orderdetails", orderDetails);
 		

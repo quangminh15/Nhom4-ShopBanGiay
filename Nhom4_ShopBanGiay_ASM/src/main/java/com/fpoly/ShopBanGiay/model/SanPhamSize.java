@@ -41,10 +41,10 @@ public class SanPhamSize implements Serializable {
 	@JoinColumn(name = "ma_sp")
 	SanPham sanpham;
 
-	@ManyToOne
-	@JoinColumn(name = "ma_sps", insertable = false, updatable = false)
-	ChiTietDonHang chitietdonhang;
-
+	
+	@OneToMany(mappedBy = "sanphamsize")
+	List<ChiTietDonHang> chitietdonhang;
+	
 	@OneToMany(mappedBy = "sanphamsize")
 	List<GioHang> giohang;
 

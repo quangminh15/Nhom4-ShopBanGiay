@@ -39,6 +39,6 @@ public class ThanhToan implements Serializable{
 	String trangthai;
 	
 	@OneToOne
-	@JoinColumn(name = "ma_dh",referencedColumnName = "ma_dh")
+	@JoinColumn(name = "ma_dh")
     DonHang donhang;
 }
