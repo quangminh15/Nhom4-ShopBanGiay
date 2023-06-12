@@ -20,6 +20,6 @@ public class SessionService {
 	}
 
 	public void removeSessionAttribute(String name) {
-	    session.removeAttribute(name);
+		session.invalidate();
 	}
 }
