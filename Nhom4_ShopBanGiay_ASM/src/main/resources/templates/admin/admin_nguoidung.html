@@ -12,6 +12,66 @@
     <link th:href="@{/css/mycss.css}" rel="stylesheet" />
     <link th:href="@{/font/themify-icons/themify-icons.css}" rel="stylesheet" />
     <title>CONVERSE - Quản Lý Người Dùng</title>
+    <style type="text/css">
+    	.gg-check-o {
+		    box-sizing: border-box;
+		    position: relative;
+		    display: block;
+		    transform: scale(var(--ggs,1));
+		    width: 22px;
+		    height: 22px;
+		    border: 2px solid;
+		    border-radius: 100px;
+	        margin-left: 45%;
+	        color: blue;
+		}
+		.gg-check-o::after {
+		    content: "";
+		    display: block;
+		    box-sizing: border-box;
+		    position: absolute;
+		    left: 3px;
+		    top: -1px;
+		    width: 6px;
+		    height: 10px;
+		    border-color: currentColor;
+		    border-width: 0 2px 2px 0;
+		    border-style: solid;
+		    transform-origin: bottom left;
+		    transform: rotate(45deg)
+		}
+		.gg-remove {
+		    box-sizing: border-box;
+		    position: relative;
+		    display: block;
+		    transform: scale(var(--ggs,1));
+		    width: 22px;
+		    height: 22px;
+		    border: 2px solid;
+		    border-radius: 22px;
+		    margin-left: 45%;
+		    color: red;
+		}
+		.gg-remove::before {
+		    content: "";
+		    display: block;
+		    box-sizing: border-box;
+		    position: absolute;
+		    width: 10px;
+		    height: 2px;
+		    background: currentColor;
+		    border-radius: 5px;
+		    top: 8px;
+		    left: 4px
+		}
+		#image-preview{
+		    width: 150px;
+    		height: fit-content;
+		}
+		tr{
+			vertical-align: middle;
+		}
+    </style>
 </head>
 
 <body style="background-color: rgb(238, 238, 238);">
@@ -216,7 +276,7 @@
     <!-- main content start  -->
     <main id="#main-order">
         <div class="container-fluid">
-            <div class="row" style="background-color: white; box-shadow: 10px 10px 25px grey; ">
+            <div class="row" style="background-color: white; box-shadow: 10px 10px 25px grey; margin-top: 4%; ">
                 <div class="col-md-7">
                     <h4 style="padding: 2rem 0;">Quản Lý Người Dùng</h4>
                     <div th:if="${message}">
@@ -277,12 +337,12 @@
                                         <label for="anh" class="form-label">Hình ảnh</label> <br>
 <!-- Nếu đối tượng user không null và có đường dẫn hình ảnh -->
 
-<img th:if="${u.hinh != null }" th:src="@{'/images/userImages/'+${u.hinh}}"  alt="User Image" />
+<img th:if="${u.hinh != null }" th:src="@{'/images/userImages/'+${u.hinh}}"  alt="User Image" id="image-preview" />
 
 <!-- Nếu không có đường dẫn hình ảnh hoặc đối tượng user là null -->
-<img th:unless="${u.hinh != null }" src="/images/userImages/150.png" alt="Default Image" />
+<img th:unless="${u.hinh != null }" src="/images/userImages/150.png" alt="Default Image"  id="image-preview"/>
 
-                                        <input type="file" class="form-control" id="anh" placeholder=""  name="file" accept=".jpg, .jpeg, .png, .gif" style="">
+                                        <input type="file" class="form-control" id="anh" placeholder=""  name="file" accept=".jpg, .jpeg, .png, .gif" onchange="previewImage(event)">
                                     </div>
 									<div class="mb-3 col-md-6">
                                         <p>Vai trò</p>
@@ -296,7 +356,7 @@
                                     
                                     
                                 </div><br><br>
-                                <button class="btn btn-primary" ><i class="bi bi-save2"></i> Thêm</button>
+                                <button class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
                                 <button class="btn btn-success" th:formaction="@{/admin/admin_nguoidung/update}"><i class="bi bi-card-list"></i>
                                     Sửa</button>
                                 <button class="btn btn-danger" th:formaction="@{/admin/admin_nguoidung/remove/__${u.mand}__}"><i class="bi bi-trash"></i> Xóa</button>
@@ -327,6 +387,7 @@
                                         <th>Email</th>
                                         <th>Số Điện Thoại</th>
                                         <th>Vai trò</th>
+                                        <th>Trạng thái</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -338,19 +399,32 @@
                                       	<td th:text="${user.hoten}"></td>
                                       	<td th:text="${user.email}"></td>
                                       	<td th:text="${user.sdt}"></td>
+                                      	
                                       	<div th:if="${user.vaitro}">
 										     <td>Quản lý</td>
 										</div>
 										<div th:unless="${user.vaitro}">
 										     <td>Khách hàng</td>
 										</div>
-                                        <td>
-                                            <a th:href="@{/admin/admin_nguoidung/edit/__${user.mand}__}" type="button" class="btn btn-success"><i
-                                                    class="bi bi-card-list"></i>
-                                                Sửa</a>
-                                            <a th:href="@{/admin/admin_nguoidung/remove/__${user.mand}__}" type="button" class="btn btn-danger"><i class="bi bi-trash"></i>
-                                                Xóa</a>
-                                        </td>
+										
+										<div th:if="${user.trangthai}">
+										     <td><i class="gg-remove"></i></td>
+										     <td><a class="btn btn-info" th:href="@{/admin/admin_nguoidung/restore/__${user.mand}__}"><i class="bi bi-arrow-clockwise"></i> Khôi phục
+                                   	 				</a></td>
+										</div>
+										<div th:unless="${user.trangthai}">
+										     <td><i class="gg-check-o"></i></td>
+										     <td>
+	                                            <a th:href="@{/admin/admin_nguoidung/edit/__${user.mand}__}" type="button" class="btn btn-success"><i
+	                                                    class="bi bi-card-list"></i>
+	                                                Sửa</a>
+	                                            <a th:href="@{/admin/admin_nguoidung/remove/__${user.mand}__}" type="button" class="btn btn-danger"><i class="bi bi-trash"></i>
+	                                                Xóa</a>
+	                                        </td>
+										</div>
+										
+										
+                                        
                                     </tr>
                                 </tbody>
                             </table>
@@ -377,6 +451,19 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+    <script type="text/javascript">
+	    function previewImage(event) {
+	    	  var input = event.target;
+	    	  if (input.files && input.files[0]) {
+	    	    var reader = new FileReader();
+	    	    reader.onload = function(e) {
+	    	      var imgElement = document.getElementById('image-preview');
+	    	      imgElement.setAttribute('src', e.target.result);
+	    	    }
+	    	    reader.readAsDataURL(input.files[0]);
+	    	  }
+	    	}
+    </script>
 </body>
 
 </html>

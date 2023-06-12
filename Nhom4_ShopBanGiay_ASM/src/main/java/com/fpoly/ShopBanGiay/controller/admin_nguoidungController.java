@@ -42,7 +42,7 @@ public class admin_nguoidungController {
 	public String admin_nguoidung(Model model, @RequestParam("p") Optional<Integer> p) {
 		System.out.println("----------Index----------");
 		model.addAttribute("u", new NguoiDung());
-		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
+		Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
 		var list = dao.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
@@ -64,10 +64,13 @@ public class admin_nguoidungController {
 	System.out.println("User:"+u);
 	System.out.println(file.getOriginalFilename());
 	u.setHinh(file.getOriginalFilename());
+	if(u.getHinh().equals("")) {
+		u.setHinh(this.nguoiDungEdit.getHinh());
+	}
 	if(!checkDataInputUser(u)) {
 		model.addAttribute("message",this.messageCheckInputData);
 		model.addAttribute("u", u);
-		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
+		Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
 		var list = dao.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
@@ -78,7 +81,7 @@ public class admin_nguoidungController {
 	if(!checkEmailAlreadyExists(u.getEmail())) {
 		model.addAttribute("message","Lỗi: Email này đã tồn tại!");
 		model.addAttribute("u", u);
-		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
+		Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
 		var list = dao.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
@@ -89,7 +92,7 @@ public class admin_nguoidungController {
 //	if(!handleFileUpload(file)) {
 //		model.addAttribute("message","Lỗi: Upload hình!");
 //		model.addAttribute("u", new NguoiDung());
-//		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
+//		Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
 //		var list = dao.findAll(pageable);
 //		var numberOfPages = list.getTotalPages();
 //		model.addAttribute("currIndex", p.orElse(0));
@@ -98,7 +101,7 @@ public class admin_nguoidungController {
 //		return "/admin/admin_nguoidung";
 //	}
 	dao.save(u);
-	Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
+	Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
 	var list = dao.findAll(pageable);
 	var numberOfPages = list.getTotalPages();
 	model.addAttribute("currIndex", p.orElse(0));
@@ -139,7 +142,7 @@ public class admin_nguoidungController {
 	public String edit(Model model, @PathVariable("id") Integer id, @RequestParam("p") Optional<Integer> p) {
 		System.out.println("----------Edit----------");
 	//	Optional<Category> item = cateDAO.findById(id);
-		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
+		Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
 		var list = dao.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
@@ -148,10 +151,55 @@ public class admin_nguoidungController {
 		NguoiDung u = dao.findById(id).orElse(null); System.out.println("hinh"+u.getHinh());
 		model.addAttribute("u", u);
 		this.nguoiDungEdit =  new NguoiDung(u); // sao chép đối tượng
+		System.out.println("TT edit:"+this.nguoiDungEdit.isTrangthai());
 		System.out.println("Id edit:"+id);
 		System.out.println("----------***----------");
 		return "/admin/admin_nguoidung";
 	}
+	
+//	@RequestMapping("/admin/admin_nguoidung/remove/{mand}")
+//	public String remove(Model model, @PathVariable("mand") Integer id, @RequestParam("p") Optional<Integer> p) {
+//		System.out.println("----------Remove----------");
+//		System.out.println(id);
+//		NguoiDung nd = dao.getUserByIdSure(id);
+//		
+//		if(nd.isVaitro()) {
+//			if(dao.countAdmin() < 3) {
+//				model.addAttribute("message","Lỗi: Không thể xoá, Tối thiểu phải có 2 admin!");
+//				model.addAttribute("u", dao.getUserByIdSure(id));
+//				Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
+//				var list = dao.findAll(pageable);
+//				var numberOfPages = list.getTotalPages();
+//				model.addAttribute("currIndex", p.orElse(0));
+//			    model.addAttribute("numberOfPages", numberOfPages);
+//			    model.addAttribute("userList", list);
+//				return "/admin/admin_nguoidung";
+//			}
+//			if(!checkSelfDestruct(nd.getMand())) {
+//				model.addAttribute("message",this.messageCheckInputData);
+//				model.addAttribute("u", dao.getUserByIdSure(id));
+//				Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
+//				var list = dao.findAll(pageable);
+//				var numberOfPages = list.getTotalPages();
+//				model.addAttribute("currIndex", p.orElse(0));
+//			    model.addAttribute("numberOfPages", numberOfPages);
+//			    model.addAttribute("userList", list);
+//				return "/admin/admin_nguoidung";
+//			}
+//		}System.out.println("đã đến");
+//		
+//			System.out.println("id:"+id);
+//			dao.deleteById(id);
+//			Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
+//			var list = dao.findAll(pageable);
+//			var numberOfPages = list.getTotalPages();
+//			model.addAttribute("currIndex", p.orElse(0));
+//		    model.addAttribute("numberOfPages", numberOfPages);
+//			model.addAttribute("userList", list);
+//			model.addAttribute("u", new NguoiDung());
+//		System.out.println("----------***----------");
+//		return "/admin/admin_nguoidung";
+//	}
 	
 	@RequestMapping("/admin/admin_nguoidung/remove/{mand}")
 	public String remove(Model model, @PathVariable("mand") Integer id, @RequestParam("p") Optional<Integer> p) {
@@ -163,7 +211,7 @@ public class admin_nguoidungController {
 			if(dao.countAdmin() < 3) {
 				model.addAttribute("message","Lỗi: Không thể xoá, Tối thiểu phải có 2 admin!");
 				model.addAttribute("u", dao.getUserByIdSure(id));
-				Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
+				Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
 				var list = dao.findAll(pageable);
 				var numberOfPages = list.getTotalPages();
 				model.addAttribute("currIndex", p.orElse(0));
@@ -174,7 +222,7 @@ public class admin_nguoidungController {
 			if(!checkSelfDestruct(nd.getMand())) {
 				model.addAttribute("message",this.messageCheckInputData);
 				model.addAttribute("u", dao.getUserByIdSure(id));
-				Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
+				Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
 				var list = dao.findAll(pageable);
 				var numberOfPages = list.getTotalPages();
 				model.addAttribute("currIndex", p.orElse(0));
@@ -185,8 +233,9 @@ public class admin_nguoidungController {
 		}System.out.println("đã đến");
 		
 			System.out.println("id:"+id);
-			dao.deleteById(id);
-			Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
+			nd.setTrangthai(true);
+			dao.save(nd);
+			Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
 			var list = dao.findAll(pageable);
 			var numberOfPages = list.getTotalPages();
 			model.addAttribute("currIndex", p.orElse(0));
@@ -209,7 +258,7 @@ public class admin_nguoidungController {
 			if(!EmailCheckRegex(u.getEmail())) { // Check Email có hợp lệ?
 				model.addAttribute("message",this.messageCheckInputData);
 				model.addAttribute("u", this.nguoiDungEdit);
-				Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
+				Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
 				var list = dao.findAll(pageable);
 				var numberOfPages = list.getTotalPages();
 				model.addAttribute("currIndex", p.orElse(0));
@@ -220,7 +269,7 @@ public class admin_nguoidungController {
 			if(!checkEmailAlreadyExists(u.getEmail())) { // Check Email đã tồn tại chưa?
 				model.addAttribute("message","Lỗi: Email này đã tồn tại!");
 				model.addAttribute("u", this.nguoiDungEdit);
-				Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
+				Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
 				var list = dao.findAll(pageable);
 				var numberOfPages = list.getTotalPages();
 				model.addAttribute("currIndex", p.orElse(0));
@@ -233,7 +282,7 @@ public class admin_nguoidungController {
 			if(!PhoneNumberCheckRegex(u.getSdt())) { // Check SĐT có hợp lệ?
 				model.addAttribute("message",this.messageCheckInputData);
 				model.addAttribute("u", this.nguoiDungEdit);
-				Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
+				Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
 				var list = dao.findAll(pageable);
 				var numberOfPages = list.getTotalPages();
 				model.addAttribute("currIndex", p.orElse(0));
@@ -244,7 +293,7 @@ public class admin_nguoidungController {
 			if(!PhoneNumberCheckRegex(u.getSdt())) { // Check SĐT đã tồn tại chưa?
 				model.addAttribute("message",this.messageCheckInputData);
 				model.addAttribute("u", this.nguoiDungEdit);
-				Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
+				Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
 				var list = dao.findAll(pageable);
 				var numberOfPages = list.getTotalPages();
 				model.addAttribute("currIndex", p.orElse(0));
@@ -258,7 +307,7 @@ public class admin_nguoidungController {
 			u.setHinh(this.nguoiDungEdit.getHinh());
 		}
 		dao.save(u);
-		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
+		Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
 		var list = dao.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
@@ -272,13 +321,30 @@ public class admin_nguoidungController {
 	@RequestMapping("/admin/admin_nguoidung/clear")
 	public String clear(Model model, @RequestParam("p") Optional<Integer> p) {
 		System.out.println("----------Clear----------");
-		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
+		Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
 		var list = dao.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
 	    model.addAttribute("numberOfPages", numberOfPages);
 	    model.addAttribute("userList", list);
 		model.addAttribute("u", new NguoiDung());
+		System.out.println("----------***----------");
+		return "/admin/admin_nguoidung";
+	}
+	
+	@RequestMapping("/admin/admin_nguoidung/restore/{id}")
+	public String restore(Model model, @PathVariable("id") Integer id, @RequestParam("p") Optional<Integer> p) {
+		System.out.println("----------Restore----------");
+		NguoiDung uRestore = dao.getUserByIdSure(id);
+		uRestore.setTrangthai(false);
+		dao.save(uRestore);
+		Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
+		var list = dao.findAll(pageable);
+		var numberOfPages = list.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+	    model.addAttribute("numberOfPages", numberOfPages);
+	    model.addAttribute("userList", list);
+		model.addAttribute("u", uRestore);
 		System.out.println("----------***----------");
 		return "/admin/admin_nguoidung";
 	}
@@ -420,7 +486,7 @@ public class admin_nguoidungController {
 		}
 		return true;
 	}
-	
+		
 	
 	
 //	@RequestMapping("/lol")
