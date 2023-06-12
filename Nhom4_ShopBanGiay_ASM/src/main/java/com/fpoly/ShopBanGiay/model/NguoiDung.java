@@ -71,4 +71,16 @@ public class NguoiDung  implements Serializable{
 	
 	@OneToMany(mappedBy = "nguoidung")
     List<DonHang> donhang;
+	
+	public NguoiDung(NguoiDung u) {
+		this.mand =u.getMand();
+		this.matkhau = u.getMatkhau();
+		this.hoten = u.getHoten();
+		this.diachi = u.getDiachi();
+		this.sdt = u.getSdt();
+		this.email = u.getEmail();
+		this.hinh = u.getHinh();
+		this.vaitro = u.isVaitro();
+		this.trangthai = u.isTrangthai();
+	}
 }

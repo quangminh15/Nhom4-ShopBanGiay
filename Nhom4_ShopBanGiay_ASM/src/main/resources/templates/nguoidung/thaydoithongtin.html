@@ -22,97 +22,7 @@
 
 <body>
     <!-- header start -->
-    <div id="header">
-        <div class="menu">
-            <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-                <div class="container-fluid">
-                    <a class="navbar-brand" th:href="@{/trangchu}"><img src="./images/logo.png" alt="logo"></a>
-                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="mynavbar">
-                        <ul class="navbar-nav mx-auto">
-                            <li class="nav-item"> 
-                                <a class="nav-link nav-link-custom" th:href="@{/trangchu}">TRANG CHỦ</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link nav-link-custom" th:href="@{/sanpham}">SẢN PHẨM</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link nav-link-custom" th:href="@{/thongtin}">THÔNG TIN</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link nav-link-custom" th:href="@{/giohang}">GIỎ HÀNG</a>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a class="nav-link nav-link-custom dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown">TÀI
-                                    KHOẢN</a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" th:href="@{/dangnhap}">ĐĂNG NHẬP</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/dangky}">ĐĂNG KÝ</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/doimatkhau}">ĐỔI MẬT KHẨU</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/quenmatkhau}">QUÊN MẬT KHẨU</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/thaydoithongtin}">THÔNG TIN CÁ NHÂN</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/donhang}">ĐƠN HÀNG</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/dangnhap}">ĐĂNG XUẤT</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-
-                        <div class="p-3">
-                            <a href="#" class="icon position-relative fs-4" data-bs-toggle="offcanvas"
-                                data-bs-target="#demo">
-                                <i class="ti-search"></i>
-                            </a>
-                        </div>
-                        <div class="offcanvas offcanvas-bottom" id="demo">
-                            <div class="offcanvas-header">
-                                <h1 class="offcanvas-title" style="margin-left: 43%;">Tìm kiếm</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-                            </div>
-                            <div class="offcanvas-body">
-                                <div class="container input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="Bạn muốn tìm gì?">
-                                    <button class="btn btn-success" type="submit">OK</button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="p-3">
-                            <a th:href="@{/yeuthich}" class="icon position-relative fs-4">
-                                <i class="ti-heart"></i>
-                                <span
-                                    class="small-icon position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                    0
-                                </span>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-        </div>
-        <div class="menu-header">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-4 menu-item">
-                        <h6>HÀNG CÓ SẴN CHÍNH HÃNG</h6>
-                    </div>
-                    <div class="col-md-4 menu-item">
-                        <h6>ĐỔI TRẢ LINH HOẠT</h5>
-                    </div>
-                    <div class="col-md-4 menu-item">
-                        <h6>SHIP HÀNG TOÀN QUỐC</h6>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <marquee class="marquee-test" width="100%" scrollamount="20" direction="left" height="auto"
-            onmouseover="this.stop()" onmouseout="this.start()">
-            Converse xin chào tất cả các bạn. Chào mừng các bạn đã đến với cửa hàng của chúng tôi. Chúng tôi luôn lấy uy
-            tín đặt trên hàng đầu đối với khách hàng, hy vọng chúng tôi sẽ được phục vụ các bạn. Cám ơn!
-        </marquee>
-    </div>
+    <div th:replace = "~{/layout/user_menu :: user_menu}"></div>
     <!-- header end -->
     <!-- main changeinfo start -->
     <div class="container mt-5">
@@ -121,17 +31,15 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="text-center" style="font-size: medium;">
-                            <img src="https://via.placeholder.com/150" alt="Profile Picture" class="rounded-circle mb-3"
+                            <img th:src="@{'/images/userImages/'+${u.hinh}}" alt="Profile Picture" class="rounded-circle mb-3"
                                 style="margin: auto;">
-                            <p class="card-text">Tài khoản: <b>buithanhbui123</b></p>
-                            <p class="card-text">Mật khẩu: <b>*********</b> <button style="margin-left: 10%;"><svg
-                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                        class="bi bi-eye" viewBox="0 0 16 16">
-                                        <path
-                                            d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
-                                        <path
-                                            d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-                                    </svg></button> </p>
+                            <p class="card-text">Tài khoản: <b th:text=${u.email}></b></p>
+                            <p class="card-text input-group"><strong
+                                                            style="margin: 2% 3% 0 0;">Mật khẩu:</strong> <input
+                                                            type="password" class="form-control" id="pass"
+                                                            placeholder="Mật khẩu" name="pswd" th:value="${u.matkhau}" readonly="true"> <a
+                                                            onclick="hidePass()" class="btn btn-cart"><i
+                                                                class="ti-eye"></i></a> </p>
                         </div>
                         <hr>
                     </div>
@@ -145,17 +53,16 @@
                                 data-bs-toggle="modal">Chỉnh sửa</button></h5>
                         <ul class="list-group">
                             <li class="list-group-item"><b>Họ và tên</b> <br>
-                                <p style="font-size: smaller; margin: auto;">Bùi Thanh Bùi</p>
+                                <p style="font-size: smaller; margin: auto;" th:text=${u.hoten}></p>
                             </li>
-                            <li class="list-group-item"><b>Ngày sinh</b> <br>
-                                <p style="font-size: smaller; margin: auto;">15-10-2000</p>
+                            <li class="list-group-item"><b>Số điện thoại</b> <br>
+                                <p style="font-size: smaller; margin: auto;" th:text=${u.sdt}></p>
                             </li>
                             <li class="list-group-item"><b>Email</b> <br>
-                                <p style="font-size: smaller; margin: auto;">BTB@gmail.com</p>
+                                <p style="font-size: smaller; margin: auto;" th:text=${u.email}></p>
                             </li>
                             <li class="list-group-item"><b>Địa chỉ</b> <br>
-                                <p style="font-size: smaller; margin: auto;">123 Đường ABC, Phường XYZ, Quận NNN
-                                    Cần Thơ, Việt Nam</p>
+                                <p style="font-size: smaller; margin: auto;" th:text=${u.diachi}></p>
                             </li>
                         </ul>
                     </div>
@@ -185,60 +92,71 @@
                                     Thông tin của bạn
                                 </div>
                                 <div class="card-body" style="font-size: medium;">
-                                    <form action="">
+                                <div th:if="${message}">
+			                    	<h5 class="text-danger text-center" th:text="${message}"></h5>
+			                    </div>
+                                    <form  th:object="${u}" action="/thaydoithongtin/luuthongtin" method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="mb-3 col-md-6">
                                                 <label for="exampleFormControlInput1" class="form-label">Tên Người
                                                     Dùng</label>
                                                 <input type="text" class="form-control" id="exampleFormControlInput1"
-                                                    placeholder="">
+                                                    placeholder="" th:field="${u.hoten}">
                                             </div>
                                             <div class="mb-3 col-md-6">
-                                                <label for="exampleFormControlInput1" class="form-label">Email</label>
+                                                <label for="exampleFormControl Input1" class="form-label">Email</label>
                                                 <input type="email" class="form-control" id="exampleFormControlInput1"
-                                                    placeholder="">
+                                                    placeholder="" th:field="${u.email}" readonly="true">
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="exampleFormControlInput1" class="form-label">Số Điện
                                                     Thoại</label>
                                                 <input type="number" class="form-control" id="exampleFormControlInput1"
-                                                    placeholder="">
+                                                    placeholder="" th:field="${u.sdt}">
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="exampleFormControlInput1" class="form-label">Địa Chỉ</label>
                                                 <input type="text" class="form-control" id="exampleFormControlInput1"
-                                                    placeholder="">
+                                                    placeholder="" th:field="${u.diachi}">
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="exampleFormControlInput1" class="form-label">Mật
                                                     khẩu</label>
                                                 <input type="text" class="form-control" id="exampleFormControlInput1"
-                                                    placeholder="" disabled>
+                                                    placeholder="" readonly="true" th:value=${u.matkhau} th:field="${u.matkhau}">
                                             </div>
                                             <div class="mb-3 col-md-6">
-                                                <label for="exampleFormControlInput1" class="form-label">Ngày
-                                                    sinh</label>
-                                                <input type="date" class="form-control" id="exampleFormControlInput1"
-                                                    placeholder="">
+                                                <label for="exampleFormControlInput1" class="form-label">Vai
+                                                    trò</label>
+                                                    <div th:if="${u.vaitro}">
+													     	<input type="text" class="form-control" id="exampleFormControlInput1"
+                                                    		placeholder="" value="Quản lý" readonly="true">
+													</div>
+													<div th:unless="${u.vaitro}">
+													     <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                    		placeholder="" value="Khách hàng" readonly="true">
+													</div>
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="anh" class="form-label">Hình ảnh</label> <br>
-                                                <img src="https://via.placeholder.com/150"
-                                                    style="width: 200px; height: fit-content;" alt="hinhanh">
-                                                <input type="file" class="form-control" id="anh" placeholder="">
+                                                <img th:src="@{'/images/userImages/'+${u.hinh}}"
+                                                    style="width: 200px; height: fit-content;" alt="hinhanh" id="image-preview">
+                                                <input type="file" class="form-control" id="anh" placeholder="" name="file" accept=".jpg, .jpeg, .png, .gif" onchange="previewImage(event)">
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
-
+						                                        <div class="modal-footer">
+						                    <button th:formaction="@{/thaydoithongtin/luuthongtin}" class="btn btn-primary">Lưu thông tin</button>
+						                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+						                </div>
+                                        
+                               		</div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Lưu thông tin</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                </div>
+                
+                
             </div>
         </div>
     </div>
@@ -405,6 +323,19 @@
                     }, false)
                 })
         })()
+    </script>
+    <script type="text/javascript">
+	    function previewImage(event) {
+	    	  var input = event.target;
+	    	  if (input.files && input.files[0]) {
+	    	    var reader = new FileReader();
+	    	    reader.onload = function(e) {
+	    	      var imgElement = document.getElementById('image-preview');
+	    	      imgElement.setAttribute('src', e.target.result);
+	    	    }
+	    	    reader.readAsDataURL(input.files[0]);
+	    	  }
+	    	}
     </script>
     <!-- Validation form end -->
 </body>

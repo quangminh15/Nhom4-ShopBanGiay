@@ -27,7 +27,7 @@
                 aria-controls="offcanvasExample">
                 <span class="navbar-toggler-icon" data-bs-target="#sidebar"></span>
             </button> -->
-            <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#"><img src="./images/logo.png"
+            <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#"><img src="/images/logo.png"
                     alt="logo" style="margin-left: 25px;"></a>
         </div>
     </nav>
@@ -38,7 +38,7 @@
             <nav class="navbar-dark">
                 <ul class="navbar-nav">
                     <a class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold" href="#"><img class="img-logo"
-                            src="./images/logo.png" alt="logo"></a>
+                            src="/images/logo.png" alt="logo"></a>
                     <li class="my-4">
                         <hr class="dropdown-divider bg-light" />
                     </li>
@@ -227,79 +227,53 @@
     </div>
     <!-- MENU đứng kết thúc -->
 
-    <!-- main content start  -->
-    <main id="#main-order">
-        <div class="container-fluid">
-            <div class="row" style="background-color: white; box-shadow: 10px 10px 25px grey; ">
-                <div class="col-md-7">
-                    <h4 style="padding: 2rem 0;">Thông tin cá nhân</h4>
-                </div>
-            </div>
-            <div class="row article " style="display: flex; justify-content: center;">
-                <div class="col-md-11 mt-5" style="font-size: medium; background-color: white; box-shadow: 10px 10px 25px grey;padding: 0;">
-                    <div class="card">
-                        <div class="card-header"
-                            style="font-weight: bolder; font-size: larger; color: rgb(25, 31, 32); text-align: center;">
-                            Thông tin
-                        </div>
-                        <div class="card-body">
-                            <div class="container mt-5">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <div class="text-center" style="font-size: medium;">
-                                                    <img src="https://via.placeholder.com/150" alt="Profile Picture"
-                                                        class="rounded-circle mb-3" style="margin: auto;">
-                                                    <p class="card-text"><strong>Tài khoản:</strong>
-                                                        <b>buithanhbui123</b></p>
-                                                    <p class="card-text input-group"><strong
+   <!-- main changeinfo start -->
+    <div class="container mt-5">
+        <div class="row" style="padding-top: 15%;">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="text-center" style="font-size: medium;">
+                            <img th:src="@{'/images/userImages/'+${u.hinh}}" alt="Profile Picture" class="rounded-circle mb-3"
+                                style="margin: auto;">
+                            <p class="card-text">Tài khoản: <b th:text=${u.email}></b></p>
+                            <p class="card-text input-group"><strong
                                                             style="margin: 2% 3% 0 0;">Mật khẩu:</strong> <input
                                                             type="password" class="form-control" id="pass"
-                                                            placeholder="Nhập mật khẩu cũ" name="pswd" value="thanhbuidz123321"> <a
+                                                            placeholder="Mật khẩu" name="pswd" th:value="${u.matkhau}" readonly="true"> <a
                                                             onclick="hidePass()" class="btn btn-cart"><i
                                                                 class="ti-eye"></i></a> </p>
-                                                </div>
-                                                <hr>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8" style="font-size: medium;">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="card-title">Thông tin người dùng <button type="button"
-                                                        class="btn btn-info"
-                                                        style="width: 15%; height: 8%; margin-left: 4%;"
-                                                        data-bs-target="#myDialog" data-bs-toggle="modal">Chỉnh
-                                                        sửa</button></h5>
-                                                <ul class="list-group">
-                                                    <li class="list-group-item"><b>Họ và tên</b> <br>
-                                                        <p style="font-size: smaller; margin: auto;">Bùi Thanh Bùi</p>
-                                                    </li>
-                                                    <li class="list-group-item"><b>Ngày sinh</b> <br>
-                                                        <p style="font-size: smaller; margin: auto;">15-10-2000</p>
-                                                    </li>
-                                                    <li class="list-group-item"><b>Email</b> <br>
-                                                        <p style="font-size: smaller; margin: auto;">BTB@gmail.com</p>
-                                                    </li>
-                                                    <li class="list-group-item"><b>Địa chỉ</b> <br>
-                                                        <p style="font-size: smaller; margin: auto;">123 Đường ABC,
-                                                            Phường XYZ, Quận NNN
-                                                            Cần Thơ, Việt Nam</p>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8" style="font-size: medium;">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Thông tin người dùng <button type="button" class="btn btn-info"
+                                style="width: 15%; height: 8%; margin-left: 4%;" data-bs-target="#myDialog"
+                                data-bs-toggle="modal">Chỉnh sửa</button></h5>
+                        <ul class="list-group">
+                            <li class="list-group-item"><b>Họ và tên</b> <br>
+                                <p style="font-size: smaller; margin: auto;" th:text=${u.hoten}></p>
+                            </li>
+                            <li class="list-group-item"><b>Số điện thoại</b> <br>
+                                <p style="font-size: smaller; margin: auto;" th:text=${u.sdt}></p>
+                            </li>
+                            <li class="list-group-item"><b>Email</b> <br>
+                                <p style="font-size: smaller; margin: auto;" th:text=${u.email}></p>
+                            </li>
+                            <li class="list-group-item"><b>Địa chỉ</b> <br>
+                                <p style="font-size: smaller; margin: auto;" th:text=${u.diachi}></p>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
-    <!-- main content end  -->
+    </div>
+    <!-- main changeinfo end -->
 
 
     <!--Dialog start-->
@@ -322,60 +296,71 @@
                                     Thông tin của bạn
                                 </div>
                                 <div class="card-body" style="font-size: medium;">
-                                    <form action="">
+                                <div th:if="${message}">
+			                    	<h5 class="text-danger text-center" th:text="${message}"></h5>
+			                    </div>
+                                    <form  th:object="${u}" action="/admin/admin_thongtincanhan/luuthongtin" method="POST" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="mb-3 col-md-6">
                                                 <label for="exampleFormControlInput1" class="form-label">Tên Người
                                                     Dùng</label>
                                                 <input type="text" class="form-control" id="exampleFormControlInput1"
-                                                    placeholder="">
+                                                    placeholder="" th:field="${u.hoten}">
                                             </div>
                                             <div class="mb-3 col-md-6">
-                                                <label for="exampleFormControlInput1" class="form-label">Email</label>
+                                                <label for="exampleFormControl Input1" class="form-label">Email</label>
                                                 <input type="email" class="form-control" id="exampleFormControlInput1"
-                                                    placeholder="">
+                                                    placeholder="" th:field="${u.email}" readonly="true">
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="exampleFormControlInput1" class="form-label">Số Điện
                                                     Thoại</label>
                                                 <input type="number" class="form-control" id="exampleFormControlInput1"
-                                                    placeholder="">
+                                                    placeholder="" th:field="${u.sdt}">
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="exampleFormControlInput1" class="form-label">Địa Chỉ</label>
                                                 <input type="text" class="form-control" id="exampleFormControlInput1"
-                                                    placeholder="">
+                                                    placeholder="" th:field="${u.diachi}">
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="exampleFormControlInput1" class="form-label">Mật
                                                     khẩu</label>
                                                 <input type="text" class="form-control" id="exampleFormControlInput1"
-                                                    placeholder="" disabled>
+                                                    placeholder="" readonly="true" th:value=${u.matkhau} th:field="${u.matkhau}">
                                             </div>
                                             <div class="mb-3 col-md-6">
-                                                <label for="exampleFormControlInput1" class="form-label">Ngày
-                                                    sinh</label>
-                                                <input type="date" class="form-control" id="exampleFormControlInput1"
-                                                    placeholder="">
+                                                <label for="exampleFormControlInput1" class="form-label">Vai
+                                                    trò</label>
+                                                    <div th:if="${u.vaitro}">
+													     	<input type="text" class="form-control" id="exampleFormControlInput1"
+                                                    		placeholder="" value="Quản lý" readonly="true">
+													</div>
+													<div th:unless="${u.vaitro}">
+													     <input type="text" class="form-control" id="exampleFormControlInput1"
+                                                    		placeholder="" value="Khách hàng" readonly="true">
+													</div>
                                             </div>
                                             <div class="mb-3 col-md-6">
                                                 <label for="anh" class="form-label">Hình ảnh</label> <br>
-                                                <img src="https://via.placeholder.com/150"
-                                                    style="width: 200px; height: fit-content;" alt="hinhanh">
-                                                <input type="file" class="form-control" id="anh" placeholder="">
+                                                <img th:src="@{'/images/userImages/'+${u.hinh}}"
+                                                    style="width: 200px; height: fit-content;" alt="hinhanh" id="image-preview">
+                                                <input type="file" class="form-control" id="anh" placeholder="" name="file" accept=".jpg, .jpeg, .png, .gif" onchange="previewImage(event)">
                                             </div>
                                         </div>
-                                    </form>
-                                </div>
-
+						                                        <div class="modal-footer">
+						                    <button th:formaction="@{/admin/admin_thongtincanhan/luuthongtin}" class="btn btn-primary">Lưu thông tin</button>
+						                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+						                </div>
+                                        
+                               		</div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Lưu thông tin</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
-                </div>
+                
+                
             </div>
         </div>
     </div>
@@ -412,6 +397,19 @@
             }
 
         } 
+    </script>
+    <script type="text/javascript">
+	    function previewImage(event) {
+	    	  var input = event.target;
+	    	  if (input.files && input.files[0]) {
+	    	    var reader = new FileReader();
+	    	    reader.onload = function(e) {
+	    	      var imgElement = document.getElementById('image-preview');
+	    	      imgElement.setAttribute('src', e.target.result);
+	    	    }
+	    	    reader.readAsDataURL(input.files[0]);
+	    	  }
+	    	}
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
