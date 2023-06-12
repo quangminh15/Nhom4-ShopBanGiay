@@ -39,31 +39,31 @@
                             <form th:action="${Action}" th:object="${kms}" method="post">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label" ><b>Tên Khuyến Mãi</b></label>
+                                        <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Tên Khuyến Mãi</b></label>
                                         <input type="text" class="form-control" id="tengiamgia"
                                             placeholder="" th:field="*{tengiamgia}">
                                         <div class="alert alert-danger" th:if="${#fields.hasErrors('tengiamgia')}" th:errors="*{tengiamgia}"></div>
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label" ><b>Giảm Giá (%)</b></label>
+                                        <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Giảm Giá (%)</b></label>
                                         <input type="text" class="form-control" id="giamgia" name="giamgia"
                                             placeholder="" th:field="*{giamgia}">
                                         <div class="alert alert-danger" th:if="${#fields.hasErrors('giamgia')}" th:errors="*{giamgia}"></div>
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label" ><b>Ngày Tạo</b></label>
+                                        <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Ngày Tạo</b></label>
                                         <input type="date" class="form-control" id="ngaytao" name="ngaytao"
                                             placeholder="" th:field="*{ngaytao}">
                                        	<div class="alert alert-danger" th:if="${#fields.hasErrors('ngaytao')}" th:errors="*{ngaytao}"></div>
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label" ><b>Ngày Kết Thúc</b></label>
+                                        <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Ngày Kết Thúc</b></label>
                                         <input type="date" class="form-control" id="ngayketthuc" name="ngayketthuc"
                                             placeholder="" th:field="*{ngayketthuc}">
                                        	<div class="alert alert-danger" th:if="${#fields.hasErrors('ngayketthuc')}" th:errors="*{ngayketthuc}"></div>
                                     </div>
                                     <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label" ><b>Mô tả</b></label><br>
+                                        <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Mô tả</b></label><br>
                                         <textarea rows="10" cols="163"  id="mota" name="mota" th:field="*{mota}"></textarea>
 <!--                                         <input type="text" class="form-control" id="exampleFormControlInput1" -->
 <!--                                             placeholder=""> -->
@@ -74,6 +74,7 @@
                                     </div>
                                     
                                 </div>
+                                
 
                                 <button type="submit" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
                                 <button type="submit" class="btn btn-success"><i class="bi bi-card-list"></i>
