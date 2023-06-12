@@ -254,7 +254,7 @@
                             Form Người Dùng
                         </div>
                         <div class="card-body">
-                            <form th:object="${u}">
+                            <form th:object="${u}" action="/admin/admin_nguoidung/add" method="POST" enctype="multipart/form-data">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label">Mã người dùng</label>
@@ -291,12 +291,12 @@
                                         <label for="anh" class="form-label">Hình ảnh</label> <br>
 <!-- Nếu đối tượng user không null và có đường dẫn hình ảnh -->
 
-<img th:if="${u.hinh != null }" th:src="@{'/images/userImages/'+${u.hinh}}"  alt="User Image" th:field="*{hinh}"/>
+<img th:if="${u.hinh != null }" th:src="@{'/images/userImages/'+${u.hinh}}"  alt="User Image" />
 
 <!-- Nếu không có đường dẫn hình ảnh hoặc đối tượng user là null -->
-<img th:unless="${u.hinh != null }" src="https://via.placeholder.com/150" alt="Default Image" th:field="*{hinh}"/>
+<img th:unless="${u.hinh != null }" src="/images/userImages/150.png" alt="Default Image" />
 
-                                        <input type="file" class="form-control" id="anh" placeholder="" th:field="*{hinh}" name="hinh" accept=".jpg, .jpeg, .png, .gif" style="">
+                                        <input type="file" class="form-control" id="anh" placeholder=""  name="file" accept=".jpg, .jpeg, .png, .gif" style="">
                                     </div>
 									<div class="mb-3 col-md-6">
                                         <p>Vai trò</p>
@@ -310,7 +310,7 @@
                                     
                                     
                                 </div><br><br>
-                                <button class="btn btn-primary" th:formaction="@{/admin/admin_nguoidung/add}"><i class="bi bi-save2"></i> Thêm</button>
+                                <button class="btn btn-primary" ><i class="bi bi-save2"></i> Thêm</button>
                                 <button class="btn btn-success" th:formaction="@{/admin/admin_nguoidung/update}"><i class="bi bi-card-list"></i>
                                     Sửa</button>
                                 <button class="btn btn-danger" th:formaction="@{/admin/admin_nguoidung/remove/__${u.mand}__}"><i class="bi bi-trash"></i> Xóa</button>

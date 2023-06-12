@@ -44,7 +44,7 @@ public class admin_sanphamsizeController {
 	@Autowired
 	SizeDAO sizeDAO;
 
-	@GetMapping("/admin_sanphamsize")
+	@GetMapping("/admin/admin_sanphamsize")
 	public String admin_danhmucsp(Model model, @RequestParam("p") Optional<Integer> p,
 			@RequestParam("field") Optional<String> field) {
 		SanPhamSize sanphamsize = new SanPhamSize();
@@ -60,7 +60,7 @@ public class admin_sanphamsizeController {
 		return "/admin/admin_sanphamsize";
 	}
 
-	@GetMapping("/admin_sanphamsize/page")
+	@GetMapping("/admin/admin_sanphamsize/page")
 	public String paginate(Model model, @RequestParam("p") Optional<Integer> p,
 			@RequestParam("field") Optional<String> field) {
 		return this.admin_danhmucsp(model, p, field);
@@ -78,7 +78,7 @@ public class admin_sanphamsizeController {
 		return sizee;
 	}
 
-	@RequestMapping("/admin_sanphamsize/create")
+	@RequestMapping("/admin/admin_sanphamsize/create")
 	public String add(@Valid @ModelAttribute("sanphamsize") SanPhamSize sanphamsize, BindingResult result, Model model,
 			@RequestParam("p") Optional<Integer> p) {
 		if (result.hasErrors()) {
@@ -101,7 +101,7 @@ public class admin_sanphamsizeController {
 		return "/admin/admin_sanphamsize";
 	}
 
-	@RequestMapping("/admin_sanphamsize/edit/{id}")
+	@RequestMapping("/admin/admin_sanphamsize/edit/{id}")
 	public String edit(Model model, @PathVariable("id") Integer id, @RequestParam("p") Optional<Integer> p) {
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
 		var list = sanphamsizeDAO.findAll(pageable);
@@ -120,7 +120,7 @@ public class admin_sanphamsizeController {
 		return "/admin/admin_sanphamsize";
 	}
 
-	@RequestMapping("/admin_sanphamsize/delete/{masp}")
+	@RequestMapping("/admin/delete/{masp}")
 	public String remove(Model model, @PathVariable("masps") Integer id, @RequestParam("p") Optional<Integer> p) {
 		sanphamsizeDAO.deleteById(id);
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
@@ -134,7 +134,7 @@ public class admin_sanphamsizeController {
 		return "/admin/admin_sanphamsize";
 	}
 
-	@RequestMapping("/admin_sanphamsize/update")
+	@RequestMapping("/admin/admin_sanphamsize/update")
 	public String update(Model model, @Valid @ModelAttribute("sanphamsize") SanPhamSize sanphamsize, BindingResult result,
 			@RequestParam("p") Optional<Integer> p) {
 		if (result.hasErrors()) {
@@ -155,7 +155,7 @@ public class admin_sanphamsizeController {
 		return "/admin/admin_sanphamsize";
 	}
 
-	@RequestMapping("/admin_sanphamsize/clear")
+	@RequestMapping("/admin/admin_sanphamsize/clear")
 	public String update(Model model, @RequestParam("p") Optional<Integer> p) {
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
 		var list = sanphamsizeDAO.findAll(pageable);

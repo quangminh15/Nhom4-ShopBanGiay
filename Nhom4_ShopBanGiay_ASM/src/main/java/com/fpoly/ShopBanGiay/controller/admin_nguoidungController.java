@@ -1,5 +1,7 @@
 package com.fpoly.ShopBanGiay.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fpoly.ShopBanGiay.dao.NguoiDungDAO;
 import com.fpoly.ShopBanGiay.model.NguoiDung;
@@ -44,8 +48,8 @@ public class admin_nguoidungController {
         return this.admin_nguoidung(model, p);
     }
 	
-	@RequestMapping("/admin/admin_nguoidung/add")
-	public String add(Model model, @ModelAttribute("user") NguoiDung u,@RequestParam("p") Optional<Integer> p) {
+	@PostMapping("/admin/admin_nguoidung/add")
+	public String add(Model model, @ModelAttribute("user") NguoiDung u,@RequestParam("p") Optional<Integer> p, @RequestParam("file") MultipartFile file) {
 	System.out.println("----------Add----------");
 	System.out.println("User:"+u);
 	if(!checkEmailAlreadyExists(u.getEmail())) {
@@ -59,6 +63,18 @@ public class admin_nguoidungController {
 	    model.addAttribute("userList", list);
 		return "/admin/admin_nguoidung";
 	}
+//	if(!handleFileUpload(file)) {
+//		model.addAttribute("message","Lỗi: Upload hình!");
+//		model.addAttribute("u", new NguoiDung());
+//		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
+//		var list = dao.findAll(pageable);
+//		var numberOfPages = list.getTotalPages();
+//		model.addAttribute("currIndex", p.orElse(0));
+//	    model.addAttribute("numberOfPages", numberOfPages);
+//	    model.addAttribute("userList", list);
+//		return "/admin/admin_nguoidung";
+//	}
+	u.setHinh(file.getOriginalFilename());
 	dao.save(u);
 	Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("hoten").ascending());
 	var list = dao.findAll(pageable);
@@ -70,6 +86,32 @@ public class admin_nguoidungController {
 	System.out.println("----------***----------");
 	return "/admin/admin_nguoidung";
 	}
+	
+//	@PostMapping("/admin/admin_nguoidung/add")
+//	  public String add(@RequestParam("hinh") MultipartFile file) {
+//		 try {
+//		        String targetDirectory = "./images/userImages"; // Đường dẫn thư mục đích
+//		        String fileName = file.getOriginalFilename(); // Lấy tên file gốc 
+//		        System.out.println("Tên FIle: "+fileName);
+//		        System.out.println("TM: "+targetDirectory);
+//		        
+//		        // Tạo đối tượng File đại diện cho thư mục đích
+//		        File directory = new File(targetDirectory);
+//		        if (!directory.exists()) {
+//		            directory.mkdirs(); // Tạo thư mục đích nếu nó chưa tồn tại
+//		        }
+//		        
+//		        // Di chuyển file tải lên vào thư mục đích
+//		        File destinationFile = new File(directory, fileName);
+//		        file.transferTo(destinationFile);
+//		        
+// 
+//		    } catch (IOException e) {
+//		        e.printStackTrace();
+// 
+//		    }
+//	    return "/admin/admin_nguoidung";
+//	  }
 	
 	@RequestMapping("/admin/admin_nguoidung/edit/{id}")
 	public String edit(Model model, @PathVariable("id") Integer id, @RequestParam("p") Optional<Integer> p) {
@@ -105,21 +147,6 @@ public class admin_nguoidungController {
 	}
 	
 
-	
-//	@RequestMapping("/removeInList")
-//	public String removeInList(Model model, @PathVariable("id") Integer id) {
-//		System.out.println("----------Remove----------");
-//		System.out.println("id:"+id);
-//		if(id != null || id != 0 ) {
-//			System.out.println("id:"+id);
-//			dao.deleteById(id);
-//			List<NguoiDung> list = dao.findAll();
-//			model.addAttribute("userList", list);
-//			model.addAttribute("u", new NguoiDung());
-//		}
-//		System.out.println("----------***----------");
-//		return "/admin/admin_nguoidung";
-//	}
 	
 	@RequestMapping("/admin/admin_nguoidung/update")
 	public String update(Model model, @ModelAttribute("user") NguoiDung u, @RequestParam("p") Optional<Integer> p) {
@@ -157,4 +184,53 @@ public class admin_nguoidungController {
 		}
 		return false;
 	}
+	
+	
+	public boolean handleFileUpload(MultipartFile file) {
+	    try {
+	        String targetDirectory = "/images/userImages"; // Đường dẫn thư mục đích
+	        String fileName = file.getOriginalFilename(); // Lấy tên file gốc 
+	        System.out.println("Tên FIle: "+fileName);
+	        
+	        // Tạo đối tượng File đại diện cho thư mục đích
+	        File directory = new File(targetDirectory);
+	        if (!directory.exists()) {
+	            directory.mkdirs(); // Tạo thư mục đích nếu nó chưa tồn tại
+	        }
+	        
+	        // Di chuyển file tải lên vào thư mục đích
+	        File destinationFile = new File(directory, fileName);
+	        file.transferTo(destinationFile);
+	        
+	        return true;
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+//	@RequestMapping("/lol")
+//	public String handleFileUpload(@RequestParam("hinh") MultipartFile file) {
+//	    try {
+//	        String targetDirectory = "/images/userImages"; // Đường dẫn thư mục đích
+//	        String fileName = file.getOriginalFilename(); // Lấy tên file gốc 
+//	        System.out.println("Tên FIle: "+fileName);
+//	        
+//	        // Tạo đối tượng File đại diện cho thư mục đích
+//	        File directory = new File(targetDirectory);
+//	        if (!directory.exists()) {
+//	            directory.mkdirs(); // Tạo thư mục đích nếu nó chưa tồn tại
+//	        }
+//	        
+//	        // Di chuyển file tải lên vào thư mục đích
+//	        File destinationFile = new File(directory, fileName);
+//	        file.transferTo(destinationFile);
+//	        
+//	        return "/admin/admin_nguoidung";
+//	    } catch (IOException e) {
+//	        e.printStackTrace();
+//	        return "/admin/admin_nguoidung";
+//	    }
+//	}
+
 }

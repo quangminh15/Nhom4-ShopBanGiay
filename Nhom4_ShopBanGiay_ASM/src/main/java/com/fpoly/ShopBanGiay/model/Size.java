@@ -22,7 +22,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "size")
 public class Size  implements Serializable{
 	@Id
-	@NotNull(message = "{NotNull.Size.masize}")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ma_size")
 	private Integer masize;

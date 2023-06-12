@@ -54,7 +54,7 @@ public class NguoiDung  implements Serializable{
 	@Column(name = "trang_thai")
 	boolean trangthai;
 	
-	@NotBlank(message = "{NotBlank.NguoiDung.Hinh}")
+//	@NotBlank(message = "{NotBlank.NguoiDung.Hinh}")
 	@Column(name = "hinh")
 	String hinh ;
 	
@@ -62,7 +62,6 @@ public class NguoiDung  implements Serializable{
 	@Column(name = "vai_tro")
 	boolean vaitro ;
 	
-
 	
 	@OneToMany(mappedBy = "nguoidung")
     List<YeuThich> yeuthich;
