@@ -53,7 +53,7 @@
                     <tr id="table" th:each="cart: ${carts}">
                         <td ><span class="ti-close"></span></td>
                         <td ><img th:src="@{./imageSP/{img}(img=${cart.sanphamsize.sanpham.hinhanh3})}" ></td>
-                        <td th:text="${cart.sanphamsize.sanpham.tensp}">Chuck 70s High AllWhite</td>
+                       <td ><a th:href="@{/sanpham/chitietsp/__${cart.sanphamsize.sanpham.masp}__}" >[[${cart.sanphamsize.sanpham.tensp}]]</a></td>
                         <td th:text="${cart.sanphamsize.size.sizegiay}"></td>
                         <td th:text="${cart.sanphamsize.sanpham.giamgiasp}">950.000đ</td>
                         <td>

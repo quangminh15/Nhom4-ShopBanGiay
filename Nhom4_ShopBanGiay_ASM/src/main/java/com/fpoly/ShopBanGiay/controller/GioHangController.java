@@ -50,9 +50,11 @@ public class GioHangController {
 	
 	@RequestMapping("/giohang")
 	public String getGioHang(GioHang gh, Model model) {
+		NguoiDung userSession = session.getSessionAttribute("user");
+		int id = userSession.getMand();
 		GioHang ctgh = new GioHang();
 		model.addAttribute("cart",ctgh);
-		List<GioHang> carts = dao.findGioHangByMaND(4);
+		List<GioHang> carts = dao.findGioHangByMaND(id);
 		model.addAttribute("carts", carts);
 		
 //		int tongTien =  dao.tongTien(4);

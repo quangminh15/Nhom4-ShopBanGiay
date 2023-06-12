@@ -261,15 +261,15 @@
                                 <tbody>
                                     <tr th:each="order:${orderdetails}">
                                         <td >1</td>
-                                        <td ><img th:src="@{/imageSP/{img}(img=${order.sanpham.hinhanh3})}" width="10%"></td>
-                                        <td th:text="${order.sanpham.tensp}">Converse</td>
+                                        <td ><img th:src="@{/imageSP/{img}(img=${order.sanphamsize.sanpham.hinhanh3})}" width="10%"></td>
+                                        <td th:text="${order.sanphamsize.sanpham.tensp}">Converse</td>
                                         <td th:text="${order.soluong}">
                                             4
                                         </td>
-                                        <td th:text="${order.size.sizegiay}">
+                                        <td th:text="${order.sanphamsize.size.sizegiay}">
                                             40
                                         </td>
-                                        <td th:text="${order.sanpham.gia}">4000000</td>
+                                        <td th:text="${order.subtotal}">4000000</td>
                                     </tr>
                                    
 

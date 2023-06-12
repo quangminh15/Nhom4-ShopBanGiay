@@ -12,7 +12,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-
+import jakarta.persistence.Transient;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -35,6 +35,18 @@ public class ChiTietDonHang {
     @JoinColumn(name = "ma_dh")
     DonHang donhang;
 	
-	@OneToMany(mappedBy = "chitietdonhang")
-    List<SanPhamSize> sanphamsize;
+	@ManyToOne
+	@JoinColumn(name="ma_sps")
+    SanPhamSize sanphamsize;
+	
+	@Transient
+	public Double getSubtotal() {
+		 double total=0.0;
+		try {
+		  total = this.getSanphamsize().getSanpham().getGiamgiasp() * soluong;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return total;
+	}
 }

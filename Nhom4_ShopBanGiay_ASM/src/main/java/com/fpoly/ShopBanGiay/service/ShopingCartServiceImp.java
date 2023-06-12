@@ -1,15 +1,25 @@
 package com.fpoly.ShopBanGiay.service;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
+import com.fpoly.ShopBanGiay.dao.ChiTietDonHangDAO;
+import com.fpoly.ShopBanGiay.dao.DonHangDAO;
 import com.fpoly.ShopBanGiay.dao.GioHangDAO;
 import com.fpoly.ShopBanGiay.dao.SanPhamSizeDAO;
+import com.fpoly.ShopBanGiay.dao.ThanhToanDAO;
+import com.fpoly.ShopBanGiay.model.ChiTietDonHang;
+import com.fpoly.ShopBanGiay.model.DonHang;
 import com.fpoly.ShopBanGiay.model.GioHang;
 import com.fpoly.ShopBanGiay.model.NguoiDung;
 import com.fpoly.ShopBanGiay.model.SanPhamSize;
+import com.fpoly.ShopBanGiay.model.ThanhToan;
 
 import jakarta.transaction.Transactional;
 
@@ -21,7 +31,16 @@ public class ShopingCartServiceImp implements ShoppingCartService {
 	private GioHangDAO ghDAO;
 	
 	@Autowired
+	private ThanhToanDAO ttDAO;
+	
+	@Autowired
 	private SanPhamSizeDAO spsDAO;
+	
+	@Autowired
+	private DonHangDAO dhDAO;
+	
+	@Autowired
+	private ChiTietDonHangDAO ctDAO;
 	
 	public List<GioHang> listGioHang(NguoiDung nguoidung) {
 		return ghDAO.findByNguoidung(nguoidung);
@@ -59,5 +78,65 @@ public class ShopingCartServiceImp implements ShoppingCartService {
 		SanPhamSize sps = spsDAO.findById(masps).get();
 		double subtotal = sps.getSanpham().getGiamgiasp()*soluong;
 		return subtotal;
+	}
+
+	@Override
+	public void addPayment(String method) {
+		
+		ThanhToan payment = new ThanhToan();
+		
+	}
+
+	@Override
+	public
+	 DonHang addOrder(NguoiDung nguoidung, String diachi, String nguoinhan, String sdt,Double tongtien) {
+		
+		DonHang order = new DonHang();
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+	    java.util.Date date = new java.util.Date(); 
+	    
+		order.setNgaytao(formatter.format(date));
+		order.setNguoidung(nguoidung);
+		order.setNguoinhan(nguoinhan);
+		order.setDiachigiaohang(diachi);
+		order.setSdtnhanhang(sdt);
+		order.setTongtien(tongtien);
+		order.setTrangthai("Đang Chờ Xác Nhận");
+		
+		dhDAO.save(order);
+		
+		return order;
+	}
+
+	@Override
+	public void addCartItemsToOderDetails(NguoiDung nguoidung, DonHang donhang) {
+		
+//		 DonHang dh = dhDAO.findByNguoidungAndTrangthai(nguoidung, "Đang Chờ Xác Nhận"); 
+		 
+		
+		 List<GioHang> gh = ghDAO.findByNguoidung(nguoidung);
+		 for (GioHang gioHang : gh) {
+			 ChiTietDonHang ct = new ChiTietDonHang();
+			 
+			 ct.setDonhang(donhang);
+			 ct.setSanphamsize(gioHang.getSanphamsize());
+			 ct.setSoluong(gioHang.getSoluong());
+			 
+			 ctDAO.save(ct);
+			}
+		
+	}
+
+	@Override
+	public void remove(Integer id) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeAll(Integer mand) {
+		
+		ghDAO.clear(mand);;
+		
 	}
 }
