@@ -332,6 +332,8 @@ public class admin_nguoidungController {
 		return "/admin/admin_nguoidung";
 	}
 	
+	
+	// restore
 	@RequestMapping("/admin/admin_nguoidung/restore/{id}")
 	public String restore(Model model, @PathVariable("id") Integer id, @RequestParam("p") Optional<Integer> p) {
 		System.out.println("----------Restore----------");
@@ -346,6 +348,23 @@ public class admin_nguoidungController {
 	    model.addAttribute("userList", list);
 		model.addAttribute("u", uRestore);
 		System.out.println("----------***----------");
+		return "/admin/admin_nguoidung";
+	}
+	
+	// search
+	@RequestMapping("/admin/admin_nguoidung/searchByName")
+	public String search(Model model, @RequestParam("p") Optional<Integer> p,@RequestParam("nameSearch") Optional<String> name) {
+		System.out.println("----------Search----------");
+		String uName = name.orElse("");
+		System.out.println(uName);
+		Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
+		var list = dao.findAllByHotenLike("%"+uName+"%", pageable);
+		var numberOfPages = list.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+	    model.addAttribute("numberOfPages", numberOfPages);
+	    model.addAttribute("userList", list);
+		model.addAttribute("u", new NguoiDung());
+		System.out.println("----------***----------");		
 		return "/admin/admin_nguoidung";
 	}
 	

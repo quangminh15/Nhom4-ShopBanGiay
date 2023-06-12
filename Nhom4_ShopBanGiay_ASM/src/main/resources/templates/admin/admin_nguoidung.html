@@ -284,10 +284,10 @@
                     </div>
                 </div>
                 <div class="col-md-5">
-                    <form class="d-flex" style="padding-top: 4%;">
+                    <form class="d-flex" style="padding-top: 4%;" method="post">
                         <input class="form-control me-2" type="search" placeholder="Tên người dùng" aria-label="Search"
-                            style="width: 66%;">
-                        <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+                            style="width: 66%;" name="nameSearch">
+                        <button class="btn btn-primary" type="submit" th:formaction="@{/admin/admin_nguoidung/searchByName}">Tìm kiếm</button>
                     </form>
                 </div>
             </div>
