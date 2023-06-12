@@ -22,14 +22,14 @@ public class TrangChuController {
 	@Autowired
 	DanhMucDAO danhmucDAO;
 	
-	@RequestMapping("/trangchu")
-	public String DangNhap(SanPham sanpham, Model model) {
-		sanpham = new SanPham();
-		model.addAttribute("sanpham",sanpham);
-		List<SanPham> sanphams = sanphamDAO.findAll();
-		model.addAttribute("sanphams", sanphams);
-		return "/nguoidung/trangchu";
-	}
+//	@RequestMapping("/trangchu")
+//	public String DangNhap(SanPham sanpham, Model model) {
+//		sanpham = new SanPham();
+//		model.addAttribute("sanpham",sanpham);
+//		List<SanPham> sanphams = sanphamDAO.findAll();
+//		model.addAttribute("sanphams", sanphams);
+//		return "/nguoidung/trangchu";
+//	}
 	
 	@ModelAttribute("danhmucs")
 	public List<DanhMuc> getDanhMucsp() {

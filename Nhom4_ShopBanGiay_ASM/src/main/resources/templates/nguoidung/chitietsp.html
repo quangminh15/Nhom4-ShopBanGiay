@@ -76,13 +76,21 @@
                     <div class="picture-content">
                     
                         <h1 th:text="${sanpham.tensp}"></h1>
-
-<!--                         <h2 class="mt-4 mb-4" th:text="${sanpham.gia}"></h2> -->
-						<h2 class="mt-4 mb-4"><span  style="font-size: 20px;" class="card-title-old"   th:text="${sanpham.gia} + 'vnđ'" ></span></h2>
-						<h2 class="mt-4 mb-4"><span style="font-size: 40px;" class="card-title-sale"  th:text="${sanpham.gia}-${sanpham.gia}*${sanpham.giamgia.giamgia}/100 + ' vnđ'"></span></h2>
-                        <div class="description mt-4 mb-4" th:text="${sanpham.mota}">
+                                    <div th:if="${sanpham.giamgia.giamgia == 0}" >
+                                    	
+                                    	<h2 class="mt-4 mb-4" > Giá: <span class="card-title-normal" style="font-size: 30px;"  th:text="${#numbers.formatDecimal(sanpham.gia, 0, 'COMMA', 0 , 'POINT')} + ' vnđ'"></span></h2>
+                                    	
+                                    </div>
+                                    <div th:if="${sanpham.giamgia.giamgia != 0}">
+                                    	<h2 class="mt-4 mb-4"><span class="card-title-old" style="font-size: 20px;"  th:text="${#numbers.formatDecimal(sanpham.gia, 0, 'COMMA', 0 , 'POINT')} + ' vnđ'"></span></h2>
+											 <h2 class="mt-4 mb-4"><span class="card-title-sale" style="font-size: 30px;"  th:text="${#numbers.formatDecimal(sanpham.giamgiasp, 0, 'COMMA', 0 , 'POINT')}  + ' vnđ'"></span></h2>
+                                    </div>
+											
+                                    
+                                   <p style="font-size: 25px">Mô tả: 
+                        <div class="description mb-4" th:text="${sanpham.mota}">
                         </div>
-
+ 													</p>
                         <div class="row mt-4 mb-4">
                             <span class="col-md-3 size1">Size: </span>
                             <form action="" class="col-md-9">
@@ -95,8 +103,8 @@
                            </form>
                         </div>
                          <div class="row mt-4 mb-4" >
-						 <span class="col-md-3 size1">Size: </span> 
-						 <div  class="row mt-4 mb-4" style="margin-left: 100px" th:replace="~{/layout/quantitycontrol :: quantitycontrol(1,${sanpham.masp})}"></div>
+						 <span class="col-md-3 size1">Số lượng:</span> 
+						 <div  class="col-md-9 mt-4 mb-4" style="margin-left: 100px" th:replace="~{/layout/quantitycontrol :: quantitycontrol(1,${sanpham.masp})}"></div>
 						
 						   </div>
                         <!-- <div class="row mt-4 mb-4">
@@ -222,9 +230,17 @@
                                     <a th:href="@{/sanpham/chitietsp/__${sanpham.masp}__}">
                                         <h4 class="card-title text-center" th:text="${sanpham.tensp}"></h4>
                                         <div class="price-product">
-                                           <h4 class="card-title"><span class="card-title-old"  th:text="${sanpham.gia} + 'vnđ'"></span></h4>
-											 <h4 class="card-title"><span class="card-title-sale"  th:text="${sanpham.gia}-${sanpham.gia}*${sanpham.giamgia.giamgia}/100 + ' vnđ'"></span></h4>
-                                        </div>
+                                    <div th:if="${sanpham.giamgia.giamgia == 0}" >
+                                    	
+                                    	<h4 class="card-title" ><span class="card-title-normal"  th:text="${#numbers.formatDecimal(sanpham.gia, 0, 'COMMA', 0 , 'POINT')} + ' vnđ'"></span></h4>
+                                    	<h4 class="card-title" style="color: white;">123</h4>
+                                    </div>
+                                    <div th:if="${sanpham.giamgia.giamgia != 0}">
+                                    	<h4 class="card-title"><span class="card-title-old"  th:text="${#numbers.formatDecimal(sanpham.gia, 0, 'COMMA', 0 , 'POINT')} + ' vnđ'"></span></h4>
+											 <h4 class="card-title"><span class="card-title-sale"  th:text="${#numbers.formatDecimal(sanpham.giamgiasp, 0, 'COMMA', 0 , 'POINT')}  + ' vnđ'"></span></h4>
+                                    </div>
+											
+                                    </div>
                                     </a>
                                     <div class="row d-flex justify-content-center">
                                         <a th:href="@{/giohang}" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ

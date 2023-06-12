@@ -95,7 +95,7 @@
                                         </div>
 										
                                         <div class="mb-3 col-md-4">
-                                            <label class="form-label fs-17">Mã danh mục:</label>
+                                            <label class="form-label fs-17">Danh mục:</label>
                                             <select class="form-select" th:field="*{danhmuc.madm}">
                                                 <option value="">Chọn danh mục</option>
                                                 <option th:each="sp : ${danhmucs}" th:value="${sp.madm}" th:text="${sp.tendm}"></option>
@@ -165,11 +165,13 @@
                                         <th><a th:href="@{/admin/admin_sanpham?field=hinhanh2}">ẢNH 2</a></th>
                                         <th><a th:href="@{/admin/admin_sanpham?field=hinhanh3}">ẢNH 3</a></th>
                                         <th><a th:href="@{/admin/admin_sanpham?field=loai}">LOẠI</a></th>
-                                        <th><a th:href="@{/admin/admin_sanpham?field=gia}">GIÁ</a></th>
-                                        <th class="w-20" style="text-align: center;"><a th:href="@{/admin/admin_sanpham?field=mota}">MÔ TẢ</a></th>
+                                        <th><a th:href="@{/admin/admin_sanpham?field=gia}">GIÁ GỐC</a></th>
+                                        <th><a th:href="@{/admin/admin_sanpham?field=giamgia.giamgia}">GIẢM GIÁ</a></th>
+                                        <th><a th:href="@{/admin/admin_sanpham?field=giamgias}">GIÁ GIẢM CÒN</a></th>
+<!--                                         <th class="w-20" style="text-align: center;"><a th:href="@{/admin/admin_sanpham?field=mota}">MÔ TẢ</a></th> -->
                                         <th><a th:href="@{/admin/admin_sanpham?field=danhmuc.tendm}">DANH MỤC</a></th>
                                         <th><a th:href="@{/admin/admin_sanpham?field=nhacungcap.tenncc}">NHÀ CUNG CẤP</a></th>
-                                        <th><a th:href="@{/admin/admin_sanpham?field=giamgia.giamgia}">GIẢM GIÁ</a></th>
+                                        
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -190,11 +192,13 @@
 										<div th:unless="${sanpham.loai}">
 										     <td>Thấp</td>
 										</div>
-                                        <td th:text="${sanpham.gia}"></td>
-                                        <td class="w-20" th:text="${sanpham.mota}"></td>
+                                        <td th:text="${#numbers.formatDecimal(sanpham.gia, 0, 'COMMA', 0 , 'POINT')}  + ' vnđ'"></td>
+                                        <td th:text="${sanpham.giamgia.giamgia} + ' %'"></td>
+                                        <td th:text="${#numbers.formatDecimal(sanpham.giamgiasp, 0, 'COMMA', 0 , 'POINT')}  + ' vnđ'"></td>
+<!--                                         <td class="w-20" th:text="${sanpham.mota}"></td> -->
                                         <td th:text="${sanpham.danhmuc.tendm}"></td>
                                         <td th:text="${sanpham.nhacungcap.tenncc}"></td>
-                                        <td th:text="${sanpham.giamgia.giamgia}"></td>
+                                        
                                         <td>
                                             <a type="submit" th:href="@{/admin/admin_sanpham/edit/__${sanpham.masp}__}" class="btn btn-warning">Chọn</a>
                                             <a type="submit" th:href="@{/admin/admin_sanpham/delete/__${sanpham.masp}__}" class="btn btn-danger">Xóa</a>

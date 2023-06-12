@@ -99,7 +99,12 @@
                                     <tr th:each="size: ${sizes}">
                                         <td th:text="${size.masize}"></td>
                                     	<td th:text="${size.sizegiay}"></td>
-                                    	<td th:text="${size.trangthai}" ></td>
+                                    	 <div th:if="${size.trangthai}">
+										     <td>Hoạt động</td>
+										</div>
+										<div th:unless="${size.trangthai}">
+										     <td>Không hoạt động</td>
+										</div>
                                     	
                                         <td>
                                             <a type="submit" th:href="@{/admin/admin_size/edit/__${size.masize}__}" class="btn btn-warning">Chọn</a>

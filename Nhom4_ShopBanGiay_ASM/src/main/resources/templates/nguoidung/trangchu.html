@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
@@ -85,7 +86,7 @@
                         
                             <div th:each="dm : ${danhmucs}" th:value="${dm.madm}"  class="item mb-4">
                                 <div class="card border-0 shadow">
-                                    <a href="#"><img th:src="@{/imageSP/{img}(img=${dm.anhdm})}" alt="hinhanh" class="card-img-top"
+                                    <a th:href="@{/sanpham/dm/__${dm.madm}__}"><img th:src="@{'/imageSP/'+${dm.anhdm}}" alt="hinhanh" class="card-img-top"
                                             style="height: 300px;">
                                         <div class="card-body">
                                             <div class="card-title text-center">
@@ -107,24 +108,32 @@
             <h4 class="title-bosuutap">TOP SẢN PHẨM GIẢM GIÁ</h4>
             <div class="container-fluid">
                 <div class="row">
-                    <div th:each="sanpham: ${sanphams}" class="col-xl-2 col-lg-3 col-sm-4 col-6 mb-4">
+                    <div th:each="sanpham: ${sanphams}" class="col-xl-2 col-lg-3 col-sm-4 col-6 mb-4" >
                         <div class="card" style="width:100%">
                             <a th:href="@{/sanpham/chitietsp/__${sanpham.masp}__}"><img class="card-img-top" th:src="@{/imageSP/{img}(img=${sanpham.hinhanh1})}"
                                     alt="Card image" style="width:100%"></a>
-                            <div class="card-body">
+                            <div class="card-body" style="flex-direction:column-reverse">
+                               <div>
                                 <a th:href="@{/sanpham/chitietsp/__${sanpham.masp}__}">
-                                    <h4 class="card-title text-center">Converse Renew Canvas</h4>
+                                    <h4 class="card-title text-center" th:text="${sanpham.tensp}"></h4>
                                     <div class="price-product">
-<!--                                         <h4 class="card-title"><span class="card-title-old">1.990.000đ</span></h4> -->
-<!--                                         <h4 class="card-title"><span class="card-title-sale  card-title-normal">1.990.000đ</span></h4> -->
-											 <h4 class="card-title"><span class="card-title-old"  th:text="${sanpham.gia} + 'vnđ'"></span></h4>
-											 <h4 class="card-title"><span class="card-title-sale"  th:text="${sanpham.giamgiasp} + ' vnđ'"></span></h4>
+                                    <div th:if="${sanpham.giamgia.giamgia == 0}" >
+                                    	
+                                    	<h4 class="card-title" ><span class="card-title-normal"  th:text="${#numbers.formatDecimal(sanpham.gia, 0, 'COMMA', 0 , 'POINT')} + ' vnđ'"></span></h4>
+                                    	<h4 class="card-title" style="color: white;">123</h4>
+                                    </div>
+                                    <div th:if="${sanpham.giamgia.giamgia != 0}">
+                                    	<h4 class="card-title"><span class="card-title-old"  th:text="${#numbers.formatDecimal(sanpham.gia, 0, 'COMMA', 0 , 'POINT')} + ' vnđ'"></span></h4>
+											 <h4 class="card-title"><span class="card-title-sale"  th:text="${#numbers.formatDecimal(sanpham.giamgiasp, 0, 'COMMA', 0 , 'POINT')}  + ' vnđ'"></span></h4>
+                                    </div>
+											
                                     </div>
                                 </a>
                                 <div class="row d-flex justify-content-center">
                                     <a th:href="@{/giohang}" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ hàng</a>
                                     <a th:href="@{/yeuthich}" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
                                 </div>
+                               </div>
                             </div>
                         </div>
                     </div>
