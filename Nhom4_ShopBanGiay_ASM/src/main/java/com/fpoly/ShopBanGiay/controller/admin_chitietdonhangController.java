@@ -32,7 +32,7 @@ public class admin_chitietdonhangController {
 	@Autowired
 	SessionService session;
 	
-	@GetMapping("/admin_chitietdonhang/{id}")
+	@GetMapping("/admin/admin_chitietdonhang/{id}")
 	public String admin_chitietdonhang(Model model, @PathVariable("id") Integer id) {
 
 		List<ChiTietDonHang>  orderDetails = chiTietDHDao.findByMaDH(id);

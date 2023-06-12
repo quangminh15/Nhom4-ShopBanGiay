@@ -13,7 +13,7 @@ button {
   --topNavbarHeight: 100px;
 }
 main{
-  margin-top: 100px;
+  margin-top: 5em;
 }
 .sidebar-nav {
   width: var(--offcanvas-width);
