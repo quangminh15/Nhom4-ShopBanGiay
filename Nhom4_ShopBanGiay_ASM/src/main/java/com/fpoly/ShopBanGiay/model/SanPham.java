@@ -14,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -84,5 +85,15 @@ public class SanPham implements Serializable{
 	@ManyToOne
     @JoinColumn(name = "ma_giam_gia")
     GiamGia giamgia;
-
+	
+	@Transient
+	public Double getGiamgiasp() {
+		 double giaKhuyenMai=0.0;
+		try {
+			giaKhuyenMai = this.getGia() - this.getGia()* giamgia.getGiamgia()/100;
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return giaKhuyenMai;
+	}
 }

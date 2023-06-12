@@ -94,9 +94,11 @@
                                 </select>
                            </form>
                         </div>
+                         <div class="row mt-4 mb-4" >
+						 <span class="col-md-3 size1">Size: </span> 
+						 <div  class="row mt-4 mb-4" style="margin-left: 100px" th:replace="~{/layout/quantitycontrol :: quantitycontrol(1,${sanpham.masp})}"></div>
 						
-						 <div th:replace="~{/layout/quantitycontrol :: quantitycontrol(1,${sanpham.masp})}"></div>
-						 
+						   </div>
                         <!-- <div class="row mt-4 mb-4">
                             <span class="col-md-3 size1" >Số lượng: </span>
                             <div class="col-md-9">

@@ -156,38 +156,19 @@
                                 <th class="left">Sản Phẩm</th>
                                 <th>Size</th>
                                 <th>Số Lượng</th>
-                                <th class="right"></th>
+                                <th class="right">Giá</th>
 
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="left">Converse Renew Canvas</td>
-                                <td>38</td>
-                                <td>1</td>
-                                <td class="right">1.990.000đ</td>
+                            <tr th:each="item : ${items}">
+                                <td th:text="${item.sanphamsize.sanpham.tensp}" class="left">Converse Renew Canvas</td>
+                                <td th:text="${item.sanphamsize.size.sizegiay}">38</td>
+                                <td th:text="${item.soluong}">1</td>
+                                <td th:text="${item.subtotal}" class="right">1.990.000đ</td>
 
                             </tr>
-                            <tr>
-                                <td class="left">Converse Renew Canvas</td>
-                                <td>38</td>
-                                <td>1</td>
-                                <td class="right">1.990.000đ</td>
-
-                            </tr>
-                            <tr>
-                                <td class="left">Converse Renew Canvas</td>
-                                <td>38</td>
-                                <td>1</td>
-                                <td class="right">1.990.000đ</td>
-
-                            </tr>
-                            <tr>
-                                <td class="left">Converse Renew Canvas</td>
-                                <td>38</td>
-                                <td>1</td>
-                                <td class="right">1.990.000đ</td>
-                            </tr>
+                          
 
 
                         </tbody>

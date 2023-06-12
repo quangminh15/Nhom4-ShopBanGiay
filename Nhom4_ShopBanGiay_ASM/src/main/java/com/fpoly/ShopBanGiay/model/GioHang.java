@@ -45,7 +45,7 @@ public class GioHang implements Serializable{
 	public Double getSubtotal() {
 		 double total=0.0;
 		try {
-		  total = this.getSanphamsize().getSanpham().getGia() * soluong;
+		  total = this.getSanphamsize().getSanpham().getGiamgiasp() * soluong;
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
