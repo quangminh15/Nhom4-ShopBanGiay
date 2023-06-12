@@ -1,5 +1,6 @@
 package com.fpoly.ShopBanGiay.service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -21,12 +22,9 @@ public class YtServiceImp implements YtService {
 	@Autowired
 	SanPhamDAO sp;
 	
-	
-	
 	@Override
 	public Date add(NguoiDung nguoidung, String ngaythich, Integer masp) {
-		@SuppressWarnings("deprecation")
-		Date date = new Date(2020, 11, 11);
+		Date date= new Date();
 		SanPham sps = sp.findById(masp).get();
 		YeuThich yt = ytDao.findByNguoidungAndSanpham(nguoidung, sps);
 		
