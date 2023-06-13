@@ -16,7 +16,7 @@ public class admin_donhangController {
 	@Autowired 
 	DonHangDAO donHangDao;
 	
-	@GetMapping("/admin_donhang")
+	@GetMapping("/admin/admin_donhang")
 	public String admin_donhang(Model model) {
 		List<DonHang> dh =donHangDao.findAll();
 		model.addAttribute("orders",dh);

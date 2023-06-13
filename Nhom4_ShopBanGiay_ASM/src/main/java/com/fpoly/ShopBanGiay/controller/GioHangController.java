@@ -54,6 +54,7 @@ public class GioHangController {
 		int id = userSession.getMand();
 		GioHang ctgh = new GioHang();
 		model.addAttribute("cart",ctgh);
+		
 		List<GioHang> carts = dao.findGioHangByMaND(id);
 		model.addAttribute("carts", carts);
 		
@@ -69,8 +70,9 @@ public class GioHangController {
 	@PostMapping("/addtocart")
 	public String addToCart(@Param("masps")Integer masps,@Param("soluong")Integer soluong) {
 		
-		
-		NguoiDung nguoidung = nddao.findById(4).get();
+		NguoiDung userSession = session.getSessionAttribute("user");
+		int id = userSession.getMand();
+		NguoiDung nguoidung = nddao.findById(id).get();
 		
 		Integer qty = cart.addToCart(masps, soluong, nguoidung);
 		return "redirect:/giohang";
@@ -79,9 +81,10 @@ public class GioHangController {
 	@ResponseBody
 	@PostMapping("/updateqty/{id}/{qty}")
 	public String updateQty(@PathVariable("id")Integer masps,@PathVariable("qty")Integer soluong) {
+		NguoiDung userSession = session.getSessionAttribute("user");
+		int id = userSession.getMand();
 		
-		
-		NguoiDung nguoidung = nddao.findById(4).get();
+		NguoiDung nguoidung = nddao.findById(id).get();
 		
 		double subtotal = cart.updateQuty(masps, soluong, nguoidung);
 		return String.valueOf(subtotal);

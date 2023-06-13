@@ -49,7 +49,7 @@ public class admin_khuyenmaiController {
 		return this.admin_khuyenmai(model, p);
 	}
 
-	@PostMapping("/save_khuyenmai")
+	@PostMapping("/admin/save_khuyenmai")
 	public String save_khuyenmai(@Valid @ModelAttribute("kms") GiamGia giamgia,  BindingResult result, Model model) {
 		if (result.hasErrors()) {
 			model.addAttribute("KM", khuyenmaiDao.findAll());
@@ -76,7 +76,7 @@ public class admin_khuyenmaiController {
 		model.addAttribute("numberOfPages", numberOfPages);
 
 		model.addAttribute("KM", kmss);
-		model.addAttribute("Action", "/save_khuyenmai");
+		model.addAttribute("Action", "/admin/save_khuyenmai");
 		return "/admin/admin_khuyenmai";
 	}
 
@@ -86,7 +86,7 @@ public class admin_khuyenmaiController {
 		khuyenmaiDao.deleteById(magiamgia);
 		model.addAttribute("kms", g);
 		model.addAttribute("KM", khuyenmaiDao.findAll());
-		model.addAttribute("Action", "/save_khuyenmai");
+		model.addAttribute("Action", "/admin/save_khuyenmai");
 		return "redirect:/admin/admin_khuyenmai";
 	}
 
