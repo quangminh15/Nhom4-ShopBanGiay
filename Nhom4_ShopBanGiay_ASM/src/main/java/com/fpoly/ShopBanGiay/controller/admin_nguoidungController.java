@@ -35,8 +35,11 @@ public class admin_nguoidungController {
 	
 //	public String imgEdit = "";
 	
-	NguoiDung nguoiDungEdit;
+	NguoiDung nguoiDungEdit = new NguoiDung();
+	
 	public String messageCheckInputData = "";
+	
+	String nameSearch = "";
 	
 	@GetMapping("/admin/admin_nguoidung")
 	public String admin_nguoidung(Model model, @RequestParam("p") Optional<Integer> p) {
@@ -48,14 +51,15 @@ public class admin_nguoidungController {
 		model.addAttribute("currIndex", p.orElse(0));
 	    model.addAttribute("numberOfPages", numberOfPages);
 	    model.addAttribute("userList", list);
-		
+		this.nameSearch = "";
+		NguoiDung nguoiDungEdit = new NguoiDung();
 		System.out.println("----------***----------");
 		return "/admin/admin_nguoidung";
 	}
 	
 	@GetMapping("/pageNguoiDung")
     public String paginate(Model model,@RequestParam("p") Optional<Integer> p){
-        return this.admin_nguoidung(model, p);
+		return this.search(model, p, this.nameSearch);
     }
 	
 	@PostMapping("/admin/admin_nguoidung/add")
@@ -154,7 +158,7 @@ public class admin_nguoidungController {
 		System.out.println("TT edit:"+this.nguoiDungEdit.isTrangthai());
 		System.out.println("Id edit:"+id);
 		System.out.println("----------***----------");
-		return "/admin/admin_nguoidung";
+		return this.search(model, p, this.nameSearch);
 	}
 	
 //	@RequestMapping("/admin/admin_nguoidung/remove/{mand}")
@@ -217,7 +221,7 @@ public class admin_nguoidungController {
 				model.addAttribute("currIndex", p.orElse(0));
 			    model.addAttribute("numberOfPages", numberOfPages);
 			    model.addAttribute("userList", list);
-				return "/admin/admin_nguoidung";
+			    return this.search(model, p, this.nameSearch);
 			}
 			if(!checkSelfDestruct(nd.getMand())) {
 				model.addAttribute("message",this.messageCheckInputData);
@@ -228,7 +232,7 @@ public class admin_nguoidungController {
 				model.addAttribute("currIndex", p.orElse(0));
 			    model.addAttribute("numberOfPages", numberOfPages);
 			    model.addAttribute("userList", list);
-				return "/admin/admin_nguoidung";
+			    return this.search(model, p, this.nameSearch);
 			}
 		}System.out.println("đã đến");
 		
@@ -241,9 +245,10 @@ public class admin_nguoidungController {
 			model.addAttribute("currIndex", p.orElse(0));
 		    model.addAttribute("numberOfPages", numberOfPages);
 			model.addAttribute("userList", list);
-			model.addAttribute("u", new NguoiDung());
+		    model.addAttribute("message","Xoá người dùng thành công");
+			this.nguoiDungEdit = new NguoiDung();
 		System.out.println("----------***----------");
-		return "/admin/admin_nguoidung";
+		return this.search(model, p, this.nameSearch);
 	}
 	
 
@@ -253,6 +258,17 @@ public class admin_nguoidungController {
 		System.out.println("----------Update----------");
 		if(this.nguoiDungEdit == null) {
 			this.nguoiDungEdit = new NguoiDung(dao.getUserByIdSure(u.getMand()));
+		}
+		if(!checkSessionAdminUpdateToCusomer(u)) {
+			model.addAttribute("message",this.messageCheckInputData);
+			model.addAttribute("u", this.nguoiDungEdit);
+			Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
+			var list = dao.findAll(pageable);
+			var numberOfPages = list.getTotalPages();
+			model.addAttribute("currIndex", p.orElse(0));
+		    model.addAttribute("numberOfPages", numberOfPages);
+		    model.addAttribute("userList", list);
+		    return this.search(model, p, this.nameSearch);
 		}
 		if(!this.nguoiDungEdit.getEmail().equals(u.getEmail())) { // So sánh. Nếu Cập nhật Email
 			if(!EmailCheckRegex(u.getEmail())) { // Check Email có hợp lệ?
@@ -264,7 +280,7 @@ public class admin_nguoidungController {
 				model.addAttribute("currIndex", p.orElse(0));
 			    model.addAttribute("numberOfPages", numberOfPages);
 			    model.addAttribute("userList", list);
-				return "/admin/admin_nguoidung";
+			    return this.search(model, p, this.nameSearch);
 			}
 			if(!checkEmailAlreadyExists(u.getEmail())) { // Check Email đã tồn tại chưa?
 				model.addAttribute("message","Lỗi: Email này đã tồn tại!");
@@ -275,7 +291,7 @@ public class admin_nguoidungController {
 				model.addAttribute("currIndex", p.orElse(0));
 			    model.addAttribute("numberOfPages", numberOfPages);
 			    model.addAttribute("userList", list);
-				return "/admin/admin_nguoidung";
+			    return this.search(model, p, this.nameSearch);
 			}
 		}
 		if(!this.nguoiDungEdit.getSdt().equals(u.getSdt())) {	// So sánh. Nếu cập nhât SĐT
@@ -288,7 +304,7 @@ public class admin_nguoidungController {
 				model.addAttribute("currIndex", p.orElse(0));
 			    model.addAttribute("numberOfPages", numberOfPages);
 			    model.addAttribute("userList", list);
-				return "/admin/admin_nguoidung";
+			    return this.search(model, p, this.nameSearch);
 			}
 			if(!PhoneNumberCheckRegex(u.getSdt())) { // Check SĐT đã tồn tại chưa?
 				model.addAttribute("message",this.messageCheckInputData);
@@ -299,7 +315,7 @@ public class admin_nguoidungController {
 				model.addAttribute("currIndex", p.orElse(0));
 			    model.addAttribute("numberOfPages", numberOfPages);
 			    model.addAttribute("userList", list);
-				return "/admin/admin_nguoidung";
+			    return this.search(model, p, this.nameSearch);
 			}
 		}
 		u.setHinh(file.getOriginalFilename());
@@ -314,8 +330,10 @@ public class admin_nguoidungController {
 	    model.addAttribute("numberOfPages", numberOfPages);
 	    model.addAttribute("userList", list);
 		model.addAttribute("u", new NguoiDung());
+		model.addAttribute("message","Cập nhật thông tin thành công");
+		this.nguoiDungEdit = new NguoiDung();
 		System.out.println("----------***----------");
-		return "/admin/admin_nguoidung";
+		return this.search(model, p, this.nameSearch);
 	}
 	
 	@RequestMapping("/admin/admin_nguoidung/clear")
@@ -327,9 +345,9 @@ public class admin_nguoidungController {
 		model.addAttribute("currIndex", p.orElse(0));
 	    model.addAttribute("numberOfPages", numberOfPages);
 	    model.addAttribute("userList", list);
-		model.addAttribute("u", new NguoiDung());
+		this.nguoiDungEdit = new NguoiDung();
 		System.out.println("----------***----------");
-		return "/admin/admin_nguoidung";
+		return this.search(model, p, this.nameSearch);
 	}
 	
 	
@@ -347,23 +365,27 @@ public class admin_nguoidungController {
 	    model.addAttribute("numberOfPages", numberOfPages);
 	    model.addAttribute("userList", list);
 		model.addAttribute("u", uRestore);
+		model.addAttribute("message","Khôi phục người dùng thành công");
+		this.nguoiDungEdit = new NguoiDung();
 		System.out.println("----------***----------");
-		return "/admin/admin_nguoidung";
+		return this.search(model, p, this.nameSearch);
 	}
 	
 	// search
 	@RequestMapping("/admin/admin_nguoidung/searchByName")
-	public String search(Model model, @RequestParam("p") Optional<Integer> p,@RequestParam("nameSearch") Optional<String> name) {
+	public String search(Model model, @RequestParam("p") Optional<Integer> p,@RequestParam("nameSearch")  String string) {
 		System.out.println("----------Search----------");
-		String uName = name.orElse("");
-		System.out.println(uName);
+		String uName = string;
+		this.nameSearch = string;
+		System.out.println("Name: "+uName);
 		Pageable pageable = PageRequest.of(p.orElse(0), 10, Sort.by("trangthai").ascending());
-		var list = dao.findAllByHotenLike("%"+uName+"%", pageable);
-		var numberOfPages = list.getTotalPages();
-		model.addAttribute("currIndex", p.orElse(0));
-	    model.addAttribute("numberOfPages", numberOfPages);
+		System.out.println(1);
+		var list = dao.findAllByHotenLike("%"+uName+"%", pageable);System.out.println(2);
+		var numberOfPages = list.getTotalPages();System.out.println(3);
+		model.addAttribute("currIndex", p.orElse(0));System.out.println(4);
+	    model.addAttribute("numberOfPages", numberOfPages);System.out.println(5);
 	    model.addAttribute("userList", list);
-		model.addAttribute("u", new NguoiDung());
+		model.addAttribute("u", this.nguoiDungEdit);
 		System.out.println("----------***----------");		
 		return "/admin/admin_nguoidung";
 	}
@@ -503,6 +525,20 @@ public class admin_nguoidungController {
 			this.messageCheckInputData = "Lỗi: Bạn không thể xoá chính mình!";
 			return false;
 		}
+		
+		
+		return true;
+	}
+	
+	public boolean checkSessionAdminUpdateToCusomer(NguoiDung u) {
+		// when update me admin to customer
+		NguoiDung x = new NguoiDung(sessionService.getSessionAttribute("user"));
+		if(u.getMand() == x.getMand() && u.isVaitro() != x.isVaitro()) {
+			this.messageCheckInputData = "Lỗi: Bạn không thể chuyển mình thành khách hàng!";
+			return false;
+		}
+		
+		
 		return true;
 	}
 		
