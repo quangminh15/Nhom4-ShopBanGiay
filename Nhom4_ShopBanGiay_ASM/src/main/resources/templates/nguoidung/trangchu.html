@@ -109,7 +109,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div th:each="sanpham: ${sanphams}" class="col-xl-2 col-lg-3 col-sm-4 col-6 mb-4" >
-                        <div class="card" style="width:100%">
+                        <div th:if="${sanpham.giamgia.giamgia != 0}" class="card" style="width:100%">
                             <a th:href="@{/sanpham/chitietsp/__${sanpham.masp}__}"><img class="card-img-top" th:src="@{/imageSP/{img}(img=${sanpham.hinhanh1})}"
                                     alt="Card image" style="width:100%"></a>
                             <div class="card-body" style="flex-direction:column-reverse">

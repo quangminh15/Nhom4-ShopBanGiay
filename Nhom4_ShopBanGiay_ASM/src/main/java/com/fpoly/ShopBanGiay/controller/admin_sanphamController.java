@@ -1,11 +1,13 @@
 package com.fpoly.ShopBanGiay.controller;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -30,6 +32,7 @@ import com.fpoly.ShopBanGiay.model.GiamGia;
 import com.fpoly.ShopBanGiay.model.NhaCungCap;
 import com.fpoly.ShopBanGiay.model.SanPham;
 import com.fpoly.ShopBanGiay.model.YeuThich;
+import com.fpoly.ShopBanGiay.service.SessionService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -37,7 +40,7 @@ import jakarta.validation.Valid;
 @Controller
 public class admin_sanphamController {
 	@Autowired
-	HttpServletRequest request;
+	SessionService session;
 
 	@Autowired
 	SanPhamDAO sanphamDAO;
@@ -194,6 +197,58 @@ public class admin_sanphamController {
 		sanpham.setHinhanh2("default.png");
 		sanpham.setHinhanh3("default.png");
 		model.addAttribute("sanpham", sanpham);
+		return "/admin/admin_sanpham";
+	}
+	
+	@RequestMapping("/admin/admin_sanpham/timkiem")
+	public String getTimKiem(Model model, @RequestParam("p") Optional<Integer> p,
+			@RequestParam("keywords") Optional<String> kw) {
+		SanPham sanpham = new SanPham();
+		sanpham.setHinhanh1("default.png");
+		sanpham.setHinhanh2("default.png");
+		sanpham.setHinhanh3("default.png");
+		model.addAttribute("sanpham", sanpham);
+		
+		String kwords = kw.orElse("");
+		session.getSessionAttribute("keywords");
+		session.setSessionAttribute("keywords", kwords);
+
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masp").ascending());
+		Page<SanPham> sanphams = sanphamDAO.findAllBytenspLike("%" + kwords + "%", pageable);
+
+		var numberOfPages = sanphams.getTotalPages();
+		
+
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("sanphams", sanphams);
+		return "/admin/admin_sanpham";
+	}
+
+	@RequestMapping("/admin/admin_sanpham/timkiemgia")
+	public String getProduct(Model model, @RequestParam("p") Optional<Integer> p,
+			@RequestParam("min") Optional<Double> min, @RequestParam("max") Optional<Double> max) {
+		SanPham sanpham = new SanPham();
+		sanpham.setHinhanh1("default.png");
+		sanpham.setHinhanh2("default.png");
+		sanpham.setHinhanh3("default.png");
+		
+//		sanpham.setGia(sanpham.getGiamgia().getGiamgia()*sanpham.getGia()) ;
+		model.addAttribute("sanpham", sanpham);
+		
+		double minPrice = min.orElse(Double.MIN_VALUE);
+		double maxPrice = max.orElse(Double.MAX_VALUE);
+		session.setSessionAttribute("min", minPrice);
+		session.setSessionAttribute("max", maxPrice);
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masp").ascending());
+		Page<SanPham> sanphams = sanphamDAO.findBygiaBetween(minPrice, maxPrice, pageable);
+		
+		var numberOfPages = sanphams.getTotalPages();
+
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("sanphams", sanphams);
+		
 		return "/admin/admin_sanpham";
 	}
 }
