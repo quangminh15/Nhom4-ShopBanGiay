@@ -57,4 +57,5 @@ public class GiamGia  implements Serializable{
 	
 	@OneToMany(mappedBy = "giamgia")
     List<SanPham> sanpham;
+
 }

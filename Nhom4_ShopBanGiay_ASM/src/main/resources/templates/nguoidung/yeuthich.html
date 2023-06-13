@@ -27,33 +27,44 @@
     <!-- header end -->
 
     <!-- Main favorite start -->
-    <div class="container mt-5 mb-5">
-        <h3 class="text-center mt-5 mb-3">CÁC SẢN PHẨM YÊU THÍCH</h3>
-        <table class="table table-striped text-center table-hover table-size fs-17">
-            <thead>
-                <tr style="font-size: 20px;">
-                    <th>STT</th>
-                    <th>TÊN SẢN PHẨM</th>
-                    <th>NGÀY THÍCH</th>
-                    <th>GIÁ</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="item: ${yeus}">
-                    <td th:text="${item.mayeuthich}"></td>
-                    <td th:text="${item.sanpham.tensp}"></td>
-                    <td th:text="${item.ngaythich}"></td>
-                    <td th:text="${item.sanpham.gia}"></td>
-                    <td class="d-flex justify-content-around" style="font-size: 27px;">
-                        <a class="color-black" th:href="@{/sanpham1/chitietsp/__${item.sanpham.masp}__}"><i class="ti-pencil"></i></a>
-                        <a class="color-black" th:href="@{'/delete_yeuthich/'+ ${item.mayeuthich}}"><i class="ti-trash"></i></a>
-                    </td>
-                </tr>
-
-            </tbody>
-        </table>
+    <div th:if="${#lists.size(yeus)}">
+	    <div class="container mt-5 mb-5">
+	        <h3 class="text-center mt-5 mb-3">CÁC SẢN PHẨM YÊU THÍCH</h3>
+	        <table class="table table-striped text-center table-hover table-size fs-17">
+	            <thead>
+	                <tr style="font-size: 20px;">
+	                    <th>STT</th>
+	                    <th>TÊN SẢN PHẨM</th>
+	                    <th>NGÀY THÍCH</th>
+	                    <th>GIÁ</th>
+	                    <th></th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr th:each="item: ${yeus}">
+	                    <td th:text="${item.mayeuthich}"></td>
+	                    <td th:text="${item.sanpham.tensp}"></td>
+	                    <td th:text="${item.ngaythich}"></td>
+	                    <td th:text="${item.sanpham.gia}"></td>
+	                    <td class="d-flex justify-content-around" style="font-size: 27px;">
+	                        <a class="color-black" th:href="@{/sanpham1/chitietsp/__${item.sanpham.masp}__}"><i class="ti-pencil"></i></a>
+	                        <a class="color-black" th:href="@{'/delete_yeuthich/'+ ${item.mayeuthich}}"><i class="ti-trash"></i></a>
+	                    </td>
+	                </tr>
+	
+	            </tbody>
+	        </table>
+	    </div>
     </div>
+    <div th:if="${#lists.size(yeus)==0}"class="container" align="center"
+		style="display: flex; justify-content: center; align-items: center; min-height: 50vh;">
+		<div><img alt="" th:src="@{./images/haaland.jpg}" width="40%">
+		<h3 class="my-4">Bạn chưa có thích sản phẩm nào :((</h3>
+		 
+		
+		</div>
+	</div>
+    
     <!-- Main favorite end -->
 
 

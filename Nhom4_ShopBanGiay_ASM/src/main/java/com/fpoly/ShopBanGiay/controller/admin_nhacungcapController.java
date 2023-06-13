@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fpoly.ShopBanGiay.dao.NhaCungCapDAO;
 import com.fpoly.ShopBanGiay.model.GiamGia;
 import com.fpoly.ShopBanGiay.model.NhaCungCap;
+import com.fpoly.ShopBanGiay.model.Size;
 
 import jakarta.validation.Valid;
 
@@ -47,15 +49,17 @@ public class admin_nhacungcapController {
 		return this.admin_nhacungcap(model, p);
 	}
 	
-	@PostMapping("/save_nhacungcap")
-	public String save_nhacungcap(@Valid @ModelAttribute("NCCS") NhaCungCap nhacungcap, BindingResult result, Model model) {
+	@PostMapping("/admin/save_nhacungcap")
+	public String save_nhacungcap(@Valid @ModelAttribute("NCCS") NhaCungCap nhacungcap, BindingResult result, Model model, @RequestParam("p") Optional<Integer> p) {
 		if(result.hasErrors()) {
 			model.addAttribute("NCC", nhacungcapDAO.findAll());
 			return "/admin/admin_nhacungcap"; 
 		}
 		
 		nhacungcapDAO.save(nhacungcap);
-//		model.addAttribute("NCC", nhacungcapDAO.findAll());
+		model.addAttribute("NCC", nhacungcapDAO.findAll());
+		
+		
 		return "redirect:/admin/admin_nhacungcap";
 	}
 	
@@ -76,7 +80,7 @@ public class admin_nhacungcapController {
 		model.addAttribute("numberOfPages", numberOfPages);
 
 		model.addAttribute("NCC", nccss);
-		model.addAttribute("Action", "/save_nhacungcap");
+		model.addAttribute("Action", "/admin/save_nhacungcap");
 		return "/admin/admin_nhacungcap";
 	}
 	
@@ -86,7 +90,7 @@ public class admin_nhacungcapController {
 		nhacungcapDAO.deleteById(mancc);
 		model.addAttribute("NCCS", n);
 		model.addAttribute("NCC", nhacungcapDAO.findAll());
-		model.addAttribute("Action", "/save_nhacungcap");
+		model.addAttribute("Action", "/admin/save_nhacungcap");
 		return "redirect:/admin/admin_nhacungcap";
 	}
 	
