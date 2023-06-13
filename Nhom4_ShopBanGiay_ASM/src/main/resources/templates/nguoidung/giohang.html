@@ -51,14 +51,14 @@
                 </thead>
                 <tbody>
                     <tr id="table" th:each="cart: ${carts}">
-                        <td ><span class="ti-close"></span></td>
+                        <td ><a th:href="@{/giohang/xoa/__${cart.magh}__}" ><span class="ti-close"></span></a></td>
                         <td ><img th:src="@{./imageSP/{img}(img=${cart.sanphamsize.sanpham.hinhanh3})}" ></td>
                        <td ><a th:href="@{/sanpham/chitietsp/__${cart.sanphamsize.sanpham.masp}__}" >[[${cart.sanphamsize.sanpham.tensp}]]</a></td>
                         <td th:text="${cart.sanphamsize.size.sizegiay}"></td>
                         <td th:text="${cart.sanphamsize.sanpham.giamgiasp}">950.000đ</td>
                         <td>
                             
-                            <div th:replace="~{/layout/quantitycontrol :: quantitycontrol(${cart.soluong},${cart.sanphamsize.masps})}"></div>
+                            <div th:replace="~{/layout/quantitycontrol :: quantitycontrol(${cart.soluong},${cart.sanphamsize.masps},${cart.sanphamsize.soluong})}"></div>
                             
                         </td>
                         <td class="subtotal" th:id="'total'+${cart.sanphamsize.masps}" >[[${cart.subtotal}]]</td>

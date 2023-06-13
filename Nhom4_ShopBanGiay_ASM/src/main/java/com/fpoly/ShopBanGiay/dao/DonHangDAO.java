@@ -9,4 +9,6 @@ import com.fpoly.ShopBanGiay.model.NguoiDung;
 public interface DonHangDAO extends JpaRepository<DonHang, Integer>{
 	
 	public DonHang findByNguoidungAndTrangthai(NguoiDung nguoidung,String trangthai);
+	
+	List<DonHang> findByNguoidung(NguoiDung nguoidung);
 }

@@ -27,7 +27,7 @@ public class DonHang implements Serializable {
 	Integer madh;
 
 	@Column(name = "ngay_tao")
-	String ngaytao;
+	 String ngaytao;
 
 	@Column(name = "tong_tien")
 	Double tongtien;

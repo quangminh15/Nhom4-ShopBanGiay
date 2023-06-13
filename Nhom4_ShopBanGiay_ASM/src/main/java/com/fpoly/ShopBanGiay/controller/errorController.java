@@ -17,4 +17,5 @@ public class errorController {
 		model.addAttribute("message", error);
 		return "/nguoidung/404";
 	}
+	
 }

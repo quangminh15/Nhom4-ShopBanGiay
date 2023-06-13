@@ -129,9 +129,10 @@ public class SanPhamController {
 		List<SanPhamSize> spsizes = spsizeDAO.findByMaSP(masp);
 		model.addAttribute("sizes", spsizes);
 
+		
 		return "/nguoidung/chitietsp";
 	}
-
+	
 	@RequestMapping("/sanpham/timkiem")
 	public String getTimKiem(Model model, @RequestParam("p") Optional<Integer> p,
 			@RequestParam("keywords") Optional<String> kw) {
@@ -143,7 +144,7 @@ public class SanPhamController {
 		Page<SanPham> sanphams = sanphamDAO.findAllBytenspLike("%" + kwords + "%", pageable);
 
 		var numberOfPages = sanphams.getTotalPages();
-		;
+		
 
 		model.addAttribute("currIndex", p.orElse(0));
 		model.addAttribute("numberOfPages", numberOfPages);

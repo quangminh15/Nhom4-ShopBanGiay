@@ -92,7 +92,7 @@ public class ShopingCartServiceImp implements ShoppingCartService {
 	 DonHang addOrder(NguoiDung nguoidung, String diachi, String nguoinhan, String sdt,Double tongtien) {
 		
 		DonHang order = new DonHang();
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");  
 	    java.util.Date date = new java.util.Date(); 
 	    
 		order.setNgaytao(formatter.format(date));
@@ -118,18 +118,24 @@ public class ShopingCartServiceImp implements ShoppingCartService {
 		 for (GioHang gioHang : gh) {
 			 ChiTietDonHang ct = new ChiTietDonHang();
 			 
+			 SanPhamSize sps = spsDAO.findById(gioHang.getSanphamsize().getMasps()).get();
+			 
 			 ct.setDonhang(donhang);
 			 ct.setSanphamsize(gioHang.getSanphamsize());
 			 ct.setSoluong(gioHang.getSoluong());
 			 
 			 ctDAO.save(ct);
+			 
+			 sps.setSoluong(sps.getSoluong()-ct.getSoluong());
+			 
+			 spsDAO.save(sps);
 			}
 		
 	}
 
 	@Override
 	public void remove(Integer id) {
-		// TODO Auto-generated method stub
+		ghDAO.deleteById(id);
 		
 	}
 

@@ -66,6 +66,15 @@ public class GioHangController {
 		
 	}
 	
+	@RequestMapping("/giohang/xoa/{id}")
+	public String xoa(GioHang gh, Model model, @PathVariable("id")Integer id ) {
+		
+		cart.remove(id);
+		
+		return "redirect:/giohang";
+		
+	}
+	
 	
 	@PostMapping("/addtocart")
 	public String addToCart(@Param("masps")Integer masps,@Param("soluong")Integer soluong) {

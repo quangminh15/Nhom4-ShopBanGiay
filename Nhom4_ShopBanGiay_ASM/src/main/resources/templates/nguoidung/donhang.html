@@ -46,50 +46,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Chuck 70s High AllWhite</td>
-                    <td>12/02/2022</td>
-                    <td>950.000đ</td>
-                    <td>Đã Giao</td>
+                <tr th:each="order , iStat :${orders}">
+                    <td >1</td>
+                    <td th:text="${order.madh}">Chuck 70s High AllWhite</td>
+                    <td th:text="${order.ngaytao}">12/02/2022</td>
+                    <td th:text="${order.tongtien}">950.000đ</td>
+                    <td th:text="${order.trangthai}">Đã Giao</td>
                     <td class="d-flex justify-content-around" style="font-size: 27px;">
-                        <a class="color-black" th:href="@{/receipt}"><i class="ti-receipt"></i></a>
-                        <a class="color-black" href="#"><i class="ti-trash"></i></a>
+                        <a class="color-black" th:href="@{/donhang/chitietdonhang/__${order.madh}__}"><i class="ti-receipt"></i></a>
+                        <a class="color-black" th:href="@{/donhang/cancel/__${order.madh}__}"><i class="ti-trash"></i></a>
                     </td>
                 </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Chuck 70s High AllWhite</td>
-                    <td>12/02/2022</td>
-                    <td>950.000đ</td>
-                    <td>Đã Giao</td>
-                    <td class="d-flex justify-content-around" style="font-size: 27px;">
-                        <a class="color-black" href="@{/receipt}"><i class="ti-receipt"></i></a>
-                        <a class="color-black" href="#"><i class="ti-trash"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Chuck 70s High AllWhite</td>
-                    <td>12/02/2022</td>
-                    <td>950.000đ</td>
-                    <td>Đã Giao</td>
-                    <td class="d-flex justify-content-around" style="font-size: 27px;">
-                        <a class="color-black" href="@{/receipt}"><i class="ti-receipt"></i></a>
-                        <a class="color-black" href="#"><i class="ti-trash"></i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Chuck 70s High AllWhite</td>
-                    <td>12/02/2022</td>
-                    <td>950.000đ</td>
-                    <td>Đã Giao</td>
-                    <td class="d-flex justify-content-around" style="font-size: 27px;">
-                        <a class="color-black" href="@{/receipt}"><i class="ti-receipt"></i></a>
-                        <a class="color-black" href="#"><i class="ti-trash"></i></a>
-                    </td>
-                </tr>
+                
 
                
             </tbody>

@@ -30,64 +30,48 @@
             <div class="card">
                 <div class="card-header" style="background-color: #2A76A0;" ><h1 style="padding: 4rem; font-weight: 800; color: white;">Converse Store</h1></div>
                 <div class="card-body" style="text-align: center;">
-                    <img src="./images/Add to Cart-rafiki.png" style="display: block;
+                    <img th:src="@{./images/AddtoCartrafiki.png}" style="display: block;
                     margin-left: auto;
                     margin-right: auto;
                     width: 50%;; width: 50%;" alt="">
-                    <h5 class="card-title mt-3 mb-3">Cảm Ơn {Người Mua} Vì Đã Mua Hàng!</h5>
+                    <h5 class="card-title mt-3 mb-3">Cảm Ơn <h5 style="color: #2A76A0" th:text="${name}"></h5> Vì Đã Mua Hàng!</h5>
                     <p class="card-text">Cảm ơn bạn vì đã mua hàng tại CONVERSE STORE. Hãy kiểm tra lại thông tin đơn hàng của của bạn.<br>
-                        Mọi thắc xin vui lòng kiên liện 0923 002 JQK để được tư vấn hổ trợ. Xin cám ơn!.
+                        Mọi thắc xin vui lòng kiên liện 0923 002 009 để được tư vấn hổ trợ. Xin cám ơn!.
                     </p>
                     <table class="table table-striped text-center table-hover table-size fs-17">
                         <thead>
                             <tr style="font-size: 20px;">
                                 <th class="left">Mã Đơn Hàng#</th>
-                                <th class="right">876456</th>
+                                <th class="right" th:text="${idOrder}">876456</th>
                                 
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="left">Converse Renew Canvas</td>
-                                <td class="right">1.990.000đ</td>
+                            <tr th:each="orderdetail : ${orderdetails}">
+                                <td class="left" th:text="${orderdetail.sanphamsize.sanpham.tensp}">Converse Renew Canvas</td>
+                                <td class="right"th:text="${orderdetail.sanphamsize.sanpham.giamgiasp}">1.990.000đ</td>
                                 
                             </tr>
-                            <tr>
-                                <td class="left">Converse Renew Canvas</td>
-                                <td class="right">1.990.000đ</td>
-                                
-                            </tr>
-                            <tr>
-                                <td class="left">Converse Renew Canvas</td>
-                                <td class="right">1.990.000đ</td>
-                                
-                            </tr>
-                            <tr>
-                                <td class="left">Converse Renew Canvas</td>
-                                <td class="right">1.990.000đ</td>
-                            </tr>
-            
-                           
                         </tbody>
                         <thead>
                             <tr style="font-size: 20px;">
                                 <th class="left">Tổng Tiền:</th>
-                                <th class="right">7.960.000đ</th>
+                                <th class="right" th:text="${total}">7.960.000đ</th>
                                 
                             </tr>
                         </thead>
                     </table>
                     <div class="row" align="left">
-                        <h3 style="font-weight: 900;" class="left">Địa Chỉ Giao Hàng:</h3>
-                            <h4>Nguyễn Văn Ánh</h4>
-                            <h4>0983898JQK</h4>
-                        <p style="text-align: justify; font-size: 1.1rem; ">
+                        <h3 style="font-weight: 900;" class="left" >Địa Chỉ Giao Hàng:</h3>
+                            <h4 th:text="${receiver}">Nguyễn Văn Ánh</h4>
+                            <h4 th:text="${phone}"> 0983898JQK</h4>
+                        <p style="text-align: justify; font-size: 1.1rem; " th:text="${address}">
                             497 Hoàng Văn Thụ, Phường 4, Q. Tân Bình, TP.HCM.
                         </p>
                     </div>
                     <div class="back" style="text-align: center; padding: 10%; background-color: #2A76A0;">
-                        <h3 style="color: white; font-weight: 800;">Quay Lại Trang Thông Tin</h3>
-                        <button style="width: 40%;height: 4rem; font-size: 20px; font-weight: bold; background-color: #2A76A0; color: white;">Quay Lại</button>
+                        <h3 style="color: white; font-weight: 800;">Quay Lại Trang Thông Tin</h3>              
+                        <a th:href="@{/trangchu}" class="btn btn-success" style="width: 40%;height: 4rem; font-size: 20px; font-weight: bold; background-color: #2A76A0; color: white;">Quay Lại</a>
                     </div>
                 </div>
             </div>

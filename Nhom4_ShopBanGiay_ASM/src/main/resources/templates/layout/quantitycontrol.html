@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div th:fragment="quantitycontrol(qtyValue,id)" class="col-md-9 mb-4">
+	<div th:fragment="quantitycontrol(qtyValue,id,maxValue)" class="col-md-9 mb-4">
 	
 		<nav>
 			<ul class="pagination">
@@ -19,7 +19,7 @@
 				</li>
 				<li class="page-item">
 					<input type="number" name ="soluong" th:value="${qtyValue}" class="form-control text-center"
-					onkeydown="return false" th:id="'quantity'+${id}" style="width:5em">
+					onkeydown="return false" th:id="'quantity'+${id}" th:attr="max=${maxValue}" style="width:5em">
 				</li>
 				<li class="page-item">
 					<a class="page-link plusButton" name="masps" href="${id}" th:pid=${id}>

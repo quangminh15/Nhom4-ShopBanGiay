@@ -96,23 +96,15 @@
                             <form action="" class="col-md-9">
                                 <select name="masps" class="form-select select-custom">
                                     <option th:each="size : ${sizes}" th:value="${size.masps}"  th:text="${size.size.sizegiay}">37</option>
-                                    <!-- <option>38</option>
-                                    <option>39</option>
-                                    <option>40</option> -->
+                  
                                 </select>
                            </form>
                         </div>
                          <div class="row mt-4 mb-4" >
 						 <span class="col-md-3 size1">Số lượng:</span> 
-						 <div  class="col-md-9 mt-4 mb-4" style="margin-left: 100px" th:replace="~{/layout/quantitycontrol :: quantitycontrol(1,${sanpham.masp})}"></div>
+						 <div  class="col-md-9 mt-4 mb-4" style="margin-left: 100px" th:replace="~{/layout/quantitycontrol :: quantitycontrol(1,${sanpham.masp},10)}"></div>
 						
-						   </div>
-                        <!-- <div class="row mt-4 mb-4">
-                            <span class="col-md-3 size1" >Số lượng: </span>
-                            <div class="col-md-9">
-                                <input type="number" name="soluong"class="form-control select-custom" th:value="1">
-                            </div>
-                        </div> -->
+						 
 
                         <div class="mt-4 mb-4">
                             <a href="#" class="icon position-relative yeuthich fs-4">
