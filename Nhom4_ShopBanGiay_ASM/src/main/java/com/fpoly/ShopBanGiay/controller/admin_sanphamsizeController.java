@@ -167,4 +167,26 @@ public class admin_sanphamsizeController {
 		model.addAttribute("sanphamsize", sanphamsize);
 		return "/admin/admin_sanphamsize";
 	}
+	
+	@RequestMapping("/admin/admin_sanphamsize/timkiem")
+	public String getTimKiem(Model model, @RequestParam("p") Optional<Integer> p,
+			@RequestParam("keywords") Optional<String> kw) {
+		SanPhamSize sanphamsize = new SanPhamSize();
+		model.addAttribute("sanphamsize", sanphamsize);
+		
+		String kwords = kw.orElse("");
+		session.getSessionAttribute("keywords");
+		session.setSessionAttribute("keywords", kwords);
+
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
+		Page<SanPhamSize> sanphamsizes = sanphamsizeDAO.findAllByTenSP("%" + kwords + "%", pageable);
+
+		var numberOfPages = sanphamsizes.getTotalPages();
+		
+
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("sanphamsizes", sanphamsizes);
+		return "/admin/admin_sanphamsize";
+	}
 }

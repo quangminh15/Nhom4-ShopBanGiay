@@ -86,6 +86,31 @@
                         <div class="card-header"
                             style="font-weight: bolder; font-size: larger; color: rgb(25, 31, 32);">
                             Bảng Danh Sách
+                            <!--                             tìm kiếm theo tên bắt đầu  -->
+								<span class="p-3">
+                            <a href="#" class="icon  fs-4" style="color: black;" data-bs-toggle="offcanvas"
+                                data-bs-target="#demo">
+                                <i class="ti-search"></i>
+                                
+                            </a>
+                        </span>
+                        <div class="offcanvas offcanvas-bottom" id="demo">
+                            <div class="offcanvas-header">
+                                <h1 class="offcanvas-title" style="margin-left: 43%;">Tìm kiếm</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                            <form method="post">
+                                <div class="container input-group mb-3">
+                                
+                                    <input type="text" class="form-control"  name="keywords" th:value="${keywords}" placeholder="Bạn muốn tìm gì?">
+                                    <button class="btn btn-success" th:formaction="@{/admin/admin_sanphamsize/timkiem}" type="submit">OK</button>
+                               
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+<!-- 									tìm kiếm theo tên kết thúc -->
                         </div>
                         <div class="card-body">
                             <table class="table text-center table-hover table-size fs-17">
