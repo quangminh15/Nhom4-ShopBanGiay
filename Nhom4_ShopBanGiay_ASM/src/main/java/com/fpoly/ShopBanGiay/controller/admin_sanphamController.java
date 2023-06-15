@@ -103,8 +103,13 @@ public class admin_sanphamController {
 			model.addAttribute("sanphams", sanphams);
 			return "/admin/admin_sanpham";
 		}
-
-		sanphamDAO.save(sanpham);
+		try {
+			sanphamDAO.save(sanpham);
+			model.addAttribute("success", "Thêm thành công!");
+		} catch (Exception e) {
+			model.addAttribute("error", "Thêm thất bại!");
+		}
+		
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masp").ascending());
 		var list = sanphamDAO.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
@@ -141,7 +146,15 @@ public class admin_sanphamController {
 
 	@RequestMapping("/admin/admin_sanpham/delete/{masp}")
 	public String remove(Model model, @PathVariable("masp") Integer id, @RequestParam("p") Optional<Integer> p) {
-		sanphamDAO.deleteById(id);
+		try {
+			sanphamDAO.deleteById(id);
+			model.addAttribute("success", "Xóa thành công!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Xóa thất bại: " + e);
+			model.addAttribute("error", "Xóa thất bại!");
+		}
+		
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masp").ascending());
 		var list = sanphamDAO.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
@@ -168,8 +181,13 @@ public class admin_sanphamController {
 			model.addAttribute("sanphams", sanphams);
 			return "/admin/admin_sanpham";
 		}
-
-		sanphamDAO.save(sanpham);
+		try {
+			sanphamDAO.save(sanpham);
+			model.addAttribute("success", "Cập nhật thành công!");
+		} catch (Exception e) {
+			model.addAttribute("error", "Cập nhật thất bại!");
+		}
+		
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masp").ascending());
 		var list = sanphamDAO.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
@@ -214,8 +232,11 @@ public class admin_sanphamController {
 		session.setSessionAttribute("keywords", kwords);
 
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masp").ascending());
-		Page<SanPham> sanphams = sanphamDAO.findAllBytenspLike("%" + kwords + "%", pageable);
-
+		Page<SanPham> sanphams = sanphamDAO.findAllBytenspLikeAndtrangthaiTrue("%" + kwords + "%", pageable);
+		if(sanphams.isEmpty()) {
+			model.addAttribute("message", "Không có sản phẩm mà bạn muốn tìm kiếm");
+			sanphams = sanphamDAO.findAll(pageable);
+		}
 		var numberOfPages = sanphams.getTotalPages();
 		
 
@@ -241,8 +262,11 @@ public class admin_sanphamController {
 		session.setSessionAttribute("min", minPrice);
 		session.setSessionAttribute("max", maxPrice);
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masp").ascending());
-		Page<SanPham> sanphams = sanphamDAO.findBygiaBetween(minPrice, maxPrice, pageable);
-		
+		Page<SanPham> sanphams = sanphamDAO.findAllGiaDaGiam(minPrice, maxPrice, pageable);
+		if(sanphams.isEmpty()) {
+			model.addAttribute("message", "Không có sản phẩm nằm trong khoảng giá mà bạn muốn tìm kiếm");
+			sanphams = sanphamDAO.findAll(pageable);
+		}
 		var numberOfPages = sanphams.getTotalPages();
 
 		model.addAttribute("currIndex", p.orElse(0));

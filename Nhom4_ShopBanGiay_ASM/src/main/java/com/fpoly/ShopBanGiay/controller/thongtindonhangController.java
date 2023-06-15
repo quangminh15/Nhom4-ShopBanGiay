@@ -67,7 +67,7 @@ public class thongtindonhangController {
 		DonHang order =  cart.addOrder(nguoidung, diachi, ten, sdt, total);
 		
 		cart.addCartItemsToOderDetails(nguoidung,order);
-		
+		cart.addPayment(order);
 		cart.removeAll(id);
 		
 		return "/nguoidung/success";

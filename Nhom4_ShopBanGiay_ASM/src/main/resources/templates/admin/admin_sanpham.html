@@ -36,6 +36,12 @@
                             Form Sản Phẩm
                         </div>
                         <div class="card-body">
+                        <div class="alert alert-success" style="font-size: 20px" th:if="${success}!=null" th:text="${success}">
+									  
+							</div>
+							<div class="alert alert-danger" style="font-size: 20px" th:if="${error}!=null" th:text="${error}">
+									  
+							</div>
                             <form method="post" th:object="${sanpham}">
                                 <div class="row">
                                     <div class="mb-3 col-md-12">
@@ -196,8 +202,8 @@
                                <div class="container mb-4">
                                
                                 
-                                    <input type="text" class="form-control" name="min" th:value="${min}" placeholder="Nhập giá thấp nhất"> <br>
-                                    <input type="text" class="form-control" name="max" th:value="${max}" placeholder="Nhập giá cao nhất"><br>
+                                    <input type="number" class="form-control" name="min" th:value="${min}" placeholder="Nhập giá thấp nhất"> <br>
+                                    <input type="number" class="form-control" name="max" th:value="${max}" placeholder="Nhập giá cao nhất"><br>
                                     <button class="btn btn-success mb-4" th:formaction="@{/admin/admin_sanpham/timkiemgia}" type="submit">OK</button>
                                </div>
                                 
@@ -208,6 +214,9 @@
                         </div>
                         
                         <div class="card-body">
+                        <div class="alert alert-warning" style="font-size: 20px" th:if="${message}!=null" th:text="${message}">
+									  
+							</div>
                             <table class="table text-center table-hover table-size fs-17">
 
                                 <thead>
@@ -224,7 +233,7 @@
 <!--                                         <th class="w-20" style="text-align: center;"><a th:href="@{/admin/admin_sanpham?field=mota}">MÔ TẢ</a></th> -->
                                         <th><a th:href="@{/admin/admin_sanpham?field=danhmuc.tendm}">DANH MỤC</a></th>
                                         <th><a th:href="@{/admin/admin_sanpham?field=nhacungcap.tenncc}">NHÀ CUNG CẤP</a></th>
-                                        
+                                        <th><a th:href="@{/admin/admin_sanpham?field=nhacungcap.trangthai}">TRẠNG THÁI</a></th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -252,6 +261,12 @@
                                         <td th:text="${sanpham.danhmuc.tendm}"></td>
                                         <td th:text="${sanpham.nhacungcap.tenncc}"></td>
                                         
+										<div th:if="${sanpham.trangthai}">
+										     <td><i class="ti-check" ></td>
+										</div>
+										<div th:unless="${sanpham.trangthai}">
+										     <td><i class="ti-na"></i></td>
+										</div>
                                         <td>
                                             <a type="submit" th:href="@{/admin/admin_sanpham/edit/__${sanpham.masp}__}" class="btn btn-warning">Chọn</a>
                                             <a type="submit" th:href="@{/admin/admin_sanpham/delete/__${sanpham.masp}__}" class="btn btn-danger">Xóa</a>

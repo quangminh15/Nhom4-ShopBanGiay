@@ -43,7 +43,7 @@
                 <!-- The slideshow/carousel -->
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="./images/slideShow1.jpg" alt="Los Angeles" width="100%" height="600px"
+                        <img src="/images/slideShow1.jpg" alt="Los Angeles" width="100%" height="600px"
                             class="d-block">
                         <div class="carousel-caption">
                             <div class="row">
@@ -54,7 +54,7 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="./images/slideShow2.jpg" alt="Chicago" width="100%" height="600px" class="d-block">
+                        <img src="/images/slideShow2.jpg" alt="Chicago" width="100%" height="600px" class="d-block">
                         <div class="carousel-caption">
                             <div class="row">
                                 <div class="col-sm-8 carousel-content">CHỈ BÁN GIÀY CHÍNH HÃNG CÁC MẪU MỚI HOT NHẤT
@@ -109,7 +109,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div th:each="sanpham: ${sanphams}" class="col-xl-2 col-lg-3 col-sm-4 col-6 mb-4" >
-                        <div th:if="${sanpham.giamgia.giamgia != 0}" class="card" style="width:100%">
+                        <div class="card" style="width:100%">
                             <a th:href="@{/sanpham/chitietsp/__${sanpham.masp}__}"><img class="card-img-top" th:src="@{/imageSP/{img}(img=${sanpham.hinhanh1})}"
                                     alt="Card image" style="width:100%"></a>
                             <div class="card-body" style="flex-direction:column-reverse">
@@ -137,7 +137,35 @@
                             </div>
                         </div>
                     </div>
-                   
+                   <div class="d-flex justify-content-between">
+								<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item" th:if="${currIndex}>0"><a
+											class="page-link"
+											th:href="@{/trangchu/page?p=__${currIndex-1}__}" href="#">Previous</a></li>
+										<tr th:each="i: ${#numbers.sequence(0, numberOfPages - 1)}">
+											<li class="page-item"><a
+												th:style="${'background-color:' + (i==currIndex?'lightgrey':'white')}"
+												th:href="@{/trangchu/page?p=__${i}__}" class="page-link"
+												href="#" th:text="${i+1}"></a></li>
+										</tr>
+										<li class="page-item"
+											th:if="(${currIndex}>-1 and (${currIndex})<${numberOfPages-1})"><a
+											class="page-link"
+											th:href="@{/trangchu/page?p=__${currIndex+1}__}" href="#">Next</a></li>
+									</ul>
+								</nav>
+								<div class="d-flex justify-content-around">
+									<nav aria-label="Page navigation example">
+									<ul class="pagination">
+										<li class="page-item"><a class="page-link" th:href="@{/trangchu/page?p=0}">First</a></li>
+										<li class="page-item"><a
+										class="page-link"
+										th:href="@{/trangchu/page?p=__${numberOfPages-1}__}">Last</a></li>
+									</ul>
+								</nav>
+								</div>
+							</div>
                 </div>
             </div>
         </div>

@@ -36,6 +36,12 @@
                             Form Size
                         </div>
                         <div class="card-body">
+                        <div class="alert alert-success" style="font-size: 20px" th:if="${success}!=null" th:text="${success}">
+									  
+							</div>
+							<div class="alert alert-danger" style="font-size: 20px" th:if="${error}!=null" th:text="${error}">
+									  
+							</div>
                             <form method="post" th:object="${size}">
                                 <div class="row">
                                     <div class="mb-3 col-md-12">
@@ -83,10 +89,39 @@
                         <div class="card-header"
                             style="font-weight: bolder; font-size: larger; color: rgb(25, 31, 32);">
                             Bảng Danh Sách
+                            <!-- 						Lọc theo giá sản phẩm bắt đầu  -->
+							<span class="p-3">
+                            <a href="#" class="icon fs-4" style="color: black;" data-bs-toggle="offcanvas"
+                                data-bs-target="#demo1">
+                                <i class="ti-bar-chart-alt"></i>
+                            </a>
+                        </span>
+                        <div class="offcanvas offcanvas-bottom" style="height: 42vh;" id="demo1">
+                            <div class="offcanvas-header">
+                                <h1 class="offcanvas-title" style="margin-left: 30%;">Tìm kiếm size giày theo khoản</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                            <form method="post">
+                               <div class="container mb-4">
+                               
+                                
+                                    <input type="number" class="form-control" name="min" th:value="${min}" placeholder="Nhập size giày nhỏ nhất"> <br>
+                                    <input type="number" class="form-control" name="max" th:value="${max}" placeholder="Nhập size giày lớn nhất"><br>
+                                    <button class="btn btn-success mb-4" th:formaction="@{/admin/admin_size/timkiemgia}" type="submit">OK</button>
+                               </div>
+                                
+                                </form>
+                            </div>
+                        </div>
+<!--                         lọc theo giá sản phẩm kết thúc -->
                         </div>
                         <div class="card-body">
+                        	<div class="alert alert-warning" style="font-size: 20px" th:if="${message}!=null" th:text="${message}">
+									  
+							</div>
                             <table class="table text-center table-hover table-size fs-17">
-
+									
                                 <thead>
                                     <tr style="font-size: 20px;">
                                         <th><a th:href="@{/admin/admin_size?field=masize}">MÃ SIZE</a></th>

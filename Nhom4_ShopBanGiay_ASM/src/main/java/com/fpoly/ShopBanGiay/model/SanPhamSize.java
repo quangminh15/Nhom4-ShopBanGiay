@@ -36,7 +36,8 @@ public class SanPhamSize implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "ma_size")
 	Size size;
-
+	
+	
 	@ManyToOne
 	@JoinColumn(name = "ma_sp")
 	SanPham sanpham;
