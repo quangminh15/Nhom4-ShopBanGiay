@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -86,8 +87,14 @@ public class admin_sanphamsizeController {
 			model.addAttribute("sanphamsizes", sanphamsizes);
 			return "/admin/admin_sanphamsize";
 		}
-
-		sanphamsizeDAO.save(sanphamsize);
+		try {
+			sanphamsizeDAO.save(sanphamsize);
+			model.addAttribute("success", "Thêm thành công!");
+		} catch (DataIntegrityViolationException e) {
+			model.addAttribute("error", "Thêm thất bại do sản phẩm và size này đã tồn tại!");
+		} catch (Exception e) {
+			model.addAttribute("error", "Thêm thất bại!");
+		}
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
 		var list = sanphamsizeDAO.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
@@ -122,7 +129,15 @@ public class admin_sanphamsizeController {
 
 	@RequestMapping("/admin/admin_sanphamsize/delete/{masps}")
 	public String remove(Model model, @PathVariable("masps") Integer id, @RequestParam("p") Optional<Integer> p) {
-		sanphamsizeDAO.deleteById(id);
+		try {
+			sanphamsizeDAO.deleteById(id);
+			model.addAttribute("success", "Xóa thành công!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Xóa thất bại: " + e);
+			model.addAttribute("error", "Xóa thất bại!");
+		}
+		
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
 		var list = sanphamsizeDAO.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
@@ -142,8 +157,13 @@ public class admin_sanphamsizeController {
 			model.addAttribute("sanphamsizes", sanphamsizes);
 			return "/admin/admin_sanphamsize";
 		}
-
-		sanphamsizeDAO.save(sanphamsize);
+		try {
+			sanphamsizeDAO.save(sanphamsize);
+			model.addAttribute("success", "Cập nhật thành công!");
+		} catch (Exception e) {
+			model.addAttribute("error", "Cập nhật thất bại!");
+		}
+		
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
 		var list = sanphamsizeDAO.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
@@ -180,7 +200,10 @@ public class admin_sanphamsizeController {
 
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
 		Page<SanPhamSize> sanphamsizes = sanphamsizeDAO.findAllByTenSP("%" + kwords + "%", pageable);
-
+		if(sanphamsizes.isEmpty()) {
+			model.addAttribute("message", "Không có sản phẩm mà bạn muốn tìm kiếm");
+			sanphamsizes = sanphamsizeDAO.findAll(pageable);
+		}
 		var numberOfPages = sanphamsizes.getTotalPages();
 		
 

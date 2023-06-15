@@ -46,6 +46,9 @@
                     </div>
                 </div>
                 <div class="col-md-9">
+                 <div class="alert alert-warning" style="font-size: 20px" th:if="${message}!=null" th:text="${message}">
+									  
+							</div>
                     <div class="row">
                         <div th:each="sanpham: ${sanphams}" class="col-xl-3 col-lg-4 col-sm-6 col-12 mb-4">
                             <div class="card" style="width:100%">

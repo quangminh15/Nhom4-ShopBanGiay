@@ -76,8 +76,13 @@ public class admin_danhmucsanphamController {
 			model.addAttribute("danhmucs", danhmucs);
 			return "/admin/admin_danhmucsanpham";
 		}
+		try {
+			danhmucDAO.save(danhmuc);
+			model.addAttribute("success", "Thêm thành công!");
+		} catch (Exception e) {
+			model.addAttribute("error", "Thêm thất bại!");
+		}
 		
-		danhmucDAO.save(danhmuc);
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("madm").ascending());
 		var list = danhmucDAO.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
@@ -107,7 +112,15 @@ public class admin_danhmucsanphamController {
 
 	@RequestMapping("/admin/admin_danhmucsanpham/delete/{madm}")
 	public String remove(Model model, @PathVariable("madm") Integer id, @RequestParam("p") Optional<Integer> p) {
-		danhmucDAO.deleteById(id);
+		
+		try {
+			danhmucDAO.deleteById(id);
+			model.addAttribute("success", "Xóa thành công!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Xóa thất bại: " + e);
+			model.addAttribute("error", "Xóa thất bại!");
+		}
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("madm").ascending());
 		var list = danhmucDAO.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
@@ -128,8 +141,13 @@ public class admin_danhmucsanphamController {
 			model.addAttribute("danhmucs", danhmucs);
 			return "/admin/admin_danhmucsanpham";
 		}
+		try {
+			danhmucDAO.save(danhmuc);
+			model.addAttribute("success", "Cập nhật thành công!");
+		} catch (Exception e) {
+			model.addAttribute("error", "Cập nhật thất bại!");
+		}
 		
-		danhmucDAO.save(danhmuc);
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("madm").ascending());
 		var list = danhmucDAO.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
@@ -170,7 +188,10 @@ public class admin_danhmucsanphamController {
 
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("madm").ascending());
 		Page<DanhMuc> danhmucs = danhmucDAO.findAllBytendmLike("%" + kwords + "%", pageable);
-
+		if(danhmucs.isEmpty()) {
+			model.addAttribute("message","Không có danh mục mà bạn muốn tìm kiếm");
+			danhmucs = danhmucDAO.findAll(pageable);
+		}
 		var numberOfPages = danhmucs.getTotalPages();
 		
 		model.addAttribute("currIndex", p.orElse(0));

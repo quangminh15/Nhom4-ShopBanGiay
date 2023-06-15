@@ -27,10 +27,14 @@ public interface SanPhamDAO extends JpaRepository<SanPham, Integer>{
 //	Tìm kiếm theo tên sản phẩm
 	Page<SanPham> findAllBytenspLike(String keywords, Pageable pageable);
 	
-//	Tìm kiếm theo khoảng giá
+//	Tìm kiếm theo khoảng giá gốc
 	Page<SanPham> findBygiaBetween(double minPrice, double maxPrice, Pageable pageable);
 
 //	Lọc sản phẩm giảm giá lớn hơn 0%
 	@Query("SELECT o FROM SanPham o WHERE o.giamgia.giamgia > ?1")
 	Page<SanPham> findAllgiamgia(Float keywordss, Pageable pageable);
+	
+//	Tìm kiếm theo giá đã giảm của sản phẩm
+	@Query("SELECT o FROM SanPham o WHERE (o.gia-o.gia*giamgia.giamgia/100) BETWEEN ?1 AND ?2")
+	Page<SanPham> findAllGiaDaGiam(double minPrice, double maxPrice, Pageable pageable);
 }

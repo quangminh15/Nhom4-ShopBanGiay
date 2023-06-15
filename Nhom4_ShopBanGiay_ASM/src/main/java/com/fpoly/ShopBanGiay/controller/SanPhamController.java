@@ -66,23 +66,7 @@ public class SanPhamController {
 		return "/nguoidung/trangchu";
 	}
 	
-	@RequestMapping("/sanpham/timkiemgia")
-	public String getProduct(Model model, @RequestParam("p") Optional<Integer> p,
-			@RequestParam("min") Optional<Double> min, @RequestParam("max") Optional<Double> max) {
-		double minPrice = min.orElse(Double.MIN_VALUE);
-		double maxPrice = max.orElse(Double.MAX_VALUE);
-		session.setSessionAttribute("min", minPrice);
-		session.setSessionAttribute("max", maxPrice);
-		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masp").ascending());
-		Page<SanPham> sanphams = sanphamDAO.findBygiaBetween(minPrice, maxPrice, pageable);
-
-		var numberOfPages = sanphams.getTotalPages();
-
-		model.addAttribute("currIndex", p.orElse(0));
-		model.addAttribute("numberOfPages", numberOfPages);
-		model.addAttribute("sanphams", sanphams);
-		return "/nguoidung/sanpham";
-	}
+	
 	@GetMapping("/trangchu/page")
 	public String pagetrangchu(SanPham sanpham, Model model, @RequestParam("p") Optional<Integer> p,@RequestParam("min") Optional<Float> min) {
 		return this.trangchu(model, p,min);
@@ -173,7 +157,10 @@ public class SanPhamController {
 
 		Pageable pageable = PageRequest.of(p.orElse(0), 6, Sort.by("masp").ascending());
 		Page<SanPham> sanphams = sanphamDAO.findAllBytenspLike("%" + kwords + "%", pageable);
-
+		if(sanphams.isEmpty()) {
+			model.addAttribute("message","Sản phẩm bạn tìm không tồn tại!");
+			sanphams = sanphamDAO.findAll(pageable);
+		}
 		var numberOfPages = sanphams.getTotalPages();
 		
 
@@ -183,7 +170,26 @@ public class SanPhamController {
 		return "/nguoidung/sanpham";
 	}
 
-	
+	@RequestMapping("/sanpham/timkiemgia")
+	public String getProduct(Model model, @RequestParam("p") Optional<Integer> p,
+			@RequestParam("min") Optional<Double> min, @RequestParam("max") Optional<Double> max) {
+		double minPrice = min.orElse(Double.MIN_VALUE);
+		double maxPrice = max.orElse(Double.MAX_VALUE);
+		session.setSessionAttribute("min", minPrice);
+		session.setSessionAttribute("max", maxPrice);
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masp").ascending());
+		Page<SanPham> sanphams = sanphamDAO.findBygiaBetween(minPrice, maxPrice, pageable);
+		if(sanphams.isEmpty()) {
+			model.addAttribute("message","Sản phẩm bạn tìm không tồn tại!");
+			sanphams = sanphamDAO.findAll(pageable);
+		}
+		var numberOfPages = sanphams.getTotalPages();
+
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("sanphams", sanphams);
+		return "/nguoidung/sanpham";
+	}
 
 	@ModelAttribute("danhmucs")
 	public List<DanhMuc> getDanhMucsp() {

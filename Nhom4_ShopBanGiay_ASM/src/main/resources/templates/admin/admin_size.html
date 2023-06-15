@@ -36,6 +36,12 @@
                             Form Size
                         </div>
                         <div class="card-body">
+                        <div class="alert alert-success" style="font-size: 20px" th:if="${success}!=null" th:text="${success}">
+									  
+							</div>
+							<div class="alert alert-danger" style="font-size: 20px" th:if="${error}!=null" th:text="${error}">
+									  
+							</div>
                             <form method="post" th:object="${size}">
                                 <div class="row">
                                     <div class="mb-3 col-md-12">
@@ -111,8 +117,11 @@
 <!--                         lọc theo giá sản phẩm kết thúc -->
                         </div>
                         <div class="card-body">
+                        	<div class="alert alert-warning" style="font-size: 20px" th:if="${message}!=null" th:text="${message}">
+									  
+							</div>
                             <table class="table text-center table-hover table-size fs-17">
-
+									
                                 <thead>
                                     <tr style="font-size: 20px;">
                                         <th><a th:href="@{/admin/admin_size?field=masize}">MÃ SIZE</a></th>
