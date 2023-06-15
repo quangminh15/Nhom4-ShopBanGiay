@@ -232,7 +232,7 @@ public class admin_sanphamController {
 		session.setSessionAttribute("keywords", kwords);
 
 		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masp").ascending());
-		Page<SanPham> sanphams = sanphamDAO.findAllBytenspLike("%" + kwords + "%", pageable);
+		Page<SanPham> sanphams = sanphamDAO.findAllBytenspLikeAndtrangthaiTrue("%" + kwords + "%", pageable);
 		if(sanphams.isEmpty()) {
 			model.addAttribute("message", "Không có sản phẩm mà bạn muốn tìm kiếm");
 			sanphams = sanphamDAO.findAll(pageable);

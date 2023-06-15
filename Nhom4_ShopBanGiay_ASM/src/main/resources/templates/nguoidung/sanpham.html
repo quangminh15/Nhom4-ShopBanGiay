@@ -50,7 +50,7 @@
 									  
 							</div>
                     <div class="row">
-                        <div th:each="sanpham: ${sanphams}" class="col-xl-3 col-lg-4 col-sm-6 col-12 mb-4">
+                        <div th:each="sanpham: ${sanphams}"  class="col-xl-3 col-lg-4 col-sm-6 col-12 mb-4">
                             <div class="card" style="width:100%">
                                 <a th:href="@{/sanpham/chitietsp/__${sanpham.masp}__}"><img class="card-img-top" th:src="@{/imageSP/{img}(img=${sanpham.hinhanh1})}"
                                         alt="Card image" style="width:100%"></a>

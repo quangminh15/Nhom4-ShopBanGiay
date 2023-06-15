@@ -233,7 +233,7 @@
 <!--                                         <th class="w-20" style="text-align: center;"><a th:href="@{/admin/admin_sanpham?field=mota}">MÔ TẢ</a></th> -->
                                         <th><a th:href="@{/admin/admin_sanpham?field=danhmuc.tendm}">DANH MỤC</a></th>
                                         <th><a th:href="@{/admin/admin_sanpham?field=nhacungcap.tenncc}">NHÀ CUNG CẤP</a></th>
-                                        
+                                        <th><a th:href="@{/admin/admin_sanpham?field=nhacungcap.trangthai}">TRẠNG THÁI</a></th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -261,6 +261,12 @@
                                         <td th:text="${sanpham.danhmuc.tendm}"></td>
                                         <td th:text="${sanpham.nhacungcap.tenncc}"></td>
                                         
+										<div th:if="${sanpham.trangthai}">
+										     <td><i class="ti-check" ></td>
+										</div>
+										<div th:unless="${sanpham.trangthai}">
+										     <td><i class="ti-na"></i></td>
+										</div>
                                         <td>
                                             <a type="submit" th:href="@{/admin/admin_sanpham/edit/__${sanpham.masp}__}" class="btn btn-warning">Chọn</a>
                                             <a type="submit" th:href="@{/admin/admin_sanpham/delete/__${sanpham.masp}__}" class="btn btn-danger">Xóa</a>

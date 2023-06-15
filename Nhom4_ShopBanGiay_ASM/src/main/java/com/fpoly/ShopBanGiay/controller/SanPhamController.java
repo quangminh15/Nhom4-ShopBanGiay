@@ -68,8 +68,9 @@ public class SanPhamController {
 	
 	
 	@GetMapping("/trangchu/page")
-	public String pagetrangchu(SanPham sanpham, Model model, @RequestParam("p") Optional<Integer> p,@RequestParam("min") Optional<Float> min) {
-		return this.trangchu(model, p,min);
+	public String pagetrangchu(Model model, @RequestParam("p") Optional<Integer> p,
+			@RequestParam("keywords") Optional<String> kw) {
+		return this.SanPhamsp(model, p,kw);
 	}
 
 	@RequestMapping("/sanpham")
@@ -79,7 +80,7 @@ public class SanPhamController {
 		model.addAttribute("sanpham", sanpham);
 
 		Pageable pageable = PageRequest.of(p.orElse(0), 8);
-		Page<SanPham> sanphams = sanphamDAO.findAll(pageable);
+		Page<SanPham> sanphams = sanphamDAO.findAllSPTrue(pageable);
 
 		var numberOfPages = sanphams.getTotalPages();
 
@@ -155,8 +156,8 @@ public class SanPhamController {
 		session.getSessionAttribute("keywords");
 		session.setSessionAttribute("keywords", kwords);
 
-		Pageable pageable = PageRequest.of(p.orElse(0), 6, Sort.by("masp").ascending());
-		Page<SanPham> sanphams = sanphamDAO.findAllBytenspLike("%" + kwords + "%", pageable);
+		Pageable pageable = PageRequest.of(p.orElse(0), 8, Sort.by("masp").ascending());
+		Page<SanPham> sanphams = sanphamDAO.findAllBytenspLikeAndtrangthaiTrue("%" + kwords + "%", pageable);
 		if(sanphams.isEmpty()) {
 			model.addAttribute("message","Sản phẩm bạn tìm không tồn tại!");
 			sanphams = sanphamDAO.findAll(pageable);
@@ -177,8 +178,8 @@ public class SanPhamController {
 		double maxPrice = max.orElse(Double.MAX_VALUE);
 		session.setSessionAttribute("min", minPrice);
 		session.setSessionAttribute("max", maxPrice);
-		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masp").ascending());
-		Page<SanPham> sanphams = sanphamDAO.findBygiaBetween(minPrice, maxPrice, pageable);
+		Pageable pageable = PageRequest.of(p.orElse(0), 8, Sort.by("masp").ascending());
+		Page<SanPham> sanphams = sanphamDAO.findAllGiaDaGiam(minPrice, maxPrice, pageable);
 		if(sanphams.isEmpty()) {
 			model.addAttribute("message","Sản phẩm bạn tìm không tồn tại!");
 			sanphams = sanphamDAO.findAll(pageable);
@@ -193,7 +194,7 @@ public class SanPhamController {
 
 	@ModelAttribute("danhmucs")
 	public List<DanhMuc> getDanhMucsp() {
-		List<DanhMuc> danhmuc = danhmucDAO.findAll();
+		List<DanhMuc> danhmuc = danhmucDAO.findAllBytendmLike();
 		return danhmuc;
 	}
 
