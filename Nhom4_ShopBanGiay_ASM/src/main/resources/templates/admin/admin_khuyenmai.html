@@ -36,7 +36,7 @@
                             Form Khuyến Mãi
                         </div>
                         <div class="card-body">
-                            <form th:action="${Action}" th:object="${kms}" method="post">
+                            <form action="/admin/add_khuyenmai" th:object="${kms}" method="post">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Tên Khuyến Mãi</b></label>
@@ -55,29 +55,37 @@
                                         <input type="date" class="form-control" id="ngaytao" name="ngaytao"
                                             placeholder="" th:field="*{ngaytao}">
                                        	<div class="alert alert-danger" th:if="${#fields.hasErrors('ngaytao')}" th:errors="*{ngaytao}"></div>
+                                       	
                                     </div>
                                     <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Ngày Kết Thúc</b></label>
                                         <input type="date" class="form-control" id="ngayketthuc" name="ngayketthuc"
                                             placeholder="" th:field="*{ngayketthuc}">
-                                       	<div class="alert alert-danger" th:if="${#fields.hasErrors('ngayketthuc')}" th:errors="*{ngayketthuc}"></div>
+                                       	 <div class="alert alert-danger" th:if="${#fields.hasErrors('ngayketthuc')}" th:errors="*{ngayketthuc}"></div>
                                     </div>
-                                    <div class="mb-3 col-md-6">
-                                        <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Mô tả</b></label><br>
-                                        <textarea rows="10" cols="163"  id="mota" name="mota" th:field="*{mota}"></textarea>
-<!--                                         <input type="text" class="form-control" id="exampleFormControlInput1" -->
-<!--                                             placeholder=""> -->
-                                    </div><br>
+                                    
                                     <div class="mb-3 col-md-6">
                                         <input type="text" class="form-control" id="magiamgia" name="magiamgia"
                                             placeholder="" th:field="*{magiamgia}" hidden="">
                                     </div>
-                                    
+                                    <div class="mb-3 col-md-12">
+                                        <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Mô tả</b></label><br>
+                                        <textarea rows="10" cols="163"  id="mota" name="mota" th:field="*{mota}"></textarea>
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('mota')}" th:errors="*{mota}"></div>
+                                    </div>
                                 </div>
+                                <div class="alert alert-danger" th:if="${checkDate}" style="text-align: center;">
+                                <span style="font-size: 30px"><i class="bi bi-exclamation-triangle"></i></span>
+								  	<h5 th:text="${checkDate}"></h5>
+								</div>
+								<div class="alert alert-success" th:if="${message}" style="text-align: center;">
+									<span style="font-size:50px"><i class="bi bi-check"></i></span>
+								  	<h5 th:text="${message}"></h5>
+								</div>
                                 
 
                                 <button type="submit" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
-                                <button type="submit" class="btn btn-success"><i class="bi bi-card-list"></i>
+                                <button th:formaction="@{/admin/update_khuyenmai}" class="btn btn-success"><i class="bi bi-card-list"></i>
                                     Sửa</button>
                                 <a type="button" class="btn btn-danger"  th:href="@{'/delete_khuyenmai/'+ ${magiamgia}}"><i class="bi bi-trash"></i> Xóa</a>
                                 <button type="submit" th:formaction="@{/admin_khuyenmai/clear}" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm
