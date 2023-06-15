@@ -6,10 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import com.fpoly.ShopBanGiay.dao.GioHangDAO;
 import com.fpoly.ShopBanGiay.dao.NguoiDungDAO;
 import com.fpoly.ShopBanGiay.model.DonHang;
@@ -63,6 +61,8 @@ public class thongtindonhangController {
 		for (GioHang gioHang : items) {
 			total = total + gioHang.getSubtotal();
 		}
+		
+		
 		
 		DonHang order =  cart.addOrder(nguoidung, diachi, ten, sdt, total);
 		

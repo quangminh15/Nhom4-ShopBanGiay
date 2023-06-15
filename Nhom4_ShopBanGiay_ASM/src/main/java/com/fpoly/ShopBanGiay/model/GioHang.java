@@ -1,6 +1,7 @@
 package com.fpoly.ShopBanGiay.model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 import jakarta.persistence.Column;
@@ -47,8 +48,9 @@ public class GioHang implements Serializable{
 		try {
 		  total = this.getSanphamsize().getSanpham().getGiamgiasp() * soluong;
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 		}
+		
 		return total;
 	}
 }
