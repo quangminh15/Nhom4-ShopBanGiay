@@ -92,7 +92,7 @@ public class ShopingCartServiceImp implements ShoppingCartService {
 	 DonHang addOrder(NguoiDung nguoidung, String diachi, String nguoinhan, String sdt,Double tongtien) {
 		
 		DonHang order = new DonHang();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");  
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");  
 	    java.util.Date date = new java.util.Date(); 
 	    
 		order.setNgaytao(formatter.format(date));
@@ -106,6 +106,25 @@ public class ShopingCartServiceImp implements ShoppingCartService {
 		dhDAO.save(order);
 		
 		return order;
+	}
+	
+	@Override
+	public
+	 ThanhToan addPayment(DonHang donhang) {
+		
+		ThanhToan pay = new ThanhToan();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");  
+	    java.util.Date date = new java.util.Date(); 
+	    
+	    pay.setNgaytao(formatter.format(date));
+	    pay.setDonhang(donhang);
+	    pay.setPhuongthuc("Thanh toán bằng tiền mặt");
+	    pay.setTrangthai("Đã thanh toán");
+		
+		
+		ttDAO.save(pay);
+		
+		return pay;
 	}
 
 	@Override
