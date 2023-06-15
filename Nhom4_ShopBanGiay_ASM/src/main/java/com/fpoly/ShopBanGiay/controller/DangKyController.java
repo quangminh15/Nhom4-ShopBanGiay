@@ -3,6 +3,7 @@ package com.fpoly.ShopBanGiay.controller;
 
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fpoly.ShopBanGiay.dao.NguoiDungDAO;
 import com.fpoly.ShopBanGiay.model.NguoiDung;
 import com.fpoly.ShopBanGiay.service.MailerService;
+import com.fpoly.ShopBanGiay.service.SessionService;
 
 import jakarta.validation.Valid;
 
@@ -29,11 +31,17 @@ public class DangKyController {
 	@Autowired
 	NguoiDungDAO nguoiDungDAO;
 	
+	@Autowired
+	SessionService sessionService;
+	
 	NguoiDung user;
 	private String code;
+	
+	String  messageCheckInputData;
 
 	@GetMapping("/dangky")
 	public String DangNhap(NguoiDung nguoidung, Model model) {
+		sessionService.removeSessionAttribute("user");
 		nguoidung = new NguoiDung();
 		model.addAttribute("nguoidung", nguoidung);
 		return "/nguoidung/dangky";
@@ -67,6 +75,11 @@ public class DangKyController {
 	public String validDangNhap(@Valid @ModelAttribute("nguoidung") NguoiDung nguoidung,BindingResult result, Model model) {System.out.println("Thông tin đk: "+nguoidung);
 		
 		if(nguoidung != null) {
+			if(!checkInput(nguoidung)) {
+				model.addAttribute("messageConfirmPassWrong", this.messageCheckInputData);
+				model.addAttribute("nguoidung", this.user);
+				return "/nguoidung/dangky";
+			}
 			if(!checkEmailAlreadyExists(nguoidung.getEmail())) {
 				System.out.println("Email đã tồn tại");
 				model.addAttribute("messageConfirmPassWrong", "Lỗi: Email này đã tồn tại!");
@@ -82,14 +95,15 @@ public class DangKyController {
 				return "/nguoidung/dangky";
 			}
 			if(!nguoidung.getMatkhau().equals("") && !nguoidung.getHinh().equals("")) {
-				this.user = nguoidung;
+				this.user = new NguoiDung(nguoidung);
 				return "redirect:/xacnhan";
 			}
 		}
+//		if (result.hasErrors()) {
+//		    return "/nguoidung/dangky";
+//		}
 		
-		if (result.hasErrors()) {
-		    return "/nguoidung/dangky";
-		}
+		
 		
 		return "/nguoidung/dangky";
 	}
@@ -112,6 +126,60 @@ public class DangKyController {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean checkInput(NguoiDung u) {
+		// Name check
+		if(u.getHoten().equals("")) {
+			this.messageCheckInputData = "Lỗi: họ tên phải từ 0-50 ký tự và không chứ ký tự đặc biệt!";
+			this.user = new NguoiDung(1);
+			return false;
+		}
+		String regexName = "^[A-Za-z0-9\\p{L}\\s]{1,50}$";
+		boolean isValidName = Pattern.matches(regexName, u.getHoten());
+		if(!isValidName) {
+			this.messageCheckInputData = "Lỗi: họ tên phải từ 0-50 ký tự và không chứ ký tự đặc biệt!";
+			this.user = new NguoiDung(1);
+			return false;
+		}
+		
+		// Email check
+		if(u.getEmail().equals("")) {
+			this.messageCheckInputData = "Lỗi: Không được bỏ trống Email!";
+			this.user = new NguoiDung(1);
+			this.user.setHoten(u.getHoten());
+			return false;
+		}
+		String regexEmail = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.(com|net|org|gov|edu|vn|us|uk|au|ca)$";
+		Pattern EMAIL_PATTERN = Pattern.compile(regexEmail);
+		System.out.println("Email: "+u.getEmail());
+		if(!(EMAIL_PATTERN.matcher(u.getEmail()).matches()) || u.getEmail().length() > 50) {
+			this.messageCheckInputData = "Lỗi: Định dạng Email không hợp lệ!";
+			this.user = new NguoiDung(1);
+			this.user.setHoten(u.getHoten());
+			return false;
+		}
+		
+		// Pass check
+		if(u.getMatkhau().equals("")) {
+			this.messageCheckInputData = "Lỗi: Mật khẩu phải từ 9-50 ký tự. Có it nhất 1 số , 1 chữ cái viết hoa, 1 ký tự đặc biệt!";
+			this.user = new NguoiDung(1);
+			this.user.setHoten(u.getHoten());
+			this.user.setEmail(u.getEmail());
+			return false;
+		}
+		String regexPass = "^(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=])(?=.*[a-zA-Z]).{9,50}$";
+		boolean isValidPass = Pattern.matches(regexPass, u.getMatkhau());
+		if(!isValidPass) {
+			this.messageCheckInputData = "Lỗi: Mật khẩu phải từ 9-50 ký tự. Có it nhất 1 số , 1 chữ cái viết hoa, 1 ký tự đặc biệt!";
+			this.user = new NguoiDung(1);
+			this.user.setHoten(u.getHoten());
+			this.user.setEmail(u.getEmail());
+			return false;
+		}	
+		
+		
+		return true;
 	}
 	
 		

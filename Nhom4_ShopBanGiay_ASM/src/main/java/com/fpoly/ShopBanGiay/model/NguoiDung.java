@@ -83,4 +83,18 @@ public class NguoiDung  implements Serializable{
 		this.vaitro = u.isVaitro();
 		this.trangthai = u.isTrangthai();
 	}
+	
+	public NguoiDung(int x) {
+		if(x == 0) {
+			this.mand = 0;
+			this.matkhau = "";
+			this.hoten = "";
+			this.diachi = "";
+			this.sdt = "";
+			this.email = "";
+			this.hinh = "";
+			this.vaitro = false;
+			this.trangthai = false;
+		}
+	}
 }
