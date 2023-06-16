@@ -19,6 +19,7 @@ import com.fpoly.ShopBanGiay.dao.NguoiDungDAO;
 import com.fpoly.ShopBanGiay.dao.SanPhamDAO;
 import com.fpoly.ShopBanGiay.dao.SanPhamSizeDAO;
 import com.fpoly.ShopBanGiay.dao.YeuThichDAO;
+import com.fpoly.ShopBanGiay.model.GiamGia;
 import com.fpoly.ShopBanGiay.model.NguoiDung;
 import com.fpoly.ShopBanGiay.model.SanPham;
 import com.fpoly.ShopBanGiay.model.SanPhamSize;
@@ -51,24 +52,31 @@ public class YeuThichController {
 	public String DangNhap(Model model, YeuThich yt) {
 		
 		NguoiDung nguoidung = new NguoiDung(sessionService.getSessionAttribute("user"));
-		System.out.println("u:" +nguoidung);
 		List<YeuThich> yeu = yeuthichDao.findYeuThichByID(nguoidung.getMand());
 		model.addAttribute("yeus", yeu);
 		return "/nguoidung/yeuthich";
 	}
 	
 	@RequestMapping("/addyeuthich/{masp}")
-	public String add1(@PathVariable("masp")Integer masp, Model model) {
+	public String add1(@PathVariable("masp")Integer masp, Model model, YeuThich yt) {
 		Optional<YeuThich> y = yeuthichDao.findById(masp);
 		NguoiDung nguoidung1 = new NguoiDung(sessionService.getSessionAttribute("user"));
-		if(y.isPresent()) {
-			NguoiDung nguoidung = nguoidungDao.findById(nguoidung1.getMand()).get();
-			Date da = ytimp.add(nguoidung, null, masp);
-		}else {
-			NguoiDung nguoidung = nguoidungDao.findById(nguoidung1.getMand()).get();
-			Date da = ytimp.add(nguoidung, null, masp);
-		}
+		if (!check(masp)) {
+
+		return "redirect:/yeuthich";
+			}
 		
+		
+		NguoiDung nguoidung = nguoidungDao.findById(nguoidung1.getMand()).get();
+		Date da = ytimp.add(nguoidung, null, masp);
+			
+//
+//	if(y.isPresent()) {
+//		NguoiDung nguoidung = nguoidungDao.findById(nguoidung1.getMand()).get();
+//		Date da = ytimp.add(nguoidung, null, masp);
+//		}
+//			NguoiDung nguoidung = nguoidungDao.findById(nguoidung1.getMand()).get();
+//			Date da = ytimp.add(nguoidung, null, masp);
 		return "redirect:/yeuthich";
 	}
 	
@@ -98,6 +106,21 @@ public class YeuThichController {
 		model.addAttribute("sizes", spsizes);
 
 		return "/nguoidung/chitietsp";
+	}
+	
+	public boolean checkSP(Integer masp) {
+		List<YeuThich> list = yeuthichDao.findYeuThichSP(masp);
+		if(list.size() < 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean check(Integer masp) {
+		if(!checkSP(masp)) {
+			return false;
+		}
+		return true;
 	}
 	
 }

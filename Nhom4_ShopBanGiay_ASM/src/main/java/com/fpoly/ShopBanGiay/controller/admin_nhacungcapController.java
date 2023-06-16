@@ -113,27 +113,11 @@ public class admin_nhacungcapController {
 
 			model.addAttribute("NCC", nccss);
 			return "/admin/admin_nhacungcap"; 
-		}else if(nhacungcap !=  null) {
-			if(!check(nhacungcap)) {
-				model.addAttribute("message", this.check);
-				model.addAttribute("NCCS", nhacungcap);
-				model.addAttribute("NCC", nhacungcapDAO.findAll());
-				Pageable pageable = PageRequest.of(p.orElse(0), 5);
-				Page<NhaCungCap> nccss = nhacungcapDAO.findAll(pageable);
-
-				var numberOfPages = nccss.getTotalPages();
-
-				model.addAttribute("currIndex", p.orElse(0));
-				model.addAttribute("numberOfPages", numberOfPages);
-
-				model.addAttribute("NCC", nccss);
-			    return "/admin/admin_nhacungcap"; 
-			}
 		}
 		
 		nhacungcapDAO.save(nhacungcap);
 		model.addAttribute("NCC", nhacungcapDAO.findAll());
-		model.addAttribute("message1", "Thêm thành công");
+		model.addAttribute("message1", "Cập nhật thành công");
 		
 		Pageable pageable = PageRequest.of(p.orElse(0), 5);
 		Page<NhaCungCap> nccss = nhacungcapDAO.findAll(pageable);
@@ -232,7 +216,7 @@ public class admin_nhacungcapController {
 			this.check = "Email này đã tồn tại vui lòng nhập Email mới";
 			return false;
 		}else if(!checkPhone(nhacungcap.getSdt())) {
-			this.check = "SDT này đẫ tồn tại vui lòng nhập SDT mới";
+			this.check = "SDT này đã tồn tại vui lòng nhập SDT mới";
 			return false;
 		}
 		return true;
