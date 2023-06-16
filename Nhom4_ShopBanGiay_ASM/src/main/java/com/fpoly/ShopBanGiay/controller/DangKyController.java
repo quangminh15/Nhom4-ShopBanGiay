@@ -1,6 +1,8 @@
 package com.fpoly.ShopBanGiay.controller;
 
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 import java.util.regex.Pattern;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.ShopBanGiay.dao.NguoiDungDAO;
 import com.fpoly.ShopBanGiay.model.NguoiDung;
+import com.fpoly.ShopBanGiay.model.VerificationCode;
 import com.fpoly.ShopBanGiay.service.MailerService;
 import com.fpoly.ShopBanGiay.service.SessionService;
 
@@ -35,7 +38,8 @@ public class DangKyController {
 	SessionService sessionService;
 	
 	NguoiDung user;
-	private String code;
+//	private String code;
+	VerificationCode vc ;
 	
 	String  messageCheckInputData;
 
@@ -50,25 +54,29 @@ public class DangKyController {
 	@RequestMapping("/xacnhan")
 	public String xacnhan(Model model) {
 		System.out.println("Thông tin đk: "+user);
-		code = generateCode(6);
-		System.out.println("Mã code: "+code);
-		mail.queue(user.getEmail(), "ĐĂNG KÝ TÀI KHOẢN CONVERSE", sendHTML(code, this.user.getHoten()));
+		this.vc  = new VerificationCode(generateCode(6));
+		System.out.println("Mã code: "+this.vc.getCode());
+		System.out.println("Thời gian tạo: "+this.vc.getCreatedTime());
+		mail.queue(user.getEmail(), "ĐĂNG KÝ TÀI KHOẢN CONVERSE", sendHTML(vc.getCode(), this.user.getHoten()));
 		return "/nguoidung/confirmCode";
 	}
 	
 	@RequestMapping("/xacnhanB2")
 	public String xacnhanB2(Model model, @RequestParam("code") String codeFormUser) {
 		System.out.println("Mã code user nhập: "+codeFormUser);
-		System.out.println("Mã code: "+code);
-		if(code.equals(codeFormUser)) {
-			user.setHinh("150.png");
-			user.setDiachi("Việt Nam");
-			user.setSdt("0");
-			nguoiDungDAO.save(user);
-			return "redirect:/dangnhap";
+		if(!this.vc.getCode().equals(codeFormUser)) {
+			model.addAttribute("messageConfirmPassWrong", "Mã xác thực chưa đúng!");
+			return "/nguoidung/confirmCode";
 		}
-		model.addAttribute("messageConfirmPassWrong", "Mã xác thực chưa đúng!");
-		return "/nguoidung/confirmCode";
+		if(!countTimeOfCode(this.vc)) {
+			model.addAttribute("messageConfirmPassWrong", "Mã xác thực đã hết hiệu lực");
+			return "/nguoidung/confirmCode";
+		}
+		user.setHinh("150.png");
+		user.setDiachi("Việt Nam");
+		user.setSdt("0");
+		nguoiDungDAO.save(user);
+		return "redirect:/dangnhap";
 	}
 	
 	@PostMapping("/dangkynguoidung")
@@ -180,6 +188,16 @@ public class DangKyController {
 		
 		
 		return true;
+	}
+	
+	public boolean countTimeOfCode(VerificationCode vc) {
+		LocalDateTime currentTime = LocalDateTime.now();
+		Duration duration = Duration.between(vc.getCreatedTime(), currentTime);
+		if (duration.toSeconds() <= 30) {
+		    // Mã xác nhận còn hiệu lực
+			return true;
+		} 
+		return false;
 	}
 	
 		

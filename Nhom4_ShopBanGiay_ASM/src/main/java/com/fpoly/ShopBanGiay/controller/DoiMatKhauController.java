@@ -1,5 +1,7 @@
 package com.fpoly.ShopBanGiay.controller;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.regex.Pattern;
 
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.ShopBanGiay.dao.NguoiDungDAO;
 import com.fpoly.ShopBanGiay.model.NguoiDung;
+import com.fpoly.ShopBanGiay.model.VerificationCode;
 import com.fpoly.ShopBanGiay.service.MailerService;
 import com.fpoly.ShopBanGiay.service.SessionService;
 
@@ -30,7 +33,8 @@ public class DoiMatKhauController {
 	NguoiDungDAO nguoiDungDAO;
 	
 	NguoiDung user = new NguoiDung();
-	private String code;
+//	private String code;
+	VerificationCode vc ;
 	private String pass = "";
 	
 	@Autowired
@@ -72,6 +76,7 @@ public class DoiMatKhauController {
 				System.out.println("chưa khớp");
 				model.addAttribute("messageConfirmPassWrong", "Lỗi: Mật khẩu mới và xác nhận mật khẩu chưa khớp!");
 				nguoidung.setMatkhau(user.getMatkhau());
+				System.out.println(user.getMatkhau());
 				nguoidung.setHinh("");
 				nguoidung.setDiachi("");
 				model.addAttribute("nguoidung", nguoidung);
@@ -86,23 +91,28 @@ public class DoiMatKhauController {
 	@RequestMapping("/doimatkhau/xacnhanS2")
 	public String xacnhanB2(Model model, @RequestParam("code") String codeFormUser) {
 		System.out.println("Mã code user nhập: "+codeFormUser);
-		System.out.println("Mã code: "+code);
-		if(code.equals(codeFormUser)) {
-			System.out.println("------mkm----- "+this.pass);
-			userSession.setMatkhau(this.pass);
-			nguoiDungDAO.save(userSession);
-			return "redirect:/logout";
+		System.out.println("Mã code: "+this.vc.getCode());
+		if(!this.vc.getCode().equals(codeFormUser)) {
+			model.addAttribute("messageConfirmPassWrong", "Mã xác thực chưa đúng!");
+			return "/nguoidung/confirmCodeChangePass";
 		}
-		model.addAttribute("messageConfirmPassWrong", "Mã xác thực chưa đúng!");
-		return "/nguoidung/confirmCodeChangePass";
+		if(!countTimeOfCode(this.vc)) {
+			model.addAttribute("messageConfirmPassWrong", "Mã xác thực đã hết hiệu lực");
+			return "/nguoidung/confirmCodeChangePass";
+		}
+		System.out.println("------mkm----- "+this.pass);
+		userSession.setMatkhau(this.pass);
+		nguoiDungDAO.save(userSession);
+		return "redirect:/logout";
 	}
 	
 	@RequestMapping("/doimatkhau/xacnhan")
 	public String xacnhandoimatkhau(Model model) {
 		System.out.println("Thông tin đk: "+user);
-		code = generateCode(6);
-		System.out.println("Mã code: "+code);
-		mail.queue(user.getEmail(), "ĐỔI MẬT KHẨU CONVERSE", sendHTML(code, this.user.getHoten()));
+		this.vc  = new VerificationCode(generateCode(6));
+		System.out.println("Mã code: "+this.vc.getCode());
+		System.out.println("Thời gian tạo: "+this.vc.getCreatedTime());
+		mail.queue(user.getEmail(), "ĐỔI MẬT KHẨU CONVERSE", sendHTML(this.vc.getCode(), this.user.getHoten()));
 		return "/nguoidung/confirmCodeChangePass";
 	}
 	
@@ -142,6 +152,16 @@ public class DoiMatKhauController {
 		
 		
 		return true;
+	}
+	
+	public boolean countTimeOfCode(VerificationCode vc) {
+		LocalDateTime currentTime = LocalDateTime.now();
+		Duration duration = Duration.between(vc.getCreatedTime(), currentTime);
+		if (duration.toSeconds() <= 30) {
+		    // Mã xác nhận còn hiệu lực
+			return true;
+		} 
+		return false;
 	}
 	
 	public String sendHTML(String code, String name) {
