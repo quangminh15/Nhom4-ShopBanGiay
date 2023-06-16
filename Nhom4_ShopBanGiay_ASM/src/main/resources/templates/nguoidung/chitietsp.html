@@ -93,7 +93,7 @@
  													</p>
                         <div class="row mt-4 mb-4">
                             <span class="col-md-3 size1">Size: </span>
-                            <form action="" class="col-md-9">
+                            <form action="" class="col-md-9" th:if="${#lists.size(sizes)}">
                                 <select name="masps" class="form-select select-custom">
                                     <option th:each="size : ${sizes}" th:value="${size.masps}"  th:text="${size.size.sizegiay}">37</option>
                   
@@ -106,7 +106,7 @@
 						
 						 
 
-                        <div class="mt-4 mb-4">
+                        <div class="mt-4 mb-4" >
                             <a href="#" class="icon position-relative yeuthich fs-4">
                                 <i class="ti-heart"></i>
                                 <span>Cho vào yêu thích</span>
@@ -121,8 +121,8 @@
                             </a>
                         </div>
 
-                        <div class="mt-4 mb-4">
-                            <button th:formaction="@{/addtocart}" type="submit" class="btn btn-themvaogio">Thêm vào giỏ</button>
+                        <div class="mt-4 mb-4" th:if="${#lists.size(sizes)}">
+                            <button th:formaction="@{/addtocart}"  type="submit" class="btn btn-themvaogio">Thêm vào giỏ</button>
                         </div>
                         <!-- The Modal Start-->
                         <div class="modal fade" id="myModal">
@@ -235,8 +235,7 @@
                                     </div>
                                     </a>
                                     <div class="row d-flex justify-content-center">
-                                        <a th:href="@{/giohang}" class="btn product-btn"><i class="ti-shopping-cart"></i> Giỏ
-                                            hàng</a>
+                                        <a th:href="@{/sanpham/chitietsp/__${sanpham.masp}__}" class="btn product-btn"><i class="ti-shopping-cart"></i> Chi Tiết</a>
                                         <a th:href="@{/yeuthich}" class="btn product-btn"><i class="ti-heart"></i> Yêu thích</a>
                                     </div>
                                 </div>

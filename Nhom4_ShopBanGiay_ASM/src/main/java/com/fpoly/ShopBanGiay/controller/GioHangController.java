@@ -81,6 +81,8 @@ public class GioHangController {
 		
 		NguoiDung userSession = session.getSessionAttribute("user");
 		int id = userSession.getMand();
+		
+		
 		NguoiDung nguoidung = nddao.findById(id).get();
 		
 		Integer qty = cart.addToCart(masps, soluong, nguoidung);
@@ -96,6 +98,7 @@ public class GioHangController {
 		NguoiDung nguoidung = nddao.findById(id).get();
 		
 		double subtotal = cart.updateQuty(masps, soluong, nguoidung);
+		
 		return String.valueOf(subtotal);
 		}
 	

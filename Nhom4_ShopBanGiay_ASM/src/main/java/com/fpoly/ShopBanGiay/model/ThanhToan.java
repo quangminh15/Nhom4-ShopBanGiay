@@ -36,7 +36,7 @@ public class ThanhToan implements Serializable{
 	String phuongthuc;
 	
 	@Column(name = "trang_thai")
-	String trangthai;
+	boolean trangthai;
 	
 	@OneToOne
 	@JoinColumn(name = "ma_dh")

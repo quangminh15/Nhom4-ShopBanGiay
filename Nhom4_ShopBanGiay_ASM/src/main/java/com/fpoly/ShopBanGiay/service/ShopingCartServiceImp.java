@@ -3,6 +3,7 @@ package com.fpoly.ShopBanGiay.service;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,13 +82,6 @@ public class ShopingCartServiceImp implements ShoppingCartService {
 	}
 
 	@Override
-	public void addPayment(String method) {
-		
-		ThanhToan payment = new ThanhToan();
-		
-	}
-
-	@Override
 	public
 	 DonHang addOrder(NguoiDung nguoidung, String diachi, String nguoinhan, String sdt,Double tongtien) {
 		
@@ -119,7 +113,7 @@ public class ShopingCartServiceImp implements ShoppingCartService {
 	    pay.setNgaytao(formatter.format(date));
 	    pay.setDonhang(donhang);
 	    pay.setPhuongthuc("Thanh toán bằng tiền mặt");
-	    pay.setTrangthai("Đã thanh toán");
+	    pay.setTrangthai(true);
 		
 		
 		ttDAO.save(pay);
@@ -144,7 +138,7 @@ public class ShopingCartServiceImp implements ShoppingCartService {
 			 ct.setSoluong(gioHang.getSoluong());
 			 
 			 ctDAO.save(ct);
-			 
+			
 			 sps.setSoluong(sps.getSoluong()-ct.getSoluong());
 			 
 			 spsDAO.save(sps);
@@ -163,5 +157,17 @@ public class ShopingCartServiceImp implements ShoppingCartService {
 		
 		ghDAO.clear(mand);;
 		
+	}
+
+	@Override
+	public void cancelOrder(Integer mand) {
+		dhDAO.updateStatus("Đã Hủy ", mand);
+		
+		List<ChiTietDonHang> list = ctDAO.findByMaDH(mand);
+		for(ChiTietDonHang ctdh : list) {
+			SanPhamSize sps = spsDAO.findById(ctdh.getSanphamsize().getMasps()).get();
+			
+			sps.setSoluong(ctdh.getSoluong()+sps.getSoluong());
+		}
 	}
 }

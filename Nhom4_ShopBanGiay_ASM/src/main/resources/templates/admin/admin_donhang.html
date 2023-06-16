@@ -46,12 +46,12 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="order:${orders}">
-                                        <td >1</td>
-                                        <td th:text=${order.madh}>28346</td>
-                                        <td th:text=${order.ngaytao}>1/1/2003</td>
-                                        <td th:text=${order.tongtien}>950.000đ</td>
-                                        <td th:text=${order.trangthai}>Chờ xác nhận</td>
+                                    <tr th:each="order, iStat :${orders}">
+                                        <td th:text="${iStat.index+1}">1</td>
+                                        <td th:text="${order.madh}">28346</td>
+                                        <td th:text="${order.ngaytao}">1/1/2003</td>
+                                        <td th:text="${#numbers.formatDecimal(order.tongtien, 0, 'COMMA', 0 , 'POINT')}+' ₫'"}>950.000đ</td>
+                                        <td th:text="${order.trangthai}">Chờ xác nhận</td>
                                         <td>Tiền Mặt</td>
                                         <td>
                                             <a th:href="@{/admin_chitietdonhang/__${order.madh}__}" class="btn btn-primary">Chi Tiết</a>

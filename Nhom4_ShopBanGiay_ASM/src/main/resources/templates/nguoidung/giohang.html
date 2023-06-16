@@ -55,13 +55,18 @@
                         <td ><img th:src="@{./imageSP/{img}(img=${cart.sanphamsize.sanpham.hinhanh3})}" ></td>
                        <td ><a th:href="@{/sanpham/chitietsp/__${cart.sanphamsize.sanpham.masp}__}" >[[${cart.sanphamsize.sanpham.tensp}]]</a></td>
                         <td th:text="${cart.sanphamsize.size.sizegiay}"></td>
-                        <td th:text="${cart.sanphamsize.sanpham.giamgiasp}">950.000đ</td>
+                        <td th:text="${#numbers.formatDecimal(cart.sanphamsize.sanpham.giamgiasp, 0, 'COMMA', 0 , 'POINT')}+' ₫'">950.000đ</td>
                         <td>
                             
                             <div th:replace="~{/layout/quantitycontrol :: quantitycontrol(${cart.soluong},${cart.sanphamsize.masps},${cart.sanphamsize.soluong})}"></div>
                             
                         </td>
-                        <td class="subtotal" th:id="'total'+${cart.sanphamsize.masps}" >[[${cart.subtotal}]]</td>
+                        <td >
+                        	<div class="subtotal" th:id="'total'+${cart.sanphamsize.masps}" th:text="${#numbers.formatDecimal(cart.subtotal, 0, 'COMMA', 0 , 'POINT')}+' ₫'"></div>
+                        	 <input type="hidden" class="subtotaltemp" th:id="'totaltemp'+${cart.sanphamsize.masps}" th:value="${cart.subtotal}" >
+                        </td>
+                       
+                        
                     </tr>
                    	
                 </tbody>
@@ -107,8 +112,8 @@
     </div>
     <div th:if="${#lists.size(carts)==0}" id="noCart" class="container" align="center"
 		style="display: flex; justify-content: center; align-items: center; min-height: 50vh;">
-		<div><img alt="" th:src="@{./images/lol.jpg}" width="40%">
-		<h3 class="my-4">Ôi không giỏ giỏ hàng bị đang trống</h3>
+		<div><img alt="" th:src="@{./images/kirara.jpg}" width="60%">
+		<h3 class="my-4">Ôi không giỏ hàng đang trống</h3>
 		 <a th:href="@{/trangchu}" class="btn btn-danger"> TIẾP TỤC MUA HÀNG</a>
 		
 		</div>
@@ -155,9 +160,11 @@
 
 				//nut "+"
 				$(".plusButton").on("click", function(evt) {
-					evt.preventDefault();//khong chuyen huong trinh duyet
+					evt.preventDefault();
 					plus($(this))
 				})
+				
+				
 			})
 			updateTotal();
 			
@@ -198,8 +205,13 @@
 
             	success: function (newSubtotal) {
                 console.log(newSubtotal);
-
-                $("#total" + masps).text(newSubtotal);
+            
+                //format thành đ
+                const config = { style: 'currency', currency: 'VND', maximumFractionDigits: 9}
+                const formated = new Intl.NumberFormat('vi-VN', config).format(newSubtotal);
+                
+                $("#total" + masps).text(formated);//giá trị đã format
+                $("#totaltemp" + masps).val(newSubtotal); //giá trị chưa format dùng để tính tổng tiền 
                 updateTotal()
             },
 				
@@ -211,37 +223,24 @@
 		}  */
 		function updateTotal() {
 			var total = 0.0;
-			console.log(total)
-			$(".subtotal").each(function(index, element){
-										//[[${cart.subtotal}]]
-				total=total + parseFloat(element.innerHTML) 
-			})
 			
+			$(".subtotaltemp").each(function(index, element){
+								//[[${cart.subtotal}]]
+				total=total + parseFloat($(this).val())
+				 
+			})
+				total = total.toLocaleString ('vi', {style : 'currency', currency : 'VND'});
 			$(".totalAmount").text(total);
 			 
 		}
+	
 	</script> 
 	
 
 
 </body>
 
-	<!-- <script type="text/javascript">
-		$('#qty').on('chage', function() {
-			$.ajax({
-				type : 'post',
-				url : '/save',
-				data : $('#table').serialize(),
-				/* 	contentType: "application/json", */
-				success : function(response) {
-					$('#total').textContent = response.gia * reponse.soluong
-				},
-				error : function() {
-					alert('error')
-				}
-			})
-		})
-	</script> -->
+	
 	<script>
 		$('.owl-carousel').owlCarousel({
 			loop : true,
