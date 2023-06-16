@@ -29,7 +29,6 @@ public interface SanPhamDAO extends JpaRepository<SanPham, Integer>{
 	Page<SanPham> findAllBytenspLikeAndtrangthaiTrue(String keywords, Pageable pageable);
 	
 //	Tìm kiếm theo khoảng giá gốc
-	
 	Page<SanPham> findBygiaBetween(double minPrice, double maxPrice, Pageable pageable);
 
 //	Lọc sản phẩm giảm giá lớn hơn 0%

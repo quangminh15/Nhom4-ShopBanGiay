@@ -104,7 +104,10 @@ public class SanPhamController {
 
 		Pageable pageable = PageRequest.of(p.orElse(0), 8);
 		Page<SanPham> sanphams = sanphamDAO.findAllByLoai(loai, pageable);
-
+		if(sanphams.isEmpty()) {
+			model.addAttribute("message","Loại này hiện chưa có sản phẩm");
+			sanphams = sanphamDAO.findAll(pageable);
+		}
 		var numberOfPages = sanphams.getTotalPages();
 
 		model.addAttribute("currIndex", p.orElse(0));
@@ -121,6 +124,10 @@ public class SanPhamController {
 
 		Pageable pageable = PageRequest.of(p.orElse(0), 5);
 		Page<SanPham> sanphams = sanphamDAO.findAllBytendm(madm, pageable);
+		if(sanphams.isEmpty()) {
+			model.addAttribute("message","Danh mục này hiện chưa có sản phẩm. Bạn có thể mua sắm các sản phẩm dưới đây.");
+			sanphams = sanphamDAO.findAll(pageable);
+		}
 		var numberOfPages = sanphams.getTotalPages();
 
 		model.addAttribute("currIndex", p.orElse(0));

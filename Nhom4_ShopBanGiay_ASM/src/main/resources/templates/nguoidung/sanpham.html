@@ -60,12 +60,12 @@
                                         <div class="price-product">
                                     <div th:if="${sanpham.giamgia.giamgia == 0}" >
                                     	
-                                    	<h4 class="card-title" ><span class="card-title-normal"  th:text="${#numbers.formatDecimal(sanpham.gia, 0, 'COMMA', 0 , 'POINT')} + ' vnđ'"></span></h4>
+                                    	<h4 class="card-title" ><span class="card-title-normal"  th:text="${#numbers.formatDecimal(sanpham.gia, 0, 'COMMA', 0 , 'POINT')} + ' ₫'"></span></h4>
                                     	<h4 class="card-title" style="color: white;">123</h4>
                                     </div>
                                     <div th:if="${sanpham.giamgia.giamgia != 0}">
-                                    	<h4 class="card-title"><span class="card-title-old"  th:text="${#numbers.formatDecimal(sanpham.gia, 0, 'COMMA', 0 , 'POINT')} + ' vnđ'"></span></h4>
-											 <h4 class="card-title"><span class="card-title-sale"  th:text="${#numbers.formatDecimal(sanpham.giamgiasp, 0, 'COMMA', 0 , 'POINT')}  + ' vnđ'"></span></h4>
+                                    	<h4 class="card-title"><span class="card-title-old"  th:text="${#numbers.formatDecimal(sanpham.gia, 0, 'COMMA', 0 , 'POINT')} + ' ₫'"></span></h4>
+											 <h4 class="card-title"><span class="card-title-sale"  th:text="${#numbers.formatDecimal(sanpham.giamgiasp, 0, 'COMMA', 0 , 'POINT')}  + ' ₫'"></span></h4>
                                     </div>
 											
                                     </div>

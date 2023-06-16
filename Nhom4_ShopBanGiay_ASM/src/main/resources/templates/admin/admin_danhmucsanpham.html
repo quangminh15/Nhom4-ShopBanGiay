@@ -58,7 +58,7 @@
                                         <label for="anhdanhmuc" class="form-label">Ảnh:</label> <br>
                                         <img th:src="@{'/imageSP/'+${danhmuc.anhdm}}" style="width: 200px; height: fit-content;" alt="hinhanh">
                                         <input type="file" class="form-control" id="anhdanhmuc" th:field="*{anhdm}" >
-                                        
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('anhdm')}" th:errors="*{anhdm}"></div>
                                     </div>
                                     <label class="form-label fs-17">Trạng thái:</label> <br>
 							                <div class="d-inline-flex">
