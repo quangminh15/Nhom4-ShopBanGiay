@@ -63,6 +63,10 @@ public class SanPhamController {
 		model.addAttribute("numberOfPages", numberOfPages);
 
 		model.addAttribute("sanphams", sanphams);
+		
+		// NiHuynh
+		model.addAttribute("user", session.getSessionAttribute("user"));
+		// *******
 		return "/nguoidung/trangchu";
 	}
 	

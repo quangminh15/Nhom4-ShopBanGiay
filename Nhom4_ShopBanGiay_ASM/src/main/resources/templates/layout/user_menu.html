@@ -33,17 +33,36 @@
                                 <a class="nav-link nav-link-custom" th:href="@{/giohang}">GIỎ HÀNG</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link nav-link-custom dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown">TÀI
-                                    KHOẢN</a>
+                            	<div th:if="${user == null}">
+	                            	<a class="nav-link nav-link-custom dropdown-toggle" href="#" role="button"
+	                                    data-bs-toggle="dropdown">TÀI
+	                                    KHOẢN</a>
+                            	</div>
+                            	<div th:if="${user != null}">
+	                            	<a class="nav-link nav-link-custom dropdown-toggle" href="#" role="button"
+	                                    data-bs-toggle="dropdown" th:text="${user.hoten}"></a>
+                            	</div>
+                                
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" th:href="@{/dangnhap}">ĐĂNG NHẬP</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/dangky}">ĐĂNG KÝ</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/doimatkhau}">ĐỔI MẬT KHẨU</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/quenmatkhau}">QUÊN MẬT KHẨU</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/thaydoithongtin}">THÔNG TIN CÁ NHÂN</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/donhang}">ĐƠN HÀNG</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/logout}">ĐĂNG XUẤT</a></li>
+                                	<div th:if="${user == null}">
+                                		<li><a class="dropdown-item" th:href="@{/dangnhap}">ĐĂNG NHẬP</a></li>
+                                		<li><a class="dropdown-item" th:href="@{/dangky}">ĐĂNG KÝ</a></li>
+                                	</div>
+                                    
+                                    <div th:if="${user != null}">
+                                		<li><a class="dropdown-item" th:href="@{/doimatkhau}">ĐỔI MẬT KHẨU</a></li>
+                                	</div>
+                                	<div th:if="${user == null}">
+                                		 <li><a class="dropdown-item" th:href="@{/quenmatkhau}">QUÊN MẬT KHẨU</a></li>
+                                	</div>
+                                   
+                                    <div th:if="${user != null}">
+                                		<li><a class="dropdown-item" th:href="@{/thaydoithongtin}">THÔNG TIN CÁ NHÂN</a></li>
+                                		<li><a class="dropdown-item" th:href="@{/donhang}">ĐƠN HÀNG</a></li>
+                                    	<li><a class="dropdown-item" th:href="@{/logout}">ĐĂNG XUẤT</a></li>
+                                	</div>
+                                    
+                                    
                                 </ul>
                             </li>
                         </ul>
