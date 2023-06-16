@@ -73,13 +73,13 @@ public class SanPhamController {
 	
 	@GetMapping("/trangchu/page")
 	public String pagetrangchu(Model model, @RequestParam("p") Optional<Integer> p,
-			@RequestParam("keywords") Optional<String> kw) {
-		return this.SanPhamsp(model, p,kw);
+			@RequestParam("keywords") Optional<String> kw,@RequestParam("min") Optional<Float> min) {
+		return this.SanPhamsp(model, p,kw,min);
 	}
 
 	@RequestMapping("/sanpham")
 	public String SanPhamsp(Model model, @RequestParam("p") Optional<Integer> p,
-			@RequestParam("keywords") Optional<String> kw) {
+			@RequestParam("keywords") Optional<String> kw,@RequestParam("min") Optional<Float> min) {
 		SanPham sanpham = new SanPham();
 		model.addAttribute("sanpham", sanpham);
 
@@ -92,13 +92,15 @@ public class SanPhamController {
 		model.addAttribute("numberOfPages", numberOfPages);
 
 		model.addAttribute("sanphams", sanphams);
+		
+		model.addAttribute("user", session.getSessionAttribute("user"));
 		return "/nguoidung/sanpham";
 	}
 
 	@GetMapping("/sanpham/page")
 	public String pagesp(SanPham sanpham, Model model, @RequestParam("p") Optional<Integer> p,
-			@RequestParam("keywords") Optional<String> kw) {
-		return this.getTimKiem(model, p, kw);
+			@RequestParam("keywords") Optional<String> kw,@RequestParam("min") Optional<Float> min) {
+		return this.SanPhamsp(model, p, kw,min);
 	}
 
 	@RequestMapping("/sanpham/loai/{loai}")
@@ -118,6 +120,7 @@ public class SanPhamController {
 		model.addAttribute("numberOfPages", numberOfPages);
 
 		model.addAttribute("sanphams", sanphams);
+		model.addAttribute("user", session.getSessionAttribute("user"));
 		return "/nguoidung/sanpham";
 	}
 
@@ -126,7 +129,7 @@ public class SanPhamController {
 		SanPham sanpham = sanphamDAO.findById(madm).orElse(null);
 		model.addAttribute("sanpham", sanpham);
 
-		Pageable pageable = PageRequest.of(p.orElse(0), 5);
+		Pageable pageable = PageRequest.of(p.orElse(0), 8);
 		Page<SanPham> sanphams = sanphamDAO.findAllBytendm(madm, pageable);
 		if(sanphams.isEmpty()) {
 			model.addAttribute("message","Danh mục này hiện chưa có sản phẩm. Bạn có thể mua sắm các sản phẩm dưới đây.");
@@ -138,6 +141,7 @@ public class SanPhamController {
 		model.addAttribute("numberOfPages", numberOfPages);
 
 		model.addAttribute("sanphams", sanphams);
+		model.addAttribute("user", session.getSessionAttribute("user"));
 		return "/nguoidung/sanpham";
 	}
 
@@ -156,7 +160,7 @@ public class SanPhamController {
 		List<SanPhamSize> spsizes = spsizeDAO.findByMaSP(masp);
 		model.addAttribute("sizes", spsizes);
 
-		
+		model.addAttribute("user", session.getSessionAttribute("user"));
 		return "/nguoidung/chitietsp";
 	}
 	
@@ -179,6 +183,7 @@ public class SanPhamController {
 		model.addAttribute("currIndex", p.orElse(0));
 		model.addAttribute("numberOfPages", numberOfPages);
 		model.addAttribute("sanphams", sanphams);
+		model.addAttribute("user", session.getSessionAttribute("user"));
 		return "/nguoidung/sanpham";
 	}
 
@@ -200,6 +205,7 @@ public class SanPhamController {
 		model.addAttribute("currIndex", p.orElse(0));
 		model.addAttribute("numberOfPages", numberOfPages);
 		model.addAttribute("sanphams", sanphams);
+		model.addAttribute("user", session.getSessionAttribute("user"));
 		return "/nguoidung/sanpham";
 	}
 
