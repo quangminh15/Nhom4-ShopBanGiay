@@ -16,6 +16,7 @@ import com.fpoly.ShopBanGiay.model.ChiTietDonHang;
 import com.fpoly.ShopBanGiay.model.DonHang;
 import com.fpoly.ShopBanGiay.model.NguoiDung;
 import com.fpoly.ShopBanGiay.service.SessionService;
+import com.fpoly.ShopBanGiay.service.ShoppingCartService;
 
 @Controller
 public class donhangController {
@@ -29,6 +30,9 @@ public class donhangController {
 	SessionService session;
 	@Autowired
 	NguoiDungDAO nddao;
+	
+	@Autowired
+	ShoppingCartService spService;
 	@GetMapping("/donhang")
 	public String donhang(Model model) {
 
@@ -57,5 +61,12 @@ public class donhangController {
 		return "/nguoidung/receipt";
 		}
 		
-	
+	@GetMapping("/donhang/cancel/{madh}")
+	public String cancelOrder(@PathVariable("madh") Integer id) {
+		
+		spService.cancelOrder(id);
+		
+		return"redirect:/donhang";
+		
+	}
 }

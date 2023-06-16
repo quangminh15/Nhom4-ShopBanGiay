@@ -10,8 +10,6 @@ public interface ShoppingCartService {
 	
 	Double updateQuty(Integer masps, Integer soluong, NguoiDung nguoidung) ;
 	
-	void addPayment(String method);
-	
 	DonHang addOrder(NguoiDung nguoidung,String diachi,String nguoinhan,String sdt,Double tongtien);
 	
 	ThanhToan addPayment(DonHang donhang);
@@ -21,4 +19,6 @@ public interface ShoppingCartService {
 	void remove(Integer id);
 	
 	void removeAll(Integer mand);
+	
+	void cancelOrder(Integer mand);
 }
