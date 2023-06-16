@@ -47,6 +47,9 @@ public class YeuThichController {
 	@Autowired
 	SanPhamSizeDAO spsizeDAO;
 	
+	@Autowired
+	SessionService session;
+	
 	
 	@GetMapping("/yeuthich")
 	public String DangNhap(Model model, YeuThich yt) {
@@ -54,6 +57,7 @@ public class YeuThichController {
 		NguoiDung nguoidung = new NguoiDung(sessionService.getSessionAttribute("user"));
 		List<YeuThich> yeu = yeuthichDao.findYeuThichByID(nguoidung.getMand());
 		model.addAttribute("yeus", yeu);
+		model.addAttribute("user", session.getSessionAttribute("user"));
 		return "/nguoidung/yeuthich";
 	}
 	
@@ -69,6 +73,7 @@ public class YeuThichController {
 		
 		NguoiDung nguoidung = nguoidungDao.findById(nguoidung1.getMand()).get();
 		Date da = ytimp.add(nguoidung, null, masp);
+		
 			
 //
 //	if(y.isPresent()) {
