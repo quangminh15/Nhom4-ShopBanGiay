@@ -45,7 +45,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-login">Xác Nhận</button>
-                        <h6 class="mt-4 text-center"><a th:href="@{/doimatkhau/xacnhan}">Gửi lại mã</a></h6>
+                        <h6  class="mt-4 text-center"><a id="resend" th:href="@{/doimatkhau/xacnhan}">Gửi lại mã (------)</a></h6>
                         </h6>
                     </form>
                 </div>
@@ -170,6 +170,33 @@
         })()
     </script>
     <!-- Validation form end -->
+    
+    <script>
+	// Vô hiệu hoá thẻ a khi trang được tải
+	window.onload = function() {
+	    var link = document.getElementById("resend");
+	    link.style.pointerEvents = "none";  // Vô hiệu hoá tương tác chuột
+	    link.style.color = "gray";          // Thay đổi màu văn bản thành màu xám
+	    link.style.cursor = "default";      // Sử dụng kiểu con trỏ mặc định
+	    
+	    var countdown = 30;  // Thời gian đếm ngược (số giây)
+	    var timer = setInterval(function() {
+	        countdown--;
+	        if (countdown <= 0) {
+	            // Khi đếm ngược kết thúc, cho phép tương tác với thẻ a trở lại
+	            link.style.pointerEvents = "auto";
+	            link.style.color = "black";
+	            link.style.cursor = "pointer";
+	            link.textContent = "Gửi lại mã";
+	            
+	            clearInterval(timer);  // Dừng đếm ngược
+	        }else{
+	            // Cập nhật nội dung của thẻ <a> với số giây đếm ngược
+	            link.textContent = "Gửi lại mã (" + countdown + " giây)";
+	        }
+	    }, 1000);  // Cứ mỗi 1 giây (1000ms) đếm ngược 1 lần
+	}
+	</script>
 </body>
 
 </html>
