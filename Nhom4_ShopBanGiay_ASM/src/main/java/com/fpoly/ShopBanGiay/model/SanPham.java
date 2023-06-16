@@ -15,8 +15,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,6 +37,7 @@ public class SanPham implements Serializable{
 	
 	@Column(name = "ten_sp")
 	@NotBlank(message = "{NotBlank.SanPham.tensp}")
+	@Size( max = 50 , message = "{Size.SanPham.tensp}")
 	private String tensp;
 	
 	@Column(name = "hinh_anh1")
@@ -54,10 +58,13 @@ public class SanPham implements Serializable{
 	
 	@Column(name = "gia")
 	@NotNull(message = "{NotNull.SanPham.gia}")
+	@Min(value = 0, message = "{Min.SanPham.gia}")
+//	@Max(value = 5,message = "{Max.SanPham.gia}")
 	private Float gia;
 	
 	@Column(name = "mo_ta")
 	@NotBlank(message = "{NotBlank.SanPham.mota}")
+	@Size( max = 250 , message = "{Size.SanPham.mota}")
 	private String mota;
 	
 	@Column(name = "trang_thai")
@@ -70,7 +77,8 @@ public class SanPham implements Serializable{
 	@OneToMany(mappedBy = "sanpham")
     List<SanPhamSize> sanphamsize;
 	
-	@NotNull(message = "{NotNull.SanPham.danhmuc}")
+//	@NotNull(message = "{NotNull.SanPham.danhmuc}")
+//	@NotNull(message = "Chưa chọn danh mục")
 	@ManyToOne
     @JoinColumn(name = "ma_dm")
     DanhMuc danhmuc;

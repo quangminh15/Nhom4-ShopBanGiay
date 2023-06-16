@@ -166,9 +166,9 @@
                             <tr th:each="item : ${items}">
                                 <td th:text="${item.sanphamsize.sanpham.tensp}" class="left">Converse Renew Canvas</td>
                                 <td th:text="${item.sanphamsize.size.sizegiay}">38</td>
-                                <td th:text="${item.sanphamsize.sanpham.giamgiasp}">38</td>
+                                <td th:text="${#numbers.formatDecimal(item.sanphamsize.sanpham.giamgiasp, 0, 'COMMA', 0 , 'POINT')}+' ₫'">38</td>
                                 <td th:text="${item.soluong}">1</td>
-                                <td th:text="${item.subtotal}" class="right">1.990.000đ</td>
+                                <td th:text="${#numbers.formatDecimal(item.subtotal, 0, 'COMMA', 0 , 'POINT')}+' ₫'" class="right">1.990.000đ</td>
 
                             </tr>
                           
@@ -177,19 +177,16 @@
                         </tbody>
                         <thead>
                             <tr style="font-size: 20px;">
-                                <th class="left">Tạm Tính:</th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th class="right" th:text="${total}">7.960.000đ</th>
+                                <th colspan="3" class="left">Tạm Tính:</th>
+                                
+                               
+                                <th  colspan="2" class="right" th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0 , 'POINT')}+' ₫'">7.960.000đ</th>
 
                             </tr>
-                            <tr style="font-size: 30px;">
-                                <th class="left">Tổng Tiền:</th>
-                                <th></th>
-                                <th></th>
-                                <th></th>
-                                <th class="right" th:text="${total}">7.960.000đ</th>
+                            <tr style="font-size: 2em;">
+                                <th colspan="3" class="left">Tổng Tiền:</th>
+                               
+                                <th colspan="2" class="right" th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0 , 'POINT')}+' ₫'">7.960.000đ</th>
 
                             </tr>
                         </thead>

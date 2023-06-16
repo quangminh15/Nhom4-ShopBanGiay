@@ -30,13 +30,13 @@ public class ThanhToan implements Serializable{
     Integer matt;
 	
 	@Column(name = "ngay_tao")
-    java.util.Date ngaytao = new java.util.Date();
+    String ngaytao ;
 	
 	@Column(name = "phuong_thuc")
 	String phuongthuc;
 	
 	@Column(name = "trang_thai")
-	String trangthai;
+	boolean trangthai;
 	
 	@OneToOne
 	@JoinColumn(name = "ma_dh")

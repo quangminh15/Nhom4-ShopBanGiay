@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -50,7 +51,7 @@ public class admin_sanphamsizeController {
 		SanPhamSize sanphamsize = new SanPhamSize();
 		model.addAttribute("sanphamsize", sanphamsize);
 
-		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by(Direction.DESC, field.orElse("masps")).ascending());
+		Pageable pageable = PageRequest.of(p.orElse(0), 20, Sort.by(Direction.DESC, field.orElse("masps")).ascending());
 		var list = sanphamsizeDAO.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
@@ -86,9 +87,15 @@ public class admin_sanphamsizeController {
 			model.addAttribute("sanphamsizes", sanphamsizes);
 			return "/admin/admin_sanphamsize";
 		}
-
-		sanphamsizeDAO.save(sanphamsize);
-		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
+		try {
+			sanphamsizeDAO.save(sanphamsize);
+			model.addAttribute("success", "Thêm thành công!");
+		} catch (DataIntegrityViolationException e) {
+			model.addAttribute("error", "Thêm thất bại do sản phẩm và size này đã tồn tại!");
+		} catch (Exception e) {
+			model.addAttribute("error", "Thêm thất bại!");
+		}
+		Pageable pageable = PageRequest.of(p.orElse(0), 20, Sort.by("masps").ascending());
 		var list = sanphamsizeDAO.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
@@ -103,7 +110,7 @@ public class admin_sanphamsizeController {
 
 	@RequestMapping("/admin/admin_sanphamsize/edit/{id}")
 	public String edit(Model model, @PathVariable("id") Integer id, @RequestParam("p") Optional<Integer> p) {
-		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
+		Pageable pageable = PageRequest.of(p.orElse(0), 20, Sort.by("masps").ascending());
 		var list = sanphamsizeDAO.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
@@ -122,8 +129,16 @@ public class admin_sanphamsizeController {
 
 	@RequestMapping("/admin/admin_sanphamsize/delete/{masps}")
 	public String remove(Model model, @PathVariable("masps") Integer id, @RequestParam("p") Optional<Integer> p) {
-		sanphamsizeDAO.deleteById(id);
-		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
+		try {
+			sanphamsizeDAO.deleteById(id);
+			model.addAttribute("success", "Xóa thành công!");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Xóa thất bại: " + e);
+			model.addAttribute("error", "Xóa thất bại!");
+		}
+		
+		Pageable pageable = PageRequest.of(p.orElse(0), 20, Sort.by("masps").ascending());
 		var list = sanphamsizeDAO.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
@@ -142,9 +157,14 @@ public class admin_sanphamsizeController {
 			model.addAttribute("sanphamsizes", sanphamsizes);
 			return "/admin/admin_sanphamsize";
 		}
-
-		sanphamsizeDAO.save(sanphamsize);
-		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
+		try {
+			sanphamsizeDAO.save(sanphamsize);
+			model.addAttribute("success", "Cập nhật thành công!");
+		} catch (Exception e) {
+			model.addAttribute("error", "Cập nhật thất bại!");
+		}
+		
+		Pageable pageable = PageRequest.of(p.orElse(0), 20, Sort.by("masps").ascending());
 		var list = sanphamsizeDAO.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
@@ -157,7 +177,7 @@ public class admin_sanphamsizeController {
 
 	@RequestMapping("/admin/admin_sanphamsize/clear")
 	public String update(Model model, @RequestParam("p") Optional<Integer> p) {
-		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by("masps").ascending());
+		Pageable pageable = PageRequest.of(p.orElse(0), 20, Sort.by("masps").ascending());
 		var list = sanphamsizeDAO.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
@@ -165,6 +185,31 @@ public class admin_sanphamsizeController {
 		model.addAttribute("sanphamsizes", list);
 		SanPhamSize sanphamsize = new SanPhamSize();
 		model.addAttribute("sanphamsize", sanphamsize);
+		return "/admin/admin_sanphamsize";
+	}
+	
+	@RequestMapping("/admin/admin_sanphamsize/timkiem")
+	public String getTimKiem(Model model, @RequestParam("p") Optional<Integer> p,
+			@RequestParam("keywords") Optional<String> kw) {
+		SanPhamSize sanphamsize = new SanPhamSize();
+		model.addAttribute("sanphamsize", sanphamsize);
+		
+		String kwords = kw.orElse("");
+		session.getSessionAttribute("keywords");
+		session.setSessionAttribute("keywords", kwords);
+
+		Pageable pageable = PageRequest.of(p.orElse(0), 20, Sort.by("masps").ascending());
+		Page<SanPhamSize> sanphamsizes = sanphamsizeDAO.findAllByTenSP("%" + kwords + "%", pageable);
+		if(sanphamsizes.isEmpty()) {
+			model.addAttribute("message", "Không có sản phẩm mà bạn muốn tìm kiếm");
+			sanphamsizes = sanphamsizeDAO.findAll(pageable);
+		}
+		var numberOfPages = sanphamsizes.getTotalPages();
+		
+
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("sanphamsizes", sanphamsizes);
 		return "/admin/admin_sanphamsize";
 	}
 }
