@@ -2,6 +2,8 @@ package com.fpoly.ShopBanGiay.dao;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -17,5 +19,7 @@ public interface DonHangDAO extends JpaRepository<DonHang, Integer>{
 	@Modifying
 	public void updateStatus(String trangthai,Integer mansp);
 	
-	List<DonHang> findByNguoidung(NguoiDung nguoidung);
+	Page<DonHang> findByNguoidung(NguoiDung nguoidung, Pageable pageable);
+	
+	Page<DonHang> findByTrangthai(String trangthai,Pageable pageable);
 }

@@ -44,10 +44,10 @@
 			<thead>
 				<tr style="font-size: 20px;">
 					<th>STT</th>
-					<th>MÃ ĐƠN</th>
-					<th>NGÀY ĐẶT</th>
-					<th>GIÁ</th>
-					<th>Trạng Thái</th>
+					<th><a th:href="@{/donhang?field=madh}">MÃ ĐƠN </a></th>
+					<th><a th:href="@{/donhang?field=ngaytao}">NGÀY ĐẶT</a></th>
+					<th><a th:href="@{/donhang?field=tongtien}">GIÁ</a> </th>
+					<th><a th:href="@{/donhang?field=trangthai}">Trạng Thái</a></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -59,21 +59,78 @@
 					<td
 						th:text="${#numbers.formatDecimal(order.tongtien, 0, 'COMMA', 0 , 'POINT')}+' ₫'">950.000đ</td>
 					<td th:text="${order.trangthai}">Đã Giao</td>
-					<td class="d-flex justify-content-around" style="font-size: 27px;">
-						<a class="color-black"
-						th:href="@{/donhang/chitietdonhang/__${order.madh}__}"><i
-							class="ti-receipt"></i></a> <a class="color-black"
-						th:href="@{/donhang/cancel/__${order.madh}__}"><i
-							class="ti-trash"></i></a>
+					<td  style="font-size: 27px;">
+						<a type="button" class="btn btn-success color-white"
+						th:href="@{/donhang/chitietdonhang/__${order.madh}__}">Chi
+							Tiết</a> 
+						<a type="button" class="btn btn-danger color-white"
+						data-bs-toggle="modal" th:data-bs-target="'#open'+${iStat.index}" th:if="${order.trangthai}=='Đang Chờ Xác Nhận'">Hủy Đơn</a>
 					</td>
+
+					
 				</tr>
 
-
+				
 
 			</tbody>
 		</table>
-		<!-- The Modal -->
 		
+		
+		<nav aria-label="Page navigation example">
+						<ul class="pagination">
+							<li class="page-item" th:if="${currIndex}>0"><a
+								class="page-link" th:href="@{/donhang/page?p=0}" href="#">First</a></li>
+							<li class="page-item" th:if="${currIndex}>0"><a
+								class="page-link"
+								th:href="@{/donhang/page?p=__${currIndex-1}__}" href="#">Previous</a></li>
+							<tr th:each="i: ${#numbers.sequence(0, numberOfPages - 1)}">
+								<li class="page-item"><a
+									th:style="${'background-color:' + (i==currIndex?'lightgrey':'white')}"
+									th:href="@{/donhang/page?p=__${i}__}" class="page-link"
+									href="#" th:text="${i+1}"></a></li>
+							</tr>
+							<li class="page-item"
+								th:if="(${currIndex}>-1 and (${currIndex})<${numberOfPages-1})"><a
+								class="page-link"
+								th:href="@{/donhang/page?p=__${currIndex+1}__}" href="#">Next</a></li>
+							<li class="page-item"
+								th:if="(${currIndex}>-1 and (${currIndex})<${numberOfPages-1})"><a
+								class="page-link"
+								th:href="@{/donhang/page?p=__${numberOfPages-1}__}" href="#">Last</a></li>
+						</ul>
+					</nav>
+		
+		
+		<!-- The Modal -->
+		<div th:each="order,iStat:${orders}">
+		<div  class="modal" th:id="'open'+${iStat.index}">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+
+								<!-- Modal Header -->
+								<div class="modal-header" style="background-color: #212529">
+								<img alt="" src="./images/logo.png"> 
+									<h4 class="modal-title">Hủy Đơn Hàng</h4>
+									<button type="button" class="btn-close color-white" data-bs-dismiss="modal"></button>
+								</div>
+
+								<!-- Modal body -->
+								<div class="modal-body" style="font-size: 3em">Hủy Đơn Hàng
+									<div style="color: tomato">Mã Đơn: <span th:text="${order.madh}"></span></div>
+								</div>
+
+								<!-- Modal footer -->
+								<div class="modal-footer">
+									<a type="button" class="btn btn-danger color-white"
+										th:href="@{/donhang/cancel/__${order.madh}__}">Hủy Đơn Hàng</a>
+									<button type="button" class="btn btn-primary"
+										data-bs-dismiss="modal">Đóng</button>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					</div>
 	</div>
 	<!-- Main infp end -->
 

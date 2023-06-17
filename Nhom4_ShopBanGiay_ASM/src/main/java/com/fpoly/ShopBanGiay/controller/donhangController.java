@@ -4,10 +4,16 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.ShopBanGiay.dao.ChiTietDonHangDAO;
 import com.fpoly.ShopBanGiay.dao.DonHangDAO;
@@ -34,17 +40,29 @@ public class donhangController {
 	@Autowired
 	ShoppingCartService spService;
 	@GetMapping("/donhang")
-	public String donhang(Model model) {
+	public String donhang(Model model,@RequestParam("p") Optional<Integer> p,
+			@RequestParam("field") Optional<String> field) {
 
 		NguoiDung userSession = session.getSessionAttribute("user");
 		int id = userSession.getMand();
 		NguoiDung nguoidung = nddao.findById(id).get();
-			List<DonHang> dh =dhDAO.findByNguoidung(nguoidung);
+		
+		Pageable page = PageRequest.of(p.orElse(0),5, Sort.by(Direction.DESC, field.orElse("ngaytao")).descending());
+		
+			
+			Page<DonHang> dh =dhDAO.findByNguoidung(nguoidung,page);
+			
+			var numberOfPages = dh.getTotalPages();
+			model.addAttribute("currIndex", p.orElse(0));
+			model.addAttribute("numberOfPages", numberOfPages);
+			
 			model.addAttribute("orders",dh);
 			return "/nguoidung/donhang";
 			
 			
 		}
+	
+	
 	@GetMapping("/donhang/chitietdonhang/{madh}")
 	public String Chitet(Model model,@PathVariable("madh") Integer id) {
 
@@ -64,9 +82,16 @@ public class donhangController {
 	@GetMapping("/donhang/cancel/{madh}")
 	public String cancelOrder(@PathVariable("madh") Integer id) {
 		
-		spService.cancelOrder(id);
+		spService.statusOrder(id,"Đã Hủy");
 		
 		return"redirect:/donhang";
 		
 	}
+	
+	@GetMapping("/donhang/page")
+	public String paginate(Model model, @RequestParam("p") Optional<Integer> p,
+			@RequestParam("field") Optional<String> field) {
+		return this.donhang(model, p, field);
+	}
+	
 }

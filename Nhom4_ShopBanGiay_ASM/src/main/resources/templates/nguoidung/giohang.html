@@ -56,9 +56,9 @@
                        <td ><a th:href="@{/sanpham/chitietsp/__${cart.sanphamsize.sanpham.masp}__}" >[[${cart.sanphamsize.sanpham.tensp}]]</a></td>
                         <td th:text="${cart.sanphamsize.size.sizegiay}"></td>
                         <td th:text="${#numbers.formatDecimal(cart.sanphamsize.sanpham.giamgiasp, 0, 'COMMA', 0 , 'POINT')}+' ₫'">950.000đ</td>
-                        <td>
+                        <td >
                             
-                            <div th:replace="~{/layout/quantitycontrol :: quantitycontrol(${cart.soluong},${cart.sanphamsize.masps},${cart.sanphamsize.soluong})}"></div>
+                            <div  th:replace="~{/layout/quantitycontrol :: quantitycontrol(${cart.soluong},${cart.sanphamsize.masps},${cart.sanphamsize.soluong})}"></div>
                             
                         </td>
                         <td >

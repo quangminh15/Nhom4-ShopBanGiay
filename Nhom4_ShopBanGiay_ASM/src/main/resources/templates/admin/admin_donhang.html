@@ -36,11 +36,11 @@
 
                                 <thead>
                                     <tr style="font-size: 15px;">
-                                        <th>STT</th>
-                                        <th>MÃ ĐƠN</th>
-                                        <th>NGÀY ĐẶT</th>
-                                        <th>GIÁ</th>
-                                        <th>TRẠNG THÁI</th>
+                                        <th >STT</th>
+                                        <th th:href="@{/donhang?field=madh}">MÃ ĐƠN</th>
+                                        <th th:href="@{/donhang?field=ngaytao}">NGÀY ĐẶT</th>
+                                        <th th:href="@{/donhang?field=tongtien}">GIÁ</th>
+                                        <th th:href="@{/donhang?field=trangthai}">TRẠNG THÁI</th>
                                         <th>Thanh Toán</th>
                                         <th></th>
                                     </tr>
@@ -54,15 +54,59 @@
                                         <td th:text="${order.trangthai}">Chờ xác nhận</td>
                                         <td>Tiền Mặt</td>
                                         <td>
-                                            <a th:href="@{/admin_chitietdonhang/__${order.madh}__}" class="btn btn-primary">Chi Tiết</a>
-                                            <button type="button" class="btn btn-success">Xác Nhận</button>
+                                            <a th:href="@{/admin/admin_chitietdonhang/__${order.madh}__}" class="btn btn-primary">Chi Tiết</a>
+                                            <a type="button" 
+                                            	class="btn btn-success color-white"
+												data-bs-toggle="modal" 
+												th:data-bs-target="'#open'+${iStat.index}" 
+												th:if="${order.trangthai}=='Đang Chờ Xác Nhận'">Xác Nhận</a>
                                         </td>
                                     </tr>
                                    
 
                                 </tbody>
                             </table>
-                        </div>
+                            
+                            
+                            
+                            
+                            
+                            <!-- The Modal -->
+							<div th:each="order,iStat:${orders}">
+								<div class="modal" th:id="'open'+${iStat.index}">
+									<div class="modal-dialog modal-dialog-centered">
+										<div class="modal-content">
+
+											<!-- Modal Header -->
+											<div class="modal-header" style="background-color: #212529">
+												<img alt="" src="/images/logo.png">
+												<h4 class="modal-title">Hủy Đơn Hàng</h4>
+												<button type="button" class="btn-close color-white"
+													data-bs-dismiss="modal"></button>
+											</div>
+
+											<!-- Modal body -->
+											<div class="modal-body" style="font-size: 3em">
+												Xác Nhận Đơn Hàng
+												<div style="color: #22A699">
+													Mã Đơn: <span th:text="${order.madh}"></span>
+												</div>
+											</div>
+
+											<!-- Modal footer -->
+											<div class="modal-footer">
+												<a type="button" class="btn btn-success color-white"
+													th:href="@{/admin/admin_acceptorder/__${order.madh}__}">Xác Nhận Đơn
+													Hàng</a>
+												<button type="button" class="btn btn-primary"
+													data-bs-dismiss="modal">Đóng</button>
+											</div>
+
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
                         <div class="card-footer text-muted">
 
                         </div>
