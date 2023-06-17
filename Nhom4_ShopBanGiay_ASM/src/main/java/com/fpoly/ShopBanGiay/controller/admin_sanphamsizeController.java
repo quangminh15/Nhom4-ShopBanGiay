@@ -47,7 +47,7 @@ public class admin_sanphamsizeController {
 
 	@GetMapping("/admin/admin_sanphamsize")
 	public String admin_danhmucsp(Model model, @RequestParam("p") Optional<Integer> p,
-			@RequestParam("field") Optional<String> field) {
+			@RequestParam("field") Optional<String> field, @RequestParam("keywords") Optional<String> kw) {
 		SanPhamSize sanphamsize = new SanPhamSize();
 		model.addAttribute("sanphamsize", sanphamsize);
 
@@ -63,8 +63,8 @@ public class admin_sanphamsizeController {
 
 	@GetMapping("/admin/admin_sanphamsize/page")
 	public String paginate(Model model, @RequestParam("p") Optional<Integer> p,
-			@RequestParam("field") Optional<String> field) {
-		return this.admin_danhmucsp(model, p, field);
+			@RequestParam("field") Optional<String> field, @RequestParam("keywords") Optional<String> kw) {
+		return this.admin_danhmucsp(model, p, field, kw);
 	}
 
 	@ModelAttribute("sanphams")
@@ -137,7 +137,7 @@ public class admin_sanphamsizeController {
 			System.out.println("Xóa thất bại: " + e);
 			model.addAttribute("error", "Xóa thất bại!");
 		}
-		
+
 		Pageable pageable = PageRequest.of(p.orElse(0), 20, Sort.by("masps").ascending());
 		var list = sanphamsizeDAO.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
@@ -150,8 +150,8 @@ public class admin_sanphamsizeController {
 	}
 
 	@RequestMapping("/admin/admin_sanphamsize/update")
-	public String update(Model model, @Valid @ModelAttribute("sanphamsize") SanPhamSize sanphamsize, BindingResult result,
-			@RequestParam("p") Optional<Integer> p) {
+	public String update(Model model, @Valid @ModelAttribute("sanphamsize") SanPhamSize sanphamsize,
+			BindingResult result, @RequestParam("p") Optional<Integer> p) {
 		if (result.hasErrors()) {
 			List<SanPhamSize> sanphamsizes = sanphamsizeDAO.findAll();
 			model.addAttribute("sanphamsizes", sanphamsizes);
@@ -163,7 +163,7 @@ public class admin_sanphamsizeController {
 		} catch (Exception e) {
 			model.addAttribute("error", "Cập nhật thất bại!");
 		}
-		
+
 		Pageable pageable = PageRequest.of(p.orElse(0), 20, Sort.by("masps").ascending());
 		var list = sanphamsizeDAO.findAll(pageable);
 		var numberOfPages = list.getTotalPages();
@@ -187,25 +187,24 @@ public class admin_sanphamsizeController {
 		model.addAttribute("sanphamsize", sanphamsize);
 		return "/admin/admin_sanphamsize";
 	}
-	
+
 	@RequestMapping("/admin/admin_sanphamsize/timkiem")
 	public String getTimKiem(Model model, @RequestParam("p") Optional<Integer> p,
 			@RequestParam("keywords") Optional<String> kw) {
 		SanPhamSize sanphamsize = new SanPhamSize();
 		model.addAttribute("sanphamsize", sanphamsize);
-		
+
 		String kwords = kw.orElse("");
 		session.getSessionAttribute("keywords");
 		session.setSessionAttribute("keywords", kwords);
 
 		Pageable pageable = PageRequest.of(p.orElse(0), 20, Sort.by("masps").ascending());
 		Page<SanPhamSize> sanphamsizes = sanphamsizeDAO.findAllByTenSP("%" + kwords + "%", pageable);
-		if(sanphamsizes.isEmpty()) {
+		if (sanphamsizes.isEmpty()) {
 			model.addAttribute("message", "Không có sản phẩm mà bạn muốn tìm kiếm");
 			sanphamsizes = sanphamsizeDAO.findAll(pageable);
 		}
 		var numberOfPages = sanphamsizes.getTotalPages();
-		
 
 		model.addAttribute("currIndex", p.orElse(0));
 		model.addAttribute("numberOfPages", numberOfPages);
