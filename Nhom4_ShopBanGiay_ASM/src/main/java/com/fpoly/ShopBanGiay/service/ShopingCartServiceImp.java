@@ -160,8 +160,8 @@ public class ShopingCartServiceImp implements ShoppingCartService {
 	}
 
 	@Override
-	public void cancelOrder(Integer mand) {
-		dhDAO.updateStatus("Đã Hủy ", mand);
+	public void statusOrder(Integer mand,String trangthai) {
+		dhDAO.updateStatus(trangthai, mand);
 		
 		List<ChiTietDonHang> list = ctDAO.findByMaDH(mand);
 		for(ChiTietDonHang ctdh : list) {

@@ -16,8 +16,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css"
         integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw=="
         crossorigin="anonymous" />
-    <link rel="stylesheet" href="./css/mycss.css">
-    <link rel="stylesheet" href="./font/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="/css/mycss.css">
+    <link rel="stylesheet" href="/font/themify-icons/themify-icons.css">
 </head>
 
 <body>
@@ -30,33 +30,51 @@
             <div class="card">
                 <div class="card-header" style="background-color: #2A76A0;" ><h1 style="padding: 4rem; font-weight: 800; color: white;">Converse Store</h1></div>
                 <div class="card-body" style="text-align: center;">
-                    <img th:src="@{./images/AddtoCartrafiki.png}" style="display: block;
+                    <img th:src="@{/images/AddtoCartrafiki.png}" style="display: block;
                     margin-left: auto;
                     margin-right: auto;
                     width: 50%;; width: 50%;" alt="">
-                    <h5 class="card-title mt-3 mb-3">Cảm Ơn <h5 style="color: #2A76A0" th:text="${name}"></h5> Vì Đã Mua Hàng!</h5>
-                    <p class="card-text">Cảm ơn bạn vì đã mua hàng tại CONVERSE STORE. Hãy kiểm tra lại thông tin đơn hàng của của bạn.<br>
+                     <p class="card-title mt-3 mb-3" style="font-size: 2em; font-weight: bolder;">Cảm Ơn <span style="color: #2A76A0" th:text="${name}"></span> Vì Đã Mua Hàng!</p>
+                    <p class="card-text" style="font-weight: bolder;">Cảm ơn bạn vì đã mua hàng tại CONVERSE STORE. Hãy kiểm tra lại thông tin đơn hàng của của bạn.<br>
                         Mọi thắc xin vui lòng kiên liện 0923 002 009 để được tư vấn hổ trợ. Xin cám ơn!.
                     </p>
                     <table class="table table-striped text-center table-hover table-size fs-17">
+                     <thead>
+                            <tr style="font-size: 1.7em; color: #2A76A0">
+                                <th class="left" colspan="2">Mã Đơn Hàng#</th>
+                                 
+                                <th class="right" colspan="4" th:text="${idOrder}">876456</th>
+                              
+                                
+                            </tr>
+                        </thead>
                         <thead>
                             <tr style="font-size: 20px;">
-                                <th class="left">Mã Đơn Hàng#</th>
-                                <th class="right" th:text="${idOrder}">876456</th>
+                                <th class="left">Hình</th>
+                                 <th class="right" >Tên</th>
+                                 <th class="right" >Số Lượng</th>
+                                <th class="right" >Size</th>
+                              	<th class="right" >Đơn Giá</th>
                                 
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="orderdetail : ${orderdetails}">
+                            <tr th:each="orderdetail : ${orderdetails}" style="vertical-align: middle;">
+                             	<td class="left" ><img width="100px" alt="" th:src="@{/imageSP/__${orderdetail.sanphamsize.sanpham.hinhanh1}__}"></td>
                                 <td class="left" th:text="${orderdetail.sanphamsize.sanpham.tensp}">Converse Renew Canvas</td>
+                                 <td class="left" th:text="${orderdetail.soluong}">Converse Renew Canvas</td>
+                                  <td class="left" th:text="${orderdetail.sanphamsize.size.sizegiay}">Converse Renew Canvas</td>
                                 <td class="right"th:text="${#numbers.formatDecimal(orderdetail.sanphamsize.sanpham.giamgiasp, 0, 'COMMA', 0 , 'POINT')}+' ₫'">1.990.000đ</td>
                                 
                             </tr>
                         </tbody>
                         <thead>
-                            <tr style="font-size: 20px;">
-                                <th class="left">Tổng Tiền:</th>
-                                <th class="right" th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0 , 'POINT')}+' ₫'">7.960.000đ</th>
+                        
+                            <tr style="font-size: 1.7em; color: #2A76A0">
+                            
+                                <th class="left" colspan="2">Tổng Tiền:</th>
+                                
+                                <th class="right" colspan="4" th:text="${#numbers.formatDecimal(total, 0, 'COMMA', 0 , 'POINT')}+' ₫'">7.960.000đ</th>
                                 
                             </tr>
                         </thead>
@@ -70,8 +88,8 @@
                         </p>
                     </div>
                     <div class="back" style="text-align: center; padding: 10%; background-color: #2A76A0;">
-                        <h3 style="color: white; font-weight: 800;">Quay Lại Trang Thông Tin</h3>              
-                        <a th:href="@{/trangchu}" class="btn btn-success" style="width: 40%;height: 4rem; font-size: 20px; font-weight: bold; background-color: #2A76A0; color: white;">Quay Lại</a>
+                        <h3 style="color: white; font-weight:bolder; ">Quay Lại Trang Thông Tin</h3>              
+                        <a th:href="@{/trangchu}" class="btn btn-success" style="width: 40%;height: 4rem; font-size: 20px; font-weight: bold; background-color:white ; color:#2A76A0 ;">Quay Lại</a>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 package com.fpoly.ShopBanGiay.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -28,40 +30,111 @@ import jakarta.validation.Valid;
 public class admin_nhacungcapController {
 	@Autowired
 	NhaCungCapDAO nhacungcapDAO;
+	String check = "";
+	Boolean count = true;
 	
 	@GetMapping("/admin/admin_nhacungcap")
-	public String admin_nhacungcap(Model model, @RequestParam("p") Optional<Integer> p) {
+	public String admin_nhacungcap(Model model, @RequestParam("p") Optional<Integer> p, @RequestParam("field") Optional<String> field) {
 		NhaCungCap n = new NhaCungCap();
 		model.addAttribute("NCCS", n);
 		
-		Pageable pageable = PageRequest.of(p.orElse(0), 5);
-		var nhacungcap = nhacungcapDAO.findAll(pageable);
-		var numberOfPages = nhacungcap.getTotalPages();
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by(Direction.DESC, field.orElse("mancc")).ascending());
+		var nhacungcap1 = nhacungcapDAO.findAll(pageable);
+		var numberOfPages = nhacungcap1.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
 	    model.addAttribute("numberOfPages", numberOfPages);
-	    model.addAttribute("NCC", nhacungcap);
-		model.addAttribute("Action", "save_nhacungcap");
+	    model.addAttribute("NCC", nhacungcap1);
 		return "/admin/admin_nhacungcap";
 	}
 	
 	@GetMapping("/page1")
-	public String page1(Model model, @RequestParam("p") Optional<Integer> p) {
-		return this.admin_nhacungcap(model, p);
+	public String page1(Model model, @RequestParam("p") Optional<Integer> p, @RequestParam("field") Optional<String> field) {
+		return this.admin_nhacungcap(model, p, field);
 	}
 	
 	@PostMapping("/admin/save_nhacungcap")
 	public String save_nhacungcap(@Valid @ModelAttribute("NCCS") NhaCungCap nhacungcap, BindingResult result, Model model, @RequestParam("p") Optional<Integer> p) {
 		if(result.hasErrors()) {
 			model.addAttribute("NCC", nhacungcapDAO.findAll());
+			Pageable pageable = PageRequest.of(p.orElse(0), 5);
+			Page<NhaCungCap> nccss = nhacungcapDAO.findAll(pageable);
+
+			var numberOfPages = nccss.getTotalPages();
+
+			model.addAttribute("currIndex", p.orElse(0));
+			model.addAttribute("numberOfPages", numberOfPages);
+
+			model.addAttribute("NCC", nccss);
+			return "/admin/admin_nhacungcap"; 
+		}else if(nhacungcap !=  null) {
+			if(!check(nhacungcap)) {
+				model.addAttribute("message", this.check);
+				model.addAttribute("NCCS", nhacungcap);
+				model.addAttribute("NCC", nhacungcapDAO.findAll());
+				Pageable pageable = PageRequest.of(p.orElse(0), 5);
+				Page<NhaCungCap> nccss = nhacungcapDAO.findAll(pageable);
+
+				var numberOfPages = nccss.getTotalPages();
+
+				model.addAttribute("currIndex", p.orElse(0));
+				model.addAttribute("numberOfPages", numberOfPages);
+
+				model.addAttribute("NCC", nccss);
+			    return "/admin/admin_nhacungcap"; 
+			}
+		}
+		
+		nhacungcapDAO.save(nhacungcap);
+		model.addAttribute("NCC", nhacungcapDAO.findAll());
+		model.addAttribute("message1", "Thêm thành công");
+		
+		Pageable pageable = PageRequest.of(p.orElse(0), 5);
+		Page<NhaCungCap> nccss = nhacungcapDAO.findAll(pageable);
+
+		var numberOfPages = nccss.getTotalPages();
+
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+
+		model.addAttribute("NCC", nccss);
+		
+		return "/admin/admin_nhacungcap";
+	}
+	
+	@RequestMapping("/admin/update_nhacungcap")
+	public String update_nhacungcap(@Valid @ModelAttribute("NCCS") NhaCungCap nhacungcap, BindingResult result, Model model, @RequestParam("p") Optional<Integer> p) {
+		if(result.hasErrors()) {
+			model.addAttribute("NCC", nhacungcapDAO.findAll());
+			Pageable pageable = PageRequest.of(p.orElse(0), 5);
+			Page<NhaCungCap> nccss = nhacungcapDAO.findAll(pageable);
+
+			var numberOfPages = nccss.getTotalPages();
+
+			model.addAttribute("currIndex", p.orElse(0));
+			model.addAttribute("numberOfPages", numberOfPages);
+
+			model.addAttribute("NCC", nccss);
 			return "/admin/admin_nhacungcap"; 
 		}
 		
 		nhacungcapDAO.save(nhacungcap);
 		model.addAttribute("NCC", nhacungcapDAO.findAll());
+		model.addAttribute("message1", "Cập nhật thành công");
+		
+		Pageable pageable = PageRequest.of(p.orElse(0), 5);
+		Page<NhaCungCap> nccss = nhacungcapDAO.findAll(pageable);
+
+		var numberOfPages = nccss.getTotalPages();
+
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+
+		model.addAttribute("NCC", nccss);
 		
 		
-		return "redirect:/admin/admin_nhacungcap";
+		return "/admin/admin_nhacungcap";
 	}
+	
 	
 	@RequestMapping("/edit_nhacungcap/{mancc}")
 	public String eidt_nhacungcap(Model model, @PathVariable(name="mancc") Integer mancc,  @RequestParam("p") Optional<Integer> p) {
@@ -80,18 +153,26 @@ public class admin_nhacungcapController {
 		model.addAttribute("numberOfPages", numberOfPages);
 
 		model.addAttribute("NCC", nccss);
-		model.addAttribute("Action", "/admin/save_nhacungcap");
 		return "/admin/admin_nhacungcap";
 	}
 	
 	@RequestMapping("/delete_nhacungcap/{mancc}")
-	public String delete_nhacungcap(Model model, @PathVariable(name="mancc") Integer mancc) {
+	public String delete_nhacungcap(Model model, @PathVariable(name="mancc") Integer mancc, @RequestParam("p") Optional<Integer> p) {
 		NhaCungCap n = new NhaCungCap();
 		nhacungcapDAO.deleteById(mancc);
 		model.addAttribute("NCCS", n);
 		model.addAttribute("NCC", nhacungcapDAO.findAll());
-		model.addAttribute("Action", "/admin/save_nhacungcap");
-		return "redirect:/admin/admin_nhacungcap";
+		model.addAttribute("message1", "Xóa thành công");
+		Pageable pageable = PageRequest.of(p.orElse(0), 5);
+		Page<NhaCungCap> nccss = nhacungcapDAO.findAll(pageable);
+
+		var numberOfPages = nccss.getTotalPages();
+
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+
+		model.addAttribute("NCC", nccss);
+		return "/admin/admin_nhacungcap";
 	}
 	
 	@PostMapping("/admin_nhacungcap/clear")
@@ -104,4 +185,44 @@ public class admin_nhacungcapController {
 		
 		return "redirect:/admin/admin_nhacungcap";
 	}
+	
+	public boolean checkPhone(String phone) {
+		List<NhaCungCap> list = nhacungcapDAO.findByPhone(phone);
+		if(list.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkEmail(String email) {
+		List<NhaCungCap> list = nhacungcapDAO.findByEmail(email);
+		if(list.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkTenncc(String tenncc) {
+		List<NhaCungCap> list = nhacungcapDAO.findByTenncc(tenncc);
+		if(list.isEmpty()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean check(NhaCungCap nhacungcap) {
+		if(!checkTenncc(nhacungcap.getTenncc())) {
+			this.check = "Tên nhà cung cấp đã tồn tại vui lòng nhập tên mới";
+			return false;
+		} else if(!checkEmail(nhacungcap.getEmail())) {
+			this.check = "Email này đã tồn tại vui lòng nhập Email mới";
+			return false;
+		}else if(!checkPhone(nhacungcap.getSdt())) {
+			this.check = "SDT này đã tồn tại vui lòng nhập SDT mới";
+			return false;
+		}
+		return true;
+	}
+	
+	
 }

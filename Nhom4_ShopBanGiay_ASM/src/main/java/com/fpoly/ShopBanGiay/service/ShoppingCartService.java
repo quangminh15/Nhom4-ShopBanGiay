@@ -20,5 +20,5 @@ public interface ShoppingCartService {
 	
 	void removeAll(Integer mand);
 	
-	void cancelOrder(Integer mand);
+	void statusOrder(Integer mand,String status);
 }

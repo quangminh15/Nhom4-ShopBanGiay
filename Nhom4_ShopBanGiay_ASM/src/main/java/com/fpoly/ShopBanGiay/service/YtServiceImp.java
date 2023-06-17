@@ -1,5 +1,6 @@
 package com.fpoly.ShopBanGiay.service;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -24,6 +25,8 @@ public class YtServiceImp implements YtService {
 	
 	@Override
 	public Date add(NguoiDung nguoidung, String ngaythich, Integer masp) {
+		
+//		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date date= new Date();
 		SanPham sps = sp.findById(masp).get();
 		YeuThich yt = ytDao.findByNguoidungAndSanpham(nguoidung, sps);

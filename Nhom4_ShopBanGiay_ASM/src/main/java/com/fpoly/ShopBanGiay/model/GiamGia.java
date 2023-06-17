@@ -1,6 +1,7 @@
 package com.fpoly.ShopBanGiay.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -16,8 +17,6 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Past;
-import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,7 +33,8 @@ public class GiamGia  implements Serializable{
 	@Column(name = "ma_giam_gia")
 	private Integer magiamgia;
 	
-	@NotBlank(message = "{NotNull.GiamGia.tengiamgia}")
+//	@NotBlank(message = "{NotNull.GiamGia.tengiamgia}")
+	@Size(min = 10, max = 50, message = "Vui lòng nhập tên khuyến mãi (10 ----> 50 kí tự)")
 	@Column(name = "ten_giam_gia")
 	private String tengiamgia;
 	
@@ -52,6 +52,8 @@ public class GiamGia  implements Serializable{
 	@Column(name = "ngay_ket_thuc")
 	private String ngayketthuc;
 	
+//	@NotBlank(message = "Vui lòng nhập mô tả")
+	@Size(min = 10, max = 250, message = "Vui lòng nhập mô tả (10 ----> 250 kí tự)")
 	@Column(name = "mo_ta")
 	private String mota;
 	

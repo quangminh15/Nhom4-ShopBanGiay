@@ -61,7 +61,10 @@ public class GioHangController {
 //		int tongTien =  dao.tongTien(4);
 //		model.addAttribute("totalAmount",tongTien);
 //		System.out.println(tongTien);
-		
+
+		// NiHuynh
+		model.addAttribute("user", session.getSessionAttribute("user"));
+		// *******
 		return "/nguoidung/giohang";
 		
 	}

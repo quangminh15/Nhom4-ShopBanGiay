@@ -51,9 +51,9 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="order:${orderdetails}">
-                                        <td >1</td>
-                                        <td ><img th:src="@{/imageSP/{img}(img=${order.sanphamsize.sanpham.hinhanh3})}" width="10%"></td>
+                                    <tr th:each="order, iStat:${orderdetails}">
+                                        <td th:text="${iStat.index+1}">1</td>
+                                        <td ><img th:src="@{/imageSP/{img}(img=${order.sanphamsize.sanpham.hinhanh3})}" width="100px"></td>
                                         <td th:text="${order.sanphamsize.sanpham.tensp}">Converse</td>
                                         <td th:text="${order.soluong}">
                                             4
