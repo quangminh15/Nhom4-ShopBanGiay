@@ -8,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -30,13 +31,14 @@ public class admin_nhacungcapController {
 	@Autowired
 	NhaCungCapDAO nhacungcapDAO;
 	String check = "";
+	Boolean count = true;
 	
 	@GetMapping("/admin/admin_nhacungcap")
-	public String admin_nhacungcap(Model model, @RequestParam("p") Optional<Integer> p) {
+	public String admin_nhacungcap(Model model, @RequestParam("p") Optional<Integer> p, @RequestParam("field") Optional<String> field) {
 		NhaCungCap n = new NhaCungCap();
 		model.addAttribute("NCCS", n);
 		
-		Pageable pageable = PageRequest.of(p.orElse(0), 5);
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by(Direction.DESC, field.orElse("mancc")).ascending());
 		var nhacungcap1 = nhacungcapDAO.findAll(pageable);
 		var numberOfPages = nhacungcap1.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
@@ -46,8 +48,8 @@ public class admin_nhacungcapController {
 	}
 	
 	@GetMapping("/page1")
-	public String page1(Model model, @RequestParam("p") Optional<Integer> p) {
-		return this.admin_nhacungcap(model, p);
+	public String page1(Model model, @RequestParam("p") Optional<Integer> p, @RequestParam("field") Optional<String> field) {
+		return this.admin_nhacungcap(model, p, field);
 	}
 	
 	@PostMapping("/admin/save_nhacungcap")
