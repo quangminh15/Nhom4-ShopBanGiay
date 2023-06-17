@@ -36,7 +36,7 @@
                     <form th:action="@{/loginConfirm}" method="post" th:object="${nguoidung}">
                         <div class="mb-4 mt-3">
                             <label for="email">Email:</label>
-                            <input type="text" class="form-control" id="email" placeholder="Nhập email" th:field="*{email}" value="cc@gmail.com">
+                            <input type="text" class="form-control" id="email" placeholder="Nhập email" th:field="*{email}" value="oo@gmail.com">
                             <div class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
                         </div>
 
@@ -44,7 +44,7 @@
                             <label for="pwd">Mật khẩu:</label>
                             <div class="input-group">
                                 <input type="password" class="form-control" id="pass" placeholder="Nhập mật khẩu"
-                                    th:field="*{matkhau}" >
+                                    th:value="${nguoidung.matkhau}"  name="pass">
                                 <a onclick="hidePass()" class="btn btn-cart"><i class="ti-eye"></i></a>
                                 
                             </div>
@@ -55,7 +55,7 @@
 
                             <div class="form-check mb-3">
                                 <label class="form-check-label">
-                                    <input class="form-check-input" type="checkbox" name="remember" value="true"> Lưu tài khoản
+                                    <input class="form-check-input" type="checkbox" name="remember" value="true" th:checked="${remember}"> Lưu tài khoản
                                 </label>
                             </div>
 
