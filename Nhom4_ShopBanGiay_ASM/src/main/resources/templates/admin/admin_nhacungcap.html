@@ -36,7 +36,7 @@
                             Form Nhà Cung Cấp
                         </div>
                         <div class="card-body">
-                            <form th:action="${Action}" th:object="${NCCS}" method="post">
+                            <form action="/admin/save_nhacungcap" th:object="${NCCS}" method="post">
                                 <div class="row">
                                     <div class="mb-3 col-md-6">
                                         <label for="exampleFormControlInput1" class="form-label" style="font-size: 18px"><b>Tên Nhà Cung Cấp</b></label>
@@ -66,18 +66,25 @@
                                         <input type="text" class="form-control" id="mancc" name="mancc"
                                             placeholder="" th:field="*{mancc}" hidden="">
                                     </div>
-
+									<div class="alert alert-danger" th:if="${message}" style="text-align: center;">
+										<span style="font-size: 30px"><i class="bi bi-exclamation-triangle"></i></span>
+								  	 	<h5 th:text="${message}"></h5>
+									</div>
+									<div class="alert alert-success"  th:if="${message1}" style="text-align: center;">
+										<span style="font-size:50px"><i class="bi bi-check"></i></span>
+								  		<h5 th:text="${message1}"></h5>
+								</div>
                                 </div>
 
 								<!-- <div class="alert alert-success" th:if="${saveS}"> <h3 th:text="${saveS}"></h3> </div> -->
-
+								
                                 <button type="submit" class="btn btn-primary"><i class="bi bi-save2"></i> Thêm</button>
-                                <button type="submit" class="btn btn-success"><i class="bi bi-card-list"></i>
+                                <button th:formaction="@{/admin/update_nhacungcap}"  class="btn btn-success"><i class="bi bi-card-list"></i>
                                     Sửa</button>
                                 <a type="button" class="btn btn-danger" th:href="@{'/delete_nhacungcap/'+ ${mancc}}"><i class="bi bi-trash"></i> Xóa</a>
                                 <button type="submit" th:formaction="@{/admin_nhacungcap/clear}" class="btn btn-info"><i class="bi bi-arrow-clockwise"></i> Làm
                                     mới</button>
-
+						
                             </form>
                         </div>
 
@@ -98,7 +105,7 @@
                                 <thead>
                                     <tr style="font-size: 20px;">
                                         <th>Mã Nhà Cung Cấp</th>
-                                        <th>Tên Nhà Cung Câp</th>
+                                        <th>Tên Nhà Cung Cấp</th>
                                         <th>Email</th>
                                         <th>Số Điện Thoại</th>
                                         <th>Địa Chỉ</th>

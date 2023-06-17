@@ -173,6 +173,30 @@
                     </li>
 
                     <!-- Quản lý đơn hàng kết thúc  -->
+                    
+                     <!-- Thống kê bắt đầu  -->
+                    <li>
+                        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#thongke">
+                            <span class="me-2"><i class="bi bi-reception-4"></i></span>
+                            <span>Thống Kê</span>
+                            <span class="ms-auto">
+                                <span class="right-icon">
+                                    <i class="bi bi-chevron-down"></i>
+                                </span>
+                            </span>
+                        </a>
+                        <div class="collapse" id="thongke">
+                            <ul class="navbar-nav ps-3">
+                                <li>
+                                    <a th:href="@{/admin/admin_report}" class="nav-link px-3">
+                                        <span class="me-2"><i class="bi bi-reception-2"></i></span>
+                                        <span>Thống kê sản phẩm được yêu thích</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <!-- Thống kê kết thúc  -->
 
                     <li class="my-4">
                         <hr class="dropdown-divider bg-light" />

@@ -120,7 +120,7 @@
                                             <label class="form-label fs-17">Giảm giá:</label>
                                             <select class="form-select" th:field="*{giamgia.magiamgia}">
                                                 <option value="">Chọn giá trị giảm giá (%)</option>
-                                                <option th:each="sp : ${giamgias}" th:value="${sp.magiamgia}" th:text="${sp.giamgia}+ '%'"></option>
+                                                <option th:each="sp : ${giamgias}" th:value="${sp.magiamgia}" th:text="${sp.tengiamgia}"></option>
                                             </select>
                                             <div class="alert alert-danger" th:if="${#fields.hasErrors('giamgia.magiamgia')}" th:errors="*{giamgia.magiamgia}"></div>
                                         </div>
@@ -214,8 +214,8 @@
                         </div>
                         
                         <div class="card-body">
-                        <div class="alert alert-warning" style="font-size: 20px" th:if="${message}!=null" th:text="${message}">
-									  
+                        <div class="alert alert-warning" style="font-size: 20px" th:if="${message}" th:text="${message}">
+						  
 							</div>
                             <table class="table text-center table-hover table-size fs-17">
 
@@ -254,9 +254,9 @@
 										<div th:unless="${sanpham.loai}">
 										     <td>Thấp</td>
 										</div>
-                                        <td th:text="${#numbers.formatDecimal(sanpham.gia, 0, 'COMMA', 0 , 'POINT')}  + ' vnđ'"></td>
+                                        <td th:text="${#numbers.formatDecimal(sanpham.gia, 0, 'COMMA', 0 , 'POINT')}  + ' ₫'"></td>
                                         <td th:text="${sanpham.giamgia.giamgia} + ' %'"></td>
-                                        <td th:text="${#numbers.formatDecimal(sanpham.giamgiasp, 0, 'COMMA', 0 , 'POINT')}  + ' vnđ'"></td>
+                                        <td th:text="${#numbers.formatDecimal(sanpham.giamgiasp, 0, 'COMMA', 0 , 'POINT')}  + ' ₫'"></td>
 <!--                                         <td class="w-20" th:text="${sanpham.mota}"></td> -->
                                         <td th:text="${sanpham.danhmuc.tendm}"></td>
                                         <td th:text="${sanpham.nhacungcap.tenncc}"></td>

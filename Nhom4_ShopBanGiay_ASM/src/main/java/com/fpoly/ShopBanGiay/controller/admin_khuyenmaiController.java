@@ -1,5 +1,12 @@
 package com.fpoly.ShopBanGiay.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +35,8 @@ import jakarta.validation.Valid;
 public class admin_khuyenmaiController {
 	@Autowired
 	KhuyenMaiDAO khuyenmaiDao;
+	
+	String check = "";
 
 	@GetMapping("/admin/admin_khuyenmai")
 	public String admin_khuyenmai(Model model, @RequestParam("p") Optional<Integer> p) {
@@ -40,7 +49,6 @@ public class admin_khuyenmaiController {
 		model.addAttribute("currIndex", p.orElse(0));
 		model.addAttribute("numberOfPages", numberOfPages);
 		model.addAttribute("KM", giamgia);
-		model.addAttribute("Action", "save_khuyenmai");
 		return "/admin/admin_khuyenmai";
 	}
 
@@ -49,15 +57,230 @@ public class admin_khuyenmaiController {
 		return this.admin_khuyenmai(model, p);
 	}
 
-	@PostMapping("/admin/save_khuyenmai")
-	public String save_khuyenmai(@Valid @ModelAttribute("kms") GiamGia giamgia,  BindingResult result, Model model) {
-		if (result.hasErrors()) {
+	@PostMapping("/admin/add_khuyenmai")
+	public String save_khuyenmai(@Valid @ModelAttribute("kms") GiamGia giamgia,  BindingResult result, Model model, @RequestParam("p") Optional<Integer> p) {
+		// Định dạng ngày đầu vào
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	    SimpleDateFormat sdy = new SimpleDateFormat("yyyy");
+	    SimpleDateFormat sdm = new SimpleDateFormat("MM");
+	    if (result.hasErrors()) {
 			model.addAttribute("KM", khuyenmaiDao.findAll());
+			Pageable pageable = PageRequest.of(p.orElse(0), 5);
+			var giamgia1 = khuyenmaiDao.findAll(pageable);
+			var numberOfPages = giamgia1.getTotalPages();
+			model.addAttribute("currIndex", p.orElse(0));
+			model.addAttribute("numberOfPages", numberOfPages);
+			model.addAttribute("KM", giamgia1);
 			return "/admin/admin_khuyenmai";
+		}else
+	     if(giamgia != null) {
+			try {
+				Date start = sdf.parse(giamgia.getNgaytao());
+				Date end = sdf.parse(giamgia.getNgayketthuc());
+				
+				Date startY = sdy.parse(giamgia.getNgaytao());
+				Date endY = sdy.parse(giamgia.getNgayketthuc());
+				
+				Date startM = sdm.parse(giamgia.getNgaytao());
+				Date endM = sdm.parse(giamgia.getNgayketthuc());
+				
+			    Date today = new Date();
+			    
+			    LocalDate startDate = LocalDate.parse(giamgia.getNgaytao(), dateFormat);
+			    LocalDate endDate = LocalDate.parse(giamgia.getNgayketthuc(), dateFormat);
+			    
+			    LocalDate currentDate = LocalDate.now();
+
+			    if(endDate.isBefore(currentDate)) {
+			    	  model.addAttribute("checkDate", "Thời gian kết thúc đang nhỏ hơn thời gian hiện tại!!!!");
+			    	  model.addAttribute("KM", khuyenmaiDao.findAll());
+			    	  Pageable pageable = PageRequest.of(p.orElse(0), 5);
+						var giamgia1 = khuyenmaiDao.findAll(pageable);
+						var numberOfPages = giamgia1.getTotalPages();
+						model.addAttribute("currIndex", p.orElse(0));
+						model.addAttribute("numberOfPages", numberOfPages);
+						model.addAttribute("KM", giamgia1);
+						return "/admin/admin_khuyenmai";
+			    }else if(startDate.isBefore(currentDate)) {
+			    	model.addAttribute("checkDate", "Thời gian bắt đầu đang nhỏ hơn thời gian hiện tại!!!!");
+			    	  model.addAttribute("KM", khuyenmaiDao.findAll());
+			    	  Pageable pageable = PageRequest.of(p.orElse(0), 5);
+						var giamgia1 = khuyenmaiDao.findAll(pageable);
+						var numberOfPages = giamgia1.getTotalPages();
+						model.addAttribute("currIndex", p.orElse(0));
+						model.addAttribute("numberOfPages", numberOfPages);
+						model.addAttribute("KM", giamgia1);
+						return "/admin/admin_khuyenmai";
+			    }
+			    
+			    	else if(startY.after(endY)) {
+			        // Ngày bắt đầu bằng ngày kết thúc
+			    	  model.addAttribute("checkDate", "Năm kết thúc đang nhỏ hơn năm bắt đầu!!!!");
+			    	  model.addAttribute("KM", khuyenmaiDao.findAll());
+			    	  Pageable pageable = PageRequest.of(p.orElse(0), 5);
+						var giamgia1 = khuyenmaiDao.findAll(pageable);
+						var numberOfPages = giamgia1.getTotalPages();
+						model.addAttribute("currIndex", p.orElse(0));
+						model.addAttribute("numberOfPages", numberOfPages);
+						model.addAttribute("KM", giamgia1);
+						return "/admin/admin_khuyenmai";
+			    }
+
+			    else if (start.after(end)) {
+				        // Ngày bắt đầu lớn hơn ngày kết thúc
+				    	model.addAttribute("checkDate", "Thời gian bắt đầu đang lớn hơn thời gian kết thúc!!!");
+				    	model.addAttribute("KM", khuyenmaiDao.findAll());
+				    	Pageable pageable = PageRequest.of(p.orElse(0), 5);
+						var giamgia1 = khuyenmaiDao.findAll(pageable);
+						var numberOfPages = giamgia1.getTotalPages();
+						model.addAttribute("currIndex", p.orElse(0));
+						model.addAttribute("numberOfPages", numberOfPages);
+						model.addAttribute("KM", giamgia1);
+						return "/admin/admin_khuyenmai";
+			     }else if(start.equals(end)) {
+			    	// Ngày bắt đầu lớn hơn ngày kết thúc
+				    	model.addAttribute("checkDate", "Ngày bắt đầu đang bằng ngày kết thúc!!!!!");
+				    	model.addAttribute("KM", khuyenmaiDao.findAll());
+				    	Pageable pageable = PageRequest.of(p.orElse(0), 5);
+						var giamgia1 = khuyenmaiDao.findAll(pageable);
+						var numberOfPages = giamgia1.getTotalPages();
+						model.addAttribute("currIndex", p.orElse(0));
+						model.addAttribute("numberOfPages", numberOfPages);
+						model.addAttribute("KM", giamgia1);
+						return "/admin/admin_khuyenmai";
+			     }
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		khuyenmaiDao.save(giamgia);
+	    khuyenmaiDao.save(giamgia);
+	    model.addAttribute("message", "Thêm thành công");
+	    
+			
+	    Pageable pageable = PageRequest.of(p.orElse(0), 5);
+		var giamgia1 = khuyenmaiDao.findAll(pageable);
+		var numberOfPages = giamgia1.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("KM", giamgia1);
+		
 //		model.addAttribute("KM", khuyenmaiDao.findAll());
-		return "redirect:/admin/admin_khuyenmai";
+		return "/admin/admin_khuyenmai";
+	}
+	
+	@RequestMapping("/admin/update_khuyenmai")
+	public String update_khuyenmai(@Valid @ModelAttribute("kms") GiamGia giamgia, BindingResult result, Model model,
+			@RequestParam("p") Optional<Integer> p) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+	    SimpleDateFormat sdy = new SimpleDateFormat("yyyy");
+	    SimpleDateFormat sdm = new SimpleDateFormat("MM");
+	    if (result.hasErrors()) {
+			model.addAttribute("KM", khuyenmaiDao.findAll());
+			Pageable pageable = PageRequest.of(p.orElse(0), 5);
+			var giamgia1 = khuyenmaiDao.findAll(pageable);
+			var numberOfPages = giamgia1.getTotalPages();
+			model.addAttribute("currIndex", p.orElse(0));
+			model.addAttribute("numberOfPages", numberOfPages);
+			model.addAttribute("KM", giamgia1);
+			return "/admin/admin_khuyenmai";
+		}else
+	     if(giamgia != null) {
+			try {
+				Date start = sdf.parse(giamgia.getNgaytao());
+				Date end = sdf.parse(giamgia.getNgayketthuc());
+				
+				Date startY = sdy.parse(giamgia.getNgaytao());
+				Date endY = sdy.parse(giamgia.getNgayketthuc());
+				
+				Date startM = sdm.parse(giamgia.getNgaytao());
+				Date endM = sdm.parse(giamgia.getNgayketthuc());
+				
+			    Date today = new Date();
+			    
+			    LocalDate startDate = LocalDate.parse(giamgia.getNgaytao(), dateFormat);
+			    LocalDate endDate = LocalDate.parse(giamgia.getNgayketthuc(), dateFormat);
+			    
+			    LocalDate currentDate = LocalDate.now();
+
+			    if(endDate.isBefore(currentDate)) {
+			    	  model.addAttribute("checkDate", "Thời gian kết thúc đang nhỏ hơn thời gian hiện tại!!!!");
+			    	  model.addAttribute("KM", khuyenmaiDao.findAll());
+			    	  Pageable pageable = PageRequest.of(p.orElse(0), 5);
+						var giamgia1 = khuyenmaiDao.findAll(pageable);
+						var numberOfPages = giamgia1.getTotalPages();
+						model.addAttribute("currIndex", p.orElse(0));
+						model.addAttribute("numberOfPages", numberOfPages);
+						model.addAttribute("KM", giamgia1);
+						return "/admin/admin_khuyenmai";
+			    }else if(startDate.isBefore(currentDate)) {
+			    	model.addAttribute("checkDate", "Thời gian bắt đầu đang nhỏ hơn thời gian hiện tại!!!!");
+			    	  model.addAttribute("KM", khuyenmaiDao.findAll());
+			    	  Pageable pageable = PageRequest.of(p.orElse(0), 5);
+						var giamgia1 = khuyenmaiDao.findAll(pageable);
+						var numberOfPages = giamgia1.getTotalPages();
+						model.addAttribute("currIndex", p.orElse(0));
+						model.addAttribute("numberOfPages", numberOfPages);
+						model.addAttribute("KM", giamgia1);
+						return "/admin/admin_khuyenmai";
+			    }
+			    
+			    	else if(startY.after(endY)) {
+			        // Ngày bắt đầu bằng ngày kết thúc
+			    	  model.addAttribute("checkDate", "Năm kết thúc đang nhỏ hơn năm bắt đầu!!!!");
+			    	  model.addAttribute("KM", khuyenmaiDao.findAll());
+			    	  Pageable pageable = PageRequest.of(p.orElse(0), 5);
+						var giamgia1 = khuyenmaiDao.findAll(pageable);
+						var numberOfPages = giamgia1.getTotalPages();
+						model.addAttribute("currIndex", p.orElse(0));
+						model.addAttribute("numberOfPages", numberOfPages);
+						model.addAttribute("KM", giamgia1);
+						return "/admin/admin_khuyenmai";
+			    }
+
+			    else if (start.after(end)) {
+				        // Ngày bắt đầu lớn hơn ngày kết thúc
+				    	model.addAttribute("checkDate", "Thời gian bắt đầu đang lớn hơn thời gian kết thúc!!!");
+				    	model.addAttribute("KM", khuyenmaiDao.findAll());
+				    	Pageable pageable = PageRequest.of(p.orElse(0), 5);
+						var giamgia1 = khuyenmaiDao.findAll(pageable);
+						var numberOfPages = giamgia1.getTotalPages();
+						model.addAttribute("currIndex", p.orElse(0));
+						model.addAttribute("numberOfPages", numberOfPages);
+						model.addAttribute("KM", giamgia1);
+						return "/admin/admin_khuyenmai";
+			     }else if(start.equals(end)) {
+			    	// Ngày bắt đầu lớn hơn ngày kết thúc
+				    	model.addAttribute("checkDate", "Ngày bắt đầu đang bằng ngày kết thúc!!!!!");
+				    	model.addAttribute("KM", khuyenmaiDao.findAll());
+				    	Pageable pageable = PageRequest.of(p.orElse(0), 5);
+						var giamgia1 = khuyenmaiDao.findAll(pageable);
+						var numberOfPages = giamgia1.getTotalPages();
+						model.addAttribute("currIndex", p.orElse(0));
+						model.addAttribute("numberOfPages", numberOfPages);
+						model.addAttribute("KM", giamgia1);
+						return "/admin/admin_khuyenmai";
+			     }
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	    khuyenmaiDao.save(giamgia);
+	    model.addAttribute("message", "Thêm thành công");
+	    
+			
+	    Pageable pageable = PageRequest.of(p.orElse(0), 5);
+		var giamgia1 = khuyenmaiDao.findAll(pageable);
+		var numberOfPages = giamgia1.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("KM", giamgia1);
+
+//		model.addAttribute("KM", khuyenmaiDao.findAll());
+		return "/admin/admin_khuyenmai";
 	}
 
 	@RequestMapping("/edit_khuyenmai/{magiamgia}")
@@ -76,18 +299,23 @@ public class admin_khuyenmaiController {
 		model.addAttribute("numberOfPages", numberOfPages);
 
 		model.addAttribute("KM", kmss);
-		model.addAttribute("Action", "/admin/save_khuyenmai");
 		return "/admin/admin_khuyenmai";
 	}
 
 	@RequestMapping("/delete_khuyenmai/{magiamgia}")
-	public String delete_khuyenmai(Model model, @PathVariable(name = "magiamgia") Integer magiamgia) {
+	public String delete_khuyenmai(Model model, @PathVariable(name = "magiamgia") Integer magiamgia,  @RequestParam("p") Optional<Integer> p) {
 		GiamGia g = new GiamGia();
 		khuyenmaiDao.deleteById(magiamgia);
 		model.addAttribute("kms", g);
 		model.addAttribute("KM", khuyenmaiDao.findAll());
-		model.addAttribute("Action", "/admin/save_khuyenmai");
-		return "redirect:/admin/admin_khuyenmai";
+		model.addAttribute("message", "Xóa thành công");
+		Pageable pageable = PageRequest.of(p.orElse(0), 5);
+		var giamgia1 = khuyenmaiDao.findAll(pageable);
+		var numberOfPages = giamgia1.getTotalPages();
+		model.addAttribute("currIndex", p.orElse(0));
+		model.addAttribute("numberOfPages", numberOfPages);
+		model.addAttribute("KM", giamgia1);
+		return "/admin/admin_khuyenmai";
 	}
 
 	@PostMapping("/admin_khuyenmai/clear")
@@ -100,4 +328,5 @@ public class admin_khuyenmaiController {
 		khuyenmai.setNgaytao(null);
 		return "redirect:/admin/admin_khuyenmai";
 	}
+	
 }
