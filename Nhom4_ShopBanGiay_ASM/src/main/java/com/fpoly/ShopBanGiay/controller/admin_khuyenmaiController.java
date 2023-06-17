@@ -39,11 +39,11 @@ public class admin_khuyenmaiController {
 	String check = "";
 
 	@GetMapping("/admin/admin_khuyenmai")
-	public String admin_khuyenmai(Model model, @RequestParam("p") Optional<Integer> p) {
+	public String admin_khuyenmai(Model model, @RequestParam("p") Optional<Integer> p, @RequestParam("field") Optional<String> field) {
 		GiamGia g = new GiamGia();
 		model.addAttribute("kms", g);
 
-		Pageable pageable = PageRequest.of(p.orElse(0), 5);
+		Pageable pageable = PageRequest.of(p.orElse(0), 5, Sort.by(Direction.DESC, field.orElse("magiamgia")).ascending());
 		var giamgia = khuyenmaiDao.findAll(pageable);
 		var numberOfPages = giamgia.getTotalPages();
 		model.addAttribute("currIndex", p.orElse(0));
@@ -53,8 +53,8 @@ public class admin_khuyenmaiController {
 	}
 
 	@GetMapping("/page")
-	public String page(Model model, @RequestParam("p") Optional<Integer> p) {
-		return this.admin_khuyenmai(model, p);
+	public String page(Model model, @RequestParam("p") Optional<Integer> p, @RequestParam("field") Optional<String> field) {
+		return this.admin_khuyenmai(model, p, field);
 	}
 
 	@PostMapping("/admin/add_khuyenmai")
