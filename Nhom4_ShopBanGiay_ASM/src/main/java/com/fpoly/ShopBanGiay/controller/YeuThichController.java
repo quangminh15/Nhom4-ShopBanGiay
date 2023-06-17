@@ -65,23 +65,23 @@ public class YeuThichController {
 	public String add1(@PathVariable("masp")Integer masp, Model model, YeuThich yt) {
 		Optional<YeuThich> y = yeuthichDao.findById(masp);
 		NguoiDung nguoidung1 = new NguoiDung(sessionService.getSessionAttribute("user"));
-		if (!check(masp)) {
-
-		return "redirect:/yeuthich";
-			}
-		
-		
-		NguoiDung nguoidung = nguoidungDao.findById(nguoidung1.getMand()).get();
-		Date da = ytimp.add(nguoidung, null, masp);
-		
-			
+//		if (!check(masp)) {
 //
-//	if(y.isPresent()) {
+//		return "redirect:/yeuthich";
+//			}
+//		
+//		
 //		NguoiDung nguoidung = nguoidungDao.findById(nguoidung1.getMand()).get();
 //		Date da = ytimp.add(nguoidung, null, masp);
-//		}
-//			NguoiDung nguoidung = nguoidungDao.findById(nguoidung1.getMand()).get();
-//			Date da = ytimp.add(nguoidung, null, masp);
+		
+			
+
+	if(y.isPresent()) {
+		NguoiDung nguoidung = nguoidungDao.findById(nguoidung1.getMand()).get();
+		Date da = ytimp.add(nguoidung, null, masp);
+		}
+			NguoiDung nguoidung = nguoidungDao.findById(nguoidung1.getMand()).get();
+			Date da = ytimp.add(nguoidung, null, masp);
 		return "redirect:/yeuthich";
 	}
 	
