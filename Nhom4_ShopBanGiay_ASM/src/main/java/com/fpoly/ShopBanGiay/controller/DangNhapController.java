@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpoly.ShopBanGiay.dao.NguoiDungDAO;
 import com.fpoly.ShopBanGiay.model.NguoiDung;
@@ -38,6 +39,14 @@ public class DangNhapController {
 	@GetMapping("/dangnhap")
 	public String DangNhap(NguoiDung nguoidung, Model model) {
 		nguoidung = new NguoiDung();
+		if(cookieService.getCookieValue("email") != null && cookieService.getCookieValue("pass") != null) {
+			nguoidung.setEmail(cookieService.getCookieValue("email").toString());
+			nguoidung.setMatkhau(cookieService.getCookieValue("pass").toString());
+			System.out.println("Email: "+cookieService.getCookieValue("email"));
+			System.out.println("Pass: "+cookieService.getCookieValue("pass"));
+			model.addAttribute("nguoidung", nguoidung);
+			model.addAttribute("remember", true);
+		}
 		model.addAttribute("nguoidung", nguoidung);
 		return "/nguoidung/dangnhap";
 	}
@@ -60,13 +69,13 @@ public class DangNhapController {
 //	}
 	
 	@PostMapping("/loginConfirm")
-	public String DangNhap1(Model model, @ModelAttribute("user") NguoiDung u) {
+	public String DangNhap1(Model model, @ModelAttribute("user") NguoiDung u, @RequestParam("pass") String pass) {
 		model.addAttribute("nguoidung", new NguoiDung());
 		System.out.println("u: "+u);
 		if(u.getEmail().equals("")) {
 			model.addAttribute("messageLoginFail", "Lỗi để trống Email!");
 	        return "/nguoidung/dangnhap";
-		}else if(u.getMatkhau().equals("")) {
+		}else if(pass.equals("")) {
 			NguoiDung ndTemp = new NguoiDung();
 			ndTemp.setEmail(u.getEmail());
 			model.addAttribute("nguoidung", ndTemp);
@@ -82,12 +91,12 @@ public class DangNhapController {
 		        return "/nguoidung/dangnhap";
 			}
 			// Xác thực đăng nhập và kiểm tra thông tin người dùng
-		    if (authenticate(user.getEmail(), u.getMatkhau())) {
+		    if (authenticate(user.getEmail(), pass)) {
 		        // Lưu thông tin người dùng vào session
 		    	System.out.println("Mã: "+user.getMand());
 		    	System.out.println("Email: "+user.getEmail());
 		    	System.out.println("Vai trò: "+user.isVaitro());
-		    	user.setMatkhau(u.getMatkhau());
+		    	user.setMatkhau(pass);
 		    	sessionService.setSessionAttribute("user", user);
 		    	System.out.println("--------Đã lưu session từ đăng nhập---------" );
 		    	
@@ -96,7 +105,7 @@ public class DangNhapController {
 		    	if(remember) {
 		    		System.out.println("Đã tick remember");
 		    		cookieService.addCookie("email", u.getEmail(), 2);
-		    		cookieService.addCookie("pass", u.getMatkhau(), 2);
+		    		cookieService.addCookie("pass", pass, 2);
 		    	}else {
 		    		System.out.println("Không tick remember");
 		    		cookieService.removeCookie("email");
