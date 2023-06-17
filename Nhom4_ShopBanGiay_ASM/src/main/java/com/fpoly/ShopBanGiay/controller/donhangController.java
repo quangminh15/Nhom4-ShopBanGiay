@@ -57,6 +57,11 @@ public class donhangController {
 			model.addAttribute("numberOfPages", numberOfPages);
 			
 			model.addAttribute("orders",dh);
+			
+
+			// NiHuynh
+			model.addAttribute("user", session.getSessionAttribute("user"));
+			// *******
 			return "/nguoidung/donhang";
 			
 			

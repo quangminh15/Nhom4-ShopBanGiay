@@ -28,7 +28,9 @@ public class thongtindonhangController {
 	ShoppingCartService cart;
 	@Autowired
 	SessionService sessionService;
-	@GetMapping("/thongtindonhang")
+	
+	
+	@GetMapping("/giohang/thongtindonhang")
 	public String thongtindonhang(GioHang gh, Model model) {
 		NguoiDung userSession = sessionService.getSessionAttribute("user");
 		int id = userSession.getMand();
@@ -44,7 +46,10 @@ public class thongtindonhangController {
 		}
 		model.addAttribute("items", items);
 		model.addAttribute("total",total);
-		
+
+		// NiHuynh
+		model.addAttribute("user", sessionService.getSessionAttribute("user"));
+		// *******
 		return "/nguoidung/thongtindonhang";
 	}
 	
